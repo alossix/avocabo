@@ -1,12 +1,6 @@
-import styled from "@emotion/styled";
+import { VocabWindow } from "@/components/VocabWindow";
 
 const Home = () => {
-  return <VocabWindow>Vocab window</VocabWindow>;
+  return <VocabWindow />;
 };
 export default Home;
-
-const VocabWindow = styled.section({
-  display: "flex",
-  flexDirection: "column",
-  width: "100%",
-});
