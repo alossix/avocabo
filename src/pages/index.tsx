@@ -1,6 +1,12 @@
+import { Sidebar } from "@/components/Sidebar";
 import { VocabWindow } from "@/components/VocabWindow";
 
 const Home = () => {
-  return <VocabWindow />;
+  return (
+    <>
+      <Sidebar />
+      <VocabWindow />
+    </>
+  );
 };
 export default Home;

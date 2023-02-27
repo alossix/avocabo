@@ -1,0 +1,1 @@
+export { VocabCard } from "./VocabCard";
