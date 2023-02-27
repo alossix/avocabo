@@ -3,8 +3,8 @@ import { VocabCard } from "../VocabCard";
 
 export const VocabWindow = () => {
   return (
-    <VocabWindowContent>
-      This is the main vocab window
+    <VocabWindowContainer>
+      <h2>Title of the vocab window</h2>
       <VocabCardsContainer>
         <VocabCard emojiSymbol={"\u{1F451}"} word="the crown" />
         <VocabCard emojiSymbol={"\u{1F452}"} word="the hat" />
@@ -13,19 +13,19 @@ export const VocabWindow = () => {
         <VocabCard emojiSymbol={"\u{1F455}"} word="the t-shirt" />
         <VocabCard emojiSymbol={"\u{1F456}"} word="the pants" />
       </VocabCardsContainer>
-    </VocabWindowContent>
+    </VocabWindowContainer>
   );
 };
 
-const VocabWindowContent = styled.section({
+const VocabWindowContainer = styled.section({
   display: "flex",
   flexDirection: "column",
-  width: "100%",
+  overflowX: "scroll",
   padding: 8,
 });
 
 const VocabCardsContainer = styled.div({
   display: "flex",
   gap: 8,
-  border: "2px solid green",
+  overflowX: "scroll",
 });

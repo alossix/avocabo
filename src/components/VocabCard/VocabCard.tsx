@@ -27,7 +27,8 @@ const CardWrapper = styled.div({
   flexDirection: "column",
   alignItems: "center",
   borderRadius: 4,
-  border: "1px solid grey",
+  border: "1px solid lightgrey",
   padding: 8,
-  width: 384,
+  minWidth: 384,
+  maxWidth: 384,
 });

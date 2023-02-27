@@ -11,7 +11,7 @@ export const Sidebar: React.FC = () => {
 const SidebarContent = styled.aside({
   display: "flex",
   flexDirection: "column",
-  border: "2px solid coral",
   gridArea: "2 / 1 / 5 / 2",
   padding: 8,
+  minWidth: "30%",
 });

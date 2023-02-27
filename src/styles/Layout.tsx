@@ -26,6 +26,5 @@ const PageWrapper = styled.main({
 
 const MainContent = styled.section({
   display: "flex",
-  border: "2px solid blue",
   gridArea: "2 / 1 / 5 / 6",
 });

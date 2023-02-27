@@ -12,7 +12,6 @@ export const Footer: React.FC = () => {
 const FooterContent = styled.footer({
   display: "flex",
   justifyContent: "space-between",
-  border: "2px solid green",
   gridArea: "5 / 1 / 6 / 6",
   padding: 8,
 });
