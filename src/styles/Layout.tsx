@@ -20,7 +20,7 @@ export default Layout;
 const PageWrapper = styled.main({
   display: "grid",
   gridTemplateColumns: "repeat(8, 1fr)",
-  gridTemplateRows: "repeat(8, 1fr)",
+  gridTemplateRows: "4rem repeat(7, 1fr)",
   height: "100vh",
 });
 

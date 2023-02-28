@@ -2,7 +2,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { VocabWindow } from "@/components/VocabWindow";
 import styled from "@emotion/styled";
 
-const Home = () => {
+const HomePage: React.FC = () => {
   return (
     <HomeContent>
       <Sidebar />
@@ -10,7 +10,7 @@ const Home = () => {
     </HomeContent>
   );
 };
-export default Home;
+export default HomePage;
 
 const HomeContent = styled.section({
   display: "flex",
