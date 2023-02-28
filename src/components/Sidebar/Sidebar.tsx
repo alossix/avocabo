@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const Sidebar: React.FC = () => {
   return (
     <SidebarContent aria-label="sidebar" role="complementary">
-      Sidebar
+      Sidebar content here
     </SidebarContent>
   );
 };
@@ -11,7 +11,8 @@ export const Sidebar: React.FC = () => {
 const SidebarContent = styled.aside({
   display: "flex",
   flexDirection: "column",
-  gridArea: "2 / 1 / 5 / 2",
+  gridArea: "2 / 1 / 8 / 3",
   padding: 8,
-  minWidth: "30%",
+  border: "2px solid green",
+  minWidth: 200,
 });

@@ -1,12 +1,11 @@
+import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import { ReactEventHandler, useState } from "react";
 import { EmojiComponent } from "../EmojiComponent";
 
 type VocabCardProps = {
   children?: React.ReactNode;
-  emojiSymbol: string;
-  word: string;
-};
+} & Vocab;
 
 export const VocabCard: React.FC<VocabCardProps> = ({ emojiSymbol, word }) => {
   const [showWord, setShowWord] = useState<boolean>(false);
@@ -29,6 +28,5 @@ const CardWrapper = styled.div({
   borderRadius: 4,
   border: "1px solid lightgrey",
   padding: 8,
-  minWidth: 384,
-  maxWidth: 384,
+  minWidth: 256,
 });

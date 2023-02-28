@@ -3,7 +3,8 @@ import styled from "@emotion/styled";
 export const Header: React.FC = () => {
   return (
     <HeaderContent>
-      <p>Vocab</p>
+      <p>Study Vocab List</p>
+      <p>Add Words</p>
       <p>Menu</p>
     </HeaderContent>
   );
@@ -12,6 +13,7 @@ export const Header: React.FC = () => {
 const HeaderContent = styled.header({
   display: "flex",
   justifyContent: "space-between",
-  gridArea: "1 / 1 / 2 / 6",
+  gridArea: "1 / 1 / 2 / 9",
   padding: 8,
+  border: "2px solid blue",
 });

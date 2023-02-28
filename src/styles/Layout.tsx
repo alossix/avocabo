@@ -19,12 +19,12 @@ export default Layout;
 
 const PageWrapper = styled.main({
   display: "grid",
-  gridTemplateColumns: "repeat(5, 1fr)",
-  gridTemplateRows: "repeat(5, 1fr)",
+  gridTemplateColumns: "repeat(8, 1fr)",
+  gridTemplateRows: "repeat(8, 1fr)",
   height: "100vh",
 });
 
 const MainContent = styled.section({
   display: "flex",
-  gridArea: "2 / 1 / 5 / 6",
+  gridArea: "2 / 1 / 8 / 9",
 });

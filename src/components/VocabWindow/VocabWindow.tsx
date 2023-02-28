@@ -22,6 +22,8 @@ const VocabWindowContainer = styled.section({
   flexDirection: "column",
   overflowX: "scroll",
   padding: 8,
+  border: "2px solid red",
+  gridArea: "2 / 3 / 8 / 9",
 });
 
 const VocabCardsContainer = styled.div({
