@@ -9,7 +9,7 @@ type VocabCardProps = {
   children?: React.ReactNode;
 } & Vocab;
 
-export const VocabCard: React.FC<VocabCardProps> = ({ emojiSymbol, word }) => {
+export const VocabCard: React.FC<VocabCardProps> = ({ emojiId, word }) => {
   const [showWord, setShowWord] = useState<boolean>(false);
   const [clicked, setClicked] = useState<boolean>(false);
 
@@ -21,7 +21,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ emojiSymbol, word }) => {
   };
   return (
     <CardWrapper onClick={handleOnClick}>
-      <EmojiComponent emojiSymbol={emojiSymbol} word="the crown" />
+      <EmojiComponent emojiId={emojiId} word="the crown" />
       <HR />
       <WordContainer>{showWord && word}</WordContainer>
       {clicked && <LearningStepper />}

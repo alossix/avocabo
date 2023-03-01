@@ -3,13 +3,13 @@ import React from "react";
 
 export const EmojiComponent: React.FC<{
   children?: React.ReactNode;
-  emojiSymbol: React.ReactNode;
+  emojiId: React.ReactNode;
   word: string;
-}> = ({ emojiSymbol }) => {
+}> = ({ emojiId }) => {
   return (
     <EmojiContainer>
       <span className="emoji" style={{ fontSize: 64 }}>
-        {emojiSymbol}
+        {emojiId}
       </span>
     </EmojiContainer>
   );
