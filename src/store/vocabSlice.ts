@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
-import { Vocab } from "@/types/vocab";
+import { RecallDifficulty, Vocab } from "@/types/vocab";
 
 const initialState: Vocab[] = [
   {
@@ -58,10 +58,27 @@ export const vocabSlice = createSlice({
   name: "vocab",
   initialState,
   reducers: {
-    incrementVocabStep: (state, action: PayloadAction<{ emojiId: string }>) => {
-      const { emojiId } = action.payload;
+    incrementVocabStep: (
+      state,
+      action: PayloadAction<{
+        emojiId: string;
+        recallDifficulty: RecallDifficulty;
+      }>
+    ) => {
+      const { emojiId, recallDifficulty } = action.payload;
       const vocabIndex = state.findIndex((v) => v.emojiId === emojiId);
-      state[vocabIndex].currentStep += 1;
+      if (recallDifficulty === "easy") {
+        state[vocabIndex].currentStep += 2;
+      } else if (recallDifficulty === "medium") {
+        state[vocabIndex].currentStep += 1;
+      } else if (recallDifficulty === "hard") {
+        state[vocabIndex].currentStep = Math.max(
+          Math.floor(state[vocabIndex].currentStep / 2),
+          1
+        );
+      } else if (recallDifficulty === "forgot") {
+        state[vocabIndex].currentStep = 0;
+      }
     },
     decrementVocabStep: (state, action: PayloadAction<{ emojiId: string }>) => {
       const { emojiId } = action.payload;

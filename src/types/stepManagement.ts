@@ -1,1 +1,0 @@
-import { Vocab } from "./vocab";

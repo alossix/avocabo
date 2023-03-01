@@ -1,15 +1,30 @@
+import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import { LearningStepperButton } from "./LearningStepperButton";
 
-type LearningStepperProps = {};
+type LearningStepperProps = {
+  vocabWord: Vocab;
+};
 
-export const LearningStepper: React.FC<LearningStepperProps> = () => {
+export const LearningStepper: React.FC<LearningStepperProps> = ({
+  vocabWord,
+}) => {
   return (
-    <LearningStepperContainer>
-      <LearningStepperButton recallDifficulty="easy" />
-      <LearningStepperButton recallDifficulty="medium" />
-      <LearningStepperButton recallDifficulty="difficult" />
-    </LearningStepperContainer>
+    <div>
+      <LearningStepperContainer>
+        <LearningStepperButton recallDifficulty="easy" vocabWord={vocabWord} />
+        <LearningStepperButton
+          recallDifficulty="medium"
+          vocabWord={vocabWord}
+        />
+        <LearningStepperButton recallDifficulty="hard" vocabWord={vocabWord} />
+        <LearningStepperButton
+          recallDifficulty="forgot"
+          vocabWord={vocabWord}
+        />
+      </LearningStepperContainer>
+      <div>{vocabWord.currentStep}</div>
+    </div>
   );
 };
 

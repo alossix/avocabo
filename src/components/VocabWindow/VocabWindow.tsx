@@ -3,20 +3,14 @@ import styled from "@emotion/styled";
 import { VocabCard } from "../VocabCard";
 
 export const VocabWindow = () => {
-  const vocab = useAppSelector((state) => state);
+  const vocab = useAppSelector((state) => state.vocab);
 
   return (
     <VocabWindowContainer>
       <h2>My Vocab List</h2>
       <VocabCardsContainer>
-        {vocab.vocab.map((v) => (
-          <VocabCard
-            currentStep={v.currentStep}
-            emojiId={v.emojiId}
-            key={v.emojiId}
-            multiplier={v.multiplier}
-            word={v.word}
-          />
+        {vocab.map((vocabWord) => (
+          <VocabCard vocabWord={vocabWord} key={vocabWord.emojiId} />
         ))}
       </VocabCardsContainer>
     </VocabWindowContainer>
