@@ -1,21 +1,19 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 export const Header: React.FC = () => {
-  const router = useRouter();
   return (
     <HeaderNav>
       <HeaderContent>
         <HeaderUL>
           <HeaderLI>
-            <Link href="/">Study Vocab List</Link>
+            <Link href="/">My Vocab List</Link>
           </HeaderLI>
           <HeaderLI>
             <Link href="/add-words">Add Words</Link>
           </HeaderLI>
           <HeaderLI>
-            <Link href="/subscribe">Subscribe</Link>
+            <Link href="/about">How It Works</Link>
           </HeaderLI>
           <HeaderLI>Menu</HeaderLI>
         </HeaderUL>

@@ -1,15 +1,14 @@
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import { ReactEventHandler, useState } from "react";
-import { isReturnStatement } from "typescript";
 import { EmojiComponent } from "../EmojiComponent";
 import { LearningStepper } from "../LearningStepper";
 
 type VocabCardProps = {
-  children?: React.ReactNode;
-} & Vocab;
+  vocabWord: Vocab;
+};
 
-export const VocabCard: React.FC<VocabCardProps> = ({ emojiSymbol, word }) => {
+export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
   const [showWord, setShowWord] = useState<boolean>(false);
   const [clicked, setClicked] = useState<boolean>(false);
 
@@ -21,10 +20,10 @@ export const VocabCard: React.FC<VocabCardProps> = ({ emojiSymbol, word }) => {
   };
   return (
     <CardWrapper onClick={handleOnClick}>
-      <EmojiComponent emojiSymbol={emojiSymbol} word="the crown" />
+      <EmojiComponent emojiId={vocabWord.emojiId} word="the crown" />
       <HR />
-      <WordContainer>{showWord && word}</WordContainer>
-      {clicked && <LearningStepper />}
+      <WordContainer>{showWord && vocabWord.word}</WordContainer>
+      {clicked && <LearningStepper vocabWord={vocabWord} />}
     </CardWrapper>
   );
 };
@@ -35,8 +34,8 @@ const CardWrapper = styled.div({
   alignItems: "center",
   borderRadius: 4,
   border: "1px solid lightgrey",
-  padding: 8,
-  minWidth: 256,
+  padding: "16px 8px",
+  minWidth: 320,
 });
 
 const HR = styled.hr({

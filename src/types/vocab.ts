@@ -1,8 +1,12 @@
 export type Vocab = {
-  emojiSymbol: string;
+  emojiId: string;
   word: string;
+  currentStep: CurrentStep;
+  multiplier: StepMultiplier;
 };
 
-export type Ease = {
-  ease: "easy" | "medium" | "difficult";
-};
+export type RecallDifficulty = "easy" | "medium" | "hard" | "forgot";
+
+export type CurrentStep = number;
+
+export type StepMultiplier = number;
