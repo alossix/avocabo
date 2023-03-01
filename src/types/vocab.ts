@@ -5,9 +5,7 @@ export type Vocab = {
   multiplier: StepMultiplier;
 };
 
-export type Ease = {
-  ease: "easy" | "medium" | "difficult";
-};
+export type RecallDifficulty = "easy" | "medium" | "difficult";
 
 export type CurrentStep = number;
 

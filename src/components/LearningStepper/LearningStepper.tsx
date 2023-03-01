@@ -1,18 +1,14 @@
 import styled from "@emotion/styled";
 import { LearningStepperButton } from "./LearningStepperButton";
 
-type LearningStepperProps = {
-  children?: React.ReactNode;
-};
+type LearningStepperProps = {};
 
-export const LearningStepper: React.FC<LearningStepperProps> = ({
-  children,
-}) => {
+export const LearningStepper: React.FC<LearningStepperProps> = () => {
   return (
     <LearningStepperContainer>
-      <LearningStepperButton ease="easy" />
-      <LearningStepperButton ease="medium" />
-      <LearningStepperButton ease="difficult" />
+      <LearningStepperButton recallDifficulty="easy" />
+      <LearningStepperButton recallDifficulty="medium" />
+      <LearningStepperButton recallDifficulty="difficult" />
     </LearningStepperContainer>
   );
 };
