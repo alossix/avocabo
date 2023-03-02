@@ -58,7 +58,7 @@ export const vocabSlice = createSlice({
   name: "vocab",
   initialState,
   reducers: {
-    incrementVocabStep: (
+    changeVocabStep: (
       state,
       action: PayloadAction<{
         emojiId: string;
@@ -67,48 +67,48 @@ export const vocabSlice = createSlice({
     ) => {
       const { emojiId, recallDifficulty } = action.payload;
       const vocabIndex = state.findIndex((v) => v.emojiId === emojiId);
+
       if (recallDifficulty === "easy") {
         state[vocabIndex].currentStep += 2;
       } else if (recallDifficulty === "medium") {
         state[vocabIndex].currentStep += 1;
       } else if (recallDifficulty === "hard") {
-        state[vocabIndex].currentStep = Math.max(
-          Math.floor(state[vocabIndex].currentStep / 2),
-          1
-        );
+        if (state[vocabIndex].currentStep === 0) {
+          state[vocabIndex].currentStep = 0;
+        } else {
+          state[vocabIndex].currentStep = Math.max(
+            Math.floor(state[vocabIndex].currentStep / 2),
+            1
+          );
+        }
       } else if (recallDifficulty === "forgot") {
         state[vocabIndex].currentStep = 0;
       }
     },
-    decrementVocabStep: (state, action: PayloadAction<{ emojiId: string }>) => {
-      const { emojiId } = action.payload;
-      const vocabIndex = state.findIndex((v) => v.emojiId === emojiId);
-      state[vocabIndex].currentStep -= 1;
-    },
-    increaseVocabMultiplier: (
-      state,
-      action: PayloadAction<{ emojiId: string; multiplier: number }>
-    ) => {
-      const { emojiId, multiplier } = action.payload;
-      const vocabIndex = state.findIndex((v) => v.emojiId === emojiId);
-      state[vocabIndex].multiplier += multiplier;
-    },
-    decreaseVocabMultiplier: (
-      state,
-      action: PayloadAction<{ emojiId: string; multiplier: number }>
-    ) => {
-      const { emojiId, multiplier } = action.payload;
-      const vocabIndex = state.findIndex((v) => v.emojiId === emojiId);
-      state[vocabIndex].multiplier -= multiplier;
-    },
+
+    // increaseVocabMultiplier: (
+    //   state,
+    //   action: PayloadAction<{ emojiId: string; multiplier: number }>
+    // ) => {
+    //   const { emojiId, multiplier } = action.payload;
+    //   const vocabIndex = state.findIndex((v) => v.emojiId === emojiId);
+    //   state[vocabIndex].multiplier += multiplier;
+    // },
+    // decreaseVocabMultiplier: (
+    //   state,
+    //   action: PayloadAction<{ emojiId: string; multiplier: number }>
+    // ) => {
+    //   const { emojiId, multiplier } = action.payload;
+    //   const vocabIndex = state.findIndex((v) => v.emojiId === emojiId);
+    //   state[vocabIndex].multiplier -= multiplier;
+    // },
   },
 });
 
 export const {
-  incrementVocabStep,
-  decrementVocabStep,
-  increaseVocabMultiplier,
-  decreaseVocabMultiplier,
+  changeVocabStep,
+  // increaseVocabMultiplier,
+  // decreaseVocabMultiplier,
 } = vocabSlice.actions;
 
 export const currentStepSelector = (state: RootState) => state.vocab;

@@ -2,6 +2,7 @@
   "locales": ["ct", "en", "es", "it"],
   "defaultLocale": "en",
   "pages": {
-    "*": ["common"]
+    "*": ["common"],
+    "/my-vocab": ["vocab"]
   }
 }

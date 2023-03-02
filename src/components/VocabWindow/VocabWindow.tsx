@@ -1,15 +1,17 @@
 import { useAppSelector } from "@/store/hooks";
 import styled from "@emotion/styled";
+import useTranslation from "next-translate/useTranslation";
 import { VocabCard } from "../VocabCard";
 
 export const VocabWindow = () => {
+  const { t } = useTranslation("vocab");
   const vocab = useAppSelector((state) => state.vocab);
 
   return (
     <VocabWindowContainer>
-      <h2>My Vocab List</h2>
+      <h2>{t("vocab:vocab_list_title")}</h2>
       <VocabCardsContainer>
-        {vocab.map((vocabWord) => (
+        {vocab.map((vocabWord, index) => (
           <VocabCard vocabWord={vocabWord} key={vocabWord.emojiId} />
         ))}
       </VocabCardsContainer>

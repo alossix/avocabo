@@ -7,7 +7,7 @@ const nextConfig = {
   compiler: {
     emotion: true,
   },
+  ...nextTranslate(),
 };
 
 module.exports = nextConfig;
-module.exports = nextTranslate();

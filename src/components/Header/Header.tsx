@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
-import Link from "next/link";
 import useTranslation from "next-translate/useTranslation";
-import { useRouter } from "next/router";
+import Link from "next/link";
+import { LanguageSelector } from "../LanguageSelector";
 
 export const Header: React.FC = () => {
-  const { t, lang } = useTranslation("common");
-  const router = useRouter();
+  const { t } = useTranslation("common");
 
   return (
     <HeaderNav>
@@ -24,11 +23,8 @@ export const Header: React.FC = () => {
             <Link href="/about">{t("common:header_how_it_works")}</Link>
           </HeaderLI>
           <HeaderLI>
-            <Link href={router.asPath} locale={"en"} key={"en"}>
-              {t("common:header_switch_language")}
-            </Link>
+            <LanguageSelector />
           </HeaderLI>
-          <HeaderLI>Menu</HeaderLI>
         </HeaderUL>
       </HeaderContent>
     </HeaderNav>
