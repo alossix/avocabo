@@ -7,7 +7,10 @@ export const Header: React.FC = () => {
       <HeaderContent>
         <HeaderUL>
           <HeaderLI>
-            <Link href="/">My Vocab List</Link>
+            <Link href="/">Home</Link>
+          </HeaderLI>
+          <HeaderLI>
+            <Link href="/my-vocab">My Vocab List</Link>
           </HeaderLI>
           <HeaderLI>
             <Link href="/add-words">Add Words</Link>
