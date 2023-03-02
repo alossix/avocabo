@@ -1,0 +1,14 @@
+{
+  "header_home": "Vocab-Web",
+  "header_my_vocab": "My Vocab List",
+  "header_add_words": "Add Words",
+  "header_how_it_works": "How It Works",
+  "header_switch_language": "Switch Language",
+  "header_language": "Language",
+  "header_menu": "Menu",
+  "button_recall_label": "Select difficulty",
+  "button_recall_easy": "Easy",
+  "button_recall_medium": "Medium",
+  "button_recall_hard": "Difficult",
+  "button_recall_forgot": "Forgot"
+}

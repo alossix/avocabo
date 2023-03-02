@@ -1,8 +1,9 @@
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { incrementVocabStep } from "@/store/vocabSlice";
+import { useAppDispatch } from "@/store/hooks";
+import { changeVocabStep } from "@/store/vocabSlice";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
-import { ReactEventHandler } from "react";
+import useTranslation from "next-translate/useTranslation";
+import { ReactEventHandler, SyntheticEvent } from "react";
 
 type LearningStepperButtonProps = {
   recallDifficulty: RecallDifficulty;
@@ -36,20 +37,38 @@ export const LearningStepperButton: React.FC<LearningStepperButtonProps> = ({
   recallDifficulty,
   vocabWord,
 }) => {
+  const { t } = useTranslation("common");
   const dispatch = useAppDispatch();
 
-  const handleOnClick: ReactEventHandler<HTMLButtonElement> = () => {
-    dispatch(
-      incrementVocabStep({ emojiId: vocabWord.emojiId, recallDifficulty })
-    );
+  const handleOnClick: ReactEventHandler<HTMLButtonElement> = (
+    event: SyntheticEvent
+  ) => {
+    dispatch(changeVocabStep({ emojiId: vocabWord.emojiId, recallDifficulty }));
   };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      handleOnClick(event);
+    }
+  };
+
+  const handleKeyUp = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+    }
+  };
+
   return (
     <Button
       type="button"
       recallDifficulty={recallDifficulty}
       onClick={handleOnClick}
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
+      aria-label={t(`common:button_recall_${recallDifficulty}`)}
     >
-      {recallDifficulty}
+      {t(`common:button_recall_${recallDifficulty}`)}
     </Button>
   );
 };

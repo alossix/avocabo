@@ -5,7 +5,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { Provider } from "react-redux";
 
-export default function App({ Component, pageProps }: AppProps) {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Provider store={store}>
       <Head>
@@ -17,4 +17,5 @@ export default function App({ Component, pageProps }: AppProps) {
       </Layout>
     </Provider>
   );
-}
+};
+export default App;

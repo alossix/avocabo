@@ -1,24 +1,30 @@
 import styled from "@emotion/styled";
+import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
+import { LanguageSelector } from "../LanguageSelector";
 
 export const Header: React.FC = () => {
+  const { t } = useTranslation("common");
+
   return (
     <HeaderNav>
       <HeaderContent>
         <HeaderUL>
           <HeaderLI>
-            <Link href="/">Home</Link>
+            <Link href="/">{t("common:header_home")}</Link>
           </HeaderLI>
           <HeaderLI>
-            <Link href="/my-vocab">My Vocab List</Link>
+            <Link href="/my-vocab">{t("common:header_my_vocab")}</Link>
           </HeaderLI>
           <HeaderLI>
-            <Link href="/add-words">Add Words</Link>
+            <Link href="/add-words">{t("common:header_add_words")}</Link>
           </HeaderLI>
           <HeaderLI>
-            <Link href="/about">How It Works</Link>
+            <Link href="/about">{t("common:header_how_it_works")}</Link>
           </HeaderLI>
-          <HeaderLI>Menu</HeaderLI>
+          <HeaderLI>
+            <LanguageSelector />
+          </HeaderLI>
         </HeaderUL>
       </HeaderContent>
     </HeaderNav>

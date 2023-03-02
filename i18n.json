@@ -1,0 +1,8 @@
+{
+  "locales": ["ct", "en", "es", "it"],
+  "defaultLocale": "en",
+  "pages": {
+    "*": ["common"],
+    "/my-vocab": ["vocab"]
+  }
+}

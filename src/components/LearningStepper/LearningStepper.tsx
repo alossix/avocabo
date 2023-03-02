@@ -1,5 +1,6 @@
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
+import useTranslation from "next-translate/useTranslation";
 import { LearningStepperButton } from "./LearningStepperButton";
 
 type LearningStepperProps = {
@@ -9,9 +10,11 @@ type LearningStepperProps = {
 export const LearningStepper: React.FC<LearningStepperProps> = ({
   vocabWord,
 }) => {
+  const { t } = useTranslation("common");
+
   return (
     <div style={{ width: "100%" }}>
-      <LearningStepperContainer>
+      <LearningStepperContainer aria-label={t("common:button_recall_label")}>
         <LearningStepperButton recallDifficulty="easy" vocabWord={vocabWord} />
         <LearningStepperButton
           recallDifficulty="medium"

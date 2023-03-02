@@ -1,0 +1,14 @@
+{
+  "header_home": "Vocab-Web",
+  "header_my_vocab": "Llista de Vocabulari",
+  "header_add_words": "Afegeix Paraules",
+  "header_how_it_works": "Com Funciona",
+  "header_switch_language": "Canvia l'Idioma",
+  "header_language": "Idioma",
+  "header_menu": "Menu",
+  "button_recall_label": "Seleccioneu la dificultat",
+  "button_recall_easy": "Fàcil",
+  "button_recall_medium": "Mitjà",
+  "button_recall_hard": "Difícil",
+  "button_recall_forgot": "Oblidat"
+}
