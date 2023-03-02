@@ -10,7 +10,7 @@ export const LearningStepper: React.FC<LearningStepperProps> = ({
   vocabWord,
 }) => {
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <LearningStepperContainer>
         <LearningStepperButton recallDifficulty="easy" vocabWord={vocabWord} />
         <LearningStepperButton
@@ -30,6 +30,6 @@ export const LearningStepper: React.FC<LearningStepperProps> = ({
 
 const LearningStepperContainer = styled.div({
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent: "space-evenly",
   width: "100%",
 });
