@@ -1,5 +1,7 @@
 import { useAppDispatch } from "@/store/hooks";
 import { changeVocabStep } from "@/store/vocabSlice";
+import theme from "@/styles/theme";
+import { StepperColorNames, StepperColors } from "@/types/design";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
@@ -10,27 +12,11 @@ type LearningStepperButtonProps = {
   vocabWord: Vocab;
 };
 
-const stepColors = {
-  easy: {
-    backgroundColor: "green",
-    borderColor: "green",
-    color: "green",
-  },
-  medium: {
-    backgroundColor: "darkOrange",
-    borderColor: "darkOrange",
-    color: "darkOrange",
-  },
-  hard: {
-    backgroundColor: "red",
-    borderColor: "red",
-    color: "red",
-  },
-  forgot: {
-    backgroundColor: "purple",
-    borderColor: "purple",
-    color: "purple",
-  },
+const stepperColors: StepperColors = {
+  easy: "easyGreen",
+  medium: "mediumOrange",
+  hard: "hardRed",
+  forgot: "forgotPurple",
 };
 
 export const LearningStepperButton: React.FC<LearningStepperButtonProps> = ({
@@ -39,6 +25,10 @@ export const LearningStepperButton: React.FC<LearningStepperButtonProps> = ({
 }) => {
   const { t } = useTranslation("common");
   const dispatch = useAppDispatch();
+
+  const color = theme.colors.stepperColors[
+    stepperColors[recallDifficulty]
+  ] as StepperColorNames;
 
   const handleOnClick: ReactEventHandler<HTMLButtonElement> = (
     event: SyntheticEvent
@@ -53,43 +43,36 @@ export const LearningStepperButton: React.FC<LearningStepperButtonProps> = ({
     }
   };
 
-  const handleKeyUp = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-    }
-  };
-
   return (
     <Button
       type="button"
       recallDifficulty={recallDifficulty}
       onClick={handleOnClick}
       onKeyDown={handleKeyDown}
-      onKeyUp={handleKeyUp}
       aria-label={t(`common:button_recall_${recallDifficulty}`)}
+      color={color}
     >
       {t(`common:button_recall_${recallDifficulty}`)}
     </Button>
   );
 };
 
-const Button = styled.button<{ recallDifficulty: RecallDifficulty }>(
-  ({ recallDifficulty }) => ({
-    display: "flex",
-    padding: 8,
-    textTransform: "capitalize",
-    cursor: "pointer",
-    backgroundColor: "white",
-    color: stepColors[recallDifficulty].color,
-    borderStyle: "solid",
-    borderWidth: 2,
-    borderColor: stepColors[recallDifficulty].borderColor,
-    borderRadius: 4,
+const Button = styled.button<{
+  recallDifficulty: RecallDifficulty;
+  color: StepperColorNames;
+}>(({ color }) => ({
+  display: "flex",
+  padding: 8,
+  textTransform: "capitalize",
+  cursor: "pointer",
+  backgroundColor: "white",
+  color: color,
+  border: `2px solid ${color}`,
+  borderRadius: 4,
 
-    "&:hover": {
-      backgroundColor: stepColors[recallDifficulty].backgroundColor,
-      borderColor: stepColors[recallDifficulty].borderColor,
-      color: "white",
-    },
-  })
-);
+  "&:hover": {
+    backgroundColor: color,
+    borderColor: color,
+    color: "white",
+  },
+}));
