@@ -1,4 +1,4 @@
-import { Vocab } from "@/types/vocab";
+import { RecallDifficulty, Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import { LearningStepperButton } from "./LearningStepperButton";
@@ -12,22 +12,23 @@ export const LearningStepper: React.FC<LearningStepperProps> = ({
 }) => {
   const { t } = useTranslation("common");
 
+  const recallDifficulties: RecallDifficulty[] = [
+    "easy",
+    "medium",
+    "hard",
+    "forgot",
+  ];
+
   return (
-    <div style={{ width: "100%" }}>
-      <LearningStepperContainer aria-label={t("common:button_recall_label")}>
-        <LearningStepperButton recallDifficulty="easy" vocabWord={vocabWord} />
+    <LearningStepperContainer aria-label={t("common:button_recall_label")}>
+      {recallDifficulties.map((recallDifficulty) => (
         <LearningStepperButton
-          recallDifficulty="medium"
+          recallDifficulty={recallDifficulty}
+          key={recallDifficulty}
           vocabWord={vocabWord}
         />
-        <LearningStepperButton recallDifficulty="hard" vocabWord={vocabWord} />
-        <LearningStepperButton
-          recallDifficulty="forgot"
-          vocabWord={vocabWord}
-        />
-      </LearningStepperContainer>
-      <div>{vocabWord.currentStep}</div>
-    </div>
+      ))}
+    </LearningStepperContainer>
   );
 };
 

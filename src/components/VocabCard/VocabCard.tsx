@@ -9,7 +9,6 @@ type VocabCardProps = {
 };
 
 export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
-  const [showWord, setShowWord] = useState<boolean>(false);
   const [clicked, setClicked] = useState<boolean>(false);
 
   const handleOnClick: ReactEventHandler<HTMLDivElement> = (
@@ -17,7 +16,6 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
   ) => {
     if (!clicked) {
       setClicked(true);
-      setShowWord((showWord) => !showWord);
     }
   };
 
@@ -28,17 +26,10 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
     }
   };
 
-  const handleKeyUp = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-    }
-  };
-
   return (
     <CardWrapper
       onClick={handleOnClick}
       onKeyDown={handleKeyDown}
-      onKeyUp={handleKeyUp}
       tabIndex={0}
       clicked={clicked}
       role="button"
@@ -49,7 +40,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
       {clicked && (
         <>
           <HR />
-          <WordContainer>{showWord && vocabWord.word}</WordContainer>
+          <WordContainer>{vocabWord.word}</WordContainer>
           <LearningStepper vocabWord={vocabWord} />
         </>
       )}
