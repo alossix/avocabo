@@ -6,49 +6,49 @@ import type { RootState } from "./store";
 const initialState: Vocab[] = [
   {
     emojiId: "🌞",
-    word: "the sun",
+    definition: "the sun",
     currentStep: 0,
     multiplier: 1,
   },
   {
     emojiId: "🌧️",
-    word: "the rain",
+    definition: "the rain",
     currentStep: 0,
     multiplier: 1,
   },
   {
     emojiId: "\u{1F451}",
-    word: "the crown",
+    definition: "the crown",
     currentStep: 0,
     multiplier: 1,
   },
   {
     emojiId: "\u{1F452}",
-    word: "the hat",
+    definition: "the hat",
     currentStep: 0,
     multiplier: 1,
   },
   {
     emojiId: "\u{1F453}",
-    word: "the glasses / the sunglasses",
+    definition: "the glasses / the sunglasses",
     currentStep: 0,
     multiplier: 1,
   },
   {
     emojiId: "\u{1F454}",
-    word: "the shirt",
+    definition: "the shirt",
     currentStep: 0,
     multiplier: 1,
   },
   {
     emojiId: "\u{1F455}",
-    word: "the t-shirt",
+    definition: "the t-shirt",
     currentStep: 0,
     multiplier: 1,
   },
   {
     emojiId: "\u{1F456}",
-    word: "the pants",
+    definition: "the pants",
     currentStep: 0,
     multiplier: 1,
   },
@@ -58,8 +58,9 @@ export const vocabSlice = createSlice({
   name: "vocab",
   initialState,
   reducers: {
-    addVocabWord: (state, action: PayloadAction<Vocab>) => {
-      state.push(action.payload);
+    addVocabEntry: (state, action: PayloadAction<Vocab>) => {
+      const newEntry = { ...action.payload, currentStep: 0, multiplier: 1 };
+      state.push(newEntry);
     },
     changeVocabStep: (
       state,
@@ -88,7 +89,7 @@ export const vocabSlice = createSlice({
         state[vocabIndex].currentStep = 0;
       }
     },
-    removeVocabWord: (state, action: PayloadAction<{ emojiId: string }>) => {
+    removeVocabEntry: (state, action: PayloadAction<{ emojiId: string }>) => {
       const { emojiId } = action.payload;
       const index = state.findIndex((vocab) => vocab.emojiId === emojiId);
 
@@ -99,13 +100,8 @@ export const vocabSlice = createSlice({
   },
 });
 
-export const {
-  addVocabWord,
-  changeVocabStep,
-  removeVocabWord,
-  // increaseVocabMultiplier,
-  // decreaseVocabMultiplier,
-} = vocabSlice.actions;
+export const { addVocabEntry, changeVocabStep, removeVocabEntry } =
+  vocabSlice.actions;
 
 export const currentStepSelector = (state: RootState) => state.vocab;
 

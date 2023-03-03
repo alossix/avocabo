@@ -1,3 +1,4 @@
+import { AddWordForm } from "@/components/AddWordForm/AddWordForm";
 import Head from "next/head";
 
 type AddWordsPageProps = {
@@ -10,7 +11,7 @@ const AddWordsPage: React.FC<AddWordsPageProps> = ({ children }) => {
       <Head>
         <title>Add Words</title>
       </Head>
-      <div>test</div>
+      <AddWordForm />
     </>
   );
 };

@@ -1,6 +1,7 @@
 export type Vocab = {
   emojiId: string;
-  word: string;
+  definition: string;
+  description?: string;
   currentStep: CurrentStep;
   multiplier: StepMultiplier;
 };

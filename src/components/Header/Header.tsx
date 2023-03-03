@@ -6,49 +6,23 @@ import { LanguageSelector } from "../LanguageSelector";
 export const Header: React.FC = () => {
   const { t } = useTranslation("common");
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLLIElement>) => {
-    if (event.key === "Enter") {
-      event.currentTarget.click();
-    }
-  };
-
   return (
     <HeaderNav>
       <HeaderContent>
-        <HeaderUL>
-          <HeaderLI
-            aria-label={t("common:header_home")}
-            tabIndex={0}
-            onKeyDown={handleKeyDown}
-          >
+        <HeaderUL role="list">
+          <HeaderLI aria-label={t("common:header_home")} tabIndex={1}>
             <Link href="/">{t("common:header_home")}</Link>
           </HeaderLI>
-          <HeaderLI
-            aria-label={t("common:header_my_vocab")}
-            tabIndex={0}
-            onKeyDown={handleKeyDown}
-          >
+          <HeaderLI aria-label={t("common:header_my_vocab")} tabIndex={2}>
             <Link href="/my-vocab">{t("common:header_my_vocab")}</Link>
           </HeaderLI>
-          <HeaderLI
-            aria-label={t("common:header_add_words")}
-            tabIndex={0}
-            onKeyDown={handleKeyDown}
-          >
+          <HeaderLI aria-label={t("common:header_add_words")} tabIndex={3}>
             <Link href="/add-words">{t("common:header_add_words")}</Link>
           </HeaderLI>
-          <HeaderLI
-            aria-label={t("common:header_how_it_works")}
-            tabIndex={0}
-            onKeyDown={handleKeyDown}
-          >
+          <HeaderLI aria-label={t("common:header_how_it_works")} tabIndex={4}>
             <Link href="/about">{t("common:header_how_it_works")}</Link>
           </HeaderLI>
-          <HeaderLI
-            aria-label={t("common:header_language")}
-            tabIndex={0}
-            onKeyDown={handleKeyDown}
-          >
+          <HeaderLI aria-label={t("common:header_language")} tabIndex={5}>
             <LanguageSelector />
           </HeaderLI>
         </HeaderUL>

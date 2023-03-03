@@ -1,5 +1,3 @@
-import { useAppDispatch } from "@/store/hooks";
-import { removeVocabWord } from "@/store/vocabSlice";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
@@ -15,7 +13,6 @@ type VocabCardProps = {
 export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
   const { t } = useTranslation("common");
   const [showDetails, setShowDetails] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
 
   const handleOnShowDetailsClick: ReactEventHandler<HTMLDivElement> = (
     event: SyntheticEvent
@@ -41,7 +38,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
       tabIndex={0}
       showDetails={showDetails}
       role="button"
-      aria-label={vocabWord.word}
+      aria-label={vocabWord.definition}
       aria-pressed={showDetails}
     >
       {showDetails && (
@@ -52,9 +49,9 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
             padding: "0 8px",
           }}
         >
-          <h3
-            style={{ width: "100%" }}
-          >{`currentStep: ${vocabWord.currentStep}`}</h3>
+          <h3 style={{ width: "100%" }}>{`${t("vocab:vocab_current_step")} ${
+            vocabWord.currentStep
+          }`}</h3>
           <DeleteWord emojiId={vocabWord.emojiId} />
         </div>
       )}
@@ -62,7 +59,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
       {showDetails && (
         <>
           <HR />
-          <WordContainer>{vocabWord.word}</WordContainer>
+          <WordContainer>{vocabWord.definition}</WordContainer>
           <LearningStepper vocabWord={vocabWord} />
         </>
       )}
