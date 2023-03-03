@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "./store";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import type { RootState } from "./store";
 
 const initialState: Vocab[] = [
   {
@@ -58,6 +58,9 @@ export const vocabSlice = createSlice({
   name: "vocab",
   initialState,
   reducers: {
+    addVocabWord: (state, action: PayloadAction<Vocab>) => {
+      state.push(action.payload);
+    },
     changeVocabStep: (
       state,
       action: PayloadAction<{
@@ -85,28 +88,21 @@ export const vocabSlice = createSlice({
         state[vocabIndex].currentStep = 0;
       }
     },
+    removeVocabWord: (state, action: PayloadAction<{ emojiId: string }>) => {
+      const { emojiId } = action.payload;
+      const index = state.findIndex((vocab) => vocab.emojiId === emojiId);
 
-    // increaseVocabMultiplier: (
-    //   state,
-    //   action: PayloadAction<{ emojiId: string; multiplier: number }>
-    // ) => {
-    //   const { emojiId, multiplier } = action.payload;
-    //   const vocabIndex = state.findIndex((v) => v.emojiId === emojiId);
-    //   state[vocabIndex].multiplier += multiplier;
-    // },
-    // decreaseVocabMultiplier: (
-    //   state,
-    //   action: PayloadAction<{ emojiId: string; multiplier: number }>
-    // ) => {
-    //   const { emojiId, multiplier } = action.payload;
-    //   const vocabIndex = state.findIndex((v) => v.emojiId === emojiId);
-    //   state[vocabIndex].multiplier -= multiplier;
-    // },
+      if (index !== -1) {
+        state.splice(index, 1);
+      }
+    },
   },
 });
 
 export const {
+  addVocabWord,
   changeVocabStep,
+  removeVocabWord,
   // increaseVocabMultiplier,
   // decreaseVocabMultiplier,
 } = vocabSlice.actions;
