@@ -3,9 +3,7 @@ import setLanguage from "next-translate/setLanguage";
 import useTranslation from "next-translate/useTranslation";
 import { useState } from "react";
 
-type LanguageSelectorProps = {};
-
-export const LanguageSelector: React.FC<LanguageSelectorProps> = () => {
+export const LanguageSelector: React.FC = () => {
   const { t, lang } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState<InterfaceLanguages>(
     lang as InterfaceLanguages

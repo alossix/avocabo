@@ -1,7 +1,7 @@
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
-import { ReactEventHandler, SyntheticEvent, useState } from "react";
+import { ReactEventHandler, useState } from "react";
 import { DeleteWord } from "../DeleteWord";
 import { EmojiComponent } from "../EmojiComponent";
 import { LearningStepper } from "../LearningStepper";
@@ -14,9 +14,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
   const { t } = useTranslation("common");
   const [showDetails, setShowDetails] = useState<boolean>(false);
 
-  const handleOnShowDetailsClick: ReactEventHandler<HTMLDivElement> = (
-    event: SyntheticEvent
-  ) => {
+  const handleOnShowDetailsClick: ReactEventHandler<HTMLDivElement> = () => {
     if (!showDetails) {
       setShowDetails(true);
     }

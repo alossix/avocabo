@@ -2,7 +2,7 @@ import { useAppDispatch } from "@/store/hooks";
 import { removeVocabEntry } from "@/store/vocabSlice";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
-import { ReactEventHandler, SyntheticEvent } from "react";
+import { ReactEventHandler } from "react";
 
 type DeleteWordProps = {
   emojiId: string;
@@ -12,9 +12,7 @@ export const DeleteWord: React.FC<DeleteWordProps> = ({ emojiId }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
-  const handleDeleteWordClick: ReactEventHandler<HTMLButtonElement> = (
-    event: SyntheticEvent
-  ) => {
+  const handleDeleteWordClick: ReactEventHandler<HTMLButtonElement> = () => {
     dispatch(removeVocabEntry({ emojiId }));
   };
   return (

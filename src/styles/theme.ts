@@ -1,4 +1,4 @@
-const theme = {
+export const theme = {
   colors: {
     stepperColors: {
       easyGreen: "#008000",
@@ -8,4 +8,3 @@ const theme = {
     },
   },
 };
-export default theme;

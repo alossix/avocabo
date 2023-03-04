@@ -1,11 +1,7 @@
 import { AddWordForm } from "@/components/AddWordForm/AddWordForm";
 import Head from "next/head";
 
-type AddWordsPageProps = {
-  children?: React.ReactNode;
-};
-
-const AddWordsPage: React.FC<AddWordsPageProps> = ({ children }) => {
+const AddWordsPage: React.FC = () => {
   return (
     <>
       <Head>
