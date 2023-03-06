@@ -10,5 +10,6 @@
   "button_recall_easy": "Facile",
   "button_recall_medium": "Medio",
   "button_recall_hard": "Difficile",
-  "button_recall_forgot": "Dimenticato"
+  "button_recall_forgot": "Dimenticato",
+  "button_delete_word": "Elimina la parola"
 }

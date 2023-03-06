@@ -1,11 +1,11 @@
 import { useAppDispatch } from "@/store/hooks";
 import { changeVocabStep } from "@/store/vocabSlice";
-import theme from "@/styles/theme";
+import { theme } from "@/styles/theme";
 import { StepperColorNames, StepperColors } from "@/types/design";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
-import { ReactEventHandler, SyntheticEvent } from "react";
+import { ReactEventHandler } from "react";
 
 type LearningStepperButtonProps = {
   recallDifficulty: RecallDifficulty;
@@ -30,9 +30,7 @@ export const LearningStepperButton: React.FC<LearningStepperButtonProps> = ({
     stepperColors[recallDifficulty]
   ] as StepperColorNames;
 
-  const handleOnClick: ReactEventHandler<HTMLButtonElement> = (
-    event: SyntheticEvent
-  ) => {
+  const handleOnClick: ReactEventHandler<HTMLButtonElement> = () => {
     dispatch(changeVocabStep({ emojiId: vocabWord.emojiId, recallDifficulty }));
   };
 

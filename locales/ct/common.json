@@ -10,5 +10,6 @@
   "button_recall_easy": "Fàcil",
   "button_recall_medium": "Mitjà",
   "button_recall_hard": "Difícil",
-  "button_recall_forgot": "Oblidat"
+  "button_recall_forgot": "Oblidat",
+  "button_delete_word": "Suprimeix la paraula"
 }

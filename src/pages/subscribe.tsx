@@ -1,10 +1,6 @@
 import Head from "next/head";
 
-type SubscribePageProps = {
-  children?: React.ReactNode;
-};
-
-const SubscribePage: React.FC<SubscribePageProps> = ({ children }) => {
+const SubscribePage: React.FC = () => {
   return (
     <>
       <Head>

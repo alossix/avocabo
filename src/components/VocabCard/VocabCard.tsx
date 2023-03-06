@@ -1,6 +1,8 @@
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
-import { ReactEventHandler, SyntheticEvent, useState } from "react";
+import useTranslation from "next-translate/useTranslation";
+import { ReactEventHandler, useState } from "react";
+import { DeleteWord } from "../DeleteWord";
 import { EmojiComponent } from "../EmojiComponent";
 import { LearningStepper } from "../LearningStepper";
 
@@ -9,38 +11,53 @@ type VocabCardProps = {
 };
 
 export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
-  const [clicked, setClicked] = useState<boolean>(false);
+  const { t } = useTranslation("common");
+  const [showDetails, setShowDetails] = useState<boolean>(false);
 
-  const handleOnClick: ReactEventHandler<HTMLDivElement> = (
-    event: SyntheticEvent
-  ) => {
-    if (!clicked) {
-      setClicked(true);
+  const handleOnShowDetailsClick: ReactEventHandler<HTMLDivElement> = () => {
+    if (!showDetails) {
+      setShowDetails(true);
     }
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleOnShowDetailsKeyDown = (
+    event: React.KeyboardEvent<HTMLDivElement>
+  ) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      handleOnClick(event);
+      handleOnShowDetailsClick(event);
     }
   };
 
   return (
     <CardWrapper
-      onClick={handleOnClick}
-      onKeyDown={handleKeyDown}
+      onClick={handleOnShowDetailsClick}
+      onKeyDown={handleOnShowDetailsKeyDown}
       tabIndex={0}
-      clicked={clicked}
+      showDetails={showDetails}
       role="button"
-      aria-label={vocabWord.word}
-      aria-pressed={clicked}
+      aria-label={vocabWord.definition}
+      aria-pressed={showDetails}
     >
+      {showDetails && (
+        <div
+          style={{
+            display: "flex",
+            width: "100%",
+            padding: "0 8px",
+          }}
+        >
+          <h3 style={{ width: "100%" }}>{`${t("vocab:vocab_current_step")} ${
+            vocabWord.currentStep
+          }`}</h3>
+          <DeleteWord emojiId={vocabWord.emojiId} />
+        </div>
+      )}
       <EmojiComponent emojiId={vocabWord.emojiId} word="the crown" />
-      {clicked && (
+      {showDetails && (
         <>
           <HR />
-          <WordContainer>{vocabWord.word}</WordContainer>
+          <WordContainer>{vocabWord.definition}</WordContainer>
           <LearningStepper vocabWord={vocabWord} />
         </>
       )}
@@ -48,7 +65,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
   );
 };
 
-const CardWrapper = styled.div<{ clicked: boolean }>(({ clicked }) => ({
+const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
@@ -56,7 +73,7 @@ const CardWrapper = styled.div<{ clicked: boolean }>(({ clicked }) => ({
   border: "1px solid lightgrey",
   padding: "16px 8px",
   minWidth: 320,
-  cursor: !clicked ? "pointer" : "default",
+  cursor: !showDetails ? "pointer" : "default",
 }));
 
 const HR = styled.hr({

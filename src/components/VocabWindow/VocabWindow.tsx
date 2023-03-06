@@ -11,7 +11,7 @@ export const VocabWindow = () => {
     <VocabWindowContainer>
       <h2>{t("vocab:vocab_list_title")}</h2>
       <VocabCardsContainer>
-        {vocab.map((vocabWord, index) => (
+        {vocab.map((vocabWord) => (
           <VocabCard vocabWord={vocabWord} key={vocabWord.emojiId} />
         ))}
       </VocabCardsContainer>
