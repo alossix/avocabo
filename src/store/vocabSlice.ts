@@ -3,54 +3,72 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
+const createdAtDate = new Date();
+
 const initialState: Vocab[] = [
   {
     emojiId: "🌞",
     definition: "the sun",
     currentStep: 0,
     multiplier: 1,
+    createdAt: createdAtDate,
+    lastUpdatedAt: createdAtDate,
   },
   {
     emojiId: "🌧️",
     definition: "the rain",
     currentStep: 0,
     multiplier: 1,
+    createdAt: createdAtDate,
+    lastUpdatedAt: createdAtDate,
   },
   {
     emojiId: "\u{1F451}",
     definition: "the crown",
     currentStep: 0,
     multiplier: 1,
+    createdAt: createdAtDate,
+    lastUpdatedAt: createdAtDate,
   },
   {
     emojiId: "\u{1F452}",
     definition: "the hat",
     currentStep: 0,
     multiplier: 1,
+    createdAt: createdAtDate,
+    lastUpdatedAt: createdAtDate,
   },
   {
     emojiId: "\u{1F453}",
     definition: "the glasses / the sunglasses",
     currentStep: 0,
     multiplier: 1,
+    createdAt: createdAtDate,
+    lastUpdatedAt: createdAtDate,
   },
   {
     emojiId: "\u{1F454}",
     definition: "the shirt",
     currentStep: 0,
     multiplier: 1,
+    createdAt: createdAtDate,
+    lastUpdatedAt: createdAtDate,
   },
   {
     emojiId: "\u{1F455}",
     definition: "the t-shirt",
     currentStep: 0,
     multiplier: 1,
+    createdAt: createdAtDate,
+    lastUpdatedAt: createdAtDate,
   },
   {
     emojiId: "\u{1F456}",
     definition: "the pants",
     currentStep: 0,
     multiplier: 1,
+    createdAt: createdAtDate,
+    lastUpdatedAt: createdAtDate,
   },
 ];
 

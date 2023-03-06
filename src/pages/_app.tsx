@@ -1,4 +1,4 @@
-import { FirestoreProviderWrapper } from "@/store/providers/FirestoreProvider";
+import { FirebaseProviders } from "@/store/providers/FirebaseProviders";
 import { store } from "@/store/store";
 import "@/styles/globals.css";
 import Layout from "@/styles/Layout";
@@ -11,7 +11,7 @@ import firebaseConfig from "~/firebaseConfig";
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <FirebaseAppProvider firebaseConfig={firebaseConfig}>
-      <FirestoreProviderWrapper>
+      <FirebaseProviders>
         <Provider store={store}>
           <Head>
             <title>Vocab Web</title>
@@ -24,7 +24,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             <Component {...pageProps} />
           </Layout>
         </Provider>
-      </FirestoreProviderWrapper>
+      </FirebaseProviders>
     </FirebaseAppProvider>
   );
 };
