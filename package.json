@@ -28,7 +28,6 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.3",
     "react-redux": "^8.0.5",
-    "reactfire": "^4.2.2",
     "typescript": "^4.9.5",
     "zod": "^3.20.6"
   },

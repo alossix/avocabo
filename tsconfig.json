@@ -16,8 +16,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "~/firebaseConfig": ["./firebaseConfig.ts"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "i18n.js"],

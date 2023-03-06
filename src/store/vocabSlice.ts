@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
-const createdAtDate = new Date();
+const createdAtDate = new Date().toISOString();
 
 const initialState: Vocab[] = [
   {
@@ -77,7 +77,13 @@ export const vocabSlice = createSlice({
   initialState,
   reducers: {
     addVocabEntry: (state, action: PayloadAction<Vocab>) => {
-      const newEntry = { ...action.payload, currentStep: 0, multiplier: 1 };
+      const newEntry = {
+        ...action.payload,
+        currentStep: 0,
+        multiplier: 1,
+        createdAt: new Date().toISOString(),
+        lastUpdatedAt: new Date().toISOString(),
+      };
       state.push(newEntry);
     },
     changeVocabStep: (

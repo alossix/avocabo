@@ -1,61 +1,55 @@
-import { initializeApp } from "firebase/app";
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  User,
-  UserCredential,
-} from "firebase/auth";
+import { createUser } from "@/store/authSlice";
+import { useAppDispatch } from "@/store/hooks";
 import { useState } from "react";
-import firebaseConfig from "~/firebaseConfig";
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-export const SignupForm: React.FC = () => {
+export const SignUpForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [_, setError] = useState("");
 
-  const handleSignup = (e: React.FormEvent<HTMLFormElement>): void => {
+  const dispatch = useAppDispatch();
+
+  const validatePassword = () => {
+    let isValid = true;
+    if (password !== "" && confirmPassword !== "") {
+      if (password !== confirmPassword) {
+        isValid = false;
+        setError("Passwords does not match");
+      }
+    }
+    return isValid;
+  };
+
+  const handleSignupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential: UserCredential) => {
-        // Handle successful sign up
-        const user = userCredential.user;
-        console.log("User signed up:", user);
-      })
-      .catch((error) => {
-        // Handle errors
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setError(errorMessage);
-      });
+    setError("");
+    if (validatePassword()) {
+      try {
+        dispatch(createUser(email, password));
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("An unexpected error occurred.");
+        }
+      }
+    }
   };
 
   return (
-    <form onSubmit={handleSignup}>
-      <div>
-        <label>First name:</label>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
+    <form onSubmit={handleSignupSubmit} name="create_user_form">
       <div>
         <label>Email:</label>
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <label>Email:</label>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          required
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
         />
       </div>
       <div>
@@ -66,8 +60,15 @@ export const SignupForm: React.FC = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
+      <div>
+        <label>Confirm password:</label>
+        <input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+      </div>
       <button type="submit">Sign up</button>
-      {error && <p>{error}</p>}
     </form>
   );
 };

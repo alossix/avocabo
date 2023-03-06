@@ -6,6 +6,8 @@
   "header_switch_language": "Cambia de Idioma",
   "header_language": "Idioma",
   "header_menu": "Menu",
+  "header_sign_in": "Inicia sesión",
+  "header_sign_up": "Regístrate",
   "button_recall_label": "Elige la dificultad",
   "button_recall_easy": "Fácil",
   "button_recall_medium": "Medio",

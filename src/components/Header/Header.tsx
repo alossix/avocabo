@@ -22,7 +22,13 @@ export const Header: React.FC = () => {
           <HeaderLI aria-label={t("common:header_how_it_works")} tabIndex={4}>
             <Link href="/about">{t("common:header_how_it_works")}</Link>
           </HeaderLI>
-          <HeaderLI aria-label={t("common:header_language")} tabIndex={5}>
+          <HeaderLI aria-label={t("common:header_sign_in")} tabIndex={5}>
+            <Link href="/sign-in">{t("common:header_sign_in")} </Link>
+          </HeaderLI>
+          <HeaderLI aria-label={t("common:header_sign_up")} tabIndex={6}>
+            <Link href="/sign-up">{t("common:header_sign_up")} </Link>
+          </HeaderLI>
+          <HeaderLI aria-label={t("common:header_language")} tabIndex={7}>
             <LanguageSelector />
           </HeaderLI>
         </HeaderUL>
