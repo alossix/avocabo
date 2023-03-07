@@ -1,9 +1,9 @@
-type AboutPageProps = {
-  children?: React.ReactNode;
-};
-
-const AboutPage: React.FC<AboutPageProps> = ({ children }) => {
-  return <div>{children}</div>;
-};
+function AboutPage() {
+  return (
+    <div>
+      <h1>About Page</h1>
+    </div>
+  );
+}
 
 export default AboutPage;
