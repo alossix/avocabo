@@ -1,17 +1,21 @@
-import { listenForAuthChanges, signOut } from "@/store/authSlice";
-import { AppDispatch, RootState, useAppDispatch } from "@/store/store";
+import {
+  listenForAuthChanges,
+  selectUser,
+  signOutAuth,
+} from "@/store/authSlice";
+import { useAppSelector } from "@/store/hooks";
+import { AppDispatch, useAppDispatch } from "@/store/store";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { LanguageSelector } from "../LanguageSelector";
 
 export const Header: React.FC = () => {
   const { t } = useTranslation("common");
   const dispatch: AppDispatch = useAppDispatch();
 
-  const user = useSelector((state: RootState) => state.auth.user);
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
     dispatch(listenForAuthChanges());
@@ -35,7 +39,7 @@ export const Header: React.FC = () => {
           </HeaderLI>
           {user ? (
             <HeaderLI aria-label={t("common:header_sign_out")} tabIndex={5}>
-              <Link href="/" onClick={() => dispatch(signOut())}>
+              <Link href="/" onClick={() => dispatch(signOutAuth())}>
                 {t("common:header_sign_out")}{" "}
               </Link>
             </HeaderLI>
