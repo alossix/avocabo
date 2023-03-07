@@ -1,23 +1,17 @@
-/* eslint-disable @typescript-eslint/ban-types */
-
 import { auth } from "@/services/firebase/firebaseService";
-import {
-  AnyAction,
-  createSlice,
-  PayloadAction,
-  ThunkDispatch,
-} from "@reduxjs/toolkit";
+import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut as firebaseSignOut,
   User,
   UserCredential,
 } from "firebase/auth";
-import { AppThunk } from "./store";
+import { AppThunk, RootState } from "./store";
 
 interface AuthState {
-  user: Partial<User> | null;
+  user: Pick<User, "email" | "displayName" | "uid" | "emailVerified"> | null;
   loading: boolean;
   error: string | null;
 }
@@ -32,7 +26,12 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<Partial<User>>) => {
+    setUser: (
+      state,
+      action: PayloadAction<
+        Pick<User, "email" | "displayName" | "uid" | "emailVerified">
+      >
+    ) => {
       state.user = action.payload;
       state.loading = false;
       state.error = null;
@@ -51,19 +50,27 @@ const authSlice = createSlice({
 });
 
 // Listen for changes in the user's authentication state
-export const listenForAuthChanges =
-  () => (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        dispatch(setUser(user));
-      } else {
-        dispatch(signOut());
+export const listenForAuthChanges = (): AppThunk => (dispatch, getState) => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const userData = {
+        email: user.email,
+        uid: user.uid,
+        displayName: user.displayName,
+        emailVerified: user.emailVerified,
+      };
+      // Only dispatch the action if the user data has changed
+      if (JSON.stringify(userData) !== JSON.stringify(selectUser(getState()))) {
+        dispatch(setUser(userData));
       }
-    });
-  };
+    } else {
+      dispatch(signOut());
+    }
+  });
+};
 
 // Create a new user with email and password
-export const createUser =
+export const createUserAuth =
   (email: string, password: string): AppThunk =>
   async (dispatch) => {
     dispatch(setLoading(true));
@@ -81,17 +88,19 @@ export const createUser =
       );
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(setError(error.message));
+        if (error.message) {
+          dispatch(setError(error.message));
+        } else {
+          dispatch(setError("An unknown error occurred."));
+        }
       } else {
         console.error("Unexpected error type:", error);
       }
-      throw error;
     }
   };
 // Sign in with email and password
-export const signIn =
-  (email: string, password: string) =>
-  async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
+export const signInAuth =
+  (email: string, password: string) => async (dispatch: Dispatch) => {
     dispatch(setLoading(true));
 
     try {
@@ -103,7 +112,11 @@ export const signIn =
       dispatch(setUser(userCredential.user));
     } catch (error) {
       if (error instanceof Error) {
-        dispatch(setError(error.message));
+        if (error.message) {
+          dispatch(setError(error.message));
+        } else {
+          dispatch(setError("An unknown error occurred."));
+        }
       } else {
         console.error("Unexpected error type:", error);
       }
@@ -111,27 +124,28 @@ export const signIn =
   };
 
 // Sign out
-export const signOut =
-  () => async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
-    dispatch(setLoading(true));
-
-    try {
-      await auth.signOut();
-      dispatch(authSlice.actions.signOut());
-    } catch (error) {
-      if (error instanceof Error) {
+export const signOutAuth = (): AppThunk => (dispatch) => {
+  dispatch(setLoading(true));
+  try {
+    firebaseSignOut(auth);
+    dispatch(authSlice.actions.signOut());
+  } catch (error) {
+    if (error instanceof Error) {
+      if (error.message) {
         dispatch(setError(error.message));
       } else {
-        console.error("Unexpected error type:", error);
+        dispatch(setError("An unknown error occurred."));
       }
+    } else {
+      console.error("Unexpected error type:", error);
     }
-  };
+  }
+};
 
-export const selectUser = (state: { auth: AuthState }) =>
-  state.auth.user?.email;
+export const selectUser = (state: RootState) => state.auth.user;
 export const selectLoading = (state: { auth: AuthState }) => state.auth.loading;
 export const selectError = (state: { auth: AuthState }) => state.auth.error;
 
-export const { setUser, setLoading, setError } = authSlice.actions;
+export const { setUser, setLoading, setError, signOut } = authSlice.actions;
 
 export default authSlice;

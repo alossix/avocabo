@@ -1,4 +1,4 @@
-import { createUser } from "@/store/authSlice";
+import { createUserAuth } from "@/store/authSlice";
 import { useAppDispatch } from "@/store/hooks";
 import { useState } from "react";
 
@@ -6,7 +6,7 @@ export const SignUpForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [_, setError] = useState("");
+  const [, setError] = useState("");
 
   const dispatch = useAppDispatch();
 
@@ -26,7 +26,7 @@ export const SignUpForm: React.FC = () => {
     setError("");
     if (validatePassword()) {
       try {
-        dispatch(createUser(email, password));
+        dispatch(createUserAuth(email, password));
         setEmail("");
         setPassword("");
         setConfirmPassword("");
