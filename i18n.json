@@ -3,6 +3,7 @@
   "defaultLocale": "en",
   "pages": {
     "*": ["common"],
+    "/about": ["about"],
     "/add-words": ["vocab"],
     "/my-vocab": ["vocab"]
   }

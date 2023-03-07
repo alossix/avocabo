@@ -2,21 +2,29 @@ import { useAppDispatch } from "@/store/hooks";
 import { addVocabEntry } from "@/store/vocabSlice";
 import { Vocab } from "@/types/vocab";
 import useTranslation from "next-translate/useTranslation";
+import { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-type AddWordFormProps = Vocab;
 
 export const AddWordForm: React.FC = () => {
   const { t } = useTranslation("vocab");
-  const { register, handleSubmit } = useForm<AddWordFormProps>();
+  const { register, handleSubmit } = useForm<Vocab>();
+  const registerForm = useRef<HTMLFormElement>(null);
   const dispatch = useAppDispatch();
 
-  const handleFormSubmit: SubmitHandler<AddWordFormProps> = (vocabWordData) => {
-    dispatch(addVocabEntry(vocabWordData));
+  const handleFormSubmit: SubmitHandler<Vocab> = (vocabWordData) => {
+    try {
+      dispatch(addVocabEntry(vocabWordData));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      if (registerForm.current) {
+        registerForm.current.reset();
+      }
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
+    <form onSubmit={handleSubmit(handleFormSubmit)} ref={registerForm}>
       <label>Emoji</label>
       <input {...register("emojiId")} />
 

@@ -1,0 +1,11 @@
+{
+  "howItWorks": {
+    "title": "How Our Spaced Repetition System Works",
+    "section1Title": "What is a Spaced Repetition System?",
+    "section1Text": "<p>A spaced repetition system is a method of reviewing information that has been shown to be highly effective for memory retention. This method involves scheduling review sessions at increasingly longer intervals after each successful recall.</p><p>By repeating the review process at spaced intervals, you can commit the information to long-term memory and increase your ability to recall it later.</p>",
+    "section2Title": "How Our System Works",
+    "section2Text": "<p>Our spaced repetition system for studying vocabulary works by presenting you with vocabulary words that you need to learn, and then scheduling review sessions at intervals that are designed to optimize memory retention. The intervals are based on the difficulty of the word and how well you recall it during the review session.</p><p>The system tracks your progress and adjusts the review schedule accordingly, so that you can focus on the words that you find most challenging.</p>",
+    "section3Title": "The Benefits of Using Our System",
+    "section3Text": "<p>Using our spaced repetition system can help you learn vocabulary more efficiently and effectively than traditional study methods. By optimizing the review schedule for each word, you can minimize the amount of time you spend studying while maximizing the amount you retain.</p><p>The system also provides feedback on your progress, so you can see how far you've come and identify areas that need more attention.</p>"
+  }
+}
