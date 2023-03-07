@@ -1,9 +1,6 @@
-function AboutPage() {
-  return (
-    <div>
-      <h1>About Page</h1>
-    </div>
-  );
-}
+import { AboutPageView } from "@/components/AboutPageView/AboutPageView";
 
+const AboutPage: React.FC = () => {
+  return <AboutPageView />;
+};
 export default AboutPage;

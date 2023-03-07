@@ -1,12 +1,13 @@
 export type Vocab = {
-  emojiId: string;
+  category: string;
+  createdAt: string;
+  currentStep: CurrentStep;
   definition: string;
   description?: string;
-  currentStep: CurrentStep;
-  multiplier: StepMultiplier;
-  createdAt: string;
-  lastUpdatedAt: string;
   dueDate: string;
+  emojiId: string;
+  lastUpdatedAt: string;
+  multiplier: StepMultiplier;
 };
 
 export type RecallDifficulty = "easy" | "medium" | "hard" | "forgot";

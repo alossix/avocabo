@@ -31,7 +31,6 @@ export const DeleteWord: React.FC<DeleteWordProps> = ({ emojiId }) => {
 const DeleteWordContainer = styled.div({
   display: "flex",
   justifyContent: "flex-end",
-  width: "100%",
 });
 
 const DeleteWordButton = styled.button({});

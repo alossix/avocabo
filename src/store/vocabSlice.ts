@@ -5,78 +5,55 @@ import type { RootState } from "./store";
 
 const currentDate = new Date().toISOString();
 
+const initialProperties: Omit<Vocab, "emojiId" | "definition"> = {
+  category: "",
+  currentStep: 0,
+  multiplier: 1,
+  createdAt: currentDate,
+  lastUpdatedAt: currentDate,
+  dueDate: currentDate,
+};
+
 const initialState: Vocab[] = [
   {
     emojiId: "🌞",
     definition: "the sun",
-    currentStep: 0,
-    multiplier: 1,
-    createdAt: currentDate,
-    lastUpdatedAt: currentDate,
-    dueDate: currentDate,
+    ...initialProperties,
   },
   {
     emojiId: "🌧️",
     definition: "the rain",
-    currentStep: 0,
-    multiplier: 1,
-    createdAt: currentDate,
-    lastUpdatedAt: currentDate,
-    dueDate: currentDate,
+    ...initialProperties,
   },
   {
     emojiId: "\u{1F451}",
     definition: "the crown",
-    currentStep: 0,
-    multiplier: 1,
-    createdAt: currentDate,
-    lastUpdatedAt: currentDate,
-    dueDate: currentDate,
+    ...initialProperties,
   },
   {
     emojiId: "\u{1F452}",
     definition: "the hat",
-    currentStep: 0,
-    multiplier: 1,
-    createdAt: currentDate,
-    lastUpdatedAt: currentDate,
-    dueDate: currentDate,
+    ...initialProperties,
   },
   {
     emojiId: "\u{1F453}",
     definition: "the glasses / the sunglasses",
-    currentStep: 0,
-    multiplier: 1,
-    createdAt: currentDate,
-    lastUpdatedAt: currentDate,
-    dueDate: currentDate,
+    ...initialProperties,
   },
   {
     emojiId: "\u{1F454}",
     definition: "the shirt",
-    currentStep: 0,
-    multiplier: 1,
-    createdAt: currentDate,
-    lastUpdatedAt: currentDate,
-    dueDate: currentDate,
+    ...initialProperties,
   },
   {
     emojiId: "\u{1F455}",
     definition: "the t-shirt",
-    currentStep: 0,
-    multiplier: 1,
-    createdAt: currentDate,
-    lastUpdatedAt: currentDate,
-    dueDate: currentDate,
+    ...initialProperties,
   },
   {
     emojiId: "\u{1F456}",
     definition: "the pants",
-    currentStep: 0,
-    multiplier: 1,
-    createdAt: currentDate,
-    lastUpdatedAt: currentDate,
-    dueDate: currentDate,
+    ...initialProperties,
   },
 ];
 
@@ -84,57 +61,63 @@ export const vocabSlice = createSlice({
   name: "vocab",
   initialState,
   reducers: {
-    addVocabEntry: (state, action: PayloadAction<Vocab>) => {
-      const newEntry = {
-        ...action.payload,
-        currentStep: 0,
-        multiplier: 1,
-        createdAt: new Date().toISOString(),
-        lastUpdatedAt: new Date().toISOString(),
-      };
-      state.push(newEntry);
-    },
-    changeVocabStep: (
-      state,
-      action: PayloadAction<{
-        emojiId: string;
-        recallDifficulty: RecallDifficulty;
-      }>
-    ) => {
-      const { emojiId, recallDifficulty } = action.payload;
-      const vocabIndex = state.findIndex((v) => v.emojiId === emojiId);
-
-      if (recallDifficulty === "easy") {
-        state[vocabIndex].currentStep += 2;
-      } else if (recallDifficulty === "medium") {
-        state[vocabIndex].currentStep += 1;
-      } else if (recallDifficulty === "hard") {
-        if (state[vocabIndex].currentStep === 0) {
-          state[vocabIndex].currentStep = 0;
-        } else {
-          state[vocabIndex].currentStep = Math.max(
-            Math.floor(state[vocabIndex].currentStep / 2),
-            1
-          );
-        }
-      } else if (recallDifficulty === "forgot") {
-        state[vocabIndex].currentStep = 0;
-      }
-
-      state[vocabIndex].dueDate = new Date(
-        Date.now() + state[vocabIndex].currentStep * 86400000
-      ).toISOString();
-    },
-    removeVocabEntry: (state, action: PayloadAction<{ emojiId: string }>) => {
-      const { emojiId } = action.payload;
-      const index = state.findIndex((vocab) => vocab.emojiId === emojiId);
-
-      if (index !== -1) {
-        state.splice(index, 1);
-      }
-    },
+    addVocabEntry: addVocabEntryReducer,
+    changeVocabStep: changeVocabStepReducer,
+    removeVocabEntry: removeVocabEntryReducer,
   },
 });
+
+function addVocabEntryReducer(
+  vocabState: Vocab[],
+  action: PayloadAction<Vocab>
+) {
+  const newEntry: Vocab = {
+    ...action.payload,
+    ...initialProperties,
+  };
+  vocabState.push(newEntry);
+}
+
+function changeVocabStepReducer(
+  vocabState: Vocab[],
+  action: PayloadAction<{ emojiId: string; recallDifficulty: RecallDifficulty }>
+) {
+  const { emojiId, recallDifficulty } = action.payload;
+  const vocabIndex = vocabState.findIndex((v) => v.emojiId === emojiId);
+  const vocab = vocabState[vocabIndex];
+
+  if (recallDifficulty === "easy") {
+    vocab.currentStep += 2;
+  } else if (recallDifficulty === "medium") {
+    vocab.currentStep += 1;
+  } else if (recallDifficulty === "hard") {
+    if (vocab.currentStep === 0) {
+      vocab.currentStep = 0;
+    } else {
+      vocab.currentStep = Math.max(Math.floor(vocab.currentStep / 2), 1);
+    }
+  } else if (recallDifficulty === "forgot") {
+    vocab.currentStep = 0;
+  }
+
+  vocab.dueDate = new Date(
+    Date.now() + vocab.currentStep * 86400000
+  ).toISOString();
+}
+
+function removeVocabEntryReducer(
+  vocabState: Vocab[],
+  action: PayloadAction<{ emojiId: string }>
+) {
+  const { emojiId } = action.payload;
+  const index = vocabState.findIndex(
+    (vocabState) => vocabState.emojiId === emojiId
+  );
+
+  if (index !== -1) {
+    vocabState.splice(index, 1);
+  }
+}
 
 export const { addVocabEntry, changeVocabStep, removeVocabEntry } =
   vocabSlice.actions;
