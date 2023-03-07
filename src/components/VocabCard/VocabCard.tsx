@@ -1,6 +1,6 @@
+import { formatDateYearMonthDay } from "@/lib/dates";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
-import useTranslation from "next-translate/useTranslation";
 import { ReactEventHandler, useState } from "react";
 import { DeleteWord } from "../DeleteWord";
 import { EmojiComponent } from "../EmojiComponent";
@@ -11,8 +11,8 @@ type VocabCardProps = {
 };
 
 export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
-  const { t } = useTranslation("common");
   const [showDetails, setShowDetails] = useState<boolean>(false);
+  const dueDate = formatDateYearMonthDay(vocabWord.dueDate);
 
   const handleOnShowDetailsClick: ReactEventHandler<HTMLDivElement> = () => {
     if (!showDetails) {
@@ -47,9 +47,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
             padding: "0 8px",
           }}
         >
-          <h3 style={{ width: "100%" }}>{`${t("vocab:vocab_current_step")} ${
-            vocabWord.currentStep
-          }`}</h3>
+          <h4>{`Due date: ${dueDate}`}</h4>
           <DeleteWord emojiId={vocabWord.emojiId} />
         </div>
       )}

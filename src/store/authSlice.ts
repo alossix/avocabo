@@ -55,7 +55,10 @@ export const listenForAuthChanges = (): AppThunk => (dispatch, getState) => {
         emailVerified: user.emailVerified,
       };
       // Only dispatch the action if the user data has changed
-      if (JSON.stringify(userData) !== JSON.stringify(selectUser(getState()))) {
+      if (
+        JSON.stringify(userData) !==
+        JSON.stringify(selectUserSignedIn(getState()))
+      ) {
         dispatch(setUser(userData));
       }
     } else {
@@ -139,7 +142,7 @@ export const signOutAuth = (): AppThunk => async (dispatch) => {
   }
 };
 
-export const selectUser = (state: RootState) => state.auth.user;
+export const selectUserSignedIn = (state: RootState) => state.auth.user;
 export const selectLoading = (state: { auth: AuthState }) => state.auth.loading;
 export const selectError = (state: { auth: AuthState }) => state.auth.error;
 

@@ -1,6 +1,6 @@
 import {
   listenForAuthChanges,
-  selectUser,
+  selectUserSignedIn,
   signOutAuth,
 } from "@/store/authSlice";
 import { useAppSelector } from "@/store/hooks";
@@ -14,8 +14,7 @@ import { LanguageSelector } from "../LanguageSelector";
 export const Header: React.FC = () => {
   const { t } = useTranslation("common");
   const dispatch: AppDispatch = useAppDispatch();
-
-  const user = useAppSelector(selectUser);
+  const userSignedIn = useAppSelector(selectUserSignedIn);
 
   useEffect(() => {
     dispatch(listenForAuthChanges());
@@ -28,28 +27,32 @@ export const Header: React.FC = () => {
           <HeaderLI aria-label={t("common:header_home")} tabIndex={1}>
             <Link href="/">{t("common:header_home")}</Link>
           </HeaderLI>
-          <HeaderLI aria-label={t("common:header_my_vocab")} tabIndex={2}>
-            <Link href="/my-vocab">{t("common:header_my_vocab")}</Link>
-          </HeaderLI>
-          <HeaderLI aria-label={t("common:header_add_words")} tabIndex={3}>
-            <Link href="/add-words">{t("common:header_add_words")}</Link>
-          </HeaderLI>
+          {userSignedIn && (
+            <>
+              <HeaderLI aria-label={t("common:header_my_vocab")} tabIndex={2}>
+                <Link href="/my-vocab">{t("common:header_my_vocab")}</Link>
+              </HeaderLI>
+              <HeaderLI aria-label={t("common:header_add_words")} tabIndex={3}>
+                <Link href="/add-words">{t("common:header_add_words")}</Link>
+              </HeaderLI>
+            </>
+          )}
           <HeaderLI aria-label={t("common:header_how_it_works")} tabIndex={4}>
             <Link href="/about">{t("common:header_how_it_works")}</Link>
           </HeaderLI>
-          {user ? (
+          {userSignedIn ? (
             <HeaderLI aria-label={t("common:header_sign_out")} tabIndex={5}>
               <Link href="/" onClick={() => dispatch(signOutAuth())}>
-                {t("common:header_sign_out")}{" "}
+                {t("common:header_sign_out")}
               </Link>
             </HeaderLI>
           ) : (
             <>
-              <HeaderLI aria-label={t("common:header_sign_in")} tabIndex={5}>
-                <Link href="/sign-in">{t("common:header_sign_in")} </Link>
-              </HeaderLI>
               <HeaderLI aria-label={t("common:header_sign_up")} tabIndex={6}>
-                <Link href="/sign-up">{t("common:header_sign_up")} </Link>
+                <Link href="/sign-up">{t("common:header_sign_up")}</Link>
+              </HeaderLI>
+              <HeaderLI aria-label={t("common:header_sign_in")} tabIndex={5}>
+                <Link href="/sign-in">{t("common:header_sign_in")}</Link>
               </HeaderLI>
             </>
           )}
