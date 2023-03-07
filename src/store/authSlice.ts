@@ -1,40 +1,35 @@
 import { auth } from "@/services/firebase/firebaseService";
+import { AppUser } from "@/types/general";
 import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
-  User,
   UserCredential,
 } from "firebase/auth";
 import { AppThunk, RootState } from "./store";
 
 interface AuthState {
-  user: Pick<User, "email" | "displayName" | "uid" | "emailVerified"> | null;
+  user: AppUser | null;
   loading: boolean;
-  error: string | null;
+  error: string;
 }
 
 const initialState: AuthState = {
   user: null,
   loading: false,
-  error: null,
+  error: "",
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setUser: (
-      state,
-      action: PayloadAction<
-        Pick<User, "email" | "displayName" | "uid" | "emailVerified">
-      >
-    ) => {
-      state.user = action.payload;
+    setUser: (state, action: PayloadAction<AppUser>) => {
+      state.user = { ...state.user, ...action.payload };
       state.loading = false;
-      state.error = null;
+      state.error = "";
     },
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
@@ -53,14 +48,17 @@ const authSlice = createSlice({
 export const listenForAuthChanges = (): AppThunk => (dispatch, getState) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const userData = {
+      const userData: AppUser = {
         email: user.email,
         uid: user.uid,
         displayName: user.displayName,
         emailVerified: user.emailVerified,
       };
       // Only dispatch the action if the user data has changed
-      if (JSON.stringify(userData) !== JSON.stringify(selectUser(getState()))) {
+      if (
+        JSON.stringify(userData) !==
+        JSON.stringify(selectUserSignedIn(getState()))
+      ) {
         dispatch(setUser(userData));
       }
     } else {
@@ -84,6 +82,8 @@ export const createUserAuth =
           uid: userCredential.user.uid,
           displayName: userCredential.user.displayName,
           emailVerified: userCredential.user.emailVerified,
+          userCreatedDate: new Date(),
+          userLastSignIn: new Date(),
         })
       );
     } catch (error) {
@@ -124,10 +124,10 @@ export const signInAuth =
   };
 
 // Sign out
-export const signOutAuth = (): AppThunk => (dispatch) => {
+export const signOutAuth = (): AppThunk => async (dispatch) => {
   dispatch(setLoading(true));
   try {
-    firebaseSignOut(auth);
+    await firebaseSignOut(auth);
     dispatch(authSlice.actions.signOut());
   } catch (error) {
     if (error instanceof Error) {
@@ -142,7 +142,7 @@ export const signOutAuth = (): AppThunk => (dispatch) => {
   }
 };
 
-export const selectUser = (state: RootState) => state.auth.user;
+export const selectUserSignedIn = (state: RootState) => state.auth.user;
 export const selectLoading = (state: { auth: AuthState }) => state.auth.loading;
 export const selectError = (state: { auth: AuthState }) => state.auth.error;
 

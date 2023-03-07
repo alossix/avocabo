@@ -1,11 +1,12 @@
 import { useAppSelector } from "@/store/hooks";
+import { vocabSelector } from "@/store/vocabSlice";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import { VocabCard } from "../VocabCard";
 
-export const VocabWindow = () => {
+export const VocabWindow: React.FC = () => {
   const { t } = useTranslation("vocab");
-  const vocab = useAppSelector((state) => state.vocab);
+  const vocab = useAppSelector(vocabSelector);
 
   return (
     <VocabWindowContainer>

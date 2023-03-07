@@ -6,6 +6,7 @@ export type Vocab = {
   multiplier: StepMultiplier;
   createdAt: string;
   lastUpdatedAt: string;
+  dueDate: string;
 };
 
 export type RecallDifficulty = "easy" | "medium" | "hard" | "forgot";

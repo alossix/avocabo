@@ -3,7 +3,7 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
-const createdAtDate = new Date().toISOString();
+const currentDate = new Date().toISOString();
 
 const initialState: Vocab[] = [
   {
@@ -11,64 +11,72 @@ const initialState: Vocab[] = [
     definition: "the sun",
     currentStep: 0,
     multiplier: 1,
-    createdAt: createdAtDate,
-    lastUpdatedAt: createdAtDate,
+    createdAt: currentDate,
+    lastUpdatedAt: currentDate,
+    dueDate: currentDate,
   },
   {
     emojiId: "🌧️",
     definition: "the rain",
     currentStep: 0,
     multiplier: 1,
-    createdAt: createdAtDate,
-    lastUpdatedAt: createdAtDate,
+    createdAt: currentDate,
+    lastUpdatedAt: currentDate,
+    dueDate: currentDate,
   },
   {
     emojiId: "\u{1F451}",
     definition: "the crown",
     currentStep: 0,
     multiplier: 1,
-    createdAt: createdAtDate,
-    lastUpdatedAt: createdAtDate,
+    createdAt: currentDate,
+    lastUpdatedAt: currentDate,
+    dueDate: currentDate,
   },
   {
     emojiId: "\u{1F452}",
     definition: "the hat",
     currentStep: 0,
     multiplier: 1,
-    createdAt: createdAtDate,
-    lastUpdatedAt: createdAtDate,
+    createdAt: currentDate,
+    lastUpdatedAt: currentDate,
+    dueDate: currentDate,
   },
   {
     emojiId: "\u{1F453}",
     definition: "the glasses / the sunglasses",
     currentStep: 0,
     multiplier: 1,
-    createdAt: createdAtDate,
-    lastUpdatedAt: createdAtDate,
+    createdAt: currentDate,
+    lastUpdatedAt: currentDate,
+    dueDate: currentDate,
   },
   {
     emojiId: "\u{1F454}",
     definition: "the shirt",
     currentStep: 0,
     multiplier: 1,
-    createdAt: createdAtDate,
-    lastUpdatedAt: createdAtDate,
+    createdAt: currentDate,
+    lastUpdatedAt: currentDate,
+    dueDate: currentDate,
   },
   {
     emojiId: "\u{1F455}",
     definition: "the t-shirt",
     currentStep: 0,
     multiplier: 1,
-    createdAt: createdAtDate,
-    lastUpdatedAt: createdAtDate,
+    createdAt: currentDate,
+    lastUpdatedAt: currentDate,
+    dueDate: currentDate,
   },
   {
     emojiId: "\u{1F456}",
     definition: "the pants",
     currentStep: 0,
     multiplier: 1,
-    createdAt: createdAtDate,
-    lastUpdatedAt: createdAtDate,
+    createdAt: currentDate,
+    lastUpdatedAt: currentDate,
+    dueDate: currentDate,
   },
 ];
 
@@ -112,6 +120,10 @@ export const vocabSlice = createSlice({
       } else if (recallDifficulty === "forgot") {
         state[vocabIndex].currentStep = 0;
       }
+
+      state[vocabIndex].dueDate = new Date(
+        Date.now() + state[vocabIndex].currentStep * 86400000
+      ).toISOString();
     },
     removeVocabEntry: (state, action: PayloadAction<{ emojiId: string }>) => {
       const { emojiId } = action.payload;
@@ -127,6 +139,6 @@ export const vocabSlice = createSlice({
 export const { addVocabEntry, changeVocabStep, removeVocabEntry } =
   vocabSlice.actions;
 
-export const currentStepSelector = (state: RootState) => state.vocab;
+export const vocabSelector = (state: RootState) => state.vocab;
 
 export default vocabSlice;
