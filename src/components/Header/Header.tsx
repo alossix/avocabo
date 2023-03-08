@@ -49,6 +49,10 @@ export const Header: React.FC = () => {
             onKeyDown={(event) => handleOnKeyDown({ event, path: "/" })}
             role="listitem"
             tabIndex={0}
+            style={{
+              fontWeight: "bold",
+              fontSize: 32,
+            }}
           >
             <HeaderLink href="/">{t("common:header_home")}</HeaderLink>
           </HeaderLI>

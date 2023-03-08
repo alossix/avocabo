@@ -1,4 +1,12 @@
 {
+  "home": {
+    "title": "Benvenuti in Avocabo!",
+    "subtitle": "Migliora il tuo vocabolario con il nostro sistema di ripetizione spaziata",
+    "section1Title": "Come funziona il nostro sistema",
+    "section1Text": "<p>Il nostro sistema di ripetizione spaziata ti aiuta a imparare il vocabolario in modo più efficiente ed efficace rispetto ai metodi di studio tradizionali. Ti presenta le parole da imparare e programma sessioni di revisione a intervalli progettati per ottimizzare la memoria di retention. Man mano che progredisci, il nostro sistema tiene traccia delle tue prestazioni e regola il calendario di revisione di conseguenza. Trascorrerai meno tempo a studiare, ma ricorderai più informazioni.</p>",
+    "section2Title": "I vantaggi dell'utilizzo del nostro sistema",
+    "section2Text": "<p>Utilizzando il sistema di ripetizione spaziata di Avocabo, puoi imparare il vocabolario in modo più efficiente ed efficace rispetto ai metodi di studio tradizionali. Il nostro sistema minimizza il tempo che dedichi allo studio, ma massimizza la quantità che ricordi. Avocabo fornisce anche un feedback sul tuo progresso, in modo da poter vedere quanto hai progredito e identificare le aree che richiedono più attenzione. Con il nostro sistema, avrai gli strumenti necessari per padroneggiare il vocabolario.</p>"
+  },
   "howItWorks": {
     "title": "Come funziona il nostro sistema di ripetizione spaziata",
     "section1Title": "Cosa è un sistema di ripetizione spaziata?",

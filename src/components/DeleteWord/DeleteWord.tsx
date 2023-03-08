@@ -36,8 +36,12 @@ const DeleteWordContainer = styled.div({
 
 const DeleteWordButton = styled.button({
   display: "flex",
-  height: 32,
-  padding: 8,
+  alignItems: "center",
+  fontSize: 15,
+  fontWeight: "bold",
+  height: 28,
+  width: 28,
+  padding: "8px",
   border: `1px solid ${theme.colors.black}`,
   borderRadius: 4,
   backgroundColor: theme.colors.white,

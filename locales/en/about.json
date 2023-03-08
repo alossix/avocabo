@@ -1,4 +1,12 @@
 {
+  "home": {
+    "title": "Welcome to Avocabo!",
+    "subtitle": "Master Vocabulary with our Spaced Repetition System",
+    "section1Title": "How Our System Works",
+    "section1Text": "<p>Our spaced repetition system helps you learn vocabulary more efficiently and effectively than traditional study methods. It presents you with words to learn and schedules review sessions at intervals designed to optimize memory retention. As you progress, our system tracks your performance and adjusts the review schedule accordingly. You'll spend less time studying while retaining more information.</p>",
+    "section2Title": "The Benefits of Using Our System",
+    "section2Text": "<p>By using Avocabo's spaced repetition system, you can learn vocabulary more efficiently and effectively than traditional study methods. Our system minimizes the amount of time you spend studying while maximizing the amount you retain. Avocabo also provides feedback on your progress, so you can see how far you've come and identify areas that need more attention. With our system, you'll have the tools you need to master vocabulary.</p>"
+  },
   "howItWorks": {
     "title": "How Our Spaced Repetition System Works",
     "section1Title": "What is a Spaced Repetition System?",

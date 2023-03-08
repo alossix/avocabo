@@ -1,4 +1,12 @@
 {
+  "home": {
+    "title": "¡Bienvenido a Avocabo!",
+    "subtitle": "Domina el vocabulario con nuestro sistema de repetición espaciada",
+    "section1Title": "Cómo funciona nuestro sistema",
+    "section1Text": "<p>Nuestro sistema de repetición espaciada te ayuda a aprender vocabulario de manera más eficiente y efectiva que los métodos de estudio tradicionales. Te presenta palabras para aprender y programa sesiones de revisión a intervalos diseñados para optimizar la retención de memoria. A medida que progresas, nuestro sistema sigue tu rendimiento y ajusta el calendario de revisión en consecuencia. Pasarás menos tiempo estudiando mientras retienes más información.</p>",
+    "section2Title": "Los beneficios de usar nuestro sistema",
+    "section2Text": "<p>Usando el sistema de repetición espaciada de Avocabo, puedes aprender vocabulario de manera más eficiente y efectiva que los métodos de estudio tradicionales. Nuestro sistema minimiza el tiempo que dedicas al estudio, mientras que maximiza la cantidad que retienes. Avocabo también proporciona comentarios sobre tu progreso, para que puedas ver cuánto has avanzado e identificar áreas que necesitan más atención. Con nuestro sistema, tendrás las herramientas que necesitas para dominar el vocabulario.</p>"
+  },
   "howItWorks": {
     "title": "Cómo funciona nuestro sistema de repetición espaciada",
     "section1Title": "¿Qué es un sistema de repetición espaciada?",

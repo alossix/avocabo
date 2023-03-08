@@ -1,4 +1,12 @@
 {
+  "home": {
+    "title": "Benvinguts a Avocabo!",
+    "subtitle": "Domineu el vocabulari amb el nostre sistema de repetició espaiada",
+    "section1Title": "Com funciona el nostre sistema",
+    "section1Text": "<p>El nostre sistema de repetició espaiada us ajuda a aprendre vocabulari de manera més eficient i efectiva que els mètodes d'estudi tradicionals. Us presenta paraules per aprendre i programa sessions de revisió a intervals dissenyats per optimitzar la retenció de memòria. A mesura que programeu, el nostre sistema segueix el vostre rendiment i ajusta el calendari de revisió en consequència. Passareu menys temps estudiant mentre reteniu més informació.</p>",
+    "section2Title": "Els beneficis d'utilitzar el nostre sistema",
+    "section2Text": "<p>Utilitzant el sistema de repetició espaiada d'Avocabo, podeu aprendre vocabulari de manera més eficient i efectiva que amb els mètodes d'estudi tradicionals. El nostre sistema minimitza el temps que dediqueu a l'estudi, mentre que maximitza la quantitat que reteniu. Avocabo també proporciona comentaris sobre el vostre progrés, perquè pugueu veure el camí que heu recorregut i identificar les àrees que necessiten més atenció. Amb el nostre sistema, tindreu les eines que necessiteu per dominar el vocabulari.</p>"
+  },
   "howItWorks": {
     "title": "Com Funciona el Nostre Sistema de Repetició Espaiada",
     "section1Title": "Què és un Sistema de Repetició Espaiada?",
