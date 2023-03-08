@@ -49,7 +49,7 @@ export const Header: React.FC = () => {
             role="listitem"
             tabIndex={0}
           >
-            <Link href="/">{t("common:header_home")}</Link>
+            <HeaderLink href="/">{t("common:header_home")}</HeaderLink>
           </HeaderLI>
           {userSignedIn && (
             <>
@@ -61,7 +61,9 @@ export const Header: React.FC = () => {
                 role="listitem"
                 tabIndex={0}
               >
-                <Link href="/my-vocab">{t("common:header_my_vocab")}</Link>
+                <HeaderLink href="/my-vocab">
+                  {t("common:header_my_vocab")}
+                </HeaderLink>
               </HeaderLI>
               <HeaderLI
                 aria-label={t("common:header_add_words")}
@@ -71,7 +73,9 @@ export const Header: React.FC = () => {
                 role="listitem"
                 tabIndex={0}
               >
-                <Link href="/add-words">{t("common:header_add_words")}</Link>
+                <HeaderLink href="/add-words">
+                  {t("common:header_add_words")}
+                </HeaderLink>
               </HeaderLI>
             </>
           )}
@@ -81,7 +85,9 @@ export const Header: React.FC = () => {
             role="listitem"
             tabIndex={0}
           >
-            <Link href="/about">{t("common:header_how_it_works")}</Link>
+            <HeaderLink href="/about">
+              {t("common:header_how_it_works")}
+            </HeaderLink>
           </HeaderLI>
           {userSignedIn ? (
             <HeaderLI
@@ -92,7 +98,7 @@ export const Header: React.FC = () => {
               role="listitem"
               tabIndex={0}
             >
-              <Link
+              <HeaderLink
                 href="/"
                 onClick={() => {
                   dispatch(signOutAuth());
@@ -100,7 +106,7 @@ export const Header: React.FC = () => {
                 }}
               >
                 {t("common:header_sign_out")}
-              </Link>
+              </HeaderLink>
             </HeaderLI>
           ) : (
             <>
@@ -112,7 +118,9 @@ export const Header: React.FC = () => {
                 role="listitem"
                 tabIndex={0}
               >
-                <Link href="/sign-up">{t("common:header_sign_up")}</Link>
+                <HeaderLink href="/sign-up">
+                  {t("common:header_sign_up")}
+                </HeaderLink>
               </HeaderLI>
               <HeaderLI
                 aria-label={t("common:header_sign_in")}
@@ -122,7 +130,9 @@ export const Header: React.FC = () => {
                 role="listitem"
                 tabIndex={0}
               >
-                <Link href="/sign-in">{t("common:header_sign_in")}</Link>
+                <HeaderLink href="/sign-in">
+                  {t("common:header_sign_in")}
+                </HeaderLink>
               </HeaderLI>
             </>
           )}
@@ -141,8 +151,8 @@ const HeaderNav = styled.nav({
   justifyContent: "space-between",
   gridArea: "1 / 1 / 2 / 9",
   padding: 8,
-  border: "2px solid blue",
-  width: "100%",
+  boxShadow: `rgba(60, 64, 67, 0.05) 0px 1px 1px 0px,
+    rgba(60, 64, 67, 0.05) 0px 1px 3px 1px`,
 });
 
 const HeaderContent = styled.header({
@@ -161,4 +171,10 @@ const HeaderUL = styled.ul({
 const HeaderLI = styled.li({
   display: "flex",
   alignItems: "center",
+});
+
+const HeaderLink = styled(Link)({
+  textDecoration: "none",
+
+  "&:visited": { color: "black" },
 });

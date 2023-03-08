@@ -28,4 +28,5 @@ const MainContent = styled.section({
   display: "flex",
   gridArea: "2 / 1 / 8 / 9",
   overflowY: "auto",
+  padding: 8,
 });
