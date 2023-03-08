@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
+import { LanguageSelector } from "../LanguageSelector";
 
 export const Footer: React.FC = () => {
   return (
     <FooterContent>
       <p>Footer first</p>
-      <p>Footer second</p>
+
+      <LanguageSelector />
     </FooterContent>
   );
 };

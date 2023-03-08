@@ -11,7 +11,7 @@ import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { LanguageSelector } from "../LanguageSelector";
+import { Button } from "../Button";
 
 export const Header: React.FC = () => {
   const { t } = useTranslation("common");
@@ -24,7 +24,7 @@ export const Header: React.FC = () => {
     path,
     signOut = false,
   }: {
-    event: React.KeyboardEvent<HTMLLIElement>;
+    event: React.KeyboardEvent<HTMLLIElement | HTMLButtonElement>;
     path: string;
     signOut?: boolean;
   }) => {
@@ -116,18 +116,6 @@ export const Header: React.FC = () => {
           ) : (
             <>
               <HeaderLI
-                aria-label={t("common:header_sign_up")}
-                onKeyDown={(event) =>
-                  handleOnKeyDown({ event, path: "/sign-up" })
-                }
-                role="listitem"
-                tabIndex={0}
-              >
-                <HeaderLink href="/sign-up">
-                  {t("common:header_sign_up")}
-                </HeaderLink>
-              </HeaderLI>
-              <HeaderLI
                 aria-label={t("common:header_sign_in")}
                 onKeyDown={(event) =>
                   handleOnKeyDown({ event, path: "/sign-in" })
@@ -139,12 +127,18 @@ export const Header: React.FC = () => {
                   {t("common:header_sign_in")}
                 </HeaderLink>
               </HeaderLI>
+              <Button
+                ariaLabel={t("common:header_sign_up")}
+                onClick={() => router.push("/sign-up")}
+                onKeyDown={(event) =>
+                  handleOnKeyDown({ event, path: "/sign-up" })
+                }
+                title={t("common:header_sign_up")}
+              >
+                {t("common:header_sign_up")}
+              </Button>
             </>
           )}
-
-          <HeaderLI aria-label={t("common:header_language")} tabIndex={0}>
-            <LanguageSelector />
-          </HeaderLI>
         </HeaderUL>
       </HeaderContent>
     </HeaderNav>
@@ -168,6 +162,7 @@ const HeaderContent = styled.header({
 const HeaderUL = styled.ul({
   display: "flex",
   justifyContent: "space-between",
+  alignItems: "center",
   width: "100%",
   listStyle: "none",
   padding: 0,
@@ -176,6 +171,7 @@ const HeaderUL = styled.ul({
 const HeaderLI = styled.li({
   display: "flex",
   alignItems: "center",
+  fontWeight: "bold",
 });
 
 const HeaderLink = styled(Link)({
