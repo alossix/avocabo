@@ -1,4 +1,6 @@
+import { HomePageView } from "@/components/HomePageView";
+
 const HomePage: React.FC = () => {
-  return <div>homepage</div>;
+  return <HomePageView />;
 };
 export default HomePage;

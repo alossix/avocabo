@@ -46,8 +46,10 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
           style={{
             display: "flex",
             justifyContent: "space-between",
+            alignItems: "center",
             width: "100%",
             padding: "0 8px",
+            height: 32,
           }}
         >
           <h4>{`${t("vocab:vocab_due_date")}: ${dueDate}`}</h4>

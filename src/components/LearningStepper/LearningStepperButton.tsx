@@ -26,7 +26,7 @@ export const LearningStepperButton: React.FC<LearningStepperButtonProps> = ({
   const { t } = useTranslation("common");
   const dispatch = useAppDispatch();
 
-  const color = theme.colors.stepperColors[
+  const color = theme.stepperColors[
     stepperColors[recallDifficulty]
   ] as StepperColorNames;
 
@@ -60,6 +60,7 @@ const Button = styled.button<{
   color: StepperColorNames;
 }>(({ color }) => ({
   display: "flex",
+  justifyContent: "center",
   padding: 8,
   textTransform: "capitalize",
   cursor: "pointer",
@@ -67,6 +68,7 @@ const Button = styled.button<{
   color: color,
   border: `2px solid ${color}`,
   borderRadius: 4,
+  width: "100%",
 
   "&:hover": {
     backgroundColor: color,

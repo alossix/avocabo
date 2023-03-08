@@ -20,13 +20,10 @@ export const VocabWindow: React.FC = () => {
   );
 };
 
-const VocabWindowContainer = styled.section({
+const VocabWindowContainer = styled.div({
   display: "flex",
   flexDirection: "column",
   overflowX: "scroll",
-  padding: 8,
-  border: "2px solid red",
-  gridArea: "2 / 3 / 8 / 9",
 });
 
 const VocabCardsContainer = styled.div({
