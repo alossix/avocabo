@@ -47,7 +47,7 @@ export const Header: React.FC = () => {
           <HeaderLI
             aria-label={t("common:header_home")}
             onKeyDown={(event) => handleOnKeyDown({ event, path: "/" })}
-            role="listitem"
+            role="link"
             tabIndex={0}
             style={{
               fontWeight: "bold",

@@ -1,7 +1,7 @@
 export const theme = {
   colors: {
     lightAvocado: "#d2d8aa",
-    avocado: "#B1B787",
+    avocado: "#b1b787",
     darkAvocado: "#92986c",
     superDarkAvocado: "#5d6143",
     black: "#000",

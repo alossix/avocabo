@@ -8,7 +8,7 @@ export const HomePageView: React.FC = () => {
       <h1>{t("about:home.title")}</h1>
 
       <section>
-        <h3>{t("about:home.section1Title")}</h3>
+        <h2>{t("about:home.section1Title")}</h2>
         <div
           dangerouslySetInnerHTML={{
             __html: t("about:home.section1Text"),
@@ -17,7 +17,7 @@ export const HomePageView: React.FC = () => {
       </section>
 
       <section>
-        <h3>{t("about:home.section2Title")}</h3>
+        <h2>{t("about:home.section2Title")}</h2>
         <div
           dangerouslySetInnerHTML={{
             __html: t("about:home.section2Text"),

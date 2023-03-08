@@ -8,7 +8,7 @@ export const AboutPageView: React.FC = () => {
       <h1>{t("about:howItWorks.title")}</h1>
 
       <section>
-        <h3>{t("about:howItWorks.section1Title")}</h3>
+        <h2>{t("about:howItWorks.section1Title")}</h2>
         <div
           dangerouslySetInnerHTML={{
             __html: t("about:howItWorks.section1Text"),
@@ -26,7 +26,7 @@ export const AboutPageView: React.FC = () => {
       </section>
 
       <section>
-        <h3>{t("about:howItWorks.section3Title")}</h3>
+        <h2>{t("about:howItWorks.section3Title")}</h2>
         <div
           dangerouslySetInnerHTML={{
             __html: t("about:howItWorks.section3Text"),

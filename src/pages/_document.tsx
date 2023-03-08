@@ -12,7 +12,7 @@ const Document = () => (
       <meta charSet="UTF-8" />
       <meta
         name="description"
-        content="Vocab-Web is a spaced-repetition card system used to help people learn vocabulary faster."
+        content="Avocabo is a spaced-repetition card system used to help people learn vocabulary faster."
       />
       <meta
         name="keywords"
@@ -20,22 +20,22 @@ const Document = () => (
       />
       <meta name="robots" content="index, follow" />
       <meta name="author" content="Rich Alossi" />
-      <meta property="og:title" content="Vocab-Web" />
+      <meta property="og:title" content="Avocabo" />
       <meta
         property="og:description"
-        content="Vocab-Web is a spaced-repetition card system to help you learn vocabulary faster."
+        content="Avocabo is a spaced-repetition card system to help you learn vocabulary faster."
       />
-      <meta property="og:url" content="https://www.example.com/vocab-web" />
+      <meta property="og:url" content="https://www.example.com/avocabo" />
       <script type="application/ld+json">
         {`{
         "@context": "https://schema.org/",
         "@type": "WebSite",
-        "name": "Vocab-Web",
-        "description": "Vocab-Web is a spaced-repetition card system to help you learn vocabulary faster.",
-        "url": "https://www.example.com/vocab-web",
+        "name": "Avocabo",
+        "description": "Avocabo is a spaced-repetition card system to help you learn vocabulary faster.",
+        "url": "https://www.example.com/avocabo",
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://www.example.com/vocab-web/search?q={search_term_string}",
+          "target": "https://www.example.com/avocabo/search?q={search_term_string}",
           "query-input": "required name=search_term_string"
         }
       }`}
