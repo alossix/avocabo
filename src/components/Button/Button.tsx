@@ -37,16 +37,16 @@ export const Button: React.FC<ButtonProps> = ({
 const ButtonComponent = styled.button<{ feature: boolean }>({
   display: "flex",
   alignItems: "center",
-  background: theme.colors.superDarkAvocado,
+  background: theme.colors.darkAvocado,
   padding: "8px 16px",
   color: theme.colors.white,
   fontWeight: "bold",
   borderRadius: 4,
-  border: `3px solid ${theme.colors.superDarkAvocado}`,
+  border: `3px solid ${theme.colors.darkAvocado}`,
   transition: "all 0.5s ease",
 
   "&:hover": {
     background: theme.colors.white,
-    color: theme.colors.superDarkAvocado,
+    color: theme.colors.darkAvocado,
   },
 });

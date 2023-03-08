@@ -180,9 +180,9 @@ const HeaderLink = styled(Link)({
 
   "&:visited": { color: theme.colors.black },
   "&:active": {
-    color: theme.colors.superDarkAvocado,
+    color: theme.colors.darkAvocado,
   },
   "&:hover": {
-    color: theme.colors.superDarkAvocado,
+    color: theme.colors.darkAvocado,
   },
 });
