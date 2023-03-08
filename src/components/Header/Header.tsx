@@ -5,6 +5,7 @@ import {
 } from "@/store/authSlice";
 import { useAppSelector } from "@/store/hooks";
 import { AppDispatch, useAppDispatch } from "@/store/store";
+import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
@@ -175,6 +176,13 @@ const HeaderLI = styled.li({
 
 const HeaderLink = styled(Link)({
   textDecoration: "none",
+  color: theme.colors.black,
 
-  "&:visited": { color: "black" },
+  "&:visited": { color: theme.colors.black },
+  "&:active": {
+    color: theme.colors.superDarkAvocado,
+  },
+  "&:hover": {
+    color: theme.colors.superDarkAvocado,
+  },
 });

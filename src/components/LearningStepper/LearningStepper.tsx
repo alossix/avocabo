@@ -36,4 +36,5 @@ const LearningStepperContainer = styled.div({
   display: "flex",
   justifyContent: "space-between",
   width: "100%",
+  gap: 8,
 });

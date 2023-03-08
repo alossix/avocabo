@@ -46,6 +46,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
           style={{
             display: "flex",
             justifyContent: "space-between",
+            alignItems: "center",
             width: "100%",
             padding: "0 8px",
           }}
