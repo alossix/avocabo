@@ -1,13 +1,15 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
+import { FormEventHandler } from "react";
 
 type ButtonProps = {
   ariaLabel: string;
   children?: React.ReactNode;
   feature?: boolean;
-  onClick: React.MouseEventHandler;
-  onKeyDown: React.KeyboardEventHandler<HTMLButtonElement>;
+  onClick: React.MouseEventHandler | FormEventHandler;
+  onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
   title: string;
+  type?: "button" | "submit" | "reset";
 };
 
 export const Button: React.FC<ButtonProps> = ({
@@ -17,6 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
   onKeyDown,
   title,
+  type = "button",
 }) => {
   return (
     <ButtonComponent
@@ -26,7 +29,7 @@ export const Button: React.FC<ButtonProps> = ({
       onKeyDown={onKeyDown}
       tabIndex={0}
       title={title}
-      type="button"
+      type={type}
       role="button"
     >
       {children}

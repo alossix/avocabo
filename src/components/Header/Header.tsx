@@ -116,26 +116,24 @@ export const Header: React.FC = () => {
           ) : (
             <>
               <HeaderLI
-                aria-label={t("common:header_sign_in")}
+                aria-label={t("common:sign_in")}
                 onKeyDown={(event) =>
                   handleOnKeyDown({ event, path: "/sign-in" })
                 }
                 role="listitem"
                 tabIndex={0}
               >
-                <HeaderLink href="/sign-in">
-                  {t("common:header_sign_in")}
-                </HeaderLink>
+                <HeaderLink href="/sign-in">{t("common:sign_in")}</HeaderLink>
               </HeaderLI>
               <Button
-                ariaLabel={t("common:header_sign_up")}
+                ariaLabel={t("common:sign_up")}
                 onClick={() => router.push("/sign-up")}
                 onKeyDown={(event) =>
                   handleOnKeyDown({ event, path: "/sign-up" })
                 }
-                title={t("common:header_sign_up")}
+                title={t("common:sign_up")}
               >
-                {t("common:header_sign_up")}
+                {t("common:sign_up")}
               </Button>
             </>
           )}

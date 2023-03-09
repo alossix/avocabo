@@ -2,9 +2,9 @@ import { useAppSelector } from "@/store/hooks";
 import { vocabSelector } from "@/store/vocabSlice";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
-import { VocabCard } from "../VocabCard";
+import { VocabCard } from "../../Vocab/VocabCard";
 
-export const VocabWindow: React.FC = () => {
+export const MyVocabPageView: React.FC = () => {
   const { t } = useTranslation("vocab");
   const vocab = useAppSelector(vocabSelector);
 

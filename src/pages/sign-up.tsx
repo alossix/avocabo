@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/components/SignUpForm";
+import { SignUpForm } from "@/components/Forms/SignUpForm";
 import { selectUserSignedIn } from "@/store/authSlice";
 import { useAppSelector } from "@/store/hooks";
 import { useRouter } from "next/router";
@@ -8,7 +8,7 @@ const SignUpPage: React.FC = () => {
   const router = useRouter();
 
   if (userSignedIn) {
-    router.push("/");
+    router.push("/dashboard");
   }
   return <SignUpForm />;
 };

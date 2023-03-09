@@ -73,7 +73,7 @@ export const listenForAuthChanges = (): AppThunk => (dispatch) => {
 
 // Create a new user with email and password
 export const createUserAuth =
-  (email: string, password: string): AppThunk =>
+  (displayName: string, email: string, password: string): AppThunk =>
   async (dispatch) => {
     dispatch(setLoading(true));
 
@@ -84,7 +84,7 @@ export const createUserAuth =
       const userData: AppUser = {
         email: userCredential.user.email,
         uid: userCredential.user.uid,
-        displayName: userCredential.user.displayName || "User",
+        displayName,
         emailVerified: userCredential.user.emailVerified,
         userCreatedDate: new Date(),
         userLastSignIn: new Date(),

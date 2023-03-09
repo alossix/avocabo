@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import { ReactEventHandler, useState } from "react";
 import { DeleteWord } from "../DeleteWord";
-import { EmojiComponent } from "../EmojiComponent";
+import { EmojiComponent } from "../../EmojiComponent";
 import { LearningStepper } from "../LearningStepper";
 
 type VocabCardProps = {

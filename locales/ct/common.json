@@ -5,9 +5,6 @@
   "header_how_it_works": "Com Funciona",
   "header_switch_language": "Canvia l'Idioma",
   "header_language": "Idioma",
-  "header_menu": "Menu",
-  "header_sign_in": "Inicia sessió",
-  "header_sign_up": "Registra't",
   "header_sign_out": "Finalitza",
   "button_recall_label": "Seleccioneu la dificultat",
   "button_recall_easy": "Fàcil",
@@ -15,5 +12,11 @@
   "button_recall_hard": "Difícil",
   "button_recall_forgot": "Oblidat",
   "button_delete_word": "Suprimeix la paraula",
-  "title_tag": "Avocabo: Sistema de Repetició Espaiada per Estudiar Paraules de Vocabulari i aprendre una nova llengua!"
+  "title_tag": "Avocabo: Sistema de Repetició Espaiada per Estudiar Paraules de Vocabulari i aprendre una nova llengua!",
+  "sign_in": "Inicia sessió",
+  "sign_up": "Registra't",
+  "profile_name": "Nom",
+  "email": "Correu electrònic",
+  "password": "Contrasenya",
+  "confirm_password": "Confirma contrasenya"
 }

@@ -1,4 +1,4 @@
-import { VocabWindow } from "@/components/VocabWindow";
+import { MyVocabPageView } from "@/components/PageViews/MyVocabPageView";
 import { selectUserSignedIn } from "@/store/authSlice";
 import { useAppSelector } from "@/store/hooks";
 import { useRouter } from "next/router";
@@ -14,6 +14,6 @@ const MyVocabPage: React.FC = () => {
     }
   }, [router, userSignedIn]);
 
-  return <VocabWindow />;
+  return <MyVocabPageView />;
 };
 export default MyVocabPage;

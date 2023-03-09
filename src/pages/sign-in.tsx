@@ -1,4 +1,4 @@
-import { SignInForm } from "@/components/SignInForm";
+import { SignInForm } from "@/components/Forms/SignInForm";
 import { selectUserSignedIn } from "@/store/authSlice";
 import { useAppSelector } from "@/store/hooks";
 import { useRouter } from "next/router";
@@ -8,7 +8,7 @@ const SignInPage: React.FC = () => {
   const router = useRouter();
 
   if (userSignedIn) {
-    router.push("/");
+    router.push("/dashboard");
   }
 
   return <SignInForm />;
