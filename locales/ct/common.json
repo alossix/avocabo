@@ -14,5 +14,6 @@
   "button_recall_medium": "Mitjà",
   "button_recall_hard": "Difícil",
   "button_recall_forgot": "Oblidat",
-  "button_delete_word": "Suprimeix la paraula"
+  "button_delete_word": "Suprimeix la paraula",
+  "title_tag": "Avocabo: Sistema de Repetició Espaiada per Estudiar Paraules de Vocabulari i aprendre una nova llengua!"
 }

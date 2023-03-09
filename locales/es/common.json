@@ -14,5 +14,6 @@
   "button_recall_medium": "Medio",
   "button_recall_hard": "Difícil",
   "button_recall_forgot": "Olvidado",
-  "button_delete_word": "Elimina la palabra"
+  "button_delete_word": "Elimina la palabra",
+  "title_tag": "Avocabo: Sistema de Repetición Espaciada para Estudiar Palabras de Vocabulario y aprender un nuevo idioma"
 }

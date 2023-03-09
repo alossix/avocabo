@@ -14,5 +14,6 @@
   "button_recall_medium": "Medium",
   "button_recall_hard": "Difficult",
   "button_recall_forgot": "Forgot",
-  "button_delete_word": "Delete word"
+  "button_delete_word": "Delete word",
+  "title_tag": "Avocabo: Spaced Repetition System for Studying Vocabulary Words and Learning a New Language!"
 }

@@ -1,4 +1,5 @@
-import { auth } from "@/services/firebase/firebaseService";
+import { auth, db } from "@/services/firebase/firebaseService";
+import { doc, onSnapshot, setDoc } from "firebase/firestore";
 import { AppUser } from "@/types/general";
 import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import {
@@ -9,12 +10,13 @@ import {
   UserCredential,
 } from "firebase/auth";
 import { AppThunk, RootState } from "./store";
+import { handleFirebaseError } from "@/lib/firebaseError";
 
-interface AuthState {
+type AuthState = {
   user: AppUser | null;
   loading: boolean;
   error: string;
-}
+};
 
 const initialState: AuthState = {
   user: null,
@@ -45,7 +47,7 @@ const authSlice = createSlice({
 });
 
 // Listen for changes in the user's authentication state
-export const listenForAuthChanges = (): AppThunk => (dispatch, getState) => {
+export const listenForAuthChanges = (): AppThunk => (dispatch) => {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       const userData: AppUser = {
@@ -54,13 +56,15 @@ export const listenForAuthChanges = (): AppThunk => (dispatch, getState) => {
         displayName: user.displayName,
         emailVerified: user.emailVerified,
       };
-      // Only dispatch the action if the user data has changed
-      if (
-        JSON.stringify(userData) !==
-        JSON.stringify(selectUserSignedIn(getState()))
-      ) {
-        dispatch(setUser(userData));
-      }
+
+      // Retrieve the user data from Firestore and dispatch the setUser action
+      const userDocRef = doc(db, "users", userData.uid);
+      onSnapshot(userDocRef, (doc) => {
+        if (doc.exists()) {
+          const userData = doc.data() as AppUser;
+          dispatch(setUser(userData));
+        }
+      });
     } else {
       dispatch(signOut());
     }
@@ -76,28 +80,32 @@ export const createUserAuth =
     try {
       const userCredential: UserCredential =
         await createUserWithEmailAndPassword(auth, email, password);
-      dispatch(
-        setUser({
-          email: userCredential.user.email,
-          uid: userCredential.user.uid,
-          displayName: userCredential.user.displayName,
-          emailVerified: userCredential.user.emailVerified,
-          userCreatedDate: new Date(),
-          userLastSignIn: new Date(),
-        })
-      );
-    } catch (error) {
-      if (error instanceof Error) {
-        if (error.message) {
-          dispatch(setError(error.message));
-        } else {
-          dispatch(setError("An unknown error occurred."));
+
+      const userData: AppUser = {
+        email: userCredential.user.email,
+        uid: userCredential.user.uid,
+        displayName: userCredential.user.displayName || "User",
+        emailVerified: userCredential.user.emailVerified,
+        userCreatedDate: new Date(),
+        userLastSignIn: new Date(),
+      };
+
+      // Create a new document for the user in Firestore with the same UID
+      const userDocRef = doc(db, "users", userData.uid);
+      await setDoc(userDocRef, userData);
+
+      onSnapshot(userDocRef, (doc) => {
+        if (doc.exists()) {
+          const userData = doc.data() as AppUser;
+          dispatch(setUser(userData));
         }
-      } else {
-        console.error("Unexpected error type:", error);
-      }
+      });
+    } catch (error: unknown) {
+      const errorMessage = handleFirebaseError(error);
+      dispatch(setError(errorMessage.message));
     }
   };
+
 // Sign in with email and password
 export const signInAuth =
   (email: string, password: string) => async (dispatch: Dispatch) => {
@@ -110,16 +118,9 @@ export const signInAuth =
         password
       );
       dispatch(setUser(userCredential.user));
-    } catch (error) {
-      if (error instanceof Error) {
-        if (error.message) {
-          dispatch(setError(error.message));
-        } else {
-          dispatch(setError("An unknown error occurred."));
-        }
-      } else {
-        console.error("Unexpected error type:", error);
-      }
+    } catch (error: unknown) {
+      const errorMessage = handleFirebaseError(error);
+      dispatch(setError(errorMessage.message));
     }
   };
 
@@ -129,16 +130,9 @@ export const signOutAuth = (): AppThunk => async (dispatch) => {
   try {
     await firebaseSignOut(auth);
     dispatch(authSlice.actions.signOut());
-  } catch (error) {
-    if (error instanceof Error) {
-      if (error.message) {
-        dispatch(setError(error.message));
-      } else {
-        dispatch(setError("An unknown error occurred."));
-      }
-    } else {
-      console.error("Unexpected error type:", error);
-    }
+  } catch (error: unknown) {
+    const errorMessage = handleFirebaseError(error);
+    dispatch(setError(errorMessage.message));
   }
 };
 
