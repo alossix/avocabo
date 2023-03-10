@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/store/hooks";
-import { addVocabEntry } from "@/store/vocabSlice";
+import { addVocabEntry } from "@/store/slices/vocabSlice";
 import { Vocab } from "@/types/vocab";
 import useTranslation from "next-translate/useTranslation";
 import { useRef } from "react";

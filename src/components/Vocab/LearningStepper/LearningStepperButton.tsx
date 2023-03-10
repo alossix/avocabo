@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/store/hooks";
-import { changeVocabStep } from "@/store/vocabSlice";
+import { changeVocabStep } from "@/store/slices/vocabSlice";
 import { theme } from "@/styles/theme";
 import { StepperColorNames, StepperColors } from "@/types/design";
 import { RecallDifficulty, Vocab } from "@/types/vocab";

@@ -1,4 +1,4 @@
-import { selectUserSignedIn } from "@/store/authSlice";
+import { selectUserSignedIn } from "@/store/slices/authSlice";
 import { useAppSelector } from "@/store/hooks";
 
 const DashboardPage: React.FC = () => {

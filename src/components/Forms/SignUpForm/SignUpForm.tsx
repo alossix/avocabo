@@ -1,4 +1,4 @@
-import { createUserAuth } from "@/store/authSlice";
+import { createUserAuth } from "@/store/slices/authSlice";
 import { useAppDispatch } from "@/store/hooks";
 import useTranslation from "next-translate/useTranslation";
 import { FormEvent, useState } from "react";

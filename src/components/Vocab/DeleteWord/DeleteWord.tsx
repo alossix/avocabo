@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/store/hooks";
-import { removeVocabEntry } from "@/store/vocabSlice";
+import { removeVocabEntry } from "@/store/slices/vocabSlice";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";

@@ -1,5 +1,5 @@
 import { SignUpForm } from "@/components/Forms/SignUpForm";
-import { selectUserSignedIn } from "@/store/authSlice";
+import { selectUserSignedIn } from "@/store/slices/authSlice";
 import { useAppSelector } from "@/store/hooks";
 import { useRouter } from "next/router";
 

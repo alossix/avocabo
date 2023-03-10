@@ -1,5 +1,5 @@
 import { MyVocabPageView } from "@/components/PageViews/MyVocabPageView";
-import { selectUserSignedIn } from "@/store/authSlice";
+import { selectUserSignedIn } from "@/store/slices/authSlice";
 import { useAppSelector } from "@/store/hooks";
 import { useRouter } from "next/router";
 import { useEffect } from "react";

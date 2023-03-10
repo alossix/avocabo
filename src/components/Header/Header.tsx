@@ -2,7 +2,7 @@ import {
   listenForAuthChanges,
   selectUserSignedIn,
   signOutAuth,
-} from "@/store/authSlice";
+} from "@/store/slices/authSlice";
 import { useAppSelector } from "@/store/hooks";
 import { AppDispatch, useAppDispatch } from "@/store/store";
 import { theme } from "@/styles/theme";

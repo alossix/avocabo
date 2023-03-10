@@ -1,5 +1,5 @@
 import { useAppSelector } from "@/store/hooks";
-import { vocabSelector } from "@/store/vocabSlice";
+import { vocabSelector } from "@/store/slices/vocabSlice";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import { VocabCard } from "../../Vocab/VocabCard";

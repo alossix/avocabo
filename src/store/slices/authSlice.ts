@@ -9,7 +9,7 @@ import {
   signOut as firebaseSignOut,
   UserCredential,
 } from "firebase/auth";
-import { AppThunk, RootState } from "./store";
+import { AppThunk, RootState } from "../store";
 import { handleFirebaseError } from "@/lib/firebaseError";
 
 type AuthState = {

@@ -1,7 +1,7 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import authSlice from "./authSlice";
-import vocabSlice from "./vocabSlice";
+import authSlice from "./slices/authSlice";
+import vocabSlice from "./slices/vocabSlice";
 
 export const store = configureStore({
   reducer: {
