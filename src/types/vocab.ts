@@ -1,12 +1,14 @@
+import { FieldValue } from "firebase/firestore";
+
 export type Vocab = {
   category: string;
-  createdAt: string;
+  createdAt: FieldValue;
   currentStep: CurrentStep;
   definition: string;
   description?: string;
   dueDate: string;
   emojiId: string;
-  lastUpdatedAt: string;
+  lastUpdatedAt: FieldValue;
   multiplier: StepMultiplier;
 };
 

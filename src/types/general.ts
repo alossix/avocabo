@@ -1,4 +1,5 @@
 import { User } from "firebase/auth";
+import { Vocab } from "./vocab";
 
 export type InterfaceLanguages = "ct" | "en" | "es" | "it";
 export type LearningLanguages = "ct" | "en" | "es" | "it";
@@ -11,4 +12,5 @@ export type AppUser = Pick<
   lastName?: string;
   userCreatedDate?: Date;
   userLastSignIn?: Date;
+  vocab: Vocab[];
 };

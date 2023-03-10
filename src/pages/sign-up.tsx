@@ -4,10 +4,10 @@ import { useAppSelector } from "@/store/hooks";
 import { useRouter } from "next/router";
 
 const SignUpPage: React.FC = () => {
-  const userSignedIn = useAppSelector(selectUserSignedIn);
+  const currentUser = useAppSelector(selectUserSignedIn);
   const router = useRouter();
 
-  if (userSignedIn) {
+  if (currentUser) {
     router.push("/dashboard");
   }
   return <SignUpForm />;

@@ -17,7 +17,7 @@ export const Header: React.FC = () => {
   const { t } = useTranslation("common");
   const dispatch: AppDispatch = useAppDispatch();
   const router = useRouter();
-  const userSignedIn = useAppSelector(selectUserSignedIn);
+  const currentUser = useAppSelector(selectUserSignedIn);
 
   const handleOnKeyDown = ({
     event,
@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
           >
             <HeaderLink href="/">{t("common:header_home")}</HeaderLink>
           </HeaderLI>
-          {userSignedIn && (
+          {currentUser && (
             <>
               <HeaderLI
                 aria-label={t("common:header_my_vocab")}
@@ -94,7 +94,7 @@ export const Header: React.FC = () => {
               {t("common:header_how_it_works")}
             </HeaderLink>
           </HeaderLI>
-          {userSignedIn ? (
+          {currentUser ? (
             <HeaderLI
               aria-label={t("common:header_sign_out")}
               onKeyDown={(event) =>
