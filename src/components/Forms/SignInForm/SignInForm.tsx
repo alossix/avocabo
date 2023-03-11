@@ -1,29 +1,22 @@
+import { signInAuth } from "@/store/slices/authSlice";
+import { RootState, useAppDispatch } from "@/store/store";
+import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import { useState } from "react";
-import { signInWithEmailAndPassword, UserCredential } from "firebase/auth";
-import { auth } from "@/services/firebase/firebaseService";
 
 export const SignInForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
+    useAppDispatch();
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSignInAuth = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential: UserCredential) => {
-        // Handle successful login
-        const user = userCredential.user;
-        console.log("User logged in:", user.email);
-      })
-      .catch((error) => {
-        // Handle errors
-        const errorMessage = error.message;
-        setError(errorMessage);
-      });
+    dispatch(signInAuth(email, password));
   };
 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleSignInAuth}>
       <div>
         <label>Email:</label>
         <input

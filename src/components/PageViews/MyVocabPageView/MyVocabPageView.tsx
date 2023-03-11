@@ -1,13 +1,17 @@
 import { VocabCard } from "@/components/Vocab/VocabCard";
-import { useAppSelector } from "@/store/hooks";
-import { vocabSelector } from "@/store/slices/vocabSlice";
+import { AppUser } from "@/types/general";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 
-export const MyVocabPageView: React.FC = () => {
+type MyVocabPageViewProps = {
+  currentUser: AppUser;
+};
+
+export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
+  currentUser,
+}) => {
   const { t } = useTranslation("vocab");
-  const vocabList = useAppSelector(vocabSelector);
-  console.log(vocabList);
+  const vocabList = currentUser.vocab;
 
   return (
     <VocabWindowContainer>

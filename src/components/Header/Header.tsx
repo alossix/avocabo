@@ -1,5 +1,5 @@
 import {
-  listenForAuthChanges,
+  // listenForAuthChanges,
   selectUserSignedIn,
   signOutAuth,
 } from "@/store/slices/authSlice";
@@ -36,9 +36,9 @@ export const Header: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    dispatch(listenForAuthChanges());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(listenForAuthChanges());
+  // }, [dispatch]);
 
   return (
     <HeaderNav>

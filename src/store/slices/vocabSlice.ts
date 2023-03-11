@@ -1,11 +1,20 @@
+import { auth, db } from "@/services/firebase/firebaseService";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
 import type { RootState } from "../store";
 
 const currentDate = new Date().toISOString();
 
-const initialProperties: Omit<Vocab, "emojiId" | "definition"> = {
+export const initialVocabProperties: Omit<Vocab, "emojiId" | "definition"> = {
   category: "",
   currentStep: 0,
   multiplier: 1,
@@ -14,48 +23,7 @@ const initialProperties: Omit<Vocab, "emojiId" | "definition"> = {
   dueDate: currentDate,
 };
 
-const initialState: Vocab[] = [
-  {
-    emojiId: "🌞",
-    definition: "the sun",
-    ...initialProperties,
-  },
-  {
-    emojiId: "🌧️",
-    definition: "the rain",
-    ...initialProperties,
-  },
-  {
-    emojiId: "\u{1F451}",
-    definition: "the crown",
-    ...initialProperties,
-  },
-  {
-    emojiId: "\u{1F452}",
-    definition: "the hat",
-    ...initialProperties,
-  },
-  {
-    emojiId: "\u{1F453}",
-    definition: "the glasses / the sunglasses",
-    ...initialProperties,
-  },
-  {
-    emojiId: "\u{1F454}",
-    definition: "the shirt",
-    ...initialProperties,
-  },
-  {
-    emojiId: "\u{1F455}",
-    definition: "the t-shirt",
-    ...initialProperties,
-  },
-  {
-    emojiId: "\u{1F456}",
-    definition: "the pants",
-    ...initialProperties,
-  },
-];
+const initialState: Vocab[] = [];
 
 export const vocabSlice = createSlice({
   name: "vocab",
@@ -68,21 +36,36 @@ export const vocabSlice = createSlice({
 });
 
 function addVocabEntryReducer(
-  vocabState: Vocab[],
-  action: PayloadAction<Vocab>
+  state: Vocab[],
+  action: PayloadAction<Vocab | Vocab[]>
 ) {
-  const newEntry: Vocab = {
-    ...action.payload,
-    ...initialProperties,
-  };
-  vocabState.push(newEntry);
+  const newEntries = Array.isArray(action.payload)
+    ? action.payload
+    : [action.payload];
+
+  const newVocabEntries = newEntries.map((newEntry) => {
+    const vocab = { ...newEntry, ...initialVocabProperties };
+    if (auth.currentUser) {
+      console.log(`this runs`);
+      const vocabRef = collection(db, "users", auth.currentUser.uid, "vocab");
+      const newVocabData = { ...vocab, createdAt: serverTimestamp() };
+      addDoc(vocabRef, newVocabData);
+    }
+    return vocab;
+  });
+
+  return [...state, ...newVocabEntries];
 }
 
 function changeVocabStepReducer(
   vocabState: Vocab[],
-  action: PayloadAction<{ emojiId: string; recallDifficulty: RecallDifficulty }>
+  action: PayloadAction<{
+    emojiId: string;
+    recallDifficulty: RecallDifficulty;
+  }>
 ) {
   const { emojiId, recallDifficulty } = action.payload;
+
   const vocabIndex = vocabState.findIndex((v) => v.emojiId === emojiId);
   const vocab = vocabState[vocabIndex];
 
@@ -100,9 +83,31 @@ function changeVocabStepReducer(
     vocab.currentStep = 0;
   }
 
-  vocab.dueDate = new Date(
+  const dueDate = new Date(
     Date.now() + vocab.currentStep * 86400000
   ).toISOString();
+
+  const vocabDocRef = doc(
+    db,
+    "users",
+    auth.currentUser?.uid ?? "",
+    "vocab",
+    emojiId
+  );
+  updateDoc(vocabDocRef, {
+    currentStep: vocab.currentStep,
+    dueDate,
+    lastUpdatedAt: serverTimestamp(),
+  });
+
+  const newState = [...vocabState];
+  newState[vocabIndex] = {
+    ...vocab,
+    currentStep: vocab.currentStep,
+    dueDate,
+    lastUpdatedAt: new Date().toISOString(),
+  };
+  return newState;
 }
 
 function removeVocabEntryReducer(
@@ -110,13 +115,25 @@ function removeVocabEntryReducer(
   action: PayloadAction<{ emojiId: string }>
 ) {
   const { emojiId } = action.payload;
-  const index = vocabState.findIndex(
-    (vocabState) => vocabState.emojiId === emojiId
-  );
 
-  if (index !== -1) {
-    vocabState.splice(index, 1);
+  const vocabIndex = vocabState.findIndex((v) => v.emojiId === emojiId);
+
+  if (vocabIndex !== -1) {
+    vocabState.splice(vocabIndex, 1);
   }
+
+  if (auth.currentUser) {
+    const vocabDocRef = doc(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "vocab",
+      emojiId
+    );
+    deleteDoc(vocabDocRef);
+  }
+
+  return vocabState;
 }
 
 export const { addVocabEntry, changeVocabStep, removeVocabEntry } =
