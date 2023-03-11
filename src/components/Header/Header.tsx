@@ -10,7 +10,7 @@ import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { Button } from "../Button";
 
 export const Header: React.FC = () => {

@@ -1,5 +1,3 @@
-import { FieldValue } from "firebase/firestore";
-
 export type Vocab = {
   category: string;
   createdAt: string;

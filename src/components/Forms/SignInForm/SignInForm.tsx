@@ -6,13 +6,16 @@ import { useState } from "react";
 export const SignInForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
     useAppDispatch();
 
   const handleSignInAuth = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    dispatch(signInAuth(email, password));
+    try {
+      dispatch(signInAuth(email, password));
+    } catch (error: unknown) {
+      console.log(error);
+    }
   };
 
   return (
@@ -34,7 +37,6 @@ export const SignInForm: React.FC = () => {
         />
       </div>
       <button type="submit">Login</button>
-      {error && <p>{error}</p>}
     </form>
   );
 };
