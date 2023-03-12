@@ -1,23 +1,21 @@
+import { initialVocab, initialVocabProperties } from "@/lib/initialVocab";
 import { auth, db } from "@/services/firebase/firebaseService";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
-import { RootState, store } from "../store";
-import { setAppUser } from "./authSlice";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  query,
+  serverTimestamp,
+  updateDoc,
+  writeBatch,
+} from "firebase/firestore";
+import { AppThunk, RootState } from "../store";
 
-const currentDate = new Date().toISOString();
-
-export const initialVocabProperties: Omit<Vocab, "emojiId" | "definition"> = {
-  category: "",
-  currentStep: 0,
-  multiplier: 1,
-  createdAt: currentDate,
-  lastUpdatedAt: currentDate,
-  dueDate: currentDate,
-};
-
-const initialState: Vocab[] = [];
-const selectUser = (state: RootState) => state.auth.user;
+const initialState: Vocab[] = initialVocab;
 
 export const vocabSlice = createSlice({
   name: "vocab",
@@ -26,6 +24,15 @@ export const vocabSlice = createSlice({
     addVocabEntry: addVocabEntryReducer,
     changeVocabStep: changeVocabStepReducer,
     removeVocabEntry: removeVocabEntryReducer,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    resetVocabState: (state) => [],
+    setInitialVocabState: (state) => {
+      state = initialVocab;
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    setVocabFromDB: (state, action: PayloadAction<Vocab[]>) => {
+      return action.payload;
+    },
   },
 });
 
@@ -33,22 +40,18 @@ function addVocabEntryReducer(state: Vocab[], action: PayloadAction<Vocab>) {
   const newEntry = action.payload;
   const vocab = { ...newEntry, ...initialVocabProperties };
 
-  // Retrieve the current user object from the state
-  const user = selectUser(store.getState());
-
-  if (user && auth.currentUser) {
-    // Update the user object with the new vocabulary entry
-    const updatedUser = {
-      ...user,
-      vocab: [...(user.vocab ?? []), vocab],
-    };
-
-    // Dispatch setAppUser action with updated user object
-    store.dispatch(setAppUser({ user: updatedUser }));
-
-    // Update user's vocab array in Firestore
-    const userDocRef = doc(db, "users", user.uid);
-    updateDoc(userDocRef, { vocab: [...(user.vocab ?? []), vocab] });
+  if (auth.currentUser) {
+    try {
+      const vocabCollectionRef = collection(
+        db,
+        "users",
+        auth.currentUser.uid,
+        "vocab"
+      );
+      addDoc(vocabCollectionRef, vocab);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return [...state, vocab];
@@ -133,8 +136,55 @@ function removeVocabEntryReducer(
   return vocabState;
 }
 
-export const { addVocabEntry, changeVocabStep, removeVocabEntry } =
-  vocabSlice.actions;
+export const setInitialVocab = (): AppThunk => async (dispatch) => {
+  try {
+    const uid = auth.currentUser?.uid;
+    if (uid) {
+      const vocabCollectionRef = collection(db, "users", uid, "vocab");
+      const batch = writeBatch(db);
+
+      initialVocab.forEach((vocabItem) => {
+        const docRef = doc(vocabCollectionRef);
+        batch.set(docRef, vocabItem);
+      });
+
+      await batch.commit();
+      dispatch(setInitialVocabState());
+    }
+  } catch (error: unknown) {
+    console.log("Error setting initial vocab collection:", error);
+  }
+};
+
+export const getVocabFromDB = (): AppThunk => async (dispatch) => {
+  try {
+    const uid = auth.currentUser?.uid;
+    if (uid) {
+      const vocabCollectionRef = collection(db, "users", uid, "vocab");
+      const vocabQuery = query(vocabCollectionRef);
+
+      onSnapshot(vocabQuery, (querySnapshot) => {
+        const vocabEntries: Vocab[] = [];
+        querySnapshot.forEach((doc) => {
+          const vocab = doc.data() as Vocab;
+          vocabEntries.push(vocab);
+        });
+        dispatch(vocabSlice.actions.setVocabFromDB(vocabEntries));
+      });
+    }
+  } catch (error: unknown) {
+    console.log("Error retrieving vocabulary entries:", error);
+  }
+};
+
+export const {
+  addVocabEntry,
+  changeVocabStep,
+  removeVocabEntry,
+  resetVocabState,
+  setInitialVocabState,
+  setVocabFromDB,
+} = vocabSlice.actions;
 
 export const vocabSelector = (state: RootState) => state.vocab;
 

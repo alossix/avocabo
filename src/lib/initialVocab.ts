@@ -1,4 +1,13 @@
-import { initialVocabProperties } from "@/store/slices/vocabSlice";
+const currentDate = new Date().toISOString();
+export const initialVocabProperties: Omit<Vocab, "emojiId" | "definition"> = {
+  category: "",
+  currentStep: 0,
+  multiplier: 1,
+  createdAt: currentDate,
+  lastUpdatedAt: currentDate,
+  dueDate: currentDate,
+};
+
 import { Vocab } from "@/types/vocab";
 
 export const initialVocab: Vocab[] = [

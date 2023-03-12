@@ -4,6 +4,9 @@ import { useAppSelector } from "@/store/hooks";
 const DashboardPage: React.FC = () => {
   const user = useAppSelector(selectUserSignedIn);
 
+  const state = useAppSelector((state) => state);
+  console.log({ state });
+
   return (
     <div>
       <h1>Dashboard</h1>
