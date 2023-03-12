@@ -11,6 +11,7 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
   currentUser,
 }) => {
   const { t } = useTranslation("vocab");
+
   const vocabList = currentUser.vocab;
 
   return (

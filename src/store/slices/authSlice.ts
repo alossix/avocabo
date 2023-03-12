@@ -49,11 +49,11 @@ const authSlice = createSlice({
     signOutApp: (state) => {
       state.user = null;
     },
-    setAppVocab: (state, action) => {
-      if (state.user) {
-        state.user.vocab = action.payload;
-      }
-    },
+    // setAppVocab: (state, action) => {
+    //   if (state.user) {
+    //     state.user.vocab = action.payload;
+    //   }
+    // },
   },
 });
 
@@ -104,35 +104,8 @@ export const createUserAuth =
 
       // Create a new document for the user in Firestore with the same UID
       await setDoc(doc(db, "users", userData.uid), { ...userData });
-      console.log({ userData });
-
-      // Save the initial vocabulary list to Firestore for the user
-      // const vocabRef = collection(db, "users", userData.uid, "vocab");
-      // const initialVocabData = initialVocab.map((vocab) => ({
-      //   ...vocab,
-      //   ...initialVocabProperties,
-      //   createdAt: serverTimestamp(),
-      // }));
-      // initialVocabData.forEach(async (vocab) => {
-      //   await addDoc(vocabRef, vocab);
-      // });
-
-      // Listen for changes to the vocabulary list and update the user data
-      // onSnapshot(vocabRef, (querySnapshot) => {
-      //   const vocabList: Vocab[] = [];
-      //   querySnapshot.forEach((doc) => {
-      //     if (doc.exists()) {
-      //       const vocabData = doc.data() as Vocab;
-      //       vocabList.push(vocabData);
-      //     }
-      //   });
-      //   console.log(`vocablist: ${vocabList}`)
-      //   dispatch(setAppVocab(vocabList));
-      // });
     } catch (error: unknown) {
-      const errorMessage = handleFirebaseError(error);
-      console.log(error);
-      dispatch(setAppError(errorMessage.message));
+      handleFirebaseError(error, dispatch);
     }
   };
 
@@ -150,19 +123,17 @@ export const signInAuth =
 
       // Retrieve the user data from Firestore and dispatch the setUser action
       const userDocRef = doc(db, "users", userCredential.user.uid);
-      console.log({ userDocRef });
       onSnapshot(userDocRef, (doc) => {
         if (doc.exists()) {
           const userData = doc.data() as AppUser;
           dispatch(setAppUser({ user: userData }));
-          if (userData.vocab) {
-            dispatch(setAppVocab(userData.vocab));
-          }
+          // if (userData.vocab) {
+          //   dispatch(setAppVocab(userData.vocab));
+          // }
         }
       });
     } catch (error: unknown) {
-      const errorMessage = handleFirebaseError(error);
-      dispatch(setAppError(errorMessage.message));
+      handleFirebaseError(error, dispatch);
     }
   };
 
@@ -171,10 +142,9 @@ export const signOutAuth = (): AppThunk => async (dispatch) => {
   dispatch(setAppLoading(true));
   try {
     await firebaseSignOut(auth);
-    dispatch(authSlice.actions.signOutApp());
+    dispatch(signOutApp());
   } catch (error: unknown) {
-    const errorMessage = handleFirebaseError(error);
-    dispatch(setAppError(errorMessage.message));
+    handleFirebaseError(error, dispatch);
   }
 };
 
@@ -187,7 +157,7 @@ export const {
   setAppLoading,
   setAppError,
   signOutApp,
-  setAppVocab,
+  // setAppVocab,
 } = authSlice.actions;
 
 export default authSlice;

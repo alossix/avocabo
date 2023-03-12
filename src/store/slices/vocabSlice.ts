@@ -1,16 +1,9 @@
 import { auth, db } from "@/services/firebase/firebaseService";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { createSlice } from "@reduxjs/toolkit";
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  serverTimestamp,
-  updateDoc,
-} from "firebase/firestore";
-import type { RootState } from "../store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { deleteDoc, doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { RootState, store } from "../store";
+import { setAppUser } from "./authSlice";
 
 const currentDate = new Date().toISOString();
 
@@ -24,6 +17,7 @@ export const initialVocabProperties: Omit<Vocab, "emojiId" | "definition"> = {
 };
 
 const initialState: Vocab[] = [];
+const selectUser = (state: RootState) => state.auth.user;
 
 export const vocabSlice = createSlice({
   name: "vocab",
@@ -35,26 +29,29 @@ export const vocabSlice = createSlice({
   },
 });
 
-function addVocabEntryReducer(
-  state: Vocab[],
-  action: PayloadAction<Vocab | Vocab[]>
-) {
-  const newEntries = Array.isArray(action.payload)
-    ? action.payload
-    : [action.payload];
+function addVocabEntryReducer(state: Vocab[], action: PayloadAction<Vocab>) {
+  const newEntry = action.payload;
+  const vocab = { ...newEntry, ...initialVocabProperties };
 
-  const newVocabEntries = newEntries.map((newEntry) => {
-    const vocab = { ...newEntry, ...initialVocabProperties };
-    if (auth.currentUser) {
-      console.log(`this runs`);
-      const vocabRef = collection(db, "users", auth.currentUser.uid, "vocab");
-      const newVocabData = { ...vocab, createdAt: serverTimestamp() };
-      addDoc(vocabRef, newVocabData);
-    }
-    return vocab;
-  });
+  // Retrieve the current user object from the state
+  const user = selectUser(store.getState());
 
-  return [...state, ...newVocabEntries];
+  if (user && auth.currentUser) {
+    // Update the user object with the new vocabulary entry
+    const updatedUser = {
+      ...user,
+      vocab: [...(user.vocab ?? []), vocab],
+    };
+
+    // Dispatch setAppUser action with updated user object
+    store.dispatch(setAppUser({ user: updatedUser }));
+
+    // Update user's vocab array in Firestore
+    const userDocRef = doc(db, "users", user.uid);
+    updateDoc(userDocRef, { vocab: [...(user.vocab ?? []), vocab] });
+  }
+
+  return [...state, vocab];
 }
 
 function changeVocabStepReducer(
