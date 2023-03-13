@@ -33,37 +33,37 @@ export const vocabSlice = createSlice({
     ) => {
       const { vocabId, recallDifficulty } = action.payload;
 
-      const vocabIndex = state.findIndex((v) => v.vocabId === vocabId);
-      const vocab = state[vocabIndex];
-
-      if (recallDifficulty === "easy") {
-        vocab.currentStep += 2;
-      } else if (recallDifficulty === "medium") {
-        vocab.currentStep += 1;
-      } else if (recallDifficulty === "hard") {
-        if (vocab.currentStep === 0) {
-          vocab.currentStep = 0;
+      return state.map((vocab) => {
+        if (vocab.vocabId === vocabId) {
+          const updatedVocab = { ...vocab };
+          if (recallDifficulty === "easy") {
+            updatedVocab.currentStep += 2;
+          } else if (recallDifficulty === "medium") {
+            updatedVocab.currentStep += 1;
+          } else if (recallDifficulty === "hard") {
+            if (updatedVocab.currentStep === 0) {
+              updatedVocab.currentStep = 0;
+            } else {
+              updatedVocab.currentStep = Math.max(
+                Math.floor(updatedVocab.currentStep / 2),
+                1
+              );
+            }
+          } else if (recallDifficulty === "forgot") {
+            updatedVocab.currentStep = 0;
+          }
+          updatedVocab.dueDate = new Date(
+            Date.now() + updatedVocab.currentStep * 86400000
+          ).toISOString();
+          updatedVocab.lastUpdatedAt = new Date().toISOString();
+          changeVocabStepDB(updatedVocab);
+          return updatedVocab;
         } else {
-          vocab.currentStep = Math.max(Math.floor(vocab.currentStep / 2), 1);
+          return vocab;
         }
-      } else if (recallDifficulty === "forgot") {
-        vocab.currentStep = 0;
-      }
-
-      const dueDate = new Date(
-        Date.now() + vocab.currentStep * 86400000
-      ).toISOString();
-
-      const newState = [...state];
-      newState[vocabIndex] = {
-        ...vocab,
-        currentStep: vocab.currentStep,
-        dueDate,
-        lastUpdatedAt: new Date().toISOString(),
-      };
-      state = [...newState];
-      changeVocabStepDB(newState[vocabIndex]);
+      });
     },
+
     removeVocabEntryInState: (
       state,
       action: PayloadAction<{ vocabId: string }>
@@ -106,6 +106,7 @@ export const addVocabEntryDB = (newVocabWord: Vocab): AppThunk => {
 };
 
 const changeVocabStepDB = (vocabWord: Vocab) => {
+  console.log(vocabWord.dueDate);
   if (auth.currentUser) {
     const userDocRef = doc(db, "users", auth.currentUser.uid);
     const vocabDocRef = doc(userDocRef, "vocab", vocabWord.vocabId);
