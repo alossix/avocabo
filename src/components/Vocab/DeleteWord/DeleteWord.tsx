@@ -6,15 +6,15 @@ import useTranslation from "next-translate/useTranslation";
 import { ReactEventHandler } from "react";
 
 type DeleteWordProps = {
-  emojiId: string;
+  vocabId: string;
 };
 
-export const DeleteWord: React.FC<DeleteWordProps> = ({ emojiId }) => {
+export const DeleteWord: React.FC<DeleteWordProps> = ({ vocabId }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const handleDeleteWordClick: ReactEventHandler<HTMLButtonElement> = () => {
-    dispatch(removeVocabEntry({ emojiId }));
+    dispatch(removeVocabEntry({ vocabId }));
   };
   return (
     <DeleteWordContainer>

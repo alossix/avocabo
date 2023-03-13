@@ -1,7 +1,8 @@
-import { initialVocab, initialVocabProperties } from "@/lib/initialVocab";
+import { handleFirebaseError } from "@/lib/firebaseError";
+import { initialVocab } from "@/lib/initialVocab";
 import { auth, db } from "@/services/firebase/firebaseService";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, Dispatch, PayloadAction } from "@reduxjs/toolkit";
 import {
   addDoc,
   collection,
@@ -9,7 +10,6 @@ import {
   doc,
   onSnapshot,
   query,
-  serverTimestamp,
   updateDoc,
   writeBatch,
 } from "firebase/firestore";
@@ -21,52 +21,53 @@ export const vocabSlice = createSlice({
   name: "vocab",
   initialState,
   reducers: {
-    addVocabEntry: addVocabEntryReducer,
+    addVocabEntry: (state, action: PayloadAction<Vocab>) => {
+      state.push(action.payload);
+      addVocabWord(action.payload);
+    },
     changeVocabStep: changeVocabStepReducer,
     removeVocabEntry: removeVocabEntryReducer,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    resetVocabState: (state) => [],
-    setInitialVocabState: (state) => {
-      state = initialVocab;
-    },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    setVocabFromDB: (state, action: PayloadAction<Vocab[]>) => {
-      return action.payload;
+    setVocabInState: (state, action: PayloadAction<Vocab[]>) => {
+      state = action.payload;
     },
   },
 });
 
-function addVocabEntryReducer(state: Vocab[], action: PayloadAction<Vocab>) {
-  const newEntry = action.payload;
-  const vocab = { ...newEntry, ...initialVocabProperties };
-
-  if (auth.currentUser) {
+export const addVocabWord = (newVocab: Vocab): AppThunk => {
+  return async function (dispatch: Dispatch) {
     try {
       const vocabCollectionRef = collection(
         db,
         "users",
-        auth.currentUser.uid,
+        auth.currentUser?.uid ?? "",
         "vocab"
       );
-      addDoc(vocabCollectionRef, vocab);
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
-  return [...state, vocab];
-}
+      // Add the new vocab to the database
+      const docRef = await addDoc(vocabCollectionRef, newVocab);
+      const newVocabWithId: Vocab = {
+        ...newVocab,
+        vocabId: docRef.id,
+      };
+
+      // Update the local state with the new vocab
+      dispatch(vocabSlice.actions.addVocabEntry(newVocabWithId));
+    } catch (error) {
+      handleFirebaseError(error, dispatch);
+    }
+  };
+};
 
 function changeVocabStepReducer(
   vocabState: Vocab[],
   action: PayloadAction<{
-    emojiId: string;
+    vocabId: string;
     recallDifficulty: RecallDifficulty;
   }>
 ) {
-  const { emojiId, recallDifficulty } = action.payload;
+  const { vocabId, recallDifficulty } = action.payload;
 
-  const vocabIndex = vocabState.findIndex((v) => v.emojiId === emojiId);
+  const vocabIndex = vocabState.findIndex((v) => v.vocabId === vocabId);
   const vocab = vocabState[vocabIndex];
 
   if (recallDifficulty === "easy") {
@@ -92,12 +93,12 @@ function changeVocabStepReducer(
     "users",
     auth.currentUser?.uid ?? "",
     "vocab",
-    emojiId
+    vocabId
   );
   updateDoc(vocabDocRef, {
     currentStep: vocab.currentStep,
     dueDate,
-    lastUpdatedAt: serverTimestamp(),
+    lastUpdatedAt: new Date().toISOString(),
   });
 
   const newState = [...vocabState];
@@ -112,11 +113,11 @@ function changeVocabStepReducer(
 
 function removeVocabEntryReducer(
   vocabState: Vocab[],
-  action: PayloadAction<{ emojiId: string }>
+  action: PayloadAction<{ vocabId: string }>
 ) {
-  const { emojiId } = action.payload;
+  const { vocabId } = action.payload;
 
-  const vocabIndex = vocabState.findIndex((v) => v.emojiId === emojiId);
+  const vocabIndex = vocabState.findIndex((v) => v.vocabId === vocabId);
 
   if (vocabIndex !== -1) {
     vocabState.splice(vocabIndex, 1);
@@ -128,7 +129,7 @@ function removeVocabEntryReducer(
       "users",
       auth.currentUser.uid,
       "vocab",
-      emojiId
+      vocabId
     );
     deleteDoc(vocabDocRef);
   }
@@ -136,7 +137,7 @@ function removeVocabEntryReducer(
   return vocabState;
 }
 
-export const setInitialVocab = (): AppThunk => async (dispatch) => {
+export const setInitialVocab = (): AppThunk => async (dispatch: Dispatch) => {
   try {
     const uid = auth.currentUser?.uid;
     if (uid) {
@@ -149,14 +150,14 @@ export const setInitialVocab = (): AppThunk => async (dispatch) => {
       });
 
       await batch.commit();
-      dispatch(setInitialVocabState());
+      dispatch(setVocabInState(initialVocab));
     }
   } catch (error: unknown) {
-    console.log("Error setting initial vocab collection:", error);
+    handleFirebaseError(error, dispatch);
   }
 };
 
-export const getVocabFromDB = (): AppThunk => async (dispatch) => {
+export const getVocabFromDB = (): AppThunk => async (dispatch: Dispatch) => {
   try {
     const uid = auth.currentUser?.uid;
     if (uid) {
@@ -169,11 +170,11 @@ export const getVocabFromDB = (): AppThunk => async (dispatch) => {
           const vocab = doc.data() as Vocab;
           vocabEntries.push(vocab);
         });
-        dispatch(vocabSlice.actions.setVocabFromDB(vocabEntries));
+        dispatch(setVocabInState(vocabEntries));
       });
     }
   } catch (error: unknown) {
-    console.log("Error retrieving vocabulary entries:", error);
+    handleFirebaseError(error, dispatch);
   }
 };
 
@@ -181,9 +182,7 @@ export const {
   addVocabEntry,
   changeVocabStep,
   removeVocabEntry,
-  resetVocabState,
-  setInitialVocabState,
-  setVocabFromDB,
+  setVocabInState,
 } = vocabSlice.actions;
 
 export const vocabSelector = (state: RootState) => state.vocab;

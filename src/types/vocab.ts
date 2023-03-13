@@ -8,6 +8,7 @@ export type Vocab = {
   emojiId: string;
   lastUpdatedAt: string;
   multiplier: StepMultiplier;
+  vocabId: string;
 };
 
 export type RecallDifficulty = "easy" | "medium" | "hard" | "forgot";

@@ -1,4 +1,5 @@
 const currentDate = new Date().toISOString();
+
 export const initialVocabProperties: Omit<Vocab, "emojiId" | "definition"> = {
   category: "",
   currentStep: 0,
@@ -6,6 +7,7 @@ export const initialVocabProperties: Omit<Vocab, "emojiId" | "definition"> = {
   createdAt: currentDate,
   lastUpdatedAt: currentDate,
   dueDate: currentDate,
+  vocabId: "",
 };
 
 import { Vocab } from "@/types/vocab";

@@ -53,7 +53,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
           }}
         >
           <h4>{`${t("vocab:vocab_due_date")}: ${dueDate}`}</h4>
-          <DeleteWord emojiId={vocabWord.emojiId} />
+          <DeleteWord vocabId={vocabWord.vocabId} />
         </div>
       )}
       <EmojiComponent emojiId={vocabWord.emojiId} word="the crown" />

@@ -1,3 +1,4 @@
+import { initialVocabProperties } from "@/lib/initialVocab";
 import { useAppDispatch } from "@/store/hooks";
 import { addVocabEntry } from "@/store/slices/vocabSlice";
 import { Vocab } from "@/types/vocab";
@@ -13,7 +14,7 @@ export const AddWordForm: React.FC = () => {
 
   const handleFormSubmit: SubmitHandler<Vocab> = (vocabWordData) => {
     try {
-      dispatch(addVocabEntry(vocabWordData));
+      dispatch(addVocabEntry({ ...initialVocabProperties, ...vocabWordData }));
     } catch (error) {
       console.error(error);
     } finally {
