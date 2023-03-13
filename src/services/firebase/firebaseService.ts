@@ -8,7 +8,18 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { firebaseConfig } from "./firebaseConfig";
-import { doc, getFirestore, onSnapshot, setDoc } from "firebase/firestore"; // import getFirestore
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getFirestore,
+  onSnapshot,
+  query,
+  setDoc,
+  updateDoc,
+  writeBatch,
+} from "firebase/firestore"; // import getFirestore
 
 const app = initializeApp(firebaseConfig);
 
@@ -26,4 +37,10 @@ export {
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
+  addDoc,
+  collection,
+  deleteDoc,
+  query,
+  updateDoc,
+  writeBatch,
 };

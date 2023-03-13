@@ -1,4 +1,5 @@
 import { handleFirebaseError } from "@/lib/firebaseError";
+import { initialVocab } from "@/lib/initialVocab";
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -19,7 +20,7 @@ import {
 import { UserCredential } from "firebase/auth";
 import { Dispatch } from "react";
 import { AppThunk, RootState } from "../store";
-import { getVocabDB, setInitialVocabInDB, setVocabInState } from "./vocabSlice";
+import { addVocabEntryDB, getVocabDB, setVocabInState } from "./vocabSlice";
 
 type AuthState = {
   user: AppUser | null;
@@ -100,10 +101,11 @@ export const createUserAuth =
       };
 
       dispatch(setAppUser({ user: userData }));
-      dispatch(setInitialVocabInDB());
 
       // Create a new document for the user in Firestore with the same UID
       await setDoc(doc(db, "users", userData.uid), { ...userData });
+
+      initialVocab.map((vocabWord) => dispatch(addVocabEntryDB(vocabWord)));
     } catch (error: unknown) {
       handleFirebaseError(error, dispatch);
     }

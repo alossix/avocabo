@@ -1,22 +1,21 @@
 import { handleFirebaseError } from "@/lib/firebaseError";
-import { initialVocab } from "@/lib/initialVocab";
-import { auth, db } from "@/services/firebase/firebaseService";
-import { RecallDifficulty, Vocab } from "@/types/vocab";
-import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
   addDoc,
+  auth,
   collection,
+  db,
   deleteDoc,
   doc,
   onSnapshot,
   query,
   updateDoc,
-  writeBatch,
-} from "firebase/firestore";
+} from "@/services/firebase/firebaseService";
+import { RecallDifficulty, Vocab } from "@/types/vocab";
+import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Dispatch } from "react";
 import { AppThunk, RootState } from "../store";
 
-const initialState: Vocab[] = initialVocab;
+const initialState: Vocab[] = [];
 
 export const vocabSlice = createSlice({
   name: "vocab",
@@ -24,7 +23,6 @@ export const vocabSlice = createSlice({
   reducers: {
     addVocabEntryInState: (state, action: PayloadAction<Vocab>) => {
       state.push(action.payload);
-      addVocabEntryDB(action.payload);
     },
     changeVocabStepInState: (
       state,
@@ -77,7 +75,6 @@ export const vocabSlice = createSlice({
       if (vocabIndex !== -1) {
         state.splice(vocabIndex, 1);
       }
-      removeVocabEntryDB(vocabId);
     },
     setVocabInState: (state, action: PayloadAction<Vocab[]>) => {
       state = action.payload;
@@ -90,24 +87,24 @@ export const vocabSlice = createSlice({
   },
 });
 
-const addVocabEntryDB = (newVocab: Vocab): AppThunk => {
+export const addVocabEntryDB = (newVocab: Vocab): AppThunk => {
   return async function (dispatch: Dispatch<AnyAction | AppThunk>) {
-    console.log(`top level runs`);
     try {
-      const vocabCollectionRef = collection(
-        db,
-        "users",
-        auth.currentUser?.uid ?? "",
-        "vocab"
-      );
-
-      // Add the new vocab to the database
-      const docRef = await addDoc(vocabCollectionRef, newVocab);
-      const newVocabWithId: Vocab = {
-        ...newVocab,
-        vocabId: docRef.id,
-      };
-      dispatch(updateVocabEntryInState(newVocabWithId));
+      if (auth.currentUser) {
+        const vocabCollectionRef = collection(
+          db,
+          "users",
+          auth.currentUser.uid,
+          "vocab"
+        );
+        // Add the new vocab to the database
+        const docRef = await addDoc(vocabCollectionRef, newVocab);
+        const newVocabWithId: Vocab = {
+          ...newVocab,
+          vocabId: docRef.id,
+        };
+        dispatch(addVocabEntryInState(newVocabWithId));
+      }
     } catch (error) {
       handleFirebaseError(error, dispatch);
     }
@@ -115,57 +112,68 @@ const addVocabEntryDB = (newVocab: Vocab): AppThunk => {
 };
 
 const changeVocabStepDB = (vocabWord: Vocab) => {
-  const userDocRef = doc(db, "users", auth.currentUser?.uid ?? "");
-  const vocabDocRef = doc(userDocRef, "vocab", vocabWord.vocabId);
-
-  updateDoc(vocabDocRef, {
-    currentStep: vocabWord.currentStep,
-    dueDate: vocabWord.dueDate,
-    lastUpdatedAt: new Date().toISOString(),
-  });
-};
-
-const removeVocabEntryDB = (vocabId: string) => {
   if (auth.currentUser) {
-    const vocabDocRef = doc(
-      db,
-      "users",
-      auth.currentUser.uid,
-      "vocab",
-      vocabId
-    );
-    deleteDoc(vocabDocRef);
+    const userDocRef = doc(db, "users", auth.currentUser.uid);
+    const vocabDocRef = doc(userDocRef, "vocab", vocabWord.vocabId);
+
+    updateDoc(vocabDocRef, {
+      currentStep: vocabWord.currentStep,
+      dueDate: vocabWord.dueDate,
+      lastUpdatedAt: new Date().toISOString(),
+    });
   }
 };
 
-export const setInitialVocabInDB =
-  (): AppThunk => async (dispatch: Dispatch<AnyAction | AppThunk>) => {
-    try {
-      console.log(`in the try block`);
-      const uid = auth.currentUser?.uid;
-      if (uid) {
-        const vocabCollectionRef = collection(db, "users", uid, "vocab");
-        const batch = writeBatch(db);
+export const removeVocabEntryDB =
+  (vocabId: string): AppThunk =>
+  async (dispatch: Dispatch<AnyAction | AppThunk>) => {
+    if (auth.currentUser) {
+      try {
+        const userDocRef = doc(db, "users", auth.currentUser.uid);
+        const vocabDocRef = doc(userDocRef, "vocab", vocabId);
 
-        initialVocab.forEach((vocabItem) => {
-          const docRef = doc(vocabCollectionRef);
-          batch.set(docRef, vocabItem);
-        });
-
-        await batch.commit();
-        dispatch(setVocabInState(initialVocab));
+        await deleteDoc(vocabDocRef);
+      } catch (error) {
+        handleFirebaseError(error, dispatch);
       }
-    } catch (error: unknown) {
-      handleFirebaseError(error, dispatch);
     }
+    dispatch(removeVocabEntryInState({ vocabId }));
   };
+
+// export const setInitialVocabInDB =
+//   (initialVocabList: Vocab[]): AppThunk =>
+//   async (dispatch: Dispatch<AnyAction | AppThunk>) => {
+//     try {
+//       if (auth.currentUser) {
+//         const vocabCollectionRef = collection(
+//           db,
+//           "users",
+//           auth.currentUser.uid,
+//           "vocab"
+//         );
+
+//         const newInitialVocab = await Promise.all(
+//           initialVocabList.map(async (vocabItem) => {
+//             dispatch(addVocabEntryDB(vocabItem));
+//           })
+//         );
+//         console.log(`newinitialvocab: ${newInitialVocab}`);
+//       }
+//     } catch (error: unknown) {
+//       handleFirebaseError(error, dispatch);
+//     }
+//   };
 
 export const getVocabDB =
   (): AppThunk => async (dispatch: Dispatch<AnyAction | AppThunk>) => {
     try {
-      const uid = auth.currentUser?.uid;
-      if (uid) {
-        const vocabCollectionRef = collection(db, "users", uid, "vocab");
+      if (auth.currentUser) {
+        const vocabCollectionRef = collection(
+          db,
+          "users",
+          auth.currentUser.uid,
+          "vocab"
+        );
         const vocabQuery = query(vocabCollectionRef);
 
         onSnapshot(vocabQuery, (querySnapshot) => {

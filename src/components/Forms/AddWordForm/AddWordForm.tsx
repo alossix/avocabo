@@ -1,6 +1,6 @@
 import { initialVocabProperties } from "@/lib/initialVocab";
 import { useAppDispatch } from "@/store/hooks";
-import { addVocabEntryInState } from "@/store/slices/vocabSlice";
+import { addVocabEntryDB } from "@/store/slices/vocabSlice";
 import { Vocab } from "@/types/vocab";
 import useTranslation from "next-translate/useTranslation";
 import { useRef } from "react";
@@ -15,7 +15,7 @@ export const AddWordForm: React.FC = () => {
   const handleFormSubmit: SubmitHandler<Vocab> = (vocabWordData) => {
     try {
       dispatch(
-        addVocabEntryInState({ ...initialVocabProperties, ...vocabWordData })
+        addVocabEntryDB({ ...initialVocabProperties, ...vocabWordData })
       );
     } catch (error) {
       console.error(error);
