@@ -17,7 +17,7 @@ import {
   PayloadAction,
   ThunkDispatch,
 } from "@reduxjs/toolkit";
-import { UserCredential } from "firebase/auth";
+import { onAuthStateChanged, UserCredential } from "firebase/auth";
 import { Dispatch } from "react";
 import { AppThunk, RootState } from "../store";
 import { addVocabEntryDB, getVocabDB, setVocabInState } from "./vocabSlice";
@@ -59,27 +59,26 @@ const authSlice = createSlice({
 });
 
 // Listen for changes in the user's authentication state
-// export const listenForAuthChanges = (): AppThunk => (dispatch) => {
-//   onAuthStateChanged(auth, (user) => {
-//     if (user) {
-//       // Retrieve the user data from Firestore and dispatch the setUser action
-//       const userDocRef = doc(db, "users", user.uid);
-//       try {
-//         onSnapshot(userDocRef, (doc) => {
-//           if (doc.exists()) {
-//             console.log(`doc exists, data: ${doc.data}`);
-//             const userData = doc.data() as AppUser;
-//             dispatch(setAppUser({ user: userData }));
-//           }
-//         });
-//       } catch (error) {
-//         dispatch(setAppError(error as string));
-//       }
-//     } else {
-//       dispatch(signOutApp());
-//     }
-//   });
-// };
+export const listenForAuthChanges = (): AppThunk => (dispatch) => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // Retrieve the user data from Firestore and dispatch the setUser action
+      const userDocRef = doc(db, "users", user.uid);
+      try {
+        onSnapshot(userDocRef, (doc) => {
+          if (doc.exists()) {
+            const userData = doc.data() as AppUser;
+            dispatch(setAppUser({ user: userData }));
+          }
+        });
+      } catch (error) {
+        dispatch(setAppError(error as string));
+      }
+    } else {
+      dispatch(signOutApp());
+    }
+  });
+};
 
 // Create a new user with email and password
 export const createUserAuth =
@@ -130,9 +129,9 @@ export const signInAuth =
         if (doc.exists()) {
           const userData = doc.data() as AppUser;
           dispatch(setAppUser({ user: userData }));
-          dispatch(getVocabDB());
         }
       });
+      dispatch(getVocabDB());
     } catch (error: unknown) {
       handleFirebaseError(error, dispatch);
     }

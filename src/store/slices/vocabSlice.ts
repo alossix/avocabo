@@ -1,6 +1,5 @@
 import { handleFirebaseError } from "@/lib/firebaseError";
 import {
-  addDoc,
   auth,
   collection,
   db,
@@ -8,6 +7,7 @@ import {
   doc,
   onSnapshot,
   query,
+  setDoc,
   updateDoc,
 } from "@/services/firebase/firebaseService";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
@@ -69,7 +69,6 @@ export const vocabSlice = createSlice({
       action: PayloadAction<{ vocabId: string }>
     ) => {
       const { vocabId } = action.payload;
-
       const vocabIndex = state.findIndex((v) => v.vocabId === vocabId);
 
       if (vocabIndex !== -1) {
@@ -77,7 +76,7 @@ export const vocabSlice = createSlice({
       }
     },
     setVocabInState: (state, action: PayloadAction<Vocab[]>) => {
-      state = action.payload;
+      return action.payload;
     },
     updateVocabEntryInState: (state, action: PayloadAction<Vocab>) => {
       const { vocabId } = action.payload;
@@ -87,23 +86,18 @@ export const vocabSlice = createSlice({
   },
 });
 
-export const addVocabEntryDB = (newVocab: Vocab): AppThunk => {
+export const addVocabEntryDB = (newVocabWord: Vocab): AppThunk => {
   return async function (dispatch: Dispatch<AnyAction | AppThunk>) {
     try {
       if (auth.currentUser) {
-        const vocabCollectionRef = collection(
-          db,
-          "users",
-          auth.currentUser.uid,
-          "vocab"
-        );
         // Add the new vocab to the database
-        const docRef = await addDoc(vocabCollectionRef, newVocab);
-        const newVocabWithId: Vocab = {
-          ...newVocab,
-          vocabId: docRef.id,
-        };
-        dispatch(addVocabEntryInState(newVocabWithId));
+        await setDoc(
+          doc(db, "users", auth.currentUser.uid, "vocab", newVocabWord.vocabId),
+          { ...newVocabWord }
+        );
+
+        // add vocab word to local state
+        dispatch(addVocabEntryInState(newVocabWord));
       }
     } catch (error) {
       handleFirebaseError(error, dispatch);
@@ -140,30 +134,6 @@ export const removeVocabEntryDB =
     dispatch(removeVocabEntryInState({ vocabId }));
   };
 
-// export const setInitialVocabInDB =
-//   (initialVocabList: Vocab[]): AppThunk =>
-//   async (dispatch: Dispatch<AnyAction | AppThunk>) => {
-//     try {
-//       if (auth.currentUser) {
-//         const vocabCollectionRef = collection(
-//           db,
-//           "users",
-//           auth.currentUser.uid,
-//           "vocab"
-//         );
-
-//         const newInitialVocab = await Promise.all(
-//           initialVocabList.map(async (vocabItem) => {
-//             dispatch(addVocabEntryDB(vocabItem));
-//           })
-//         );
-//         console.log(`newinitialvocab: ${newInitialVocab}`);
-//       }
-//     } catch (error: unknown) {
-//       handleFirebaseError(error, dispatch);
-//     }
-//   };
-
 export const getVocabDB =
   (): AppThunk => async (dispatch: Dispatch<AnyAction | AppThunk>) => {
     try {
@@ -175,14 +145,13 @@ export const getVocabDB =
           "vocab"
         );
         const vocabQuery = query(vocabCollectionRef);
-
         onSnapshot(vocabQuery, (querySnapshot) => {
-          const vocabEntries: Vocab[] = [];
+          const vocabList: Vocab[] = [];
           querySnapshot.forEach((doc) => {
             const vocab = doc.data() as Vocab;
-            vocabEntries.push(vocab);
+            vocabList.push(vocab);
           });
-          dispatch(setVocabInState(vocabEntries));
+          dispatch(setVocabInState(vocabList));
         });
       }
     } catch (error: unknown) {

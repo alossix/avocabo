@@ -15,6 +15,7 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
   return (
     <VocabWindowContainer>
       <h2>{t("vocab:vocab_list_title")}</h2>
+      <h3>{vocabList.length}</h3>
       <VocabCardsContainer>
         {vocabList.map((vocabWord) => (
           <VocabCard vocabWord={vocabWord} key={vocabWord.emojiId} />

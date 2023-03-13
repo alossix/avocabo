@@ -14,7 +14,7 @@ export const SignInForm: React.FC = () => {
     try {
       dispatch(signInAuth(email, password));
     } catch (error: unknown) {
-      console.log(error);
+      console.error(error);
     }
   };
 
