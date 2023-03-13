@@ -1,5 +1,4 @@
 import { handleFirebaseError } from "@/lib/firebaseError";
-import { initialVocab } from "@/lib/initialVocab";
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -14,14 +13,13 @@ import { AppUser } from "@/types/general";
 import {
   AnyAction,
   createSlice,
-  Dispatch,
   PayloadAction,
   ThunkDispatch,
 } from "@reduxjs/toolkit";
 import { UserCredential } from "firebase/auth";
-
+import { Dispatch } from "react";
 import { AppThunk, RootState } from "../store";
-import { getVocabFromDB, setVocabInState } from "./vocabSlice";
+import { getVocabDB, setInitialVocabInDB, setVocabInState } from "./vocabSlice";
 
 type AuthState = {
   user: AppUser | null;
@@ -85,7 +83,7 @@ const authSlice = createSlice({
 // Create a new user with email and password
 export const createUserAuth =
   (displayName: string, email: string, password: string): AppThunk =>
-  async (dispatch: Dispatch) => {
+  async (dispatch: Dispatch<AnyAction | AppThunk>) => {
     dispatch(setAppLoading(true));
 
     try {
@@ -102,7 +100,7 @@ export const createUserAuth =
       };
 
       dispatch(setAppUser({ user: userData }));
-      dispatch(setVocabInState(initialVocab));
+      dispatch(setInitialVocabInDB());
 
       // Create a new document for the user in Firestore with the same UID
       await setDoc(doc(db, "users", userData.uid), { ...userData });
@@ -130,7 +128,7 @@ export const signInAuth =
         if (doc.exists()) {
           const userData = doc.data() as AppUser;
           dispatch(setAppUser({ user: userData }));
-          dispatch(getVocabFromDB());
+          dispatch(getVocabDB());
         }
       });
     } catch (error: unknown) {
@@ -139,16 +137,17 @@ export const signInAuth =
   };
 
 // Sign out
-export const signOutAuth = (): AppThunk => async (dispatch: Dispatch) => {
-  dispatch(setAppLoading(true));
-  try {
-    await firebaseSignOut(auth);
-    dispatch(signOutApp());
-    dispatch(setVocabInState([]));
-  } catch (error: unknown) {
-    handleFirebaseError(error, dispatch);
-  }
-};
+export const signOutAuth =
+  (): AppThunk => async (dispatch: Dispatch<AnyAction | AppThunk>) => {
+    dispatch(setAppLoading(true));
+    try {
+      await firebaseSignOut(auth);
+      dispatch(signOutApp());
+      dispatch(setVocabInState([]));
+    } catch (error: unknown) {
+      handleFirebaseError(error, dispatch);
+    }
+  };
 
 export const selectUserSignedIn = (state: RootState) => state.auth.user;
 export const selectLoading = (state: { auth: AuthState }) => state.auth.loading;
