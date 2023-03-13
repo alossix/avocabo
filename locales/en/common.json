@@ -5,14 +5,18 @@
   "header_how_it_works": "How It Works",
   "header_switch_language": "Switch Language",
   "header_language": "Language",
-  "header_menu": "Menu",
-  "header_sign_in": "Sign in",
-  "header_sign_up": "Sign up",
   "header_sign_out": "Sign out",
   "button_recall_label": "Select difficulty",
   "button_recall_easy": "Easy",
   "button_recall_medium": "Medium",
   "button_recall_hard": "Difficult",
   "button_recall_forgot": "Forgot",
-  "button_delete_word": "Delete word"
+  "button_delete_word": "Delete word",
+  "title_tag": "Avocabo: Spaced Repetition System for Studying Vocabulary Words and Learning a New Language!",
+  "sign_in": "Sign in",
+  "sign_up": "Sign up",
+  "profile_name": "First name",
+  "email": "E-mail",
+  "password": "Password",
+  "confirm_password": "Confirm password"
 }

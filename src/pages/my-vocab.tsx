@@ -1,19 +1,19 @@
-import { VocabWindow } from "@/components/VocabWindow";
-import { selectUserSignedIn } from "@/store/authSlice";
+import { MyVocabPageView } from "@/components/PageViews/MyVocabPageView";
 import { useAppSelector } from "@/store/hooks";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 const MyVocabPage: React.FC = () => {
-  const userSignedIn = useAppSelector(selectUserSignedIn);
+  const vocab = useAppSelector((state) => state.vocab);
+  const currentUser = useAppSelector((state) => state.auth);
   const router = useRouter();
 
   useEffect(() => {
-    if (!userSignedIn) {
+    if (!currentUser) {
       router.push("/sign-in");
     }
-  }, [router, userSignedIn]);
+  }, [router, currentUser]);
 
-  return <VocabWindow />;
+  return currentUser ? <MyVocabPageView vocabList={vocab} /> : null;
 };
 export default MyVocabPage;

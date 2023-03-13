@@ -5,14 +5,18 @@
   "header_how_it_works": "Cómo Funciona",
   "header_switch_language": "Cambia de Idioma",
   "header_language": "Idioma",
-  "header_menu": "Menu",
-  "header_sign_in": "Inicia sesión",
-  "header_sign_up": "Regístrate",
   "header_sign_out": "Salir",
   "button_recall_label": "Elige la dificultad",
   "button_recall_easy": "Fácil",
   "button_recall_medium": "Medio",
   "button_recall_hard": "Difícil",
   "button_recall_forgot": "Olvidado",
-  "button_delete_word": "Elimina la palabra"
+  "button_delete_word": "Elimina la palabra",
+  "title_tag": "Avocabo: Sistema de Repetición Espaciada para Estudiar Palabras de Vocabulario y aprender un nuevo idioma",
+  "sign_in": "Inicia sesión",
+  "sign_up": "Regístrate",
+  "profile_name": "Nombre",
+  "email": "Correo electrónico",
+  "password": "Contraseña",
+  "confirm_password": "Confirmar contraseña"
 }

@@ -1,4 +1,4 @@
-import { AboutPageView } from "@/components/AboutPageView";
+import { AboutPageView } from "@/components/PageViews/AboutPageView";
 
 const AboutPage: React.FC = () => {
   return <AboutPageView />;

@@ -1,20 +1,20 @@
 import { useAppDispatch } from "@/store/hooks";
-import { removeVocabEntry } from "@/store/vocabSlice";
+import { removeVocabEntryDB } from "@/store/slices/vocabSlice";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import { ReactEventHandler } from "react";
 
 type DeleteWordProps = {
-  emojiId: string;
+  vocabId: string;
 };
 
-export const DeleteWord: React.FC<DeleteWordProps> = ({ emojiId }) => {
+export const DeleteWord: React.FC<DeleteWordProps> = ({ vocabId }) => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
 
   const handleDeleteWordClick: ReactEventHandler<HTMLButtonElement> = () => {
-    dispatch(removeVocabEntry({ emojiId }));
+    dispatch(removeVocabEntryDB(vocabId));
   };
   return (
     <DeleteWordContainer>

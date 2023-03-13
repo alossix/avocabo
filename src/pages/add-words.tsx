@@ -1,4 +1,4 @@
-import { AddWordForm } from "@/components/AddWordForm/AddWordForm";
+import { AddWordForm } from "@/components/Forms/AddWordForm";
 import Head from "next/head";
 
 const AddWordsPage: React.FC = () => {

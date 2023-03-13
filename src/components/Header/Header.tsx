@@ -1,9 +1,9 @@
+import { useAppSelector } from "@/store/hooks";
 import {
   listenForAuthChanges,
   selectUserSignedIn,
   signOutAuth,
-} from "@/store/authSlice";
-import { useAppSelector } from "@/store/hooks";
+} from "@/store/slices/authSlice";
 import { AppDispatch, useAppDispatch } from "@/store/store";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
@@ -17,7 +17,7 @@ export const Header: React.FC = () => {
   const { t } = useTranslation("common");
   const dispatch: AppDispatch = useAppDispatch();
   const router = useRouter();
-  const userSignedIn = useAppSelector(selectUserSignedIn);
+  const currentUser = useAppSelector(selectUserSignedIn);
 
   const handleOnKeyDown = ({
     event,
@@ -56,7 +56,7 @@ export const Header: React.FC = () => {
           >
             <HeaderLink href="/">{t("common:header_home")}</HeaderLink>
           </HeaderLI>
-          {userSignedIn && (
+          {currentUser && (
             <>
               <HeaderLI
                 aria-label={t("common:header_my_vocab")}
@@ -94,7 +94,7 @@ export const Header: React.FC = () => {
               {t("common:header_how_it_works")}
             </HeaderLink>
           </HeaderLI>
-          {userSignedIn ? (
+          {currentUser ? (
             <HeaderLI
               aria-label={t("common:header_sign_out")}
               onKeyDown={(event) =>
@@ -116,26 +116,24 @@ export const Header: React.FC = () => {
           ) : (
             <>
               <HeaderLI
-                aria-label={t("common:header_sign_in")}
+                aria-label={t("common:sign_in")}
                 onKeyDown={(event) =>
                   handleOnKeyDown({ event, path: "/sign-in" })
                 }
                 role="listitem"
                 tabIndex={0}
               >
-                <HeaderLink href="/sign-in">
-                  {t("common:header_sign_in")}
-                </HeaderLink>
+                <HeaderLink href="/sign-in">{t("common:sign_in")}</HeaderLink>
               </HeaderLI>
               <Button
-                ariaLabel={t("common:header_sign_up")}
+                ariaLabel={t("common:sign_up")}
                 onClick={() => router.push("/sign-up")}
                 onKeyDown={(event) =>
                   handleOnKeyDown({ event, path: "/sign-up" })
                 }
-                title={t("common:header_sign_up")}
+                title={t("common:sign_up")}
               >
-                {t("common:header_sign_up")}
+                {t("common:sign_up")}
               </Button>
             </>
           )}
