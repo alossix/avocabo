@@ -10,7 +10,11 @@ import {
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
 } from "@/services/firebase/firebaseService";
-import { AppUser, InterfaceLanguages } from "@/types/general";
+import {
+  AppUser,
+  InterfaceLanguages,
+  LearningLanguages,
+} from "@/types/general";
 import {
   AnyAction,
   createSlice,
@@ -86,11 +90,13 @@ export const createUserAuth =
     displayName,
     email,
     interfaceLanguage,
+    learningLanguage,
     password,
   }: {
     displayName: string;
     email: string;
     interfaceLanguage: InterfaceLanguages;
+    learningLanguage: LearningLanguages;
     password: string;
   }): AppThunk =>
   async (dispatch: Dispatch<AnyAction | AppThunk>) => {
@@ -106,6 +112,7 @@ export const createUserAuth =
         displayName,
         emailVerified: userCredential.user.emailVerified,
         interfaceLanguage,
+        learningLanguage,
         userCreatedDate: new Date(),
         userLastSignIn: new Date(),
       };

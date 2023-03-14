@@ -18,5 +18,6 @@
   "profile_name": "Nom",
   "email": "Correu electrònic",
   "password": "Contrasenya",
-  "confirm_password": "Confirma contrasenya"
+  "confirm_password": "Confirma contrasenya",
+  "learning_language": "Estic aprenent el següent idioma: "
 }

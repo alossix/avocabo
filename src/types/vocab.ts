@@ -5,7 +5,7 @@ export type Vocab = {
   definition: string;
   description?: string;
   dueDate: string;
-  emojiId: string;
+  imageURL: string;
   lastUpdatedAt: string;
   multiplier: StepMultiplier;
   vocabId: string;

@@ -9,6 +9,9 @@ const nextConfig = {
     emotion: true,
   },
   ...nextTranslate(),
+  images: {
+    domains: ["thumbnails.production.thenounproject.com"],
+  },
 };
 
 module.exports = nextConfig;

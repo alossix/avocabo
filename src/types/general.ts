@@ -9,7 +9,7 @@ export type AppUser = Pick<
 > & {
   firstName?: string;
   interfaceLanguage: InterfaceLanguages;
-  learningLanguage?: LearningLanguages;
+  learningLanguage: LearningLanguages;
   lastName?: string;
   userCreatedDate: Date;
   userLastSignIn: Date;

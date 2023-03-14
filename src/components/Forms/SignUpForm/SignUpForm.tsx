@@ -3,7 +3,8 @@ import { useAppDispatch } from "@/store/hooks";
 import useTranslation from "next-translate/useTranslation";
 import { FormEvent, useState } from "react";
 import { Button } from "../../Button";
-import { InterfaceLanguages } from "@/types/general";
+import { InterfaceLanguages, LearningLanguages } from "@/types/general";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 export const SignUpForm: React.FC = () => {
   const { t, lang } = useTranslation("common");
@@ -38,6 +39,7 @@ export const SignUpForm: React.FC = () => {
           displayName,
           email,
           interfaceLanguage: lang as InterfaceLanguages,
+          learningLanguage: lang as LearningLanguages,
           password,
         })
       );
@@ -76,11 +78,16 @@ export const SignUpForm: React.FC = () => {
         />
       </div>
       <div>
+        <label>{`${t("common:learning_language")}: `}</label>
+        <LanguageSelector />
+      </div>
+      <div>
         <label>{`${t("common:password")}: `}</label>
         <input
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
       </div>
       <div>
@@ -89,6 +96,7 @@ export const SignUpForm: React.FC = () => {
           type="password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
+          required
         />
       </div>
       <Button

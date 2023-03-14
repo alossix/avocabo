@@ -18,5 +18,6 @@
   "profile_name": "Nombre",
   "email": "Correo electrónico",
   "password": "Contraseña",
-  "confirm_password": "Confirmar contraseña"
+  "confirm_password": "Confirmar contraseña",
+  "learning_language": "Estoy aprendiendo el siguiente idioma: "
 }

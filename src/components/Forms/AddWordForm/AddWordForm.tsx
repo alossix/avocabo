@@ -41,8 +41,8 @@ export const AddWordForm: React.FC = () => {
   return (
     <StyledForm onSubmit={handleSubmit(handleFormSubmit)} ref={registerForm}>
       <InputContainer>
-        <label htmlFor="emojiId">Emoji</label>
-        <input {...register("emojiId")} id="emojiId" />
+        <label htmlFor="imageURL">Image URL</label>
+        <input {...register("imageURL")} id="imageURL" />
       </InputContainer>
 
       <InputContainer>
