@@ -106,7 +106,6 @@ export const addVocabEntryDB = (newVocabWord: Vocab): AppThunk => {
 };
 
 const changeVocabStepDB = (vocabWord: Vocab) => {
-  console.log(vocabWord.dueDate);
   if (auth.currentUser) {
     const userDocRef = doc(db, "users", auth.currentUser.uid);
     const vocabDocRef = doc(userDocRef, "vocab", vocabWord.vocabId);
@@ -122,6 +121,7 @@ const changeVocabStepDB = (vocabWord: Vocab) => {
 export const removeVocabEntryDB =
   (vocabId: string): AppThunk =>
   async (dispatch: Dispatch<AnyAction | AppThunk>) => {
+    dispatch(removeVocabEntryInState({ vocabId }));
     if (auth.currentUser) {
       try {
         const userDocRef = doc(db, "users", auth.currentUser.uid);
@@ -132,7 +132,6 @@ export const removeVocabEntryDB =
         handleFirebaseError(error, dispatch);
       }
     }
-    dispatch(removeVocabEntryInState({ vocabId }));
   };
 
 export const getVocabDB =

@@ -3,9 +3,10 @@ import { useAppDispatch } from "@/store/hooks";
 import useTranslation from "next-translate/useTranslation";
 import { FormEvent, useState } from "react";
 import { Button } from "../../Button";
+import { InterfaceLanguages } from "@/types/general";
 
 export const SignUpForm: React.FC = () => {
-  const { t } = useTranslation("common");
+  const { t, lang } = useTranslation("common");
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +33,14 @@ export const SignUpForm: React.FC = () => {
       return;
     }
     try {
-      dispatch(createUserAuth(displayName, email, password));
+      dispatch(
+        createUserAuth({
+          displayName,
+          email,
+          interfaceLanguage: lang as InterfaceLanguages,
+          password,
+        })
+      );
       setDisplayName("");
       setEmail("");
       setPassword("");

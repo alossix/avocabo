@@ -8,7 +8,9 @@ export type AppUser = Pick<
   "email" | "displayName" | "uid" | "emailVerified"
 > & {
   firstName?: string;
+  interfaceLanguage: InterfaceLanguages;
+  learningLanguage?: LearningLanguages;
   lastName?: string;
-  userCreatedDate?: Date;
-  userLastSignIn?: Date;
+  userCreatedDate: Date;
+  userLastSignIn: Date;
 };

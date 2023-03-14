@@ -2,5 +2,16 @@
   "vocab_current_step": "Pas actual: ",
   "vocab_due_date": "Data límit",
   "vocab_list_title": "La Meva Llista de Vocabulari",
-  "word": "Paraula"
+  "category": "Categoria",
+  "description": "Descripció",
+  "word": "Paraula",
+  "vocab_category_noun": "Nom",
+  "vocab_category_verb": "Verb",
+  "vocab_category_adverb": "Adverbi",
+  "vocab_category_adjective": "Adjectiu",
+  "vocab_category_phrase": "Frase",
+  "vocab_category_pronoun": "Pronom",
+  "vocab_category_preposition": "Preposició",
+  "vocab_category_conjunction": "Conjunció",
+  "vocab_category_other": "Altre"
 }
