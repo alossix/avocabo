@@ -1,26 +1,19 @@
-import { setAppError } from "@/store/slices/authSlice";
-import { AppThunk } from "@/store/store";
-import { AnyAction } from "@reduxjs/toolkit";
-import { Dispatch } from "react";
-
 type ErrorResponse = {
   message: string;
 };
 
 // Handle errors and return an error response object
-export const handleFirebaseError = (
-  error: unknown,
-  dispatch: Dispatch<AnyAction | AppThunk>
-): ErrorResponse => {
+export const handleFirebaseError = (error: unknown): ErrorResponse => {
   if (error instanceof Error) {
     if (error.message) {
-      dispatch(setAppError(error.message));
       return { message: error.message };
     } else {
-      return { message: "An unknown error occurred." };
+      return { message: UNKNOWN_ERROR };
     }
   } else {
     console.error("Unexpected error type:", error);
-    return { message: "An unknown error occurred." };
+    return { message: UNKNOWN_ERROR };
   }
 };
+
+export const UNKNOWN_ERROR = "An unknown error occurred.";
