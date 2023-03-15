@@ -9,7 +9,6 @@ const useFetchVocabAndAuthChanges = (
   dispatch: AppDispatch,
   currentUser: AppUser | null
 ) => {
-  console.log(`in first useeffect`);
   const { setUserCookie, getUserCookie } = useUserCookie();
   const [initialized, setInitialized] = useState(false);
   const fetchedVocab = useRef(false);

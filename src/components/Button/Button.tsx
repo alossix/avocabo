@@ -1,13 +1,11 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
-import { FormEventHandler } from "react";
 
 type ButtonProps = {
   ariaLabel: string;
   children?: React.ReactNode;
   disabled?: boolean;
-  feature?: boolean;
-  onClick: React.MouseEventHandler | FormEventHandler;
+  onClick?: React.MouseEventHandler;
   onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
   title: string;
   type?: "button" | "submit" | "reset";
@@ -17,7 +15,6 @@ export const Button: React.FC<ButtonProps> = ({
   ariaLabel,
   children,
   disabled = false,
-  feature = false,
   onClick,
   onKeyDown,
   title,
@@ -27,7 +24,6 @@ export const Button: React.FC<ButtonProps> = ({
     <ButtonComponent
       aria-label={ariaLabel}
       disabled={disabled}
-      feature={feature}
       onClick={onClick}
       onKeyDown={onKeyDown}
       tabIndex={0}
@@ -40,8 +36,8 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
-const ButtonComponent = styled.button<{ disabled: boolean; feature: boolean }>(
-  (disabled) => ({
+const ButtonComponent = styled.button<{ disabled: boolean }>(
+  ({ disabled }) => ({
     display: "flex",
     alignItems: "center",
     background: theme.colors.darkAvocado,

@@ -1,3 +1,4 @@
+import { Button } from "@/components/Button";
 import { initialVocabProperties } from "@/lib/initialVocab";
 import { useAppDispatch } from "@/store/hooks";
 import { addVocabEntryDB } from "@/store/slices/vocabSlice";
@@ -11,14 +12,14 @@ import { v4 as uuid4 } from "uuid";
 export const AddWordForm: React.FC = () => {
   const { t } = useTranslation("vocab");
   const { register, handleSubmit } = useForm<Vocab>();
-  const [disabled, setIsDisabled] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const registerForm = useRef<HTMLFormElement>(null);
   const dispatch = useAppDispatch();
 
   const handleFormSubmit: SubmitHandler<Vocab> = (vocabWordData) => {
     const vocabId = uuid4();
     try {
-      setIsDisabled(true);
+      setIsSubmitting(true);
       dispatch(
         addVocabEntryDB({
           ...initialVocabProperties,
@@ -32,7 +33,7 @@ export const AddWordForm: React.FC = () => {
       if (registerForm.current) {
         registerForm.current.reset();
         setTimeout(() => {
-          setIsDisabled(false);
+          setIsSubmitting(false);
         }, 300);
       }
     }
@@ -47,7 +48,7 @@ export const AddWordForm: React.FC = () => {
 
       <InputContainer>
         <label htmlFor="definition">{t("vocab:word")}</label>
-        <input {...register("definition")} id="definition" />
+        <input {...register("definition")} id="definition" required />
       </InputContainer>
       <InputContainer>
         <label htmlFor="description">{t("vocab:description")}</label>
@@ -56,6 +57,7 @@ export const AddWordForm: React.FC = () => {
       <InputContainer>
         <label htmlFor="category">{t("vocab:category")}</label>
         <select {...register("category")} id="category">
+          <option value="" disabled></option>
           <option value="adverb">{t("vocab:vocab_category_adverb")}</option>
           <option value="adjective">
             {t("vocab:vocab_category_adjective")}
@@ -76,9 +78,14 @@ export const AddWordForm: React.FC = () => {
         </select>
       </InputContainer>
 
-      <button type="submit" disabled={disabled}>
-        Submit
-      </button>
+      <Button
+        type="submit"
+        disabled={isSubmitting}
+        ariaLabel={t("common:submit")}
+        title={t("common:submit")}
+      >
+        {t("common:submit")}
+      </Button>
     </StyledForm>
   );
 };
@@ -87,7 +94,6 @@ const StyledForm = styled.form({
   display: "flex",
   flexDirection: "column",
   width: "50%",
-  border: "2px solid blue",
   gap: 16,
 });
 

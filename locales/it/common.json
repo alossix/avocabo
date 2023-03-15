@@ -17,8 +17,16 @@
   "sign_in": "Accedi",
   "sign_up": "Iscriviti",
   "profile_name": "Nome",
-  "email": "E-mail",
+  "email": "Email",
   "password": "Password",
   "confirm_password": "Conferma password",
-  "learning_language": "Sto imparando la seguente lingua: "
+  "learning_language": "Sto imparando la seguente lingua: ",
+  "submi": "Invia",
+  "display_name_required": "È richiesto un nome da visualizzare.",
+  "email_required": "È richiesta un'email.",
+  "invalid_email": "Per favore, inserisci un indirizzo email valido.",
+  "password_required": "È richiesta una password.",
+  "password_min_length": "La password deve essere lunga almeno 8 caratteri.",
+  "password_must_match": "Le password non corrispondono.",
+  "confirm_password_required": "È richiesta la conferma della password."
 }
