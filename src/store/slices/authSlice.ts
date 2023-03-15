@@ -10,7 +10,11 @@ import {
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
 } from "@/services/firebase/firebaseService";
-import { AppUser } from "@/types/general";
+import {
+  AppUser,
+  InterfaceLanguages,
+  LearningLanguages,
+} from "@/types/general";
 import {
   AnyAction,
   createSlice,
@@ -82,7 +86,19 @@ export const listenForAuthChanges = (): AppThunk => (dispatch) => {
 
 // Create a new user with email and password
 export const createUserAuth =
-  (displayName: string, email: string, password: string): AppThunk =>
+  ({
+    displayName,
+    email,
+    interfaceLanguage,
+    learningLanguage,
+    password,
+  }: {
+    displayName: string;
+    email: string;
+    interfaceLanguage: InterfaceLanguages;
+    learningLanguage: LearningLanguages;
+    password: string;
+  }): AppThunk =>
   async (dispatch: Dispatch<AnyAction | AppThunk>) => {
     dispatch(setAppLoading(true));
 
@@ -95,6 +111,8 @@ export const createUserAuth =
         uid: userCredential.user.uid,
         displayName,
         emailVerified: userCredential.user.emailVerified,
+        interfaceLanguage,
+        learningLanguage,
         userCreatedDate: new Date(),
         userLastSignIn: new Date(),
       };

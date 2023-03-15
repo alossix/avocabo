@@ -1,19 +1,17 @@
 import { SignInForm } from "@/components/Forms/SignInForm";
-import { selectUserSignedIn } from "@/store/slices/authSlice";
-import { useAppSelector } from "@/store/hooks";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 const SignInPage: React.FC = () => {
-  const currentUser = useAppSelector(selectUserSignedIn);
-  const router = useRouter();
+  const { loading } = useAuthRedirect({
+    redirectTo: "/dashboard",
+    authRequired: false,
+  });
 
-  useEffect(() => {
-    if (currentUser) {
-      router.push("/dashboard");
-    }
-  }, [router, currentUser]);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  return currentUser ? null : <SignInForm />;
+  return <SignInForm />;
 };
+
 export default SignInPage;

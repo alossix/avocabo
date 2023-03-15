@@ -1,1 +1,0 @@
-export { EmojiComponent } from "./EmojiComponent";

@@ -31,7 +31,6 @@ export const DeleteWord: React.FC<DeleteWordProps> = ({ vocabId }) => {
 
 const DeleteWordContainer = styled.div({
   display: "flex",
-  justifyContent: "flex-end",
 });
 
 const DeleteWordButton = styled.button({
@@ -39,9 +38,9 @@ const DeleteWordButton = styled.button({
   alignItems: "center",
   fontSize: 15,
   fontWeight: "bold",
-  height: 28,
-  width: 28,
-  padding: "8px",
+  height: 24,
+  width: 24,
+  padding: 6,
   border: `1px solid ${theme.colors.black}`,
   borderRadius: 4,
   backgroundColor: theme.colors.white,

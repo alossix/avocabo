@@ -1,15 +1,26 @@
 export type Vocab = {
-  category: string;
+  category: VocabCategories;
   createdAt: string;
   currentStep: CurrentStep;
   definition: string;
   description?: string;
   dueDate: string;
-  emojiId: string;
+  imageURL: string;
   lastUpdatedAt: string;
   multiplier: StepMultiplier;
   vocabId: string;
 };
+
+type VocabCategories =
+  | "noun"
+  | "verb"
+  | "adverb"
+  | "adjective"
+  | "phrase"
+  | "pronoun"
+  | "preposition"
+  | "conjunction"
+  | "other";
 
 export type RecallDifficulty = "easy" | "medium" | "hard" | "forgot";
 

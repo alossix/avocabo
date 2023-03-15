@@ -2,5 +2,16 @@
   "vocab_current_step": "Current step: ",
   "vocab_due_date": "Due date",
   "vocab_list_title": "My Vocab List",
-  "word": "Word"
+  "word": "Word",
+  "description": "Description",
+  "category": "Category",
+  "vocab_category_noun": "Noun",
+  "vocab_category_verb": "Verb",
+  "vocab_category_adverb": "Adverb",
+  "vocab_category_adjective": "Adjective",
+  "vocab_category_phrase": "Phrase",
+  "vocab_category_pronoun": "Pronoun",
+  "vocab_category_preposition": "Preposition",
+  "vocab_category_conjunction": "Conjunction",
+  "vocab_category_other": "Other"
 }

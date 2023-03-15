@@ -33,35 +33,27 @@ export const vocabSlice = createSlice({
     ) => {
       const { vocabId, recallDifficulty } = action.payload;
 
-      return state.map((vocab) => {
-        if (vocab.vocabId === vocabId) {
-          const updatedVocab = { ...vocab };
-          if (recallDifficulty === "easy") {
-            updatedVocab.currentStep += 2;
-          } else if (recallDifficulty === "medium") {
-            updatedVocab.currentStep += 1;
-          } else if (recallDifficulty === "hard") {
-            if (updatedVocab.currentStep === 0) {
-              updatedVocab.currentStep = 0;
-            } else {
-              updatedVocab.currentStep = Math.max(
-                Math.floor(updatedVocab.currentStep / 2),
-                1
-              );
-            }
-          } else if (recallDifficulty === "forgot") {
-            updatedVocab.currentStep = 0;
+      const vocab = state.find((vocab) => vocab.vocabId === vocabId);
+
+      if (vocab) {
+        if (recallDifficulty === "easy") {
+          vocab.currentStep += 2;
+        } else if (recallDifficulty === "medium") {
+          vocab.currentStep += 1;
+        } else if (recallDifficulty === "hard") {
+          if (vocab.currentStep === 0) {
+            vocab.currentStep = 0;
+          } else {
+            vocab.currentStep = Math.max(Math.floor(vocab.currentStep / 2), 1);
           }
-          updatedVocab.dueDate = new Date(
-            Date.now() + updatedVocab.currentStep * 86400000
-          ).toISOString();
-          updatedVocab.lastUpdatedAt = new Date().toISOString();
-          changeVocabStepDB(updatedVocab);
-          return updatedVocab;
-        } else {
-          return vocab;
+        } else if (recallDifficulty === "forgot") {
+          vocab.currentStep = 0;
         }
-      });
+        vocab.dueDate = new Date(
+          Date.now() + vocab.currentStep * 86400000
+        ).toISOString();
+        vocab.lastUpdatedAt = new Date().toISOString();
+      }
     },
 
     removeVocabEntryInState: (
@@ -105,23 +97,43 @@ export const addVocabEntryDB = (newVocabWord: Vocab): AppThunk => {
   };
 };
 
-const changeVocabStepDB = (vocabWord: Vocab) => {
-  console.log(vocabWord.dueDate);
-  if (auth.currentUser) {
-    const userDocRef = doc(db, "users", auth.currentUser.uid);
-    const vocabDocRef = doc(userDocRef, "vocab", vocabWord.vocabId);
+export const changeVocabStepDB =
+  ({
+    vocabWord,
+    recallDifficulty,
+  }: {
+    vocabWord: Vocab;
+    recallDifficulty: RecallDifficulty;
+  }): AppThunk =>
+  async (dispatch: Dispatch<AnyAction | AppThunk>, getState) => {
+    // Change the state using the reducer and update the database
+    dispatch(
+      changeVocabStepInState({
+        vocabId: vocabWord.vocabId,
+        recallDifficulty,
+      })
+    );
+    // Update the database
+    const vocab = getState().vocab.find(
+      (vocab) => vocab.vocabId === vocabWord.vocabId
+    );
 
-    updateDoc(vocabDocRef, {
-      currentStep: vocabWord.currentStep,
-      dueDate: vocabWord.dueDate,
-      lastUpdatedAt: new Date().toISOString(),
-    });
-  }
-};
+    if (vocab && auth.currentUser) {
+      const userDocRef = doc(db, "users", auth.currentUser.uid);
+      const vocabDocRef = doc(userDocRef, "vocab", vocabWord.vocabId);
+
+      updateDoc(vocabDocRef, {
+        currentStep: vocab.currentStep,
+        dueDate: vocab.dueDate,
+        lastUpdatedAt: new Date().toISOString(),
+      });
+    }
+  };
 
 export const removeVocabEntryDB =
   (vocabId: string): AppThunk =>
   async (dispatch: Dispatch<AnyAction | AppThunk>) => {
+    dispatch(removeVocabEntryInState({ vocabId }));
     if (auth.currentUser) {
       try {
         const userDocRef = doc(db, "users", auth.currentUser.uid);
@@ -132,7 +144,6 @@ export const removeVocabEntryDB =
         handleFirebaseError(error, dispatch);
       }
     }
-    dispatch(removeVocabEntryInState({ vocabId }));
   };
 
 export const getVocabDB =
