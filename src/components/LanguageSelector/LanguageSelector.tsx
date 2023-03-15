@@ -40,6 +40,7 @@ export const LanguageSelector: React.FC = () => {
         <option value="en">English</option>
         <option value="it">Italiano</option>
         <option value="es">Español</option>
+        <option value="nl">Nederlands</option>
       </StyledSelectMenu>
     </LanguageSelectorContainer>
   );
