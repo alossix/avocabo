@@ -1,0 +1,19 @@
+{
+  "home": {
+    "title": "Welkom bij Avocabo!",
+    "subtitle": "Beheers woordenschat met ons Spaced Repetition System",
+    "section1Title": "Hoe ons systeem werkt",
+    "section1Text": "<p>Ons spaced repetition systeem helpt je efficiënter en effectiever woordenschat te leren dan traditionele studiemethoden. Het presenteert je woorden om te leren en plant herhalingssessies op intervallen die zijn ontworpen om het geheugenbehoud te optimaliseren. Naarmate je vordert, volgt ons systeem je prestaties en past het de herhalingsplanning dienovereenkomstig aan. Je besteedt minder tijd aan studeren terwijl je meer informatie onthoudt.</p>",
+    "section2Title": "De voordelen van het gebruik van ons systeem",
+    "section2Text": "<p>Door Avocabo's spaced repetition systeem te gebruiken, kun je woordenschat efficiënter en effectiever leren dan traditionele studiemethoden. Ons systeem minimaliseert de hoeveelheid tijd die je besteedt aan studeren terwijl het maximaliseert hoeveel je onthoudt. Avocabo geeft ook feedback over je voortgang, zodat je kunt zien hoe ver je bent gekomen en gebieden kunt identificeren die meer aandacht nodig hebben. Met ons systeem heb je de tools die je nodig hebt om woordenschat te beheersen.</p>"
+  },
+  "howItWorks": {
+    "title": "Hoe ons Spaced Repetition Systeem werkt",
+    "section1Title": "Wat is een Spaced Repetition System?",
+    "section1Text": "<p>Een spaced repetition systeem is een methode voor het herzien van informatie die zeer effectief is gebleken voor het onthouden van informatie. Deze methode houdt in dat herhalingssessies gepland worden met steeds langere intervallen na elke succesvolle herinnering.</p><p>Door het herhalingsproces op gespreide intervallen te herhalen, kun je de informatie in het langetermijngeheugen opnemen en je vermogen om het later te herinneren vergroten.</p>",
+    "section2Title": "Hoe ons systeem werkt",
+    "section2Text": "<p>Ons spaced repetition systeem voor het bestuderen van woordenschat werkt door je woorden te presenteren die je moet leren en vervolgens herhalingssessies te plannen op intervallen die zijn ontworpen om het geheugenbehoud te optimaliseren. De intervallen zijn gebaseerd op de moeilijkheid van het woord en hoe goed je het herinnert tijdens de herhalingssessie.</p><p>Het systeem volgt je voortgang en past de herhalingsplanning dienovereenkomstig aan, zodat je je kunt concentreren op de woorden die je het meest uitdagend vindt.</p>",
+    "section3Title": "De voordelen van het gebruik van ons systeem",
+    "section3Text": "<p>Using our spaced repetition system can help you learn vocabulary more efficiently and effectively than traditional study methods. By optimizing the review schedule for each word, you can minimize the amount of time you spend studying while maximizing the amount you retain.</p><p>The system also provides feedback on your progress, so you can see how far you've come and identify areas that need more attention.</p>"
+  }
+}

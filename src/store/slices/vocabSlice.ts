@@ -18,6 +18,10 @@ import { setAppError } from "./authSlice";
 
 const initialState: Vocab[] = [];
 
+const boxIntervals = [
+  0, 1, 2, 3, 5, 7, 9, 11, 14, 24, 30, 45, 60, 75, 90, 120, 180, 365,
+];
+
 export const vocabSlice = createSlice({
   name: "vocab",
   initialState,
@@ -25,7 +29,7 @@ export const vocabSlice = createSlice({
     addVocabEntryInState: (state, action: PayloadAction<Vocab>) => {
       state.push(action.payload);
     },
-    changeVocabStepInState: (
+    changeVocabBoxInState: (
       state,
       action: PayloadAction<{
         vocabId: string;
@@ -37,17 +41,11 @@ export const vocabSlice = createSlice({
       const vocab = state.find((vocab) => vocab.vocabId === vocabId);
 
       if (vocab) {
-        vocab.currentStep = updateCurrentStep(
-          vocab.currentStep,
-          recallDifficulty
-        );
-        vocab.dueDate = new Date(
-          Date.now() + vocab.currentStep * 86400000
-        ).toISOString();
+        vocab.box = updateVocabCurrentBox(vocab.box, recallDifficulty);
+        vocab.dueDate = updateVocabDueDate(vocab, recallDifficulty);
         vocab.lastUpdatedAt = new Date().toISOString();
       }
     },
-
     removeVocabEntryInState: (
       state,
       action: PayloadAction<{ vocabId: string }>
@@ -74,22 +72,49 @@ const getUserVocabDocRef = (uid: string, vocabId: string) => {
   return doc(db, "users", uid, "vocab", vocabId);
 };
 
-const updateCurrentStep = (
-  currentStep: number,
+const updateVocabCurrentBox = (
+  currentBox: number,
   recallDifficulty: RecallDifficulty
 ): number => {
+  if (currentBox === 0 && recallDifficulty === "easy") {
+    return 1;
+  }
+
   switch (recallDifficulty) {
     case "easy":
-      return currentStep + 2;
+      return currentBox === boxIntervals.length - 1
+        ? currentBox
+        : currentBox + 2;
     case "medium":
-      return currentStep + 1;
+      return Math.max(currentBox, 1);
     case "hard":
-      return currentStep === 0 ? 0 : Math.max(Math.floor(currentStep / 2), 1);
+      if (currentBox === 0) {
+        return 0;
+      } else {
+        return currentBox > 3 ? Math.ceil(currentBox / 2) : currentBox - 1;
+      }
     case "forgot":
       return 0;
     default:
-      return currentStep;
+      return currentBox;
   }
+};
+
+const updateVocabDueDate = (
+  vocab: Vocab,
+  recallDifficulty: RecallDifficulty
+) => {
+  const interval = boxIntervals[vocab.box];
+  let newDueDate;
+
+  if (vocab.box === boxIntervals.length - 1 && recallDifficulty === "easy") {
+    newDueDate = new Date(
+      new Date(vocab.dueDate).getTime() + 365 * 86400000
+    ).toISOString();
+  } else {
+    newDueDate = new Date(Date.now() + interval * 86400000).toISOString();
+  }
+  return newDueDate;
 };
 
 export const addVocabEntryDB = (newVocabWord: Vocab): AppThunk => {
@@ -112,7 +137,7 @@ export const addVocabEntryDB = (newVocabWord: Vocab): AppThunk => {
   };
 };
 
-export const changeVocabStepDB =
+export const changeVocabBoxDB =
   ({
     vocabWord,
     recallDifficulty,
@@ -123,7 +148,7 @@ export const changeVocabStepDB =
   async (dispatch: Dispatch<AnyAction | AppThunk>, getState) => {
     // Change the state using the reducer and update the database
     dispatch(
-      changeVocabStepInState({
+      changeVocabBoxInState({
         vocabId: vocabWord.vocabId,
         recallDifficulty,
       })
@@ -140,7 +165,7 @@ export const changeVocabStepDB =
       );
 
       updateDoc(vocabDocRef, {
-        currentStep: vocab.currentStep,
+        box: vocab.box,
         dueDate: vocab.dueDate,
         lastUpdatedAt: new Date().toISOString(),
       });
@@ -190,7 +215,7 @@ export const getVocabDB =
 
 export const {
   addVocabEntryInState,
-  changeVocabStepInState,
+  changeVocabBoxInState,
   removeVocabEntryInState,
   setVocabInState,
   updateVocabEntryInState,

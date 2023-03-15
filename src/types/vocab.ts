@@ -1,13 +1,12 @@
 export type Vocab = {
+  box: number;
   category: VocabCategories;
   createdAt: string;
-  currentStep: CurrentStep;
   definition: string;
   description?: string;
   dueDate: string;
   imageURL: string;
   lastUpdatedAt: string;
-  multiplier: StepMultiplier;
   vocabId: string;
 };
 
@@ -23,7 +22,3 @@ type VocabCategories =
   | "other";
 
 export type RecallDifficulty = "easy" | "medium" | "hard" | "forgot";
-
-export type CurrentStep = number;
-
-export type StepMultiplier = number;
