@@ -21,9 +21,8 @@ import {
   PayloadAction,
   ThunkDispatch,
 } from "@reduxjs/toolkit";
-import { onAuthStateChanged, UserCredential } from "firebase/auth";
 import { Dispatch } from "react";
-import { AppThunk, RootState } from "../store";
+import { AppDispatch, AppThunk, RootState } from "../store";
 import { addVocabEntryDB, getVocabDB, setVocabInState } from "./vocabSlice";
 
 type AuthState = {
@@ -62,27 +61,47 @@ const authSlice = createSlice({
   },
 });
 
-// Listen for changes in the user's authentication state
-export const listenForAuthChanges = (): AppThunk => (dispatch) => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // Retrieve the user data from Firestore and dispatch the setUser action
-      const userDocRef = doc(db, "users", user.uid);
-      try {
-        onSnapshot(userDocRef, (doc) => {
-          if (doc.exists()) {
-            const userData = doc.data() as AppUser;
-            dispatch(setAppUser({ user: userData }));
-          }
-        });
-      } catch (error) {
-        dispatch(setAppError(error as string));
-      }
-    } else {
-      dispatch(signOutApp());
-    }
+const getUserDocRef = (uid: string) => {
+  return doc(db, "users", uid);
+};
+
+const setupInitialVocab = (dispatch: Dispatch<AnyAction | AppThunk>) => {
+  initialVocab.forEach((vocabWord) => {
+    dispatch(addVocabEntryDB(vocabWord));
   });
 };
+
+// Listen for changes in the user's authentication state
+export const listenForAuthChanges =
+  (setUserCookie: (user: AppUser) => void) =>
+  (dispatch: AppDispatch): (() => void) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        // Retrieve the user data from Firestore and dispatch the setUser action
+        const userDocRef = getUserDocRef(user.uid);
+        try {
+          onSnapshot(userDocRef, (doc) => {
+            if (doc.exists()) {
+              const userData = doc.data() as AppUser;
+              dispatch(setAppUser({ user: userData }));
+
+              // Set user cookie
+              setUserCookie(userData);
+            }
+          });
+        } catch (error: unknown) {
+          const { message } = handleFirebaseError(error);
+          dispatch(setAppError(message));
+        }
+      } else {
+        dispatch(signOutApp());
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  };
 
 // Create a new user with email and password
 export const createUserAuth =
@@ -103,8 +122,11 @@ export const createUserAuth =
     dispatch(setAppLoading(true));
 
     try {
-      const userCredential: UserCredential =
-        await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
       const userData: AppUser = {
         email: userCredential.user.email,
@@ -120,11 +142,13 @@ export const createUserAuth =
       dispatch(setAppUser({ user: userData }));
 
       // Create a new document for the user in Firestore with the same UID
-      await setDoc(doc(db, "users", userData.uid), { ...userData });
+      const userDocRef = getUserDocRef(userData.uid);
+      await setDoc(userDocRef, { ...userData });
 
-      initialVocab.map((vocabWord) => dispatch(addVocabEntryDB(vocabWord)));
+      setupInitialVocab(dispatch);
     } catch (error: unknown) {
-      handleFirebaseError(error, dispatch);
+      const { message } = handleFirebaseError(error);
+      dispatch(setAppError(message));
     }
   };
 
@@ -133,25 +157,25 @@ export const signInAuth =
   (email: string, password: string) =>
   async (dispatch: ThunkDispatch<RootState, void, AnyAction>) => {
     dispatch(setAppLoading(true));
-
     try {
-      const userCredential: UserCredential = await signInWithEmailAndPassword(
+      const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
         password
       );
 
       // Retrieve the user data from Firestore and dispatch the setUser action
-      const userDocRef = doc(db, "users", userCredential.user.uid);
+      const userDocRef = getUserDocRef(userCredential.user.uid);
       onSnapshot(userDocRef, (doc) => {
         if (doc.exists()) {
           const userData = doc.data() as AppUser;
           dispatch(setAppUser({ user: userData }));
         }
       });
-      dispatch(getVocabDB());
+      dispatch(getVocabDB(userCredential.user.uid));
     } catch (error: unknown) {
-      handleFirebaseError(error, dispatch);
+      const { message } = handleFirebaseError(error);
+      dispatch(setAppError(message));
     }
   };
 
@@ -164,7 +188,8 @@ export const signOutAuth =
       dispatch(signOutApp());
       dispatch(setVocabInState([]));
     } catch (error: unknown) {
-      handleFirebaseError(error, dispatch);
+      const { message } = handleFirebaseError(error);
+      dispatch(setAppError(message));
     }
   };
 

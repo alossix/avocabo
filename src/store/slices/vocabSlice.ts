@@ -14,6 +14,7 @@ import { RecallDifficulty, Vocab } from "@/types/vocab";
 import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Dispatch } from "react";
 import { AppThunk, RootState } from "../store";
+import { setAppError } from "./authSlice";
 
 const initialState: Vocab[] = [];
 
@@ -36,19 +37,10 @@ export const vocabSlice = createSlice({
       const vocab = state.find((vocab) => vocab.vocabId === vocabId);
 
       if (vocab) {
-        if (recallDifficulty === "easy") {
-          vocab.currentStep += 2;
-        } else if (recallDifficulty === "medium") {
-          vocab.currentStep += 1;
-        } else if (recallDifficulty === "hard") {
-          if (vocab.currentStep === 0) {
-            vocab.currentStep = 0;
-          } else {
-            vocab.currentStep = Math.max(Math.floor(vocab.currentStep / 2), 1);
-          }
-        } else if (recallDifficulty === "forgot") {
-          vocab.currentStep = 0;
-        }
+        vocab.currentStep = updateCurrentStep(
+          vocab.currentStep,
+          recallDifficulty
+        );
         vocab.dueDate = new Date(
           Date.now() + vocab.currentStep * 86400000
         ).toISOString();
@@ -78,21 +70,44 @@ export const vocabSlice = createSlice({
   },
 });
 
+const getUserVocabDocRef = (uid: string, vocabId: string) => {
+  return doc(db, "users", uid, "vocab", vocabId);
+};
+
+const updateCurrentStep = (
+  currentStep: number,
+  recallDifficulty: RecallDifficulty
+): number => {
+  switch (recallDifficulty) {
+    case "easy":
+      return currentStep + 2;
+    case "medium":
+      return currentStep + 1;
+    case "hard":
+      return currentStep === 0 ? 0 : Math.max(Math.floor(currentStep / 2), 1);
+    case "forgot":
+      return 0;
+    default:
+      return currentStep;
+  }
+};
+
 export const addVocabEntryDB = (newVocabWord: Vocab): AppThunk => {
   return async function (dispatch: Dispatch<AnyAction | AppThunk>) {
     try {
       if (auth.currentUser) {
         // Add the new vocab to the database
         await setDoc(
-          doc(db, "users", auth.currentUser.uid, "vocab", newVocabWord.vocabId),
+          getUserVocabDocRef(auth.currentUser.uid, newVocabWord.vocabId),
           { ...newVocabWord }
         );
 
         // add vocab word to local state
         dispatch(addVocabEntryInState(newVocabWord));
       }
-    } catch (error) {
-      handleFirebaseError(error, dispatch);
+    } catch (error: unknown) {
+      const { message } = handleFirebaseError(error);
+      dispatch(setAppError(message));
     }
   };
 };
@@ -118,9 +133,11 @@ export const changeVocabStepDB =
       (vocab) => vocab.vocabId === vocabWord.vocabId
     );
 
-    if (vocab && auth.currentUser) {
-      const userDocRef = doc(db, "users", auth.currentUser.uid);
-      const vocabDocRef = doc(userDocRef, "vocab", vocabWord.vocabId);
+    if (vocab && auth.currentUser?.uid) {
+      const vocabDocRef = getUserVocabDocRef(
+        auth.currentUser.uid,
+        vocabWord.vocabId
+      );
 
       updateDoc(vocabDocRef, {
         currentStep: vocab.currentStep,
@@ -136,26 +153,23 @@ export const removeVocabEntryDB =
     dispatch(removeVocabEntryInState({ vocabId }));
     if (auth.currentUser) {
       try {
-        const userDocRef = doc(db, "users", auth.currentUser.uid);
-        const vocabDocRef = doc(userDocRef, "vocab", vocabId);
+        const vocabDocRef = getUserVocabDocRef(auth.currentUser.uid, vocabId);
 
         await deleteDoc(vocabDocRef);
-      } catch (error) {
-        handleFirebaseError(error, dispatch);
+      } catch (error: unknown) {
+        const { message } = handleFirebaseError(error);
+        dispatch(setAppError(message));
       }
     }
   };
 
+// Add a return type to the getVocabDB function
 export const getVocabDB =
-  (): AppThunk => async (dispatch: Dispatch<AnyAction | AppThunk>) => {
+  (userId: string): AppThunk =>
+  async (dispatch: Dispatch<AnyAction | AppThunk>) => {
     try {
       if (auth.currentUser) {
-        const vocabCollectionRef = collection(
-          db,
-          "users",
-          auth.currentUser.uid,
-          "vocab"
-        );
+        const vocabCollectionRef = collection(db, "users", userId, "vocab");
         const vocabQuery = query(vocabCollectionRef);
         onSnapshot(vocabQuery, (querySnapshot) => {
           const vocabList: Vocab[] = [];
@@ -165,9 +179,12 @@ export const getVocabDB =
           });
           dispatch(setVocabInState(vocabList));
         });
+      } else {
+        throw new Error("User not authenticated");
       }
     } catch (error: unknown) {
-      handleFirebaseError(error, dispatch);
+      const { message } = handleFirebaseError(error);
+      dispatch(setAppError(message));
     }
   };
 

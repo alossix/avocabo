@@ -98,24 +98,38 @@ export const Header: React.FC = () => {
             </HeaderLink>
           </HeaderLI>
           {currentUser ? (
-            <HeaderLI
-              aria-label={t("common:header_sign_out")}
-              onKeyDown={(event) =>
-                handleOnKeyDown({ event, path: "/", signOut: true })
-              }
-              role="listitem"
-              tabIndex={0}
-            >
-              <HeaderLink
-                href="/"
-                onClick={() => {
-                  dispatch(signOutAuth());
-                  router.push("/");
-                }}
+            <>
+              <HeaderLI
+                aria-label={t("common:header_dashboard")}
+                onKeyDown={(event) =>
+                  handleOnKeyDown({ event, path: "/dashboard" })
+                }
+                role="listitem"
+                tabIndex={0}
               >
-                {t("common:header_sign_out")}
-              </HeaderLink>
-            </HeaderLI>
+                <HeaderLink href="/dashboard">
+                  {t("common:header_dashboard")}
+                </HeaderLink>
+              </HeaderLI>
+              <HeaderLI
+                aria-label={t("common:header_sign_out")}
+                onKeyDown={(event) =>
+                  handleOnKeyDown({ event, path: "/", signOut: true })
+                }
+                role="listitem"
+                tabIndex={0}
+              >
+                <HeaderLink
+                  href="/"
+                  onClick={() => {
+                    dispatch(signOutAuth());
+                    router.push("/");
+                  }}
+                >
+                  {t("common:header_sign_out")}
+                </HeaderLink>
+              </HeaderLI>
+            </>
           ) : (
             <>
               <HeaderLI

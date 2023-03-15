@@ -1,15 +1,20 @@
 import { DashboardPageView } from "@/components/PageViews/DashboardPageView";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
-import { useAppSelector } from "@/store/hooks";
+import useFetchVocabAndAuthChanges from "@/hooks/useFetchVocabAndAuthChanges";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 const DashboardPage: React.FC = () => {
-  const vocabList = useAppSelector((state) => state.vocab);
+  const vocabFromState = useAppSelector((state) => state.vocab);
+  const currentUser = useAppSelector((state) => state.auth.user);
+  const dispatch = useAppDispatch();
 
   const { loading } = useAuthRedirect({
     redirectTo: "/sign-in",
     authRequired: true,
   });
 
-  return loading ? null : <DashboardPageView vocabList={vocabList} />;
+  useFetchVocabAndAuthChanges(dispatch, currentUser);
+
+  return loading ? null : <DashboardPageView vocabList={vocabFromState} />;
 };
 export default DashboardPage;

@@ -5,6 +5,7 @@ import { FormEventHandler } from "react";
 type ButtonProps = {
   ariaLabel: string;
   children?: React.ReactNode;
+  disabled?: boolean;
   feature?: boolean;
   onClick: React.MouseEventHandler | FormEventHandler;
   onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
@@ -15,6 +16,7 @@ type ButtonProps = {
 export const Button: React.FC<ButtonProps> = ({
   ariaLabel,
   children,
+  disabled = false,
   feature = false,
   onClick,
   onKeyDown,
@@ -24,6 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <ButtonComponent
       aria-label={ariaLabel}
+      disabled={disabled}
       feature={feature}
       onClick={onClick}
       onKeyDown={onKeyDown}
@@ -37,19 +40,22 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
-const ButtonComponent = styled.button<{ feature: boolean }>({
-  display: "flex",
-  alignItems: "center",
-  background: theme.colors.darkAvocado,
-  padding: "8px 16px",
-  color: theme.colors.white,
-  fontWeight: "bold",
-  borderRadius: 4,
-  border: `3px solid ${theme.colors.darkAvocado}`,
-  transition: "all 0.5s ease",
+const ButtonComponent = styled.button<{ disabled: boolean; feature: boolean }>(
+  (disabled) => ({
+    display: "flex",
+    alignItems: "center",
+    background: theme.colors.darkAvocado,
+    padding: "8px 16px",
+    color: theme.colors.white,
+    fontWeight: "bold",
+    borderRadius: 4,
+    border: `3px solid ${theme.colors.darkAvocado}`,
+    transition: "all 0.5s ease",
+    cursor: disabled ? "not-allowed" : "pointer",
 
-  "&:hover": {
-    background: theme.colors.white,
-    color: theme.colors.darkAvocado,
-  },
-});
+    "&:hover": {
+      background: theme.colors.white,
+      color: theme.colors.darkAvocado,
+    },
+  })
+);
