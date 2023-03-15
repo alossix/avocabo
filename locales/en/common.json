@@ -17,8 +17,16 @@
   "sign_in": "Sign in",
   "sign_up": "Sign up",
   "profile_name": "First name",
-  "email": "E-mail",
+  "email": "Email",
   "password": "Password",
   "confirm_password": "Confirm password",
-  "learning_language": "I am learning the following language: "
+  "learning_language": "I am learning the following language: ",
+  "submit": "Submit",
+  "display_name_required": "Display name is required.",
+  "email_required": "Email is required.",
+  "invalid_email": "Please enter a valid email address.",
+  "password_required": "Password is required.",
+  "password_min_length": "Password must be at least 8 characters long.",
+  "password_must_match": "Passwords do not match.",
+  "confirm_password_required": "Confirm password is required."
 }

@@ -6,6 +6,7 @@ const useUserCookie = () => {
     Cookies.set("currentUser", JSON.stringify(user), {
       expires: 30, // 30 days
       path: "/",
+      sameSite: "lax",
     });
   };
 

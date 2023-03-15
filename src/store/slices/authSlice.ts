@@ -9,6 +9,7 @@ import {
   setDoc,
   signInWithEmailAndPassword,
   signOut as firebaseSignOut,
+  updateDoc,
 } from "@/services/firebase/firebaseService";
 import {
   AppUser,
@@ -190,6 +191,33 @@ export const signOutAuth =
     } catch (error: unknown) {
       const { message } = handleFirebaseError(error);
       dispatch(setAppError(message));
+    }
+  };
+
+// Update the user document in the database
+export const updateUserAuth =
+  (updatedUserData: Partial<AppUser>): AppThunk =>
+  async (dispatch, getState) => {
+    dispatch(setAppLoading(true));
+
+    try {
+      const { user } = getState().auth;
+
+      if (!user) {
+        throw new Error("User is not signed in");
+      }
+
+      // Update the user document in Firestore
+      const userDocRef = getUserDocRef(user.uid);
+      await updateDoc(userDocRef, updatedUserData);
+
+      // Update the user object in the Redux store
+      dispatch(setAppUser({ user: { ...user, ...updatedUserData } }));
+    } catch (error: unknown) {
+      const { message } = handleFirebaseError(error);
+      dispatch(setAppError(message));
+    } finally {
+      dispatch(setAppLoading(false));
     }
   };
 

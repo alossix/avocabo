@@ -17,8 +17,16 @@
   "sign_in": "Inloggen",
   "sign_up": "Registreren",
   "profile_name": "Voornaam",
-  "email": "E-mail",
+  "email": "Email",
   "password": "Wachtwoord",
   "confirm_password": "Bevestig wachtwoord",
-  "learning_language": "Ik leer de volgende taal: "
+  "learning_language": "Ik leer de volgende taal: ",
+  "submit": "Verzenden",
+  "display_name_required": "Weergavenaam is vereist.",
+  "email_required": "Email is vereist.",
+  "invalid_email": "Voer een geldig e-mailadres in.",
+  "password_required": "Wachtwoord is vereist.",
+  "password_min_length": "Wachtwoord moet minimaal 8 tekens lang zijn.",
+  "password_must_match": "Wachtwoorden komen niet overeen.",
+  "confirm_password_required": "Bevestiging van wachtwoord is vereist."
 }

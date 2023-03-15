@@ -21,14 +21,19 @@ export const Header: React.FC = () => {
     path,
     signOut = false,
   }: {
-    event: React.KeyboardEvent<HTMLLIElement | HTMLButtonElement>;
+    event:
+      | React.KeyboardEvent<HTMLLIElement | HTMLButtonElement>
+      | React.MouseEvent<HTMLAnchorElement>;
     path: string;
     signOut?: boolean;
   }) => {
     if (signOut) {
       dispatch(signOutAuth());
     }
-    if (event.key === "Enter") {
+    if (
+      (event instanceof KeyboardEvent && event.key === "Enter") ||
+      event instanceof MouseEvent
+    ) {
       router.push(path);
     }
   };
@@ -121,9 +126,10 @@ export const Header: React.FC = () => {
               >
                 <HeaderLink
                   href="/"
-                  onClick={() => {
+                  onClick={(event) => {
+                    event.preventDefault();
                     dispatch(signOutAuth());
-                    router.push("/");
+                    handleOnKeyDown({ event, path: "/", signOut: true });
                   }}
                 >
                   {t("common:header_sign_out")}

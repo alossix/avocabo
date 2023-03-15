@@ -20,5 +20,13 @@
   "email": "Correo electrónico",
   "password": "Contraseña",
   "confirm_password": "Confirmar contraseña",
-  "learning_language": "Estoy aprendiendo el siguiente idioma: "
+  "learning_language": "Estoy aprendiendo el siguiente idioma: ",
+  "submit": "Enviar",
+  "display_name_required": "Se requiere un nombre para mostrar.",
+  "email_required": "Se requiere correo electrónico.",
+  "invalid_email": "Por favor, introduce una dirección de correo electrónico válida.",
+  "password_required": "Se requiere contraseña.",
+  "password_min_length": "La contraseña debe tener al menos 8 caracteres de longitud.",
+  "password_must_match": "Las contraseñas no coinciden.",
+  "confirm_password_required": "Se requiere confirmar la contraseña."
 }

@@ -20,5 +20,13 @@
   "email": "Correu electrònic",
   "password": "Contrasenya",
   "confirm_password": "Confirma contrasenya",
-  "learning_language": "Estic aprenent el següent idioma: "
+  "learning_language": "Estic aprenent el següent idioma: ",
+  "submit": "Enviar",
+  "display_name_required": "Cal un nom de visualització.",
+  "email_required": "Cal un correu electrònic.",
+  "invalid_email": "Si us plau, introdueixi una adreça de correu electrònic vàlida.",
+  "password_required": "Cal una contrasenya.",
+  "password_min_length": "La contrasenya ha de tenir almenys 8 caràcters de llargada.",
+  "password_must_match": "Les contrasenyes no coincideixen.",
+  "confirm_password_required": "Cal confirmar la contrasenya."
 }
