@@ -1,23 +1,20 @@
-import { useAppSelector } from "@/store/hooks";
-import {
-  listenForAuthChanges,
-  selectUserSignedIn,
-  signOutAuth,
-} from "@/store/slices/authSlice";
+import { auth, onAuthStateChanged } from "@/services/firebase/firebaseService";
+import { signOutAuth } from "@/store/slices/authSlice";
 import { AppDispatch, useAppDispatch } from "@/store/store";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
+import { User } from "firebase/auth";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../Button";
 
 export const Header: React.FC = () => {
   const { t } = useTranslation("common");
   const dispatch: AppDispatch = useAppDispatch();
   const router = useRouter();
-  const currentUser = useAppSelector(selectUserSignedIn);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   const handleOnKeyDown = ({
     event,
@@ -37,8 +34,14 @@ export const Header: React.FC = () => {
   };
 
   useEffect(() => {
-    dispatch(listenForAuthChanges());
-  }, [dispatch]);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <HeaderNav>

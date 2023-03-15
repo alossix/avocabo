@@ -27,6 +27,7 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
 const VocabWindowContainer = styled.div({
   display: "flex",
   flexDirection: "column",
+  gap: 8,
 });
 
 const VocabCardsContainer = styled.div({

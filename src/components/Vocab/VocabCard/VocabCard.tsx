@@ -78,21 +78,23 @@ const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
   border: "1px solid lightgrey",
   padding: "16px 8px",
   minWidth: 336,
-  minHeight: 400,
+  minHeight: 336,
   cursor: !showDetails ? "pointer" : "default",
   gap: 16,
 }));
 
 const ImageWrapper = styled.div({
+  display: "flex",
+  flexGrow: 1,
   width: 336,
   height: 200,
   position: "relative",
 });
 
 const ImageContainer = styled.div({
+  display: "flex",
   position: "relative",
   width: "100%",
-  height: "100%",
 });
 
 const HR = styled.hr({
@@ -100,7 +102,7 @@ const HR = styled.hr({
   height: 1,
   border: "none",
   borderTop: "1.5px solid lightgrey",
-  margin: "8px 0",
+  margin: 0,
 });
 
 const WordContainer = styled.div({
@@ -108,7 +110,6 @@ const WordContainer = styled.div({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  height: 32,
 });
 
 const TopRowDetails = styled.div<{ showDetails: boolean }>(
@@ -117,8 +118,6 @@ const TopRowDetails = styled.div<{ showDetails: boolean }>(
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    padding: "0 8px",
-    height: 32,
     visibility: showDetails ? "visible" : "hidden",
   })
 );
