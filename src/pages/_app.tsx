@@ -22,21 +22,21 @@ const App = ({ Component, pageProps }: AppProps) => {
       if (token) {
         Cookies.set("userId", user.uid, {
           path: "/",
-          sameSite: "none",
+          sameSite: "None",
           secure: true,
         });
         Cookies.set("idToken", token, {
           path: "/",
-          sameSite: "none",
+          sameSite: "None",
           secure: true,
         });
       } else {
-        Cookies.remove("userId");
-        Cookies.remove("idToken");
+        Cookies.remove("userId", { sameSite: "lax" });
+        Cookies.remove("idToken", { sameSite: "lax" });
       }
     } else {
-      Cookies.remove("userId");
-      Cookies.remove("idToken");
+      Cookies.remove("userId", { sameSite: "lax" });
+      Cookies.remove("idToken", { sameSite: "lax" });
     }
   };
 
@@ -49,12 +49,12 @@ const App = ({ Component, pageProps }: AppProps) => {
         if (token) {
           Cookies.set("userId", user.uid, {
             path: "/",
-            sameSite: "none",
+            sameSite: "None",
             secure: true,
           });
           Cookies.set("idToken", token, {
             path: "/",
-            sameSite: "none",
+            sameSite: "None",
             secure: true,
           });
         }

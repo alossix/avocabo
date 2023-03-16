@@ -12,10 +12,19 @@ export const SignInForm: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
     useAppDispatch();
 
-  const handleSignInAuth = (
-    e: React.FormEvent<HTMLFormElement> | React.KeyboardEvent<HTMLButtonElement>
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    signIn();
+  };
+
+  const handleButtonClick = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ): void => {
     e.preventDefault();
+    signIn();
+  };
+
+  const signIn = () => {
     try {
       dispatch(signInAuth(email, password));
     } catch (error: unknown) {
@@ -24,7 +33,7 @@ export const SignInForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSignInAuth}>
+    <form onSubmit={handleSubmit}>
       <div>
         <label>{`${t("common:email")}: `}</label>
         <input
@@ -43,10 +52,9 @@ export const SignInForm: React.FC = () => {
       </div>
       <Button
         ariaLabel={t("common:sign_in")}
-        onClick={handleSignInAuth}
-        onKeyDown={handleSignInAuth}
+        onClick={handleButtonClick}
         title={t("common:sign_in")}
-        type="submit"
+        type="button"
       >
         {t("common:sign_in")}
       </Button>

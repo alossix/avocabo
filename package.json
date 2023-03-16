@@ -6,7 +6,7 @@
     "build": "next build",
     "dev": "next dev",
     "e2e": "cypress open",
-    "lint": "next lint",
+    "lint": "next lint && tsc --noEmit",
     "start": "next start",
     "test": "jest"
   },
