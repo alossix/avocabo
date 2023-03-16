@@ -30,7 +30,7 @@ const useFetchVocabAndAuthChanges = (
   useEffect(() => {
     const fetchData = (uid: string) => {
       if (!fetchedVocab.current) {
-        dispatch(getVocabDB(uid));
+        dispatch(getVocabDB({ userId: uid }));
         fetchedVocab.current = true;
       }
     };

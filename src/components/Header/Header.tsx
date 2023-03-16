@@ -297,6 +297,7 @@ const HeaderUL = styled.ul<{ mobileMenuOpen: boolean }>`
   width: fit-content;
   list-style: none;
   position: absolute;
+  z-index: 999;
   top: 100%;
   right: 0;
   gap: 16px;

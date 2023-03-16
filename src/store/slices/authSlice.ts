@@ -64,13 +64,13 @@ const authSlice = createSlice({
   },
 });
 
-const getUserDocRef = (uid: string) => {
+const getUserDocRef = ({ uid }: { uid: string }) => {
   return doc(db, "users", uid);
 };
 
 const setupInitialVocab = (dispatch: Dispatch<AnyAction | AppThunk>) => {
-  initialVocab.forEach((vocabWord) => {
-    dispatch(addVocabEntryDB(vocabWord));
+  initialVocab.forEach((newVocabWord) => {
+    dispatch(addVocabEntryDB({ newVocabWord }));
   });
 };
 
@@ -81,7 +81,7 @@ export const listenForAuthChanges =
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
         // Retrieve the user data from Firestore and dispatch the setUser action
-        const userDocRef = getUserDocRef(user.uid);
+        const userDocRef = getUserDocRef({ uid: user.uid });
         try {
           onSnapshot(userDocRef, (doc) => {
             if (doc.exists()) {
@@ -145,7 +145,7 @@ export const createUserAuth =
       dispatch(setAppUser({ user: userData }));
 
       // Create a new document for the user in Firestore with the same UID
-      const userDocRef = getUserDocRef(userData.uid);
+      const userDocRef = getUserDocRef({ uid: userData.uid });
       await setDoc(userDocRef, { ...userData });
 
       setupInitialVocab(dispatch);
@@ -168,7 +168,7 @@ export const signInAuth =
       );
 
       // Retrieve the user data from Firestore and dispatch the setUser action
-      const userDocRef = getUserDocRef(userCredential.user.uid);
+      const userDocRef = getUserDocRef({ uid: userCredential.user.uid });
       onSnapshot(userDocRef, (doc) => {
         if (doc.exists()) {
           const userData = doc.data() as AppUser;
@@ -177,7 +177,7 @@ export const signInAuth =
           setLanguage(userData.interfaceLanguage);
         }
       });
-      dispatch(getVocabDB(userCredential.user.uid));
+      dispatch(getVocabDB({ userId: userCredential.user.uid }));
     } catch (error: unknown) {
       const { message } = handleFirebaseError(error);
       dispatch(setAppError(message));
@@ -214,7 +214,7 @@ export const updateUserAuth =
       }
 
       // Update the user document in Firestore
-      const userDocRef = getUserDocRef(user.uid);
+      const userDocRef = getUserDocRef({ uid: user.uid });
       await updateDoc(userDocRef, updatedUserData);
 
       // Update the user object in the Redux store

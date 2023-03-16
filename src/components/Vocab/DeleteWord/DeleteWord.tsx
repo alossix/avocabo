@@ -14,7 +14,7 @@ export const DeleteWord: React.FC<DeleteWordProps> = ({ vocabId }) => {
   const dispatch = useAppDispatch();
 
   const handleDeleteWordClick: ReactEventHandler<HTMLButtonElement> = () => {
-    dispatch(removeVocabEntryDB(vocabId));
+    dispatch(removeVocabEntryDB({ vocabId }));
   };
   return (
     <DeleteWordContainer>
