@@ -1,29 +1,32 @@
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { updateUserAuth } from "@/store/slices/authSlice";
+import { setInterfaceLanguage } from "@/store/slices/interfaceLanguageSlice";
+import { theme } from "@/styles/theme";
 import { InterfaceLanguages } from "@/types/general";
 import styled from "@emotion/styled";
 import setLanguage from "next-translate/setLanguage";
-import useTranslation from "next-translate/useTranslation";
-import { useState } from "react";
 import { LanguageSelector } from "../LanguageSelector";
 
 export const Footer: React.FC = () => {
-  const { lang } = useTranslation();
-  const [interfaceLanguage, setInterfaceLanguage] =
-    useState<InterfaceLanguages>(lang as InterfaceLanguages);
   const currentUser = useAppSelector((state) => state.auth.user);
+  const initialLanguage = useAppSelector(
+    (state) => state.interfaceLanguage.interfaceLanguage
+  );
   const dispatch = useAppDispatch();
 
   const handleSelectInterfaceLanguage = async (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const newInterfaceLanguage = event.target.value as InterfaceLanguages;
-    setInterfaceLanguage(newInterfaceLanguage);
+    // set language in next-translate context
     setLanguage(newInterfaceLanguage);
 
     if (currentUser) {
-      // Update the user object in the Firebase store
+      // update user object in both firebase and local state
       dispatch(updateUserAuth({ interfaceLanguage: newInterfaceLanguage }));
+    } else {
+      // no user logged in, set a new local state only
+      dispatch(setInterfaceLanguage(newInterfaceLanguage));
     }
   };
 
@@ -33,17 +36,23 @@ export const Footer: React.FC = () => {
 
       <LanguageSelector
         handleSelectLanguage={handleSelectInterfaceLanguage}
-        selectedLanguage={interfaceLanguage}
+        selectedLanguage={
+          currentUser ? currentUser.interfaceLanguage : initialLanguage
+        }
       />
     </FooterContent>
   );
 };
 
-const FooterContent = styled.footer({
-  display: "flex",
-  justifyContent: "space-between",
-  gridArea: "8 / 1 / 9 / 9",
-  padding: 8,
-  boxShadow: `rgba(60, 64, 67, 0.05) 0px -1px 1px 0px,
-             rgba(60, 64, 67, 0.05) 0px -1px 3px 1px`,
-});
+const FooterContent = styled.footer`
+  display: none;
+  justify-content: space-between;
+  grid-area: 8 / 1 / 9 / 9;
+  padding: 8px;
+  box-shadow: rgba(60, 64, 67, 0.05) 0px -1px 1px 0px,
+    rgba(60, 64, 67, 0.05) 0px -1px 3px 1px;
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    display: flex;
+  }
+`;

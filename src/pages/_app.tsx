@@ -41,6 +41,12 @@ const App = ({ Component, pageProps }: AppProps) => {
   };
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("interfaceLanguage", router.locale || "en");
+    }
+  }, [router.locale]);
+
+  useEffect(() => {
     router.events.on("routeChangeComplete", handleRouteChange);
 
     auth.onAuthStateChanged(async (user) => {

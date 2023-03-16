@@ -1,22 +1,46 @@
-import { auth, onAuthStateChanged } from "@/services/firebase/firebaseService";
-import { signOutAuth } from "@/store/slices/authSlice";
+import { useAppSelector } from "@/store/hooks";
+import { signOutAuth, updateUserAuth } from "@/store/slices/authSlice";
+import { setInterfaceLanguage } from "@/store/slices/interfaceLanguageSlice";
 import { AppDispatch, useAppDispatch } from "@/store/store";
 import { theme } from "@/styles/theme";
+import { InterfaceLanguages } from "@/types/general";
 import styled from "@emotion/styled";
-import { User } from "firebase/auth";
+import setLanguage from "next-translate/setLanguage";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../Button";
+import { HamburgerMenu } from "../HamburgerMenu";
+import { LanguageSelector } from "../LanguageSelector";
 
 export const Header: React.FC = () => {
   const { t } = useTranslation("common");
-  const dispatch: AppDispatch = useAppDispatch();
-  const router = useRouter();
-  const headerRef = useRef<HTMLDivElement | null>(null);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const currentUser = useAppSelector((state) => state.auth.user);
+  const dispatch: AppDispatch = useAppDispatch();
+  const headerRef = useRef<HTMLDivElement | null>(null);
+  const initialLanguage = useAppSelector(
+    (state) => state.interfaceLanguage.interfaceLanguage
+  );
+  const languageSelectorRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
+
+  const handleSelectInterfaceLanguage = async (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    const newInterfaceLanguage = event.target.value as InterfaceLanguages;
+    // set language in next-translate context
+    setLanguage(newInterfaceLanguage);
+
+    if (currentUser) {
+      // update user object in both firebase and local state
+      dispatch(updateUserAuth({ interfaceLanguage: newInterfaceLanguage }));
+    } else {
+      // no user logged in, set a new local state only
+      dispatch(setInterfaceLanguage(newInterfaceLanguage));
+    }
+  };
 
   const handleInteractWithMenu = ({
     event,
@@ -29,8 +53,8 @@ export const Header: React.FC = () => {
     path: string;
     signOut?: boolean;
   }) => {
-    if (signOut) {
-      dispatch(signOutAuth());
+    if (currentUser && signOut) {
+      dispatch(signOutAuth(currentUser));
     }
     const isKeyboardEvent = (
       event: React.KeyboardEvent | React.MouseEvent
@@ -51,21 +75,25 @@ export const Header: React.FC = () => {
     if (
       mobileMenuOpen &&
       headerRef.current &&
-      !headerRef.current.querySelector("header")?.contains(event.target as Node)
+      languageSelectorRef.current &&
+      !headerRef.current
+        .querySelector("header")
+        ?.contains(event.target as Node) &&
+      !languageSelectorRef.current.contains(event.target as Node)
     ) {
       setMobileMenuOpen(false);
     }
   };
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-    });
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+  //     setCurrentUser(user);
+  //   });
 
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // }, []);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -78,25 +106,6 @@ export const Header: React.FC = () => {
 
   return (
     <HeaderNav ref={headerRef}>
-      <LeftContent>
-        <HeaderItem
-          aria-label={t("common:header_home")}
-          onKeyDown={(event) => handleInteractWithMenu({ event, path: "/" })}
-          role="link"
-          tabIndex={0}
-          style={{
-            fontWeight: "bold",
-            fontSize: 32,
-          }}
-        >
-          <HeaderLink
-            href="/"
-            onClick={(event) => handleInteractWithMenu({ event, path: "/" })}
-          >
-            {t("common:header_home")}
-          </HeaderLink>
-        </HeaderItem>
-      </LeftContent>
       <HeaderContent
         onClick={() => {
           if (mobileMenuOpen) {
@@ -104,15 +113,29 @@ export const Header: React.FC = () => {
           }
         }}
       >
-        <Checkbox
-          type="checkbox"
-          onChange={() => setMobileMenuOpen(!mobileMenuOpen)}
+        <HamburgerMenu
+          mobileMenuOpen={mobileMenuOpen}
+          setMobileMenuOpen={setMobileMenuOpen}
         />
-        <HamburgerLines>
-          <Line mobileMenuOpen={mobileMenuOpen} className="line1" />
-          <Line mobileMenuOpen={mobileMenuOpen} className="line2" />
-          <Line mobileMenuOpen={mobileMenuOpen} className="line3" />
-        </HamburgerLines>
+        <LeftContent>
+          <HeaderItem
+            aria-label={t("common:header_home")}
+            onKeyDown={(event) => handleInteractWithMenu({ event, path: "/" })}
+            role="link"
+            tabIndex={0}
+            style={{
+              fontWeight: "bold",
+              fontSize: 32,
+            }}
+          >
+            <HeaderLink
+              href="/"
+              onClick={(event) => handleInteractWithMenu({ event, path: "/" })}
+            >
+              {t("common:header_home")}
+            </HeaderLink>
+          </HeaderItem>
+        </LeftContent>
         <HeaderUL role="list" mobileMenuOpen={mobileMenuOpen}>
           <HeaderItem
             aria-label={t("common:header_how_it_works")}
@@ -184,6 +207,17 @@ export const Header: React.FC = () => {
                   {t("common:header_dashboard")}
                 </HeaderLink>
               </HeaderItem>
+              <MobileOnly>
+                <HeaderItem>
+                  <LanguageSelector
+                    ref={languageSelectorRef}
+                    handleSelectLanguage={handleSelectInterfaceLanguage}
+                    selectedLanguage={
+                      currentUser?.interfaceLanguage as InterfaceLanguages
+                    }
+                  />
+                </HeaderItem>
+              </MobileOnly>
               <HeaderItem
                 aria-label={t("common:header_sign_out")}
                 onKeyDown={(event) =>
@@ -196,7 +230,7 @@ export const Header: React.FC = () => {
                   href="/"
                   onClick={(event) => {
                     event.preventDefault();
-                    dispatch(signOutAuth());
+                    dispatch(signOutAuth(currentUser));
                     handleInteractWithMenu({ event, path: "/", signOut: true });
                   }}
                 >
@@ -223,6 +257,14 @@ export const Header: React.FC = () => {
                   {t("common:sign_in")}
                 </HeaderLink>
               </HeaderItem>
+              <MobileOnly>
+                <HeaderItem>
+                  <LanguageSelector
+                    handleSelectLanguage={handleSelectInterfaceLanguage}
+                    selectedLanguage={initialLanguage}
+                  />
+                </HeaderItem>
+              </MobileOnly>
               <Button
                 ariaLabel={t("common:sign_up")}
                 onClick={() => router.push("/sign-up")}
@@ -244,6 +286,7 @@ export const Header: React.FC = () => {
 const HeaderNav = styled.nav`
   display: flex;
   justify-content: space-between;
+  align-items: "center";
   grid-area: 1 / 1 / 2 / 9;
   padding: 8px;
   box-shadow: 0 1px 4px rgb(146 161 176 / 15%);
@@ -252,30 +295,13 @@ const HeaderNav = styled.nav`
 const HeaderContent = styled.header`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   position: relative;
   width: 100%;
 `;
 
-const LeftContent = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex: 1;
-`;
-
-const Checkbox = styled.input`
-  position: absolute;
-  display: block;
-  height: 32px;
-  width: 32px;
-  right: 0;
-  z-index: 5;
-  opacity: 0;
-  cursor: pointer;
-`;
-
 const HeaderUL = styled.ul<{ mobileMenuOpen: boolean }>`
-  display: ${(props) => (props.mobileMenuOpen ? "flex" : "none")};
+  display: flex;
   flex-direction: column;
   align-items: flex-end;
   width: fit-content;
@@ -283,23 +309,29 @@ const HeaderUL = styled.ul<{ mobileMenuOpen: boolean }>`
   position: absolute;
   top: 100%;
   right: 0;
-  margin-top: 0;
+  /* margin: 0; */
+  gap: 16px;
   background-color: ${theme.colors.white};
   box-shadow: rgba(60, 64, 67, 0.05) 0px 1px 1px 0px,
     rgba(60, 64, 67, 0.05) 0px 1px 3px 1px;
   transform: ${(props) =>
-    props.mobileMenuOpen ? "translateX(0)" : "translate(-150%)"};
-  transition: transform 0.4s ease-in-out;
+    props.mobileMenuOpen ? "translateY(0)" : "translateY(-10px)"};
+  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+  opacity: ${(props) => (props.mobileMenuOpen ? "1" : "0")};
+  visibility: ${(props) => (props.mobileMenuOpen ? "visible" : "hidden")};
 
   @media (min-width: ${theme.breakpoints.desktop}) {
     display: flex;
     flex-direction: row;
-    position: static;
     justify-content: flex-end;
-    box-shadow: none;
+    gap: 24px;
     align-items: center;
+    position: static;
+    box-shadow: none;
     width: 100%;
-    gap: 48px;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
   }
 `;
 
@@ -307,11 +339,13 @@ const HeaderItem = styled.li({
   display: "flex",
   alignItems: "center",
   fontWeight: "bold",
+  fontSize: 14,
 });
 
 const HeaderLink = styled(Link)({
   textDecoration: "none",
   color: theme.colors.black,
+  whiteSpace: "nowrap",
 
   "&:visited": { color: theme.colors.black },
   "&:active": {
@@ -322,42 +356,17 @@ const HeaderLink = styled(Link)({
   },
 });
 
-const HamburgerLines = styled.div`
-  display: block;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 26px;
-  width: 32px;
-  position: absolute;
-  right: 0;
-  z-index: 2;
+const LeftContent = styled.div`
   display: flex;
-  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
 `;
 
-const Line = styled.span<{ mobileMenuOpen: boolean }>`
+const MobileOnly = styled.div`
   display: block;
-  height: 4px;
-  width: 100%;
-  border-radius: 10px;
-  background: ${theme.colors.black};
 
-  &.line1 {
-    transform-origin: 0% 0%;
-    transition: transform 0.4s ease-in-out;
-    transform: ${(props) => (props.mobileMenuOpen ? "rotate(45deg)" : "none")};
-  }
-
-  &.line2 {
-    transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
-    transform: ${(props) =>
-      props.mobileMenuOpen ? "translateX(-10%)" : "none"};
-    opacity: ${(props) => (props.mobileMenuOpen ? "0" : "1")};
-  }
-
-  &.line3 {
-    transform-origin: 0% 100%;
-    transition: transform 0.4s ease-in-out;
-    transform: ${(props) => (props.mobileMenuOpen ? "rotate(-45deg)" : "none")};
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    display: none;
   }
 `;

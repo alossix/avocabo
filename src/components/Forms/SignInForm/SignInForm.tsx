@@ -33,7 +33,7 @@ export const SignInForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} name="sign_in_form">
       <div>
         <label>{`${t("common:email")}: `}</label>
         <input
