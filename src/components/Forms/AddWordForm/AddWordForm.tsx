@@ -22,9 +22,11 @@ export const AddWordForm: React.FC = () => {
       setIsSubmitting(true);
       dispatch(
         addVocabEntryDB({
-          ...initialVocabProperties,
-          ...vocabWordData,
-          vocabId,
+          newVocabWord: {
+            ...initialVocabProperties,
+            ...vocabWordData,
+            vocabId,
+          },
         })
       );
     } catch (error) {

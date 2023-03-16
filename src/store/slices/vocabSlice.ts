@@ -18,9 +18,7 @@ import { setAppError } from "./authSlice";
 
 const initialState: Vocab[] = [];
 
-const boxIntervals = [
-  0, 1, 2, 3, 5, 7, 9, 11, 14, 24, 30, 45, 60, 75, 90, 120, 180, 365,
-];
+const boxIntervals = [0, 1, 2, 3, 7, 9, 14, 24, 30, 45, 60, 90, 120, 180, 365];
 
 export const vocabSlice = createSlice({
   name: "vocab",
@@ -41,8 +39,11 @@ export const vocabSlice = createSlice({
       const vocab = state.find((vocab) => vocab.vocabId === vocabId);
 
       if (vocab) {
-        vocab.box = updateVocabCurrentBox(vocab.box, recallDifficulty);
-        vocab.dueDate = updateVocabDueDate(vocab, recallDifficulty);
+        vocab.box = updateVocabCurrentBox({
+          currentBox: vocab.box,
+          recallDifficulty,
+        });
+        vocab.dueDate = updateVocabDueDate({ vocab, recallDifficulty });
         vocab.lastUpdatedAt = new Date().toISOString();
       }
     },
@@ -68,14 +69,23 @@ export const vocabSlice = createSlice({
   },
 });
 
-const getUserVocabDocRef = (uid: string, vocabId: string) => {
+const getUserVocabDocRef = ({
+  uid,
+  vocabId,
+}: {
+  uid: string;
+  vocabId: string;
+}) => {
   return doc(db, "users", uid, "vocab", vocabId);
 };
 
-const updateVocabCurrentBox = (
-  currentBox: number,
-  recallDifficulty: RecallDifficulty
-): number => {
+const updateVocabCurrentBox = ({
+  currentBox,
+  recallDifficulty,
+}: {
+  currentBox: number;
+  recallDifficulty: RecallDifficulty;
+}): number => {
   if (currentBox === 0 && recallDifficulty === "easy") {
     return 1;
   }
@@ -102,16 +112,25 @@ const updateVocabCurrentBox = (
   }
 };
 
-const updateVocabDueDate = (
-  vocab: Vocab,
-  recallDifficulty: RecallDifficulty
-) => {
-  const interval = boxIntervals[vocab.box];
+const updateVocabDueDate = ({
+  vocab,
+  recallDifficulty,
+}: {
+  vocab: Vocab;
+  recallDifficulty: RecallDifficulty;
+}) => {
+  const index =
+    vocab.box < boxIntervals.length ? vocab.box : boxIntervals.length - 1;
+  const interval = boxIntervals[index];
   let newDueDate;
 
   if (vocab.box === boxIntervals.length - 1 && recallDifficulty === "easy") {
     newDueDate = new Date(
       new Date(vocab.dueDate).getTime() + 365 * 86400000
+    ).toISOString();
+  } else if (vocab.box >= boxIntervals.length - 1) {
+    newDueDate = new Date(
+      new Date(vocab.dueDate).getTime() + interval * 86400000
     ).toISOString();
   } else {
     newDueDate = new Date(Date.now() + interval * 86400000).toISOString();
@@ -119,13 +138,20 @@ const updateVocabDueDate = (
   return newDueDate;
 };
 
-export const addVocabEntryDB = (newVocabWord: Vocab): AppThunk => {
+export const addVocabEntryDB = ({
+  newVocabWord,
+}: {
+  newVocabWord: Vocab;
+}): AppThunk => {
   return async function (dispatch: Dispatch<AnyAction | AppThunk>) {
     try {
       if (auth.currentUser) {
         // Add the new vocab to the database
         await setDoc(
-          getUserVocabDocRef(auth.currentUser.uid, newVocabWord.vocabId),
+          getUserVocabDocRef({
+            uid: auth.currentUser.uid,
+            vocabId: newVocabWord.vocabId,
+          }),
           { ...newVocabWord }
         );
 
@@ -161,10 +187,10 @@ export const changeVocabBoxDB =
     );
 
     if (vocab && auth.currentUser?.uid) {
-      const vocabDocRef = getUserVocabDocRef(
-        auth.currentUser.uid,
-        vocabWord.vocabId
-      );
+      const vocabDocRef = getUserVocabDocRef({
+        uid: auth.currentUser.uid,
+        vocabId: vocabWord.vocabId,
+      });
 
       updateDoc(vocabDocRef, {
         box: vocab.box,
@@ -175,12 +201,15 @@ export const changeVocabBoxDB =
   };
 
 export const removeVocabEntryDB =
-  (vocabId: string): AppThunk =>
+  ({ vocabId }: { vocabId: string }): AppThunk =>
   async (dispatch: Dispatch<AnyAction | AppThunk>) => {
     dispatch(removeVocabEntryInState({ vocabId }));
     if (auth.currentUser) {
       try {
-        const vocabDocRef = getUserVocabDocRef(auth.currentUser.uid, vocabId);
+        const vocabDocRef = getUserVocabDocRef({
+          uid: auth.currentUser.uid,
+          vocabId,
+        });
 
         await deleteDoc(vocabDocRef);
       } catch (error: unknown) {
@@ -192,7 +221,7 @@ export const removeVocabEntryDB =
 
 // Add a return type to the getVocabDB function
 export const getVocabDB =
-  (userId: string): AppThunk =>
+  ({ userId }: { userId: string }): AppThunk =>
   async (dispatch: Dispatch<AnyAction | AppThunk>) => {
     try {
       if (auth.currentUser) {
