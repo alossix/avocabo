@@ -1,6 +1,7 @@
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import styled from "@emotion/styled";
+import { useRef } from "react";
 import { theme } from "./theme";
 
 type LayoutProps = {
@@ -8,10 +9,12 @@ type LayoutProps = {
 };
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const mainContentRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <PageWrapper>
-      <Header />
-      <MainContent>{children}</MainContent>
+      <Header mainContentRef={mainContentRef} />
+      <MainContent ref={mainContentRef}>{children}</MainContent>
       <Footer />
     </PageWrapper>
   );

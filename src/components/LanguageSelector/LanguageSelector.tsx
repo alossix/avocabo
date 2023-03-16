@@ -44,6 +44,8 @@ export const LanguageSelector = React.forwardRef<
   );
 });
 
+LanguageSelector.displayName = "LanguageSelector";
+
 const LanguageSelectorContainer = styled.div({
   display: "flex",
   alignItems: "center",

@@ -14,7 +14,9 @@ import { Button } from "../Button";
 import { HamburgerMenu } from "../HamburgerMenu";
 import { LanguageSelector } from "../LanguageSelector";
 
-export const Header: React.FC = () => {
+export const Header: React.FC<{
+  mainContentRef: React.RefObject<HTMLDivElement>;
+}> = ({ mainContentRef }) => {
   const { t } = useTranslation("common");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const currentUser = useAppSelector((state) => state.auth.user);
@@ -75,25 +77,13 @@ export const Header: React.FC = () => {
     if (
       mobileMenuOpen &&
       headerRef.current &&
-      languageSelectorRef.current &&
-      !headerRef.current
-        .querySelector("header")
-        ?.contains(event.target as Node) &&
-      !languageSelectorRef.current.contains(event.target as Node)
+      mainContentRef.current &&
+      !headerRef.current.contains(event.target as Node) &&
+      mainContentRef.current.contains(event.target as Node)
     ) {
       setMobileMenuOpen(false);
     }
   };
-
-  // useEffect(() => {
-  //   const unsubscribe = onAuthStateChanged(auth, (user) => {
-  //     setCurrentUser(user);
-  //   });
-
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // }, []);
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -309,8 +299,8 @@ const HeaderUL = styled.ul<{ mobileMenuOpen: boolean }>`
   position: absolute;
   top: 100%;
   right: 0;
-  /* margin: 0; */
   gap: 16px;
+  padding: 16px;
   background-color: ${theme.colors.white};
   box-shadow: rgba(60, 64, 67, 0.05) 0px 1px 1px 0px,
     rgba(60, 64, 67, 0.05) 0px 1px 3px 1px;
@@ -332,6 +322,7 @@ const HeaderUL = styled.ul<{ mobileMenuOpen: boolean }>`
     transform: none;
     opacity: 1;
     visibility: visible;
+    padding: 0px;
   }
 `;
 
