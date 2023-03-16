@@ -1,11 +1,13 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import authSlice from "./slices/authSlice";
+import interfaceLanguageSlice from "./slices/interfaceLanguageSlice";
 import vocabSlice from "./slices/vocabSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authSlice.reducer,
+    interfaceLanguage: interfaceLanguageSlice.reducer,
     vocab: vocabSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>

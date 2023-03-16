@@ -2,22 +2,22 @@ import { theme } from "@/styles/theme";
 import { InterfaceLanguages, LearningLanguages } from "@/types/general";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
+import React from "react";
 
 type LanguageSelectorProps = {
   handleSelectLanguage: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  selectedLanguage: InterfaceLanguages & LearningLanguages;
+  selectedLanguage: InterfaceLanguages | LearningLanguages;
   showIcon?: boolean;
 };
 
-export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
-  handleSelectLanguage,
-  selectedLanguage,
-  showIcon = true,
-}) => {
+export const LanguageSelector = React.forwardRef<
+  HTMLDivElement,
+  LanguageSelectorProps
+>(({ handleSelectLanguage, selectedLanguage, showIcon = true }, ref) => {
   const { t } = useTranslation();
 
   return (
-    <LanguageSelectorContainer>
+    <LanguageSelectorContainer ref={ref}>
       <label
         htmlFor="language-select"
         style={{
@@ -42,7 +42,9 @@ export const LanguageSelector: React.FC<LanguageSelectorProps> = ({
       </StyledSelectMenu>
     </LanguageSelectorContainer>
   );
-};
+});
+
+LanguageSelector.displayName = "LanguageSelector";
 
 const LanguageSelectorContainer = styled.div({
   display: "flex",
@@ -51,7 +53,7 @@ const LanguageSelectorContainer = styled.div({
 });
 
 const StyledSelectMenu = styled.select({
-  padding: "4px 8px",
+  padding: "2px 4px",
   borderRadius: 4,
   border: `1px solid ${theme.colors.darkAvocado}`,
   color: theme.colors.black,

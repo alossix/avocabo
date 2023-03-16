@@ -86,7 +86,9 @@ const updateVocabCurrentBox = (
         ? currentBox
         : currentBox + 2;
     case "medium":
-      return Math.max(currentBox, 1);
+      return currentBox === boxIntervals.length - 1
+        ? currentBox
+        : currentBox + 1;
     case "hard":
       if (currentBox === 0) {
         return 0;

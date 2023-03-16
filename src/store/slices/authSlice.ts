@@ -22,8 +22,10 @@ import {
   PayloadAction,
   ThunkDispatch,
 } from "@reduxjs/toolkit";
+import setLanguage from "next-translate/setLanguage";
 import { Dispatch } from "react";
 import { AppDispatch, AppThunk, RootState } from "../store";
+import { setInterfaceLanguage } from "./interfaceLanguageSlice";
 import { addVocabEntryDB, getVocabDB, setVocabInState } from "./vocabSlice";
 
 type AuthState = {
@@ -171,6 +173,8 @@ export const signInAuth =
         if (doc.exists()) {
           const userData = doc.data() as AppUser;
           dispatch(setAppUser({ user: userData }));
+          // set language in next-translate context
+          setLanguage(userData.interfaceLanguage);
         }
       });
       dispatch(getVocabDB(userCredential.user.uid));
@@ -182,8 +186,10 @@ export const signInAuth =
 
 // Sign out
 export const signOutAuth =
-  (): AppThunk => async (dispatch: Dispatch<AnyAction | AppThunk>) => {
+  (currentUser: AppUser): AppThunk =>
+  async (dispatch: Dispatch<AnyAction | AppThunk>) => {
     dispatch(setAppLoading(true));
+    dispatch(setInterfaceLanguage(currentUser.interfaceLanguage));
     try {
       await firebaseSignOut(auth);
       dispatch(signOutApp());

@@ -16,4 +16,9 @@ export const theme = {
     hardRed: "#FF0000",
     forgotPurple: "#800080",
   },
+  breakpoints: {
+    mobile: "0px",
+    tablet: "481px",
+    desktop: "769px",
+  },
 };
