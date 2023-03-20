@@ -2,6 +2,7 @@ import { LanguageSelector } from "@/components/LanguageSelector";
 import { useAppDispatch } from "@/store/hooks";
 import { createUserAuth } from "@/store/slices/authSlice";
 import { InterfaceLanguages, LearningLanguages } from "@/types/general";
+import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -61,7 +62,10 @@ export const SignUpForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleSignupSubmit)} name="create_user_form">
+    <StyledForm
+      onSubmit={handleSubmit(handleSignupSubmit)}
+      name="create_user_form"
+    >
       <div>
         <label>{`${t("common:profile_name")}: `}</label>
         <input {...register("displayName", { required: true })} type="string" />
@@ -131,6 +135,12 @@ export const SignUpForm: React.FC = () => {
         <p>{t("common:confirm_password_required")}</p>
       )}
       {error && <p>{error}</p>}
-    </form>
+    </StyledForm>
   );
 };
+
+const StyledForm = styled.form({
+  display: "flex",
+  flexDirection: "column",
+  gap: 16,
+});

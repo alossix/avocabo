@@ -40,6 +40,7 @@ const ButtonComponent = styled.button<{ disabled: boolean }>(
   ({ disabled }) => ({
     display: "flex",
     alignItems: "center",
+    justifyContent: "center",
     background: theme.colors.darkAvocado,
     padding: "8px 16px",
     color: theme.colors.white,
