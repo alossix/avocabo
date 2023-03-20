@@ -3,12 +3,13 @@ import styled from "@emotion/styled";
 import { ReactPortal } from "../ReactPortal";
 
 type ModalProps = {
+  children: React.ReactNode;
   isOpen: boolean;
   setOn: () => void;
   title?: string;
 };
 
-export const Modal = ({ isOpen, setOn, title }: ModalProps) => {
+export const Modal = ({ children, isOpen, setOn, title }: ModalProps) => {
   if (!isOpen) return null;
 
   const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -19,17 +20,16 @@ export const Modal = ({ isOpen, setOn, title }: ModalProps) => {
 
   return (
     <ReactPortal wrapperId="react-portal-modal-container">
-      <ModalBackdrop className="modal" onClick={handleBackdropClick}>
+      <ModalBackdrop onClick={handleBackdropClick}>
         <ModalContent>
           {/* Modal Heading */}
-          <div className="modal__modal-heading">
-            <h3 className="modal__modal-title">{title}</h3>
+          <div>
+            <h3>{title}</h3>
           </div>
+          {children}
           {/* Modal CTA */}
-          <div className="modal__modal_flex_row modal__modal_justify_between">
-            <button className="modal__modal-btn-close" onClick={() => setOn()}>
-              NO, CANCEL
-            </button>
+          <div>
+            <button onClick={() => setOn()}>NO, CANCEL</button>
           </div>
         </ModalContent>
       </ModalBackdrop>
@@ -57,6 +57,4 @@ const ModalContent = styled.section({
   backgroundColor: theme.colors.white,
   width: 360,
   height: 360,
-  opacity: 1,
-  filter: "brightness(100%)",
 });

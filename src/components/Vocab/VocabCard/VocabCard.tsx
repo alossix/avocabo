@@ -1,10 +1,10 @@
-import { Modal } from "@/components/UI/Modal";
 import { formatDateYearMonthDay } from "@/lib/dates";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import { ReactEventHandler, useState } from "react";
+import { EditVocabModal } from "../EditVocabModal";
 import { LearningStepper } from "../LearningStepper";
 import EditVocabIcon from "/public/icons/edit-vocab-icon.svg";
 
@@ -52,11 +52,9 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
         <button onClick={() => handleEditButtonClick()}>
           <Image src={EditVocabIcon} alt="edit-vocab" width={16} height={16} />
         </button>
-        {/* <DeleteWord vocabId={vocabWord.vocabId} /> */}
-        <Modal
+        <EditVocabModal
           isOpen={openModal}
-          setOn={() => setOpenModal(!openModal)}
-          title="Vocab Modal"
+          setOpenModal={() => setOpenModal(!openModal)}
         />
       </TopRowDetails>
 
