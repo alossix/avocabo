@@ -29,7 +29,7 @@ export const Modal = ({ children, isOpen, setOn, title }: ModalProps) => {
           {children}
           {/* Modal CTA */}
           <div>
-            <button onClick={() => setOn()}>NO, CANCEL</button>
+            <button onClick={() => setOn()}>Cancel and close</button>
           </div>
         </ModalContent>
       </ModalBackdrop>
@@ -53,8 +53,8 @@ const ModalContent = styled.section({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  justifyContent: "center",
+  justifyContent: "space-around",
   backgroundColor: theme.colors.white,
-  width: 360,
-  height: 360,
+  width: 480,
+  height: 480,
 });

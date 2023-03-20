@@ -55,6 +55,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
         <EditVocabModal
           isOpen={openModal}
           setOpenModal={() => setOpenModal(!openModal)}
+          vocabWord={vocabWord}
         />
       </TopRowDetails>
 
