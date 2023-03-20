@@ -1,5 +1,5 @@
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
+import { Footer } from "@/components/UI/Footer";
+import { Header } from "@/components/UI/Header";
 import styled from "@emotion/styled";
 import { useRef } from "react";
 import { theme } from "./theme";

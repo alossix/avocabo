@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button } from "../../Button";
+import { Button } from "../../UI/Button";
 
 type SignUpFormData = {
   displayName: string;

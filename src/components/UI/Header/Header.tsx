@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../Button";
 import { HamburgerMenu } from "../HamburgerMenu";
-import { LanguageSelector } from "../LanguageSelector";
+import { LanguageSelector } from "../../LanguageSelector";
 
 export const Header: React.FC<{
   mainContentRef: React.RefObject<HTMLDivElement>;
@@ -297,7 +297,7 @@ const HeaderUL = styled.ul<{ mobileMenuOpen: boolean }>`
   width: fit-content;
   list-style: none;
   position: absolute;
-  z-index: 999;
+  z-index: 10;
   top: 100%;
   right: 0;
   gap: 16px;
@@ -324,6 +324,7 @@ const HeaderUL = styled.ul<{ mobileMenuOpen: boolean }>`
     opacity: 1;
     visibility: visible;
     padding: 0px;
+    z-index: auto;
   }
 `;
 

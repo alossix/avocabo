@@ -5,7 +5,7 @@ import { theme } from "@/styles/theme";
 import { InterfaceLanguages } from "@/types/general";
 import styled from "@emotion/styled";
 import setLanguage from "next-translate/setLanguage";
-import { LanguageSelector } from "../LanguageSelector";
+import { LanguageSelector } from "../../LanguageSelector";
 
 export const Footer: React.FC = () => {
   const currentUser = useAppSelector((state) => state.auth.user);
