@@ -1,0 +1,19 @@
+{
+  "home": {
+    "title": "Bienvenue chez Avocabo!",
+    "subtitle": "Maîtrisez le vocabulaire avec notre système de répétition espacée",
+    "section1Title": "Comment fonctionne notre système",
+    "section1Text": "<p>Notre système de répétition espacée vous aide à apprendre le vocabulaire de manière plus efficace et plus efficace que les méthodes d'étude traditionnelles. Il vous présente des mots à apprendre et planifie des sessions de révision à des intervalles conçus pour optimiser la rétention de la mémoire. Au fur et à mesure de votre progression, notre système suit vos performances et ajuste le calendrier de révision en conséquence. Vous passerez moins de temps à étudier tout en retenant plus d'informations.</p>",
+    "section2Title": "Les avantages de l'utilisation de notre système",
+    "section2Text": "<p>En utilisant le système de répétition espacée d'Avocabo, vous pouvez apprendre le vocabulaire de manière plus efficace et plus efficace que les méthodes d'étude traditionnelles. Notre système minimise le temps que vous passez à étudier tout en maximisant la quantité que vous retenez. Avocabo fournit également des commentaires sur votre progression, vous pouvez donc voir à quel point vous êtes avancé et identifier les domaines qui nécessitent plus d'attention. Avec notre système, vous disposerez des outils dont vous avez besoin pour maîtriser le vocabulaire.</p>"
+  },
+  "howItWorks": {
+    "title": "Comment fonctionne notre système de répétition espacée",
+    "section1Title": "Qu'est-ce qu'un système de répétition espacée?",
+    "section1Text": "<p>Un système de répétition espacée est une méthode de révision d'informations qui a été montrée comme étant hautement efficace pour la rétention de la mémoire. Cette méthode consiste à planifier des sessions de révision à des intervalles de plus en plus longs après chaque rappel réussi.</p><p>En répétant le processus de révision à des intervalles espacés, vous pouvez mémoriser l'information à long terme et augmenter votre capacité à vous en souvenir plus tard.</p>",
+    "section2Title": "Comment fonctionne notre système",
+    "section2Text": "<p>Notre système de répétition espacée pour étudier le vocabulaire fonctionne en vous présentant des mots de vocabulaire que vous devez apprendre, puis en planifiant des sessions de révision à des intervalles conçus pour optimiser la rétention de la mémoire. Les intervalles sont basés sur la difficulté du mot et sur votre capacité à vous en souvenir lors de la session de révision.</p><p>Le système suit votre progression et ajuste le calendrier de révision en conséquence, afin que vous puissiez vous concentrer sur les mots qui vous posent le plus de difficultés.</p>",
+    "section3Title": "Les avantages de l'utilisation de notre système",
+    "section3Text": "<p>L'utilisation de notre système de répétition espacée peut vous aider à apprendre le vocabulaire de manière plus efficace et plus efficace que les méthodes d'étude traditionnelles. En optimisant le calendrier de révision pour chaque mot, vous pouvez minimiser le temps que vous passez à étudier tout en maximisant la quantité que vous retenez.</p><p>Le système fournit également des commentaires sur votre progression, vous permettant de voir à quel point vous êtes avancé et d'identifier les domaines qui nécessitent plus d'attention.</p>"
+  }
+}

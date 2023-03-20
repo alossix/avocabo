@@ -1,6 +1,7 @@
 import { Button } from "@/components/Button";
 import { signInAuth } from "@/store/slices/authSlice";
 import { RootState, useAppDispatch } from "@/store/store";
+import styled from "@emotion/styled";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import useTranslation from "next-translate/useTranslation";
 import { useForm } from "react-hook-form";
@@ -25,7 +26,7 @@ export const SignInForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} name="sign_in_form">
+    <StyledForm onSubmit={handleSubmit(onSubmit)} name="sign_in_form">
       <div>
         <label>{`${t("common:email")}: `}</label>
         <input type="email" {...register("email", { required: true })} />
@@ -41,6 +42,12 @@ export const SignInForm: React.FC = () => {
       >
         {t("common:sign_in")}
       </Button>
-    </form>
+    </StyledForm>
   );
 };
+
+const StyledForm = styled.form({
+  display: "flex",
+  flexDirection: "column",
+  gap: 16,
+});

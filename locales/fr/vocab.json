@@ -1,0 +1,17 @@
+{
+  "vocab_current_step": "Étape actuelle : ",
+  "vocab_due_date": "Date d'échéance",
+  "vocab_list_title": "Ma liste de vocabulaire",
+  "word": "Mot",
+  "description": "Description",
+  "category": "Catégorie",
+  "vocab_category_noun": "Nom",
+  "vocab_category_verb": "Verbe",
+  "vocab_category_adverb": "Adverbe",
+  "vocab_category_adjective": "Adjectif",
+  "vocab_category_phrase": "Expression",
+  "vocab_category_pronoun": "Pronom",
+  "vocab_category_preposition": "Préposition",
+  "vocab_category_conjunction": "Conjonction",
+  "vocab_category_other": "Autre"
+}
