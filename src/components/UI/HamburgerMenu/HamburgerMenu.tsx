@@ -32,7 +32,7 @@ const Checkbox = styled.input`
   height: 32px;
   width: 32px;
   right: 0;
-  z-index: 5;
+  z-index: 4;
   opacity: 0;
   cursor: pointer;
 

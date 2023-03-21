@@ -4,8 +4,9 @@ import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import { ReactEventHandler, useState } from "react";
-import { DeleteWord } from "../DeleteWord";
+import { EditVocabModal } from "../EditVocabModal";
 import { LearningStepper } from "../LearningStepper";
+import EditVocabIcon from "/public/icons/edit-vocab-icon.svg";
 
 type VocabCardProps = {
   vocabWord: Vocab;
@@ -14,6 +15,7 @@ type VocabCardProps = {
 export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
   const { t } = useTranslation("vocab");
   const [showDetails, setShowDetails] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const dueDate = formatDateYearMonthDay(vocabWord.dueDate);
 
   const handleOnShowDetailsClick: ReactEventHandler<HTMLDivElement> = () => {
@@ -31,6 +33,10 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
     }
   };
 
+  const handleEditButtonClick = () => {
+    setOpenModal(() => !openModal);
+  };
+
   return (
     <CardWrapper
       onClick={handleOnShowDetailsClick}
@@ -43,7 +49,14 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
     >
       <TopRowDetails showDetails={showDetails}>
         <h5>{`${t("vocab:vocab_due_date")}: ${dueDate}`}</h5>
-        <DeleteWord vocabId={vocabWord.vocabId} />
+        <button onClick={() => handleEditButtonClick()}>
+          <Image src={EditVocabIcon} alt="edit-vocab" width={16} height={16} />
+        </button>
+        <EditVocabModal
+          isOpen={openModal}
+          setOpenModal={() => setOpenModal(!openModal)}
+          vocabWord={vocabWord}
+        />
       </TopRowDetails>
 
       <ImageWrapper>

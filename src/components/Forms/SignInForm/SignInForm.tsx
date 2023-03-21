@@ -1,4 +1,4 @@
-import { Button } from "@/components/Button";
+import { Button } from "@/components/UI/Button";
 import { signInAuth } from "@/store/slices/authSlice";
 import { RootState, useAppDispatch } from "@/store/store";
 import styled from "@emotion/styled";

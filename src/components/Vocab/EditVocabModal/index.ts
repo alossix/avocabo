@@ -1,0 +1,1 @@
+export { EditVocabModal } from "./EditVocabModal";
