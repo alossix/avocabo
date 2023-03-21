@@ -1,41 +1,33 @@
 import { ReactNode, useState, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
 
-const defaultReactPortalProps = {
-  wrapperId: "react-portal",
-};
-
 type ReactPortalProps = {
   children: ReactNode;
   wrapperId: string;
-} & typeof defaultReactPortalProps;
+};
 
 export const ReactPortal = ({ children, wrapperId }: ReactPortalProps) => {
-  const [wrapper, setWrapper] = useState<Element | null>(null);
+  const [wrapper, setWrapper] = useState<HTMLElement | null>(null);
 
   useLayoutEffect(() => {
-    let element = document.getElementById(wrapperId);
+    const existingWrapper = document.getElementById(wrapperId);
 
-    let created = false;
-    if (!element) {
-      created = true;
-      const wrapper = document.createElement("div");
-      wrapper.setAttribute("id", wrapperId);
-      document.body.appendChild(wrapper);
-      element = wrapper;
+    if (existingWrapper) {
+      setWrapper(existingWrapper);
+      return;
     }
 
-    setWrapper(element);
+    const newWrapper = document.createElement("div");
+    newWrapper.setAttribute("id", wrapperId);
+    document.body.appendChild(newWrapper);
+    setWrapper(newWrapper);
 
     return () => {
-      if (created && element?.parentNode) {
-        element.parentNode.removeChild(element);
-      }
+      document.body.removeChild(newWrapper);
     };
   }, [wrapperId]);
 
-  if (wrapper === null) return null;
+  if (!wrapper) return null;
 
   return createPortal(children, wrapper);
 };
-ReactPortal.defaultProps = defaultReactPortalProps;
