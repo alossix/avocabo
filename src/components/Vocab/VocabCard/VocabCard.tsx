@@ -49,7 +49,15 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
     >
       <TopRowDetails showDetails={showDetails}>
         <h5>{`${t("vocab:vocab_due_date")}: ${dueDate}`}</h5>
-        <button onClick={() => handleEditButtonClick()}>
+        <button
+          type="button"
+          onClick={() => handleEditButtonClick()}
+          style={{
+            height: 16,
+            backgroundColor: "transparent",
+            cursor: "pointer",
+          }}
+        >
           <Image src={EditVocabIcon} alt="edit-vocab" width={16} height={16} />
         </button>
         <EditVocabModal

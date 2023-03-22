@@ -1,19 +1,22 @@
 import { auth, getIdToken } from "@/services/firebase/firebaseService";
-import { store } from "@/store/store";
+import { initializeAuth } from "@/store/slices/authSlice";
+import { useAppDispatch } from "@/store/store";
+import WithAuth from "@/store/_withAuth";
 import "@/styles/globals.css";
 import Layout from "@/styles/Layout";
+import Cookies from "js-cookie";
 import useTranslation from "next-translate/useTranslation";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Provider } from "react-redux";
-import Cookies from "js-cookie";
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   const { t } = useTranslation("common");
+  const dispatch = useAppDispatch();
   const router = useRouter();
+  const WrappedComponent = WithAuth(Component);
   const [user] = useAuthState(auth);
 
   const handleRouteChange = async () => {
@@ -68,25 +71,28 @@ const App = ({ Component, pageProps }: AppProps) => {
         Cookies.remove("userId");
         Cookies.remove("idToken");
       }
+      // Dispatch the auth state to Redux store here
+      dispatch(initializeAuth({ user }));
     });
 
     return () => {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.events, user]);
 
   return (
-    <Provider store={store}>
+    <>
       <Head>
         <title>{t("common:title_tag")}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Layout>
-        <Component {...pageProps} />
+        <WrappedComponent {...pageProps} />
       </Layout>
-    </Provider>
+    </>
   );
 };
 
-export default App;
+export default WithAuth(App);
