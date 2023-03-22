@@ -1,10 +1,9 @@
 {
+  "category": "Categorie",
   "vocab_current_step": "Huidige stap: ",
+  "vocab_description_sentence": "Beschrijving of voorbeeldzin",
   "vocab_due_date": "Vervaldatum",
   "vocab_list_title": "Mijn Woordenlijst",
-  "word": "Woord",
-  "description": "Beschrijving",
-  "category": "Categorie",
   "vocab_category_noun": "Zelfstandig naamwoord",
   "vocab_category_verb": "Werkwoord",
   "vocab_category_adverb": "Bijwoord",
@@ -13,5 +12,6 @@
   "vocab_category_pronoun": "Voornaamwoord",
   "vocab_category_preposition": "Voorzetsel",
   "vocab_category_conjunction": "Voegwoord",
-  "vocab_category_other": "Overig"
+  "vocab_category_other": "Overige",
+  "word": "Woord"
 }

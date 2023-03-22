@@ -1,6 +1,7 @@
 import { Modal } from "@/components/UI/Modal";
 import { formatDateYearMonthDay } from "@/lib/dates";
 import { Vocab } from "@/types/vocab";
+import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 
 type EditVocabModalProps = {
@@ -14,6 +15,7 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   setOpenModal,
   vocabWord,
 }) => {
+  const { t } = useTranslation("vocab");
   return (
     <Modal
       isOpen={isOpen}
@@ -63,7 +65,11 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
                 key === "lastUpdatedAt" ? (
                   <h6>{formatDateYearMonthDay(value as string)}</h6>
                 ) : (
-                  <h6>{value}</h6>
+                  <h6>
+                    {key === "category"
+                      ? t(`vocab:vocab_category_${vocabWord.category}`)
+                      : value}
+                  </h6>
                 )}
               </div>
             ))}

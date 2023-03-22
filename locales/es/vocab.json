@@ -1,10 +1,9 @@
 {
-  "vocab_current_step": "Paso actual: ",
-  "vocab_due_date": "Fecha límite",
-  "vocab_list_title": "Mi Lista de Vocabulario",
-  "word": "Palabra",
-  "description": "Descripción",
   "category": "Categoría",
+  "vocab_current_step": "Paso actual: ",
+  "vocab_description_sentence": "Descripción o ejemplo de oración",
+  "vocab_due_date": "Fecha de vencimiento",
+  "vocab_list_title": "Mi lista de vocabulario",
   "vocab_category_noun": "Sustantivo",
   "vocab_category_verb": "Verbo",
   "vocab_category_adverb": "Adverbio",
@@ -13,5 +12,6 @@
   "vocab_category_pronoun": "Pronombre",
   "vocab_category_preposition": "Preposición",
   "vocab_category_conjunction": "Conjunción",
-  "vocab_category_other": "Otro"
+  "vocab_category_other": "Otro",
+  "word": "Palabra"
 }
