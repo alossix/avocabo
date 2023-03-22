@@ -1,10 +1,9 @@
 {
-  "vocab_current_step": "Passo attuale: ",
-  "vocab_due_date": "Data di Scadenza",
-  "vocab_list_title": "La Mia Lista di Vocaboli",
-  "word": "Parola",
-  "description": "Descrizione",
   "category": "Categoria",
+  "vocab_current_step": "Passo attuale: ",
+  "vocab_description_sentence": "Descrizione o esempio di frase",
+  "vocab_due_date": "Data di scadenza",
+  "vocab_list_title": "La mia lista di vocaboli",
   "vocab_category_noun": "Sostantivo",
   "vocab_category_verb": "Verbo",
   "vocab_category_adverb": "Avverbio",
@@ -13,5 +12,6 @@
   "vocab_category_pronoun": "Pronome",
   "vocab_category_preposition": "Preposizione",
   "vocab_category_conjunction": "Congiunzione",
-  "vocab_category_other": "Altro"
+  "vocab_category_other": "Altro",
+  "word": "Parola"
 }

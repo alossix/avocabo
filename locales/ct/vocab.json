@@ -1,10 +1,9 @@
 {
-  "vocab_current_step": "Pas actual: ",
-  "vocab_due_date": "Data límit",
-  "vocab_list_title": "La Meva Llista de Vocabulari",
   "category": "Categoria",
-  "description": "Descripció",
-  "word": "Paraula",
+  "vocab_current_step": "Pas actual: ",
+  "vocab_description_sentence": "Descripció o exemple de frase",
+  "vocab_due_date": "Data de venciment",
+  "vocab_list_title": "La meva llista de vocabulari",
   "vocab_category_noun": "Nom",
   "vocab_category_verb": "Verb",
   "vocab_category_adverb": "Adverbi",
@@ -13,5 +12,6 @@
   "vocab_category_pronoun": "Pronom",
   "vocab_category_preposition": "Preposició",
   "vocab_category_conjunction": "Conjunció",
-  "vocab_category_other": "Altre"
+  "vocab_category_other": "Altres",
+  "word": "Paraula"
 }

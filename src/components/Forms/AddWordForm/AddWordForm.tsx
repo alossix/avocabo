@@ -57,7 +57,9 @@ export const AddWordForm: React.FC = () => {
         <input {...register("definition")} id="definition" required />
       </InputContainer>
       <InputContainer>
-        <label htmlFor="description">{t("vocab:description")}</label>
+        <label htmlFor="description">
+          {t("vocab:vocab_description_sentence")}
+        </label>
         <input {...register("description")} id="description" />
       </InputContainer>
       <InputContainer>

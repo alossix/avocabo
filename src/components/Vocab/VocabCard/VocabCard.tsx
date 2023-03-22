@@ -51,7 +51,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
         <h5>{`${t("vocab:vocab_due_date")}: ${dueDate}`}</h5>
         <button
           type="button"
-          onClick={() => handleEditButtonClick()}
+          onClick={handleEditButtonClick}
           style={{
             height: 16,
             backgroundColor: "transparent",

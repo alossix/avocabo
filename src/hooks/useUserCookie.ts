@@ -3,7 +3,11 @@ import Cookies from "js-cookie";
 
 const useUserCookie = () => {
   const setUserCookie = (user: AppUser) => {
-    Cookies.set("currentUser", JSON.stringify(user), {
+    const essentialUserData = {
+      uid: user.uid,
+      interfaceLanguage: user.interfaceLanguage,
+    };
+    Cookies.set("currentUser", JSON.stringify(essentialUserData), {
       expires: 30, // 30 days
       path: "/",
       sameSite: "lax",
