@@ -11,7 +11,7 @@ type DeleteWordProps = {
 };
 
 export const DeleteWord: React.FC<DeleteWordProps> = ({ vocabId }) => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("vocab");
   const dispatch = useAppDispatch();
 
   const handleDeleteWordClick: ReactEventHandler<HTMLButtonElement> = () => {

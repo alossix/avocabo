@@ -11,13 +11,45 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   mobileMenuOpen,
   setMobileMenuOpen,
 }) => {
+  const toggleMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+    if (!mobileMenuOpen) {
+      setTimeout(() => {
+        const firstFocusable = document.querySelector<HTMLElement>(
+          'a[href], button, [tabindex="0"]'
+        );
+
+        firstFocusable?.focus();
+      }, 0);
+    } else {
+      const checkbox = document.getElementById("navigation-menu");
+      checkbox?.focus();
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      toggleMenu();
+    }
+  };
+
   return (
     <>
       <Checkbox
         type="checkbox"
-        onChange={() => setMobileMenuOpen(!mobileMenuOpen)}
+        id="navigation-menu"
+        onChange={toggleMenu}
+        aria-label="Toggle navigation menu"
+        aria-controls="navigation-menu"
+        aria-expanded={mobileMenuOpen}
       />
-      <HamburgerLines>
+      <HamburgerLines
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
+        role="button"
+        onClick={toggleMenu}
+      >
         <Line mobileMenuOpen={mobileMenuOpen} className="line1" />
         <Line mobileMenuOpen={mobileMenuOpen} className="line2" />
         <Line mobileMenuOpen={mobileMenuOpen} className="line3" />

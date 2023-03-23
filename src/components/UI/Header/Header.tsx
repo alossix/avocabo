@@ -103,10 +103,6 @@ export const Header: React.FC<{
           }
         }}
       >
-        <HamburgerMenu
-          mobileMenuOpen={mobileMenuOpen}
-          setMobileMenuOpen={setMobileMenuOpen}
-        />
         <LeftContent>
           <HeaderItem
             aria-label={t("common:header_home")}
@@ -126,6 +122,11 @@ export const Header: React.FC<{
             </HeaderLink>
           </HeaderItem>
         </LeftContent>
+        <HamburgerMenu
+          mobileMenuOpen={mobileMenuOpen}
+          setMobileMenuOpen={setMobileMenuOpen}
+        />
+
         <HeaderUL role="list" mobileMenuOpen={mobileMenuOpen}>
           <HeaderItem
             aria-label={t("common:header_how_it_works")}
@@ -200,8 +201,8 @@ export const Header: React.FC<{
               <MobileOnly>
                 <HeaderItem>
                   <LanguageSelector
-                    ref={languageSelectorRef}
                     handleSelectLanguage={handleSelectInterfaceLanguage}
+                    ref={languageSelectorRef}
                     selectedLanguage={
                       currentUser?.interfaceLanguage as InterfaceLanguages
                     }
