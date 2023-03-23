@@ -67,12 +67,12 @@ const Line = styled.span<{ mobileMenuOpen: boolean }>`
 
   &.line1 {
     transform-origin: 0% 0%;
-    transition: transform 0.4s ease-in-out;
+    transition: transform 0.3s ease-in-out;
     transform: ${(props) => (props.mobileMenuOpen ? "rotate(45deg)" : "none")};
   }
 
   &.line2 {
-    transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, opacity 0.1s ease-in-out;
     transform: ${(props) =>
       props.mobileMenuOpen ? "translateX(-10%)" : "none"};
     opacity: ${(props) => (props.mobileMenuOpen ? "0" : "1")};
@@ -80,7 +80,7 @@ const Line = styled.span<{ mobileMenuOpen: boolean }>`
 
   &.line3 {
     transform-origin: 0% 100%;
-    transition: transform 0.4s ease-in-out;
+    transition: transform 0.3s ease-in-out;
     transform: ${(props) => (props.mobileMenuOpen ? "rotate(-45deg)" : "none")};
   }
 `;

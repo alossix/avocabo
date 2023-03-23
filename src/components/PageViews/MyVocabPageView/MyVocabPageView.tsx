@@ -1,4 +1,5 @@
 import { VocabCard } from "@/components/Vocab/VocabCard";
+import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
@@ -28,10 +29,16 @@ const VocabWindowContainer = styled.div({
   display: "flex",
   flexDirection: "column",
   gap: 8,
+  width: "100%",
 });
 
 const VocabCardsContainer = styled.div({
   display: "flex",
+  flexDirection: "column",
   gap: 8,
-  overflowX: "scroll",
+
+  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+    flexDirection: "row",
+    overflowX: "scroll",
+  },
 });

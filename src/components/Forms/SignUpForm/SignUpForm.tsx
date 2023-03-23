@@ -1,6 +1,6 @@
-import { LanguageSelector } from "@/components/LanguageSelector";
 import { useAppDispatch } from "@/store/hooks";
 import { createUserAuth } from "@/store/slices/authSlice";
+import { theme } from "@/styles/theme";
 import { InterfaceLanguages, LearningLanguages } from "@/types/general";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
@@ -23,16 +23,14 @@ export const SignUpForm: React.FC = () => {
     formState: { errors },
   } = useForm<SignUpFormData>();
   const [error, setError] = useState("");
-  const [learningLanguage, setLearningLanguage] = useState(
-    lang as LearningLanguages
-  );
+  const [learningLanguage] = useState(lang as LearningLanguages);
   const dispatch = useAppDispatch();
 
-  const handleSelectLearningLanguage = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    setLearningLanguage(event.target.value as InterfaceLanguages);
-  };
+  // const handleSelectLearningLanguage = (
+  //   event: React.ChangeEvent<HTMLSelectElement>
+  // ) => {
+  //   setLearningLanguage(event.target.value as InterfaceLanguages);
+  // };
 
   const handleSignupSubmit = async (data: SignUpFormData) => {
     const { displayName, email, password, confirmPassword } = data;
@@ -66,11 +64,11 @@ export const SignUpForm: React.FC = () => {
       onSubmit={handleSubmit(handleSignupSubmit)}
       name="create_user_form"
     >
-      <div>
+      <InputContainer>
         <label>{`${t("common:profile_name")}: `}</label>
         <input {...register("displayName", { required: true })} type="string" />
-      </div>
-      <div>
+      </InputContainer>
+      <InputContainer>
         <label>{`${t("common:email")}: `}</label>
         <input
           {...register("email", {
@@ -79,29 +77,29 @@ export const SignUpForm: React.FC = () => {
           })}
           type="email"
         />
-      </div>
-      <div style={{ display: "flex", alignItems: "center" }}>
+      </InputContainer>
+      {/* <InputContainer style={{ gap: 4 }}>
         <label>{`${t("common:learning_language")}`}</label>
         <LanguageSelector
           showIcon={false}
           handleSelectLanguage={handleSelectLearningLanguage}
           selectedLanguage={learningLanguage}
         />
-      </div>
-      <div>
+      </InputContainer> */}
+      <InputContainer>
         <label>{`${t("common:password")}: `}</label>
         <input
           {...register("password", { required: true, minLength: 6 })}
           type="password"
         />
-      </div>
-      <div>
+      </InputContainer>
+      <InputContainer>
         <label>{`${t("common:confirm_password")}: `}</label>
         <input
           {...register("confirmPassword", { required: true })}
           type="password"
         />
-      </div>
+      </InputContainer>
       <Button
         ariaLabel={t("common:sign_up")}
         title={t("common:sign_up")}
@@ -142,5 +140,15 @@ export const SignUpForm: React.FC = () => {
 const StyledForm = styled.form({
   display: "flex",
   flexDirection: "column",
+  width: "100%",
   gap: 16,
+
+  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+    width: "50%",
+  },
+});
+
+const InputContainer = styled.div({
+  display: "flex",
+  flexDirection: "column",
 });

@@ -1,4 +1,5 @@
 import { formatDateYearMonthDay } from "@/lib/dates";
+import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
@@ -53,12 +54,11 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
           type="button"
           onClick={handleEditButtonClick}
           style={{
-            height: 16,
             backgroundColor: "transparent",
             cursor: "pointer",
           }}
         >
-          <Image src={EditVocabIcon} alt="edit-vocab" width={16} height={16} />
+          <Image src={EditVocabIcon} alt="edit-vocab" width={24} height={24} />
         </button>
         <EditVocabModal
           isOpen={openModal}
@@ -96,20 +96,28 @@ const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
   flexDirection: "column",
   alignItems: "center",
   borderRadius: 4,
-  border: "1px solid lightgrey",
+  border: `1px solid ${theme.colors.lightGrey}`,
   padding: "16px 8px",
-  minWidth: 336,
-  minHeight: 336,
+  maxWidth: "100%",
   cursor: !showDetails ? "pointer" : "default",
   gap: 16,
+
+  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+    // minWidth: 336,
+    // minHeight: 336,
+  },
 }));
 
 const ImageWrapper = styled.div({
   display: "flex",
   flexGrow: 1,
-  width: 336,
-  height: 200,
   position: "relative",
+  width: "100%",
+  height: 200,
+
+  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+    width: 336,
+  },
 });
 
 const ImageContainer = styled.div({

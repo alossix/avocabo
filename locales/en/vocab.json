@@ -1,9 +1,5 @@
 {
   "category": "Category",
-  "vocab_current_step": "Current step: ",
-  "vocab_description_sentence": "Description or sentence example",
-  "vocab_due_date": "Due date",
-  "vocab_list_title": "My Vocab List",
   "vocab_category_noun": "Noun",
   "vocab_category_verb": "Verb",
   "vocab_category_adverb": "Adverb",
@@ -13,5 +9,12 @@
   "vocab_category_preposition": "Preposition",
   "vocab_category_conjunction": "Conjunction",
   "vocab_category_other": "Other",
+  "vocab_confirm_delete_entry": "Are you sure you want to permanently delete this entry?",
+  "vocab_current_step": "Current step: ",
+  "vocab_description_sentence": "Description or sentence example",
+  "vocab_due_date": "Due date",
+  "vocab_edit_entry_title": "Edit vocab entry",
+  "vocab_list_title": "My Vocab List",
+  "vocab_save_close": "Save and close",
   "word": "Word"
 }

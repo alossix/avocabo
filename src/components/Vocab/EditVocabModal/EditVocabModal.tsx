@@ -1,8 +1,10 @@
+import { Button } from "@/components/UI/Button";
 import { Modal } from "@/components/UI/Modal";
 import { formatDateYearMonthDay } from "@/lib/dates";
 import { Vocab } from "@/types/vocab";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
+import { DeleteWord } from "../DeleteWord";
 
 type EditVocabModalProps = {
   isOpen: boolean;
@@ -16,11 +18,17 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   vocabWord,
 }) => {
   const { t } = useTranslation("vocab");
+
+  const handleSaveAndClose = () => {
+    console.log(`clicked save and close`);
+    setOpenModal();
+  };
+
   return (
     <Modal
       isOpen={isOpen}
       setOn={() => setOpenModal()}
-      title="Edit Vocab Entry"
+      title={t("vocab:vocab_edit_entry_title")}
     >
       <div
         style={{
@@ -48,7 +56,6 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
           style={{
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
             gap: 8,
           }}
         >
@@ -74,6 +81,24 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
               </div>
             ))}
         </div>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "100%",
+          margin: "8px 0",
+        }}
+      >
+        <DeleteWord vocabId={vocabWord.vocabId} />
+        <Button
+          ariaLabel={t("vocab:vocab_save_close")}
+          colorSet="black"
+          onClick={handleSaveAndClose}
+          title={t("vocab:vocab_save_close")}
+        >
+          {t("vocab:vocab_save_close")}
+        </Button>
       </div>
     </Modal>
   );

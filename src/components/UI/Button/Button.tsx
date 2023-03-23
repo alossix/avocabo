@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 type ButtonProps = {
   ariaLabel: string;
   children?: React.ReactNode;
+  colorSet?: "black" | "green";
   disabled?: boolean;
   onClick?: React.MouseEventHandler;
   onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
@@ -14,6 +15,7 @@ type ButtonProps = {
 export const Button: React.FC<ButtonProps> = ({
   ariaLabel,
   children,
+  colorSet = "green",
   disabled = false,
   onClick,
   onKeyDown,
@@ -23,6 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <ButtonComponent
       aria-label={ariaLabel}
+      colorSet={colorSet}
       disabled={disabled}
       onClick={onClick}
       onKeyDown={onKeyDown}
@@ -36,23 +39,28 @@ export const Button: React.FC<ButtonProps> = ({
   );
 };
 
-const ButtonComponent = styled.button<{ disabled: boolean }>(
-  ({ disabled }) => ({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: theme.colors.darkAvocado,
-    padding: "8px 16px",
-    color: theme.colors.white,
-    fontWeight: "bold",
-    borderRadius: 4,
-    border: `3px solid ${theme.colors.darkAvocado}`,
-    transition: "all 0.5s ease",
-    cursor: disabled ? "not-allowed" : "pointer",
+const ButtonComponent = styled.button<{
+  colorSet: "green" | "black";
+  disabled: boolean;
+}>(({ colorSet, disabled }) => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  background:
+    colorSet === "green" ? theme.colors.darkAvocado : theme.colors.black,
+  padding: "8px 16px",
+  color: theme.colors.white,
+  fontWeight: "bold",
+  borderRadius: 4,
+  border:
+    colorSet === "green"
+      ? `3px solid ${theme.colors.darkAvocado}`
+      : `3px solid ${theme.colors.black}`,
+  transition: "all 0.5s ease",
+  cursor: disabled ? "not-allowed" : "pointer",
 
-    "&:hover": {
-      background: theme.colors.white,
-      color: theme.colors.darkAvocado,
-    },
-  })
-);
+  "&:hover": {
+    background: theme.colors.white,
+    color: colorSet === "green" ? theme.colors.darkAvocado : theme.colors.black,
+  },
+}));
