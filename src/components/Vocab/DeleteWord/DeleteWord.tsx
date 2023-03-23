@@ -1,9 +1,10 @@
 import { useAppDispatch } from "@/store/hooks";
 import { removeVocabEntryDB } from "@/store/slices/vocabSlice";
-import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
+import Image from "next/image";
 import { ReactEventHandler } from "react";
+import DeleteIcon from "/public/icons/delete-icon.svg";
 
 type DeleteWordProps = {
   vocabId: string;
@@ -14,16 +15,19 @@ export const DeleteWord: React.FC<DeleteWordProps> = ({ vocabId }) => {
   const dispatch = useAppDispatch();
 
   const handleDeleteWordClick: ReactEventHandler<HTMLButtonElement> = () => {
-    dispatch(removeVocabEntryDB({ vocabId }));
+    if (window.confirm(t("vocab:vocab_confirm_delete_entry"))) {
+      dispatch(removeVocabEntryDB({ vocabId }));
+    }
   };
+
   return (
     <DeleteWordContainer>
       <DeleteWordButton
-        style={{ cursor: "pointer" }}
         onClick={handleDeleteWordClick}
         aria-label={t("common:button_delete_word")}
+        role="button"
       >
-        X
+        <Image src={DeleteIcon} alt="delete-icon" width={24} height={24} />
       </DeleteWordButton>
     </DeleteWordContainer>
   );
@@ -31,23 +35,12 @@ export const DeleteWord: React.FC<DeleteWordProps> = ({ vocabId }) => {
 
 const DeleteWordContainer = styled.div({
   display: "flex",
+  margin: -4,
 });
 
 const DeleteWordButton = styled.button({
   display: "flex",
   alignItems: "center",
-  fontSize: 15,
-  fontWeight: "bold",
-  height: 24,
-  width: 24,
-  padding: 6,
-  border: `1px solid ${theme.colors.black}`,
-  borderRadius: 4,
-  backgroundColor: theme.colors.white,
-
-  "&:hover": {
-    backgroundColor: theme.colors.lightGrey,
-    borderColor: theme.colors.darkGrey,
-    color: theme.colors.darkGrey,
-  },
+  backgroundColor: "transparent",
+  cursor: "pointer",
 });

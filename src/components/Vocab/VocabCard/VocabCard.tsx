@@ -53,12 +53,11 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
           type="button"
           onClick={handleEditButtonClick}
           style={{
-            height: 16,
             backgroundColor: "transparent",
             cursor: "pointer",
           }}
         >
-          <Image src={EditVocabIcon} alt="edit-vocab" width={16} height={16} />
+          <Image src={EditVocabIcon} alt="edit-vocab" width={24} height={24} />
         </button>
         <EditVocabModal
           isOpen={openModal}

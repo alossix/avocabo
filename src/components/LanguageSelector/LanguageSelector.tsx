@@ -36,9 +36,9 @@ export const LanguageSelector = React.forwardRef<
         </option>
         <option value="ct">Català</option>
         <option value="en">English</option>
-        <option value="it">Italiano</option>
         <option value="es">Español</option>
         <option value="fr">Français</option>
+        <option value="it">Italiano</option>
         <option value="nl">Nederlands</option>
       </StyledSelectMenu>
     </LanguageSelectorContainer>

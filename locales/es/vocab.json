@@ -1,9 +1,5 @@
 {
   "category": "Categoría",
-  "vocab_current_step": "Paso actual: ",
-  "vocab_description_sentence": "Descripción o ejemplo de oración",
-  "vocab_due_date": "Fecha de vencimiento",
-  "vocab_list_title": "Mi lista de vocabulario",
   "vocab_category_noun": "Sustantivo",
   "vocab_category_verb": "Verbo",
   "vocab_category_adverb": "Adverbio",
@@ -13,5 +9,12 @@
   "vocab_category_preposition": "Preposición",
   "vocab_category_conjunction": "Conjunción",
   "vocab_category_other": "Otro",
+  "vocab_confirm_delete_entry": "¿Estás seguro de que deseas eliminar permanentemente esta entrada?",
+  "vocab_current_step": "Paso actual: ",
+  "vocab_description_sentence": "Descripción o ejemplo de oración",
+  "vocab_due_date": "Fecha de vencimiento",
+  "vocab_edit_entry_title": "Editar entrada de vocabulario",
+  "vocab_list_title": "Mi lista de vocabulario",
+  "vocab_save_close": "Guardar y cerrar",
   "word": "Palabra"
 }

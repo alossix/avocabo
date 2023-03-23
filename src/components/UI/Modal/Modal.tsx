@@ -1,7 +1,9 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
+import Image from "next/image";
 import { useEffect } from "react";
 import { ReactPortal } from "../ReactPortal";
+import CloseIcon from "/public/icons/close-icon.svg";
 
 type ModalProps = {
   children: React.ReactNode;
@@ -31,10 +33,6 @@ export const Modal = ({ children, isOpen, setOn, title }: ModalProps) => {
     }
   };
 
-  const handleSaveAndClose = () => {
-    console.log(`save and close`);
-  };
-
   return (
     <ReactPortal wrapperId="react-portal-modal-container">
       <ModalBackdrop onClick={handleBackdropClick}>
@@ -43,16 +41,17 @@ export const Modal = ({ children, isOpen, setOn, title }: ModalProps) => {
             style={{
               display: "flex",
               justifyContent: "space-between",
+              alignItems: "center",
               width: "100%",
+              margin: "8px 0",
             }}
           >
             <h3>{title}</h3>
-            <button onClick={() => setOn()}>Close</button>
+            <CloseButton onClick={() => setOn()}>
+              <Image src={CloseIcon} height={24} width={24} alt="close-icon" />
+            </CloseButton>
           </div>
           {children}
-          <div>
-            <button onClick={handleSaveAndClose}>Save and close</button>
-          </div>
         </ModalContent>
       </ModalBackdrop>
     </ReactPortal>
@@ -92,7 +91,14 @@ const ModalContent = styled.section`
 
   @media (min-width: ${theme.breakpoints.desktop}) {
     position: relative;
-    width: 480px;
-    height: 480px;
+    width: 520px;
+    height: 520px;
   }
 `;
+
+const CloseButton = styled.button({
+  display: "flex",
+  alignItems: "center",
+  backgroundColor: "transparent",
+  cursor: "pointer",
+});

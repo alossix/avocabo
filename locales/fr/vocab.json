@@ -1,9 +1,5 @@
 {
   "category": "Catégorie",
-  "vocab_current_step": "Étape actuelle: ",
-  "vocab_description_sentence": "Description ou exemple de phrase",
-  "vocab_due_date": "Date d'échéance",
-  "vocab_list_title": "Ma liste de vocabulaire",
   "vocab_category_noun": "Nom",
   "vocab_category_verb": "Verbe",
   "vocab_category_adverb": "Adverbe",
@@ -13,5 +9,12 @@
   "vocab_category_preposition": "Préposition",
   "vocab_category_conjunction": "Conjonction",
   "vocab_category_other": "Autre",
+  "vocab_confirm_delete_entry": "Êtes-vous sûr de vouloir supprimer définitivement cette entrée?",
+  "vocab_current_step": "Étape actuelle: ",
+  "vocab_description_sentence": "Description ou exemple de phrase",
+  "vocab_due_date": "Date d'échéance",
+  "vocab_edit_entry_title": "Modifier l'entrée de vocabulaire",
+  "vocab_list_title": "Ma liste de vocabulaire",
+  "vocab_save_close": "Enregistrer et fermer",
   "word": "Mot"
 }
