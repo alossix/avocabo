@@ -1,6 +1,7 @@
 import { Button } from "@/components/UI/Button";
 import { signInAuth } from "@/store/slices/authSlice";
 import { RootState, useAppDispatch } from "@/store/store";
+import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import useTranslation from "next-translate/useTranslation";
@@ -27,14 +28,14 @@ export const SignInForm: React.FC = () => {
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)} name="sign_in_form">
-      <div>
+      <InputContainer>
         <label>{`${t("common:email")}: `}</label>
         <input type="email" {...register("email", { required: true })} />
-      </div>
-      <div>
+      </InputContainer>
+      <InputContainer>
         <label>{`${t("common:password")}: `}</label>
         <input type="password" {...register("password", { required: true })} />
-      </div>
+      </InputContainer>
       <Button
         ariaLabel={t("common:sign_in")}
         title={t("common:sign_in")}
@@ -49,5 +50,15 @@ export const SignInForm: React.FC = () => {
 const StyledForm = styled.form({
   display: "flex",
   flexDirection: "column",
+  width: "100%",
   gap: 16,
+
+  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+    width: "50%",
+  },
+});
+
+const InputContainer = styled.div({
+  display: "flex",
+  flexDirection: "column",
 });

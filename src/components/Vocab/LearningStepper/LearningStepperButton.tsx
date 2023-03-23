@@ -68,7 +68,8 @@ const Button = styled.button<{
   color: color,
   border: `2px solid ${color}`,
   borderRadius: 4,
-  width: "100%",
+  minWidth: "20%",
+  flexGrow: 1,
 
   "&:hover": {
     backgroundColor: color,

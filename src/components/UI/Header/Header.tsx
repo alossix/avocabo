@@ -273,60 +273,60 @@ export const Header: React.FC<{
   );
 };
 
-const HeaderNav = styled.nav`
-  display: flex;
-  justify-content: space-between;
-  align-items: "center";
-  grid-area: 1 / 1 / 2 / 9;
-  padding: 8px;
-  box-shadow: 0 1px 4px rgb(146 161 176 / 15%);
-`;
+const HeaderNav = styled.nav({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  gridArea: "1 / 1 / 2 / 9",
+  padding: "8px",
+  boxShadow: "0 1px 4px rgb(146 161 176 / 15%)",
+});
 
-const HeaderContent = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  width: 100%;
-`;
+const HeaderContent = styled.header({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  position: "relative",
+  width: "100%",
+});
 
-const HeaderUL = styled.ul<{ mobileMenuOpen: boolean }>`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: fit-content;
-  list-style: none;
-  position: absolute;
-  z-index: 10;
-  top: 100%;
-  right: 0;
-  gap: 16px;
-  padding: 16px;
-  background-color: ${theme.colors.white};
-  box-shadow: rgba(60, 64, 67, 0.05) 0px 1px 1px 0px,
-    rgba(60, 64, 67, 0.05) 0px 1px 3px 1px;
-  transform: ${(props) =>
-    props.mobileMenuOpen ? "translateY(0)" : "translateY(-10px)"};
-  transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
-  opacity: ${(props) => (props.mobileMenuOpen ? "1" : "0")};
-  visibility: ${(props) => (props.mobileMenuOpen ? "visible" : "hidden")};
+const HeaderUL = styled.ul<{ mobileMenuOpen: boolean }>(
+  ({ mobileMenuOpen }) => ({
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-end",
+    width: "fit-content",
+    listStyle: "none",
+    position: "absolute",
+    zIndex: 3,
+    top: "100%",
+    right: 0,
+    gap: "16px",
+    padding: "16px",
+    backgroundColor: theme.colors.white,
+    boxShadow:
+      "rgba(60, 64, 67, 0.05) 0px 1px 1px 0px, rgba(60, 64, 67, 0.05) 0px 1px 3px 1px",
+    transform: mobileMenuOpen ? "translateY(0)" : "translateY(-10px)",
+    transition: "transform 0.3s ease-in-out",
+    opacity: mobileMenuOpen ? "1" : "0",
+    visibility: mobileMenuOpen ? "visible" : "hidden",
 
-  @media (min-width: ${theme.breakpoints.desktop}) {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    gap: 24px;
-    align-items: center;
-    position: static;
-    box-shadow: none;
-    width: 100%;
-    transform: none;
-    opacity: 1;
-    visibility: visible;
-    padding: 0px;
-    z-index: auto;
-  }
-`;
+    [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "flex-end",
+      alignItems: "center",
+      gap: "24px",
+      position: "static",
+      boxShadow: "none",
+      width: "100%",
+      transform: "none",
+      opacity: 1,
+      visibility: "visible",
+      padding: 0,
+    },
+  })
+);
 
 const HeaderItem = styled.li({
   display: "flex",
@@ -349,17 +349,17 @@ const HeaderLink = styled(Link)({
   },
 });
 
-const LeftContent = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex: 1;
-`;
+const LeftContent = styled.div({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  flex: 1,
+});
 
-const MobileOnly = styled.div`
-  display: block;
+const MobileOnly = styled.div({
+  display: "block",
 
-  @media (min-width: ${theme.breakpoints.desktop}) {
-    display: none;
-  }
-`;
+  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+    display: "none",
+  },
+});

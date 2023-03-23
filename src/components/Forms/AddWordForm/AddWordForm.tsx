@@ -2,6 +2,7 @@ import { Button } from "@/components/UI/Button";
 import { initialVocabProperties } from "@/lib/initialVocab";
 import { useAppDispatch } from "@/store/hooks";
 import { addVocabEntryDB } from "@/store/slices/vocabSlice";
+import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
@@ -101,8 +102,12 @@ export const AddWordForm: React.FC = () => {
 const StyledForm = styled.form({
   display: "flex",
   flexDirection: "column",
-  width: "50%",
+  width: "100%",
   gap: 16,
+
+  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+    width: "50%",
+  },
 });
 
 const InputContainer = styled.div({

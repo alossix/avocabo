@@ -34,7 +34,10 @@ export const LearningStepper: React.FC<LearningStepperProps> = ({
 
 const LearningStepperContainer = styled.div({
   display: "flex",
+  flexDirection: "row",
+  flexWrap: "wrap",
   justifyContent: "space-between",
+  alignItems: "center",
   width: "100%",
   gap: 8,
 });

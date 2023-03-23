@@ -67,7 +67,7 @@ const ModalBackdrop = styled.div`
   bottom: 0;
   right: 0;
   left: 0;
-  z-index: 3;
+  z-index: 4;
   background-color: transparent;
 
   @media (min-width: ${theme.breakpoints.desktop}) {
@@ -79,7 +79,7 @@ const ModalContent = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -91,8 +91,8 @@ const ModalContent = styled.section`
 
   @media (min-width: ${theme.breakpoints.desktop}) {
     position: relative;
-    width: 520px;
-    height: 520px;
+    min-width: 520px;
+    min-height: 520px;
   }
 `;
 
