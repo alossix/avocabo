@@ -28,8 +28,9 @@ export const LanguageSelector = React.forwardRef<
       </label>
       <StyledSelectMenu
         id="language-select"
-        value={selectedLanguage}
         onChange={handleSelectLanguage}
+        tabIndex={0}
+        value={selectedLanguage}
       >
         <option value="" disabled aria-disabled>
           {t("common:header_language")}
