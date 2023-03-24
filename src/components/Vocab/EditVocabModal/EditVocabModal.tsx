@@ -20,14 +20,13 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   const { t } = useTranslation("vocab");
 
   const handleSaveAndClose = () => {
-    console.log(`clicked save and close`);
     setOpenModal();
   };
 
   return (
     <Modal
       isOpen={isOpen}
-      setOn={() => setOpenModal()}
+      toggleOpen={() => setOpenModal()}
       title={t("vocab:vocab_edit_entry_title")}
     >
       <div
@@ -95,6 +94,7 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
           ariaLabel={t("vocab:vocab_save_close")}
           colorSet="black"
           onClick={handleSaveAndClose}
+          onKeyDown={(e) => e.key === "Enter" && handleSaveAndClose()}
           title={t("vocab:vocab_save_close")}
         >
           {t("vocab:vocab_save_close")}

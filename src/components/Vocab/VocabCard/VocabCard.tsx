@@ -53,6 +53,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
         <button
           type="button"
           onClick={handleEditButtonClick}
+          onKeyDown={(e) => e.key === "Enter" && handleEditButtonClick()}
           style={{
             backgroundColor: "transparent",
             cursor: "pointer",
@@ -101,11 +102,6 @@ const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
   maxWidth: "100%",
   cursor: !showDetails ? "pointer" : "default",
   gap: 16,
-
-  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
-    // minWidth: 336,
-    // minHeight: 336,
-  },
 }));
 
 const ImageWrapper = styled.div({

@@ -1,42 +1,97 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import Image from "next/image";
-import { useEffect } from "react";
+import React, { useCallback } from "react";
+import { useEffect, useRef } from "react";
 import { ReactPortal } from "../ReactPortal";
 import CloseIcon from "/public/icons/close-icon.svg";
 
 type ModalProps = {
   children: React.ReactNode;
   isOpen: boolean;
-  setOn: () => void;
+  toggleOpen: () => void;
   title?: string;
 };
 
-export const Modal = ({ children, isOpen, setOn, title }: ModalProps) => {
+export const Modal = ({ children, isOpen, toggleOpen, title }: ModalProps) => {
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      toggleOpen();
+    }
+  };
+
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        toggleOpen();
+      } else if (e.key === "Tab") {
+        const focusableElements = modalRef.current?.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstFocusableElement = focusableElements?.[0] as HTMLElement;
+        const lastFocusableElement = focusableElements?.[
+          focusableElements.length - 1
+        ] as HTMLElement;
+
+        if (!e.shiftKey && document.activeElement === lastFocusableElement) {
+          e.preventDefault();
+          firstFocusableElement.focus();
+        }
+
+        if (e.shiftKey && document.activeElement === firstFocusableElement) {
+          e.preventDefault();
+          lastFocusableElement.focus();
+        }
+      }
+      e.stopPropagation();
+    },
+    [toggleOpen]
+  );
+
+  const handleKeyDownOnButton = (
+    e: React.KeyboardEvent<HTMLButtonElement>,
+    onClick: () => void
+  ) => {
+    if (e.key === "Enter") {
+      onClick();
+    }
+  };
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", handleKeyDown);
+
+      setTimeout(() => {
+        if (closeButtonRef.current) {
+          closeButtonRef.current.focus();
+        }
+      }, 100);
     } else {
       document.body.style.overflow = "auto";
+      document.removeEventListener("keydown", handleKeyDown);
     }
 
     return () => {
       document.body.style.overflow = "auto";
+      document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen]);
+  }, [handleKeyDown, isOpen]);
 
   if (!isOpen) return null;
 
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      setOn();
-    }
-  };
-
   return (
     <ReactPortal wrapperId="react-portal-modal-container">
-      <ModalBackdrop onClick={handleBackdropClick}>
-        <ModalContent>
+      <ModalBackdrop
+        onClick={handleBackdropClick}
+        ref={backdropRef}
+        tabIndex={-1}
+      >
+        <ModalContent ref={modalRef} tabIndex={0} role="dialog">
           <div
             style={{
               display: "flex",
@@ -47,11 +102,22 @@ export const Modal = ({ children, isOpen, setOn, title }: ModalProps) => {
             }}
           >
             <h3>{title}</h3>
-            <CloseButton onClick={() => setOn()}>
+            <CloseButton
+              onClick={() => toggleOpen()}
+              onKeyDown={(e) => handleKeyDownOnButton(e, () => toggleOpen())}
+              ref={closeButtonRef}
+            >
               <Image src={CloseIcon} height={24} width={24} alt="close-icon" />
             </CloseButton>
           </div>
-          {children}
+          {React.Children.map(children, (child, index) => {
+            if (index === 0) {
+              return React.cloneElement(child as React.ReactElement, {
+                autoFocus: true,
+              });
+            }
+            return child;
+          })}
         </ModalContent>
       </ModalBackdrop>
     </ReactPortal>
