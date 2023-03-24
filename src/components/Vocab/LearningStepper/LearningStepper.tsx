@@ -33,11 +33,15 @@ export const LearningStepper: React.FC<LearningStepperProps> = ({
 };
 
 const LearningStepperContainer = styled.div({
-  display: "flex",
-  flexDirection: "row",
-  flexWrap: "wrap",
+  display: "grid",
+  gridTemplateColumns: "repeat(3, 1fr)",
+  gridAutoRows: "auto",
   justifyContent: "space-between",
   alignItems: "center",
   width: "100%",
   gap: 8,
+
+  "& > *:nth-child(4)": {
+    gridColumn: "1 / span 3",
+  },
 });

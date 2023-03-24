@@ -24,6 +24,12 @@ h5,
 h6 {
   margin: 0;
 }
+
+p {
+  font-size: 12;
+  margin: 0;
+}
+
 hr {
   box-sizing: content-box; /* 1 */
   height: 0; /* 1 */

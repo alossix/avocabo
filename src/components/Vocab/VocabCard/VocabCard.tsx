@@ -49,18 +49,17 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
       aria-pressed={showDetails}
     >
       <TopRowDetails showDetails={showDetails}>
-        <h5>{`${t("vocab:vocab_due_date")}: ${dueDate}`}</h5>
-        <button
-          type="button"
+        <p style={{ color: theme.colors.superDarkGrey, fontSize: 12 }}>{`${t(
+          "vocab:vocab_due_date"
+        )}: ${dueDate}`}</p>
+        <EditEntryButton
           onClick={handleEditButtonClick}
           onKeyDown={(e) => e.key === "Enter" && handleEditButtonClick()}
-          style={{
-            backgroundColor: "transparent",
-            cursor: "pointer",
-          }}
+          showDetails={showDetails}
+          type="button"
         >
-          <Image src={EditVocabIcon} alt="edit-vocab" width={24} height={24} />
-        </button>
+          <Image src={EditVocabIcon} alt="edit-vocab" width={20} height={20} />
+        </EditEntryButton>
         <EditVocabModal
           isOpen={openModal}
           setOpenModal={() => setOpenModal(!openModal)}
@@ -78,14 +77,26 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
           />
         </ImageContainer>
       </ImageWrapper>
+      <DescriptionContainer>
+        <p>{vocabWord.description}</p>
+      </DescriptionContainer>
 
-      {showDetails && (
+      <HR />
+      {showDetails ? (
         <>
-          <HR />
           <WordContainer>
-            <h5>{vocabWord.definition}</h5>
+            <p>{vocabWord.definition}</p>
           </WordContainer>
           <LearningStepper vocabWord={vocabWord} />
+        </>
+      ) : (
+        <>
+          <div style={{ color: theme.colors.superDarkGrey }}>
+            <p>{`${t("vocab:vocab_reveal_word")}...`}</p>
+          </div>
+          <Hidden>
+            <LearningStepper vocabWord={vocabWord} />
+          </Hidden>
         </>
       )}
     </CardWrapper>
@@ -98,11 +109,33 @@ const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
   alignItems: "center",
   borderRadius: 4,
   border: `1px solid ${theme.colors.lightGrey}`,
-  padding: "16px 8px",
+  padding: 8,
   maxWidth: "100%",
+  height: 432,
   cursor: !showDetails ? "pointer" : "default",
   gap: 16,
 }));
+
+const TopRowDetails = styled.div<{ showDetails: boolean }>({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  width: "100%",
+});
+
+const EditEntryButton = styled.button<{ showDetails: boolean }>(
+  ({ showDetails }) => ({
+    backgroundColor: "transparent",
+    cursor: "pointer",
+    height: 20,
+    width: 20,
+    visibility: showDetails ? "visible" : "hidden",
+
+    "&:hover img": {
+      opacity: 0.6,
+    },
+  })
+);
 
 const ImageWrapper = styled.div({
   display: "flex",
@@ -122,11 +155,17 @@ const ImageContainer = styled.div({
   width: "100%",
 });
 
+const DescriptionContainer = styled.div({
+  display: "flex",
+  margin: "0px 16px",
+  color: theme.colors.superDarkGrey,
+});
+
 const HR = styled.hr({
   width: "100%",
   height: 1,
   border: "none",
-  borderTop: "1.5px solid lightgrey",
+  borderTop: `1px solid ${theme.colors.mediumGrey}`,
   margin: 0,
 });
 
@@ -137,12 +176,6 @@ const WordContainer = styled.div({
   justifyContent: "center",
 });
 
-const TopRowDetails = styled.div<{ showDetails: boolean }>(
-  ({ showDetails }) => ({
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    visibility: showDetails ? "visible" : "hidden",
-  })
-);
+const Hidden = styled.div({
+  visibility: "hidden",
+});

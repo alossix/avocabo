@@ -9,6 +9,7 @@ export const theme = {
     lightGrey: "#f5f5f5",
     mediumGrey: "#dcdcdc",
     darkGrey: "#808080",
+    superDarkGrey: "#404040",
   },
   stepperColors: {
     easyGreen: "#008000",

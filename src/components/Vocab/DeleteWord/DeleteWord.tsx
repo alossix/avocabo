@@ -44,4 +44,8 @@ const DeleteWordButton = styled.button({
   alignItems: "center",
   backgroundColor: "transparent",
   cursor: "pointer",
+
+  "&:hover img": {
+    opacity: 0.6,
+  },
 });

@@ -24,7 +24,9 @@ export const LanguageSelector = React.forwardRef<
           paddingTop: 2,
         }}
       >
-        {showIcon && `🌐`}
+        {showIcon && (
+          <div style={{ opacity: 0.5, filter: "saturate(0)" }}>🌐</div>
+        )}
       </label>
       <StyledSelectMenu
         id="language-select"
