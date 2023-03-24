@@ -3,7 +3,7 @@ import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 
 const SignUpPage: React.FC = () => {
   const { loading } = useAuthRedirect({
-    redirectTo: "/dashboard",
+    redirectTo: "/my-vocab",
     authRequired: false,
   });
 

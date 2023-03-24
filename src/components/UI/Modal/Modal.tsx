@@ -167,4 +167,8 @@ const CloseButton = styled.button({
   alignItems: "center",
   backgroundColor: "transparent",
   cursor: "pointer",
+
+  "&:hover img": {
+    opacity: 0.6,
+  },
 });

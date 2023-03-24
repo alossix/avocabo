@@ -32,8 +32,6 @@ export const Footer: React.FC = () => {
 
   return (
     <FooterContent>
-      <p>Footer first</p>
-
       <LanguageSelector
         handleSelectLanguage={handleSelectInterfaceLanguage}
         selectedLanguage={
@@ -44,15 +42,15 @@ export const Footer: React.FC = () => {
   );
 };
 
-const FooterContent = styled.footer`
-  display: none;
-  justify-content: space-between;
-  grid-area: 8 / 1 / 9 / 9;
-  padding: 8px;
-  box-shadow: rgba(60, 64, 67, 0.05) 0px -1px 1px 0px,
-    rgba(60, 64, 67, 0.05) 0px -1px 3px 1px;
+const FooterContent = styled.footer({
+  display: "none",
+  justifyContent: "flex-end",
+  gridArea: "8 / 1 / 9 / 9",
+  padding: 8,
+  boxShadow:
+    "rgba(60, 64, 67, 0.05) 0px -1px 1px 0px, rgba(60, 64, 67, 0.05) 0px -1px 3px 1px",
 
-  @media (min-width: ${theme.breakpoints.desktop}) {
-    display: flex;
-  }
-`;
+  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+    display: "flex",
+  },
+});

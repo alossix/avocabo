@@ -185,21 +185,21 @@ export const Header: React.FC<{
                 </HeaderLink>
               </HeaderItem>
               <HeaderItem
-                aria-label={t("common:header_dashboard")}
+                aria-label={t("common:header_profile")}
                 onKeyDown={(event) =>
                   event.key === "Enter" &&
-                  handleInteractWithMenu({ event, path: "/dashboard" })
+                  handleInteractWithMenu({ event, path: "/profile" })
                 }
                 role="listitem"
                 tabIndex={0}
               >
                 <HeaderLink
-                  href="/dashboard"
+                  href="/profile"
                   onClick={(event) =>
-                    handleInteractWithMenu({ event, path: "/dashboard" })
+                    handleInteractWithMenu({ event, path: "/profile" })
                   }
                 >
-                  {t("common:header_dashboard")}
+                  {t("common:header_profile")}
                 </HeaderLink>
               </HeaderItem>
               <MobileOnly>

@@ -70,6 +70,7 @@ const Button = styled.button<{
   borderRadius: 4,
   minWidth: "20%",
   flexGrow: 1,
+  opacity: 0.7,
 
   "&:hover": {
     backgroundColor: color,

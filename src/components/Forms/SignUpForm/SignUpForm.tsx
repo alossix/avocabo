@@ -26,12 +26,6 @@ export const SignUpForm: React.FC = () => {
   const [learningLanguage] = useState(lang as LearningLanguages);
   const dispatch = useAppDispatch();
 
-  // const handleSelectLearningLanguage = (
-  //   event: React.ChangeEvent<HTMLSelectElement>
-  // ) => {
-  //   setLearningLanguage(event.target.value as InterfaceLanguages);
-  // };
-
   const handleSignupSubmit = async (data: SignUpFormData) => {
     const { displayName, email, password, confirmPassword } = data;
 
@@ -78,14 +72,6 @@ export const SignUpForm: React.FC = () => {
           type="email"
         />
       </InputContainer>
-      {/* <InputContainer style={{ gap: 4 }}>
-        <label>{`${t("common:learning_language")}`}</label>
-        <LanguageSelector
-          showIcon={false}
-          handleSelectLanguage={handleSelectLearningLanguage}
-          selectedLanguage={learningLanguage}
-        />
-      </InputContainer> */}
       <InputContainer>
         <label>{`${t("common:password")}: `}</label>
         <input
