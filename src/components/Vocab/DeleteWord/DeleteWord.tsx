@@ -24,6 +24,7 @@ export const DeleteWord: React.FC<DeleteWordProps> = ({ vocabId }) => {
     <DeleteWordContainer>
       <DeleteWordButton
         onClick={handleDeleteWordClick}
+        onKeyDown={(e) => e.key === "Enter" && handleDeleteWordClick(e)}
         aria-label={t("common:button_delete_word")}
         role="button"
       >

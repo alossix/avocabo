@@ -131,6 +131,7 @@ export const Header: React.FC<{
           <HeaderItem
             aria-label={t("common:header_how_it_works")}
             onKeyDown={(event) =>
+              event.key === "Enter" &&
               handleInteractWithMenu({ event, path: "/about" })
             }
             role="listitem"
@@ -150,6 +151,7 @@ export const Header: React.FC<{
               <HeaderItem
                 aria-label={t("common:header_my_vocab")}
                 onKeyDown={(event) =>
+                  event.key === "Enter" &&
                   handleInteractWithMenu({ event, path: "/my-vocab" })
                 }
                 role="listitem"
@@ -167,6 +169,7 @@ export const Header: React.FC<{
               <HeaderItem
                 aria-label={t("common:header_add_words")}
                 onKeyDown={(event) =>
+                  event.key === "Enter" &&
                   handleInteractWithMenu({ event, path: "/add-words" })
                 }
                 role="listitem"
@@ -184,6 +187,7 @@ export const Header: React.FC<{
               <HeaderItem
                 aria-label={t("common:header_dashboard")}
                 onKeyDown={(event) =>
+                  event.key === "Enter" &&
                   handleInteractWithMenu({ event, path: "/dashboard" })
                 }
                 role="listitem"
@@ -212,6 +216,7 @@ export const Header: React.FC<{
               <HeaderItem
                 aria-label={t("common:header_sign_out")}
                 onKeyDown={(event) =>
+                  event.key === "Enter" &&
                   handleInteractWithMenu({ event, path: "/", signOut: true })
                 }
                 role="listitem"
@@ -234,6 +239,7 @@ export const Header: React.FC<{
               <HeaderItem
                 aria-label={t("common:sign_in")}
                 onKeyDown={(event) =>
+                  event.key === "Enter" &&
                   handleInteractWithMenu({ event, path: "/sign-in" })
                 }
                 role="listitem"
@@ -260,6 +266,7 @@ export const Header: React.FC<{
                 ariaLabel={t("common:sign_up")}
                 onClick={() => router.push("/sign-up")}
                 onKeyDown={(event) =>
+                  event.key === "Enter" &&
                   handleInteractWithMenu({ event, path: "/sign-up" })
                 }
                 title={t("common:sign_up")}
