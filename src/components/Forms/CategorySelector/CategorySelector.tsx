@@ -3,13 +3,13 @@ import useTranslation from "next-translate/useTranslation";
 import { UseFormRegister } from "react-hook-form";
 
 type CategorySelectorProps = {
-  currentCategory?: VocabCategories;
+  currentCategory: VocabCategories;
   onCategoryChange: (value: VocabCategories) => void;
   register: UseFormRegister<Vocab>;
 };
 
 export const CategorySelector: React.FC<CategorySelectorProps> = ({
-  currentCategory,
+  currentCategory = "",
   onCategoryChange,
   register,
 }) => {
@@ -40,7 +40,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
         </option>
         <option value="pronoun">{t("vocab:vocab_category_pronoun")}</option>
         <option value="verb">{t("vocab:vocab_category_verb")}</option>
-        <option value="interjection">{t("vocab:vocab_category_other")}</option>
+        <option value="other">{t("vocab:vocab_category_other")}</option>
       </select>
     </>
   );
