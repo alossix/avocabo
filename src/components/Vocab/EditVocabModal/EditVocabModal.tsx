@@ -1,9 +1,13 @@
+import { CategorySelector } from "@/components/Forms/CategorySelector";
 import { Button } from "@/components/UI/Button";
 import { Modal } from "@/components/UI/Modal";
-import { formatDateYearMonthDay } from "@/lib/dates";
-import { Vocab } from "@/types/vocab";
+import { updateVocabEntryDB } from "@/store/slices/vocabSlice";
+import { useAppDispatch } from "@/store/store";
+import { Vocab, VocabCategories } from "@/types/vocab";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { DeleteWord } from "../DeleteWord";
 
 type EditVocabModalProps = {
@@ -17,9 +21,16 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   setOpenModal,
   vocabWord,
 }) => {
+  const { handleSubmit, register } = useForm<Vocab>();
   const { t } = useTranslation("vocab");
+  const [currentCategory, setCurrentCategory] = useState<VocabCategories>(
+    vocabWord.category
+  );
+  const dispatch = useAppDispatch();
+  const registerForm = useRef<HTMLFormElement>(null);
 
-  const handleSaveAndClose = () => {
+  const handleSaveAndClose = ({ formData }: { formData: Vocab }) => {
+    dispatch(updateVocabEntryDB({ vocabWord: { ...vocabWord, ...formData } }));
     setOpenModal();
   };
 
@@ -51,35 +62,21 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
             style={{ objectFit: "contain" }}
           />
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 8,
-          }}
-        >
-          {Object.entries(vocabWord)
-            .filter(([key]) => key !== "imageURL" && key !== "vocabId")
-            .map(([key, value]) => (
-              <div
-                key={key}
-                style={{ display: "flex", flexDirection: "column" }}
-              >
-                <h5>{key.charAt(0).toUpperCase() + key.slice(1)}</h5>
-                {key === "dueDate" ||
-                key === "createdAt" ||
-                key === "lastUpdatedAt" ? (
-                  <h6>{formatDateYearMonthDay(value as string)}</h6>
-                ) : (
-                  <h6>
-                    {key === "category"
-                      ? t(`vocab:vocab_category_${vocabWord.category}`)
-                      : value}
-                  </h6>
-                )}
-              </div>
-            ))}
-        </div>
+        <form ref={registerForm} name="edit_word_form">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+            }}
+          >
+            <CategorySelector
+              currentCategory={currentCategory}
+              onCategoryChange={(value) => setCurrentCategory(value)}
+              register={register}
+            />
+          </div>
+        </form>
       </div>
       <div
         style={{
@@ -93,8 +90,11 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
         <Button
           ariaLabel={t("vocab:vocab_save_close")}
           colorSet="black"
-          onClick={handleSaveAndClose}
-          onKeyDown={(e) => e.key === "Enter" && handleSaveAndClose()}
+          onClick={handleSubmit((formData) => handleSaveAndClose({ formData }))}
+          onKeyDown={(e) =>
+            e.key === "Enter" &&
+            handleSubmit((formData) => handleSaveAndClose({ formData }))
+          }
           title={t("vocab:vocab_save_close")}
         >
           {t("vocab:vocab_save_close")}
