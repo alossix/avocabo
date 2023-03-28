@@ -5,7 +5,7 @@ import { theme } from "@/styles/theme";
 import { InterfaceLanguages } from "@/types/general";
 import styled from "@emotion/styled";
 import setLanguage from "next-translate/setLanguage";
-import { LanguageSelector } from "../../LanguageSelector";
+import { LanguageSelector } from "../../Forms/LanguageSelector";
 
 export const Footer: React.FC = () => {
   const currentUser = useAppSelector((state) => state.auth.user);
@@ -47,6 +47,8 @@ const FooterContent = styled.footer({
   justifyContent: "flex-end",
   gridArea: "8 / 1 / 9 / 9",
   padding: 8,
+  backgroundColor: theme.colors.white,
+  zIndex: 999,
   boxShadow:
     "rgba(60, 64, 67, 0.05) 0px -1px 1px 0px, rgba(60, 64, 67, 0.05) 0px -1px 3px 1px",
 

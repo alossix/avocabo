@@ -3,17 +3,19 @@ import { initialVocabProperties } from "@/lib/initialVocab";
 import { useAppDispatch } from "@/store/hooks";
 import { addVocabEntryDB } from "@/store/slices/vocabSlice";
 import { theme } from "@/styles/theme";
-import { Vocab } from "@/types/vocab";
+import { Vocab, VocabCategories } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuid4 } from "uuid";
+import { CategorySelector } from "../CategorySelector";
 
 export const AddWordForm: React.FC = () => {
   const { t } = useTranslation("vocab");
-  const { register, handleSubmit } = useForm<Vocab>();
+  const { handleSubmit, register } = useForm<Vocab>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [currentCategory, setCurrentCategory] = useState<VocabCategories>("");
   const registerForm = useRef<HTMLFormElement>(null);
   const dispatch = useAppDispatch();
 
@@ -39,6 +41,7 @@ export const AddWordForm: React.FC = () => {
           setIsSubmitting(false);
         }, 300);
       }
+      setCurrentCategory("");
     }
   };
 
@@ -64,27 +67,11 @@ export const AddWordForm: React.FC = () => {
         <input {...register("description")} id="description" />
       </InputContainer>
       <InputContainer>
-        <label htmlFor="category">{t("vocab:category")}</label>
-        <select {...register("category")} id="category">
-          <option value="" disabled></option>
-          <option value="adverb">{t("vocab:vocab_category_adverb")}</option>
-          <option value="adjective">
-            {t("vocab:vocab_category_adjective")}
-          </option>
-          <option value="conjunction">
-            {t("vocab:vocab_category_conjunction")}
-          </option>
-          <option value="noun">{t("vocab:vocab_category_noun")}</option>
-          <option value="phrase">{t("vocab:vocab_category_phrase")}</option>
-          <option value="preposition">
-            {t("vocab:vocab_category_preposition")}
-          </option>
-          <option value="pronoun">{t("vocab:vocab_category_pronoun")}</option>
-          <option value="verb">{t("vocab:vocab_category_verb")}</option>
-          <option value="interjection">
-            {t("vocab:vocab_category_other")}
-          </option>
-        </select>
+        <CategorySelector
+          currentCategory={currentCategory}
+          onCategoryChange={(value) => setCurrentCategory(value)}
+          register={register}
+        />
       </InputContainer>
 
       <Button

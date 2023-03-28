@@ -244,6 +244,38 @@ export const getVocabDB =
     }
   };
 
+// update vocab entry in db
+export const updateVocabEntryDB =
+  ({ vocabWord }: { vocabWord: Vocab }): AppThunk =>
+  async (dispatch: Dispatch<AnyAction | AppThunk>, getState) => {
+    try {
+      if (auth.currentUser?.uid) {
+        const vocab = getState().vocab.find(
+          (vocab) => vocab.vocabId === vocabWord.vocabId
+        );
+
+        if (vocab) {
+          const vocabDocRef = getUserVocabDocRef({
+            uid: auth.currentUser.uid,
+            vocabId: vocabWord.vocabId,
+          });
+
+          await updateDoc(vocabDocRef, {
+            category: vocabWord.category,
+            lastUpdatedAt: new Date().toISOString(),
+          });
+
+          dispatch(updateVocabEntryInState(vocabWord));
+        }
+      } else {
+        throw new Error("User not authenticated");
+      }
+    } catch (error: unknown) {
+      const { message } = handleFirebaseError(error);
+      dispatch(setAppError(message));
+    }
+  };
+
 export const {
   addVocabEntryInState,
   changeVocabBoxInState,

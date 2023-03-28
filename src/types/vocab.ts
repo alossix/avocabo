@@ -10,7 +10,7 @@ export type Vocab = {
   vocabId: string;
 };
 
-type VocabCategories =
+export type VocabCategories =
   | "noun"
   | "verb"
   | "adverb"
@@ -19,6 +19,7 @@ type VocabCategories =
   | "pronoun"
   | "preposition"
   | "conjunction"
-  | "other";
+  | "other"
+  | "";
 
 export type RecallDifficulty = "easy" | "medium" | "hard" | "forgot";

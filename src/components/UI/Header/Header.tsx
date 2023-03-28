@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "../Button";
 import { HamburgerMenu } from "../HamburgerMenu";
-import { LanguageSelector } from "../../LanguageSelector";
+import { LanguageSelector } from "../../Forms/LanguageSelector";
 
 export const Header: React.FC<{
   mainContentRef: React.RefObject<HTMLDivElement>;
