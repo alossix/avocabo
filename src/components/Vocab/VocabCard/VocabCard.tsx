@@ -52,14 +52,22 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
         <p style={{ color: theme.colors.superDarkGrey, fontSize: 12 }}>{`${t(
           "vocab:vocab_due_date"
         )}: ${dueDate}`}</p>
-        <EditEntryButton
-          onClick={handleEditButtonClick}
-          onKeyDown={(e) => e.key === "Enter" && handleEditButtonClick()}
-          showDetails={showDetails}
-          type="button"
-        >
-          <Image src={EditVocabIcon} alt="edit-vocab" width={20} height={20} />
-        </EditEntryButton>
+        {showDetails && (
+          <EditButton
+            tabIndex={0}
+            onClick={handleEditButtonClick}
+            onKeyDown={(e) => e.key === "Enter" && handleEditButtonClick}
+            aria-label={t("vocab:vocab_edit_entry_title")}
+            role="button"
+          >
+            <Image
+              alt="edit-vocab"
+              src={EditVocabIcon}
+              width={24}
+              height={24}
+            />
+          </EditButton>
+        )}
         <EditVocabModal
           isOpen={openModal}
           setOpenModal={() => setOpenModal(!openModal)}
@@ -123,19 +131,18 @@ const TopRowDetails = styled.div<{ showDetails: boolean }>({
   width: "100%",
 });
 
-const EditEntryButton = styled.button<{ showDetails: boolean }>(
-  ({ showDetails }) => ({
-    backgroundColor: "transparent",
-    cursor: "pointer",
-    height: 20,
-    width: 20,
-    visibility: showDetails ? "visible" : "hidden",
+const EditButton = styled.button({
+  cursor: "pointer",
+  padding: 0,
+  height: 24,
+  backgroundColor: "transparent",
+  border: "none",
+  lineHeight: 1,
 
-    "&:hover img": {
-      opacity: 0.6,
-    },
-  })
-);
+  "&:hover": {
+    opacity: 0.6,
+  },
+});
 
 const ImageWrapper = styled.div({
   display: "flex",

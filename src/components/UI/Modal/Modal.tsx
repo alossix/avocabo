@@ -1,5 +1,6 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
+import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import React, { useCallback } from "react";
 import { useEffect, useRef } from "react";
@@ -14,6 +15,7 @@ type ModalProps = {
 };
 
 export const Modal = ({ children, isOpen, toggleOpen, title }: ModalProps) => {
+  const { t } = useTranslation("common");
   const backdropRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
@@ -106,6 +108,8 @@ export const Modal = ({ children, isOpen, toggleOpen, title }: ModalProps) => {
               onClick={() => toggleOpen()}
               onKeyDown={(e) => handleKeyDownOnButton(e, () => toggleOpen())}
               ref={closeButtonRef}
+              aria-label={t("common:close")}
+              role="button"
             >
               <Image src={CloseIcon} height={24} width={24} alt="close-icon" />
             </CloseButton>
@@ -159,16 +163,19 @@ const ModalContent = styled.section`
     position: relative;
     min-width: 520px;
     min-height: 520px;
+    justify-content: "auto";
   }
 `;
 
 const CloseButton = styled.button({
-  display: "flex",
-  alignItems: "center",
-  backgroundColor: "transparent",
   cursor: "pointer",
+  padding: 0,
+  height: 24,
+  backgroundColor: "transparent",
+  border: "none",
+  lineHeight: 1,
 
-  "&:hover img": {
+  "&:hover": {
     opacity: 0.6,
   },
 });

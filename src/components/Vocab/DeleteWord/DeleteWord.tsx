@@ -36,16 +36,19 @@ export const DeleteWord: React.FC<DeleteWordProps> = ({ vocabId }) => {
 
 const DeleteWordContainer = styled.div({
   display: "flex",
+  alignItems: "center",
   margin: -4,
 });
 
 const DeleteWordButton = styled.button({
-  display: "flex",
-  alignItems: "center",
-  backgroundColor: "transparent",
   cursor: "pointer",
+  padding: 0,
+  height: 24,
+  backgroundColor: "transparent",
+  border: "none",
+  lineHeight: 1,
 
-  "&:hover img": {
+  "&:hover": {
     opacity: 0.6,
   },
 });
