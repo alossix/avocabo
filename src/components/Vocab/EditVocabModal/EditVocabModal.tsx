@@ -4,6 +4,7 @@ import { Modal } from "@/components/UI/Modal";
 import { updateVocabEntryDB } from "@/store/slices/vocabSlice";
 import { useAppDispatch } from "@/store/store";
 import { Vocab, VocabCategories } from "@/types/vocab";
+import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -21,7 +22,9 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   setOpenModal,
   vocabWord,
 }) => {
-  const { handleSubmit, register } = useForm<Vocab>();
+  const { handleSubmit, register } = useForm<Vocab>({
+    defaultValues: vocabWord,
+  });
   const { t } = useTranslation("vocab");
   const [currentCategory, setCurrentCategory] = useState<VocabCategories>(
     vocabWord.category
@@ -29,8 +32,12 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   const dispatch = useAppDispatch();
   const registerForm = useRef<HTMLFormElement>(null);
 
-  const handleSaveAndClose = ({ formData }: { formData: Vocab }) => {
-    dispatch(updateVocabEntryDB({ vocabWord: { ...vocabWord, ...formData } }));
+  const handleSaveAndClose = (formData: Vocab) => {
+    dispatch(
+      updateVocabEntryDB({
+        vocabWord: { ...vocabWord, ...formData },
+      })
+    );
     setOpenModal();
   };
 
@@ -40,20 +47,8 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
       toggleOpen={() => setOpenModal()}
       title={t("vocab:vocab_edit_entry_title")}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            width: "100%",
-          }}
-        >
+      <ModalContentContainer>
+        <ImageContainer>
           <Image
             src={vocabWord.imageURL}
             alt={vocabWord.definition}
@@ -61,45 +56,65 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
             height={240}
             style={{ objectFit: "contain" }}
           />
-        </div>
-        <form ref={registerForm} name="edit_word_form">
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-            }}
-          >
+        </ImageContainer>
+        <StyledForm ref={registerForm} name="edit_word_form">
+          <CategorySelectorContainer>
             <CategorySelector
               currentCategory={currentCategory}
               onCategoryChange={(value) => setCurrentCategory(value)}
               register={register}
             />
-          </div>
-        </form>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          width: "100%",
-          margin: "8px 0",
-        }}
-      >
-        <DeleteWord vocabId={vocabWord.vocabId} />
-        <Button
-          ariaLabel={t("vocab:vocab_save_close")}
-          colorSet="black"
-          onClick={handleSubmit((formData) => handleSaveAndClose({ formData }))}
-          onKeyDown={(e) =>
-            e.key === "Enter" &&
-            handleSubmit((formData) => handleSaveAndClose({ formData }))
-          }
-          title={t("vocab:vocab_save_close")}
-        >
-          {t("vocab:vocab_save_close")}
-        </Button>
-      </div>
+          </CategorySelectorContainer>
+          <BottomRowContainer>
+            <DeleteWord vocabId={vocabWord.vocabId} />
+            <Button
+              ariaLabel={t("vocab:vocab_save_close")}
+              colorSet="black"
+              onClick={handleSubmit(handleSaveAndClose)}
+              onKeyDown={(e) =>
+                e.key === "Enter" && handleSubmit(handleSaveAndClose)(e)
+              }
+              title={t("vocab:vocab_save_close")}
+            >
+              {t("vocab:vocab_save_close")}
+            </Button>
+          </BottomRowContainer>
+        </StyledForm>
+      </ModalContentContainer>
     </Modal>
   );
 };
+
+const ModalContentContainer = styled.div({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  width: "100%",
+  flex: 1,
+});
+
+const ImageContainer = styled.div({
+  display: "flex",
+  justifyContent: "center",
+  width: "100%",
+});
+
+const StyledForm = styled.form({
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  flex: 1,
+});
+
+const CategorySelectorContainer = styled.div({
+  display: "flex",
+  flexDirection: "column",
+  gap: 8,
+});
+
+const BottomRowContainer = styled.div({
+  display: "flex",
+  justifyContent: "space-between",
+  width: "100%",
+  margin: "8px 0",
+});
