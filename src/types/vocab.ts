@@ -1,5 +1,5 @@
 export type Vocab = {
-  box: number;
+  currentBox: number;
   category: VocabCategories;
   createdAt: string;
   definition: string;

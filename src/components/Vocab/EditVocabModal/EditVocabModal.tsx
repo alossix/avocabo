@@ -1,8 +1,7 @@
 import { CategorySelector } from "@/components/Forms/CategorySelector";
 import { Button } from "@/components/UI/Button";
 import { Modal } from "@/components/UI/Modal";
-import { updateVocabEntryDB } from "@/store/slices/vocabSlice";
-import { useAppDispatch } from "@/store/store";
+import { useVocab } from "@/hooks/useVocab";
 import { Vocab, VocabCategories } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
@@ -26,26 +25,24 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
     defaultValues: vocabWord,
   });
   const { t } = useTranslation("vocab");
+  const { updateVocabEntry } = useVocab();
   const [currentCategory, setCurrentCategory] = useState<VocabCategories>(
     vocabWord.category
   );
-  const dispatch = useAppDispatch();
   const registerForm = useRef<HTMLFormElement>(null);
 
   const handleSaveAndClose = (formData: Vocab) => {
-    dispatch(
-      updateVocabEntryDB({
-        vocabWord: { ...vocabWord, ...formData },
-      })
-    );
+    updateVocabEntry({ vocabWord, updatedProperties: { ...formData } });
+
     setOpenModal();
   };
 
   return (
     <Modal
+      aria-label={t("vocab:vocab_edit_entry_title")}
       isOpen={isOpen}
-      toggleOpen={() => setOpenModal()}
       title={t("vocab:vocab_edit_entry_title")}
+      toggleOpen={() => setOpenModal()}
     >
       <ModalContentContainer>
         <ImageContainer>
