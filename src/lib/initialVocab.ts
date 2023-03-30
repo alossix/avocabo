@@ -5,7 +5,7 @@ export const initialVocabProperties: Omit<
   Vocab,
   "category" | "definition" | "imageURL" | "vocabId"
 > = {
-  box: 0,
+  currentBox: 0,
   createdAt: currentDate,
   lastUpdatedAt: currentDate,
   dueDate: currentDate,

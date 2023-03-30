@@ -1,9 +1,5 @@
 import { RecallDifficulty, Vocab } from "@/types/vocab";
 
-export const boxIntervals = [
-  0, 1, 2, 3, 7, 9, 14, 24, 30, 45, 60, 90, 120, 180, 365,
-];
-
 export const updateVocabCurrentBox = ({
   currentBox,
   recallDifficulty,
@@ -17,13 +13,9 @@ export const updateVocabCurrentBox = ({
 
   switch (recallDifficulty) {
     case "easy":
-      return currentBox === boxIntervals.length - 1
-        ? currentBox
-        : currentBox + 2;
+      return currentBox + 2;
     case "medium":
-      return currentBox === boxIntervals.length - 1
-        ? currentBox
-        : currentBox + 1;
+      return currentBox + 1;
     case "hard":
       if (currentBox === 0) {
         return 0;
@@ -32,8 +24,6 @@ export const updateVocabCurrentBox = ({
       }
     case "forgot":
       return 0;
-    default:
-      return currentBox;
   }
 };
 
@@ -44,22 +34,23 @@ export const updateVocabDueDate = ({
   vocab: Vocab;
   recallDifficulty: RecallDifficulty;
 }) => {
+  const { currentBox, dueDate } = vocab;
   const DAY_IN_MS = 86400000;
-  const index =
-    vocab.box < boxIntervals.length ? vocab.box : boxIntervals.length - 1;
-  const interval = boxIntervals[index];
-  let newDueDate;
 
-  if (vocab.box === boxIntervals.length - 1 && recallDifficulty === "easy") {
-    newDueDate = new Date(
-      new Date(vocab.dueDate).getTime() + 365 * DAY_IN_MS
-    ).toISOString();
-  } else if (vocab.box >= boxIntervals.length - 1) {
-    newDueDate = new Date(
-      new Date(vocab.dueDate).getTime() + interval * DAY_IN_MS
-    ).toISOString();
-  } else {
-    newDueDate = new Date(Date.now() + interval * DAY_IN_MS).toISOString();
+  switch (recallDifficulty) {
+    case "easy":
+      return new Date(
+        new Date(dueDate).getTime() + currentBox * DAY_IN_MS * 2
+      ).toISOString();
+    case "medium":
+      return new Date(
+        new Date(dueDate).getTime() + currentBox * DAY_IN_MS
+      ).toISOString();
+    case "hard":
+      return new Date(
+        new Date(dueDate).getTime() + (currentBox * DAY_IN_MS) / 2
+      ).toISOString();
+    case "forgot":
+      return new Date().toISOString();
   }
-  return newDueDate;
 };

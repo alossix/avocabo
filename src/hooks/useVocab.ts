@@ -49,9 +49,9 @@ export const useVocab = () => {
     vocabWord: Vocab;
     recallDifficulty: RecallDifficulty;
   }) => {
-    const updatedProperties = {
-      box: updateVocabCurrentBox({
-        currentBox: vocabWord.box,
+    const updatedProperties: Partial<Vocab> = {
+      currentBox: updateVocabCurrentBox({
+        currentBox: vocabWord.currentBox,
         recallDifficulty,
       }),
       dueDate: updateVocabDueDate({ vocab: vocabWord, recallDifficulty }),
