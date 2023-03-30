@@ -1,5 +1,4 @@
-import { useAppDispatch } from "@/store/hooks";
-import { changeVocabBoxDB } from "@/store/slices/vocabSlice";
+import { useVocab } from "@/hooks/useVocab";
 import { theme } from "@/styles/theme";
 import { StepperColorNames, StepperColors } from "@/types/design";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
@@ -24,14 +23,14 @@ export const LearningStepperButton: React.FC<LearningStepperButtonProps> = ({
   vocabWord,
 }) => {
   const { t } = useTranslation("common");
-  const dispatch = useAppDispatch();
+  const { changeVocabBox } = useVocab();
 
   const color = theme.stepperColors[
     stepperColors[recallDifficulty]
   ] as StepperColorNames;
 
   const handleOnClick: ReactEventHandler<HTMLButtonElement> = () => {
-    dispatch(changeVocabBoxDB({ vocabWord, recallDifficulty }));
+    changeVocabBox({ vocabWord, recallDifficulty });
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
