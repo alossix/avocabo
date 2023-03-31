@@ -20,7 +20,7 @@
   "header_sign_out": "Esci",
   "header_switch_language": "Cambia Lingua",
   "invalid_email": "Per favore, inserisci un indirizzo email valido.",
-  "learning_language": "Sto imparando la seguente lingua: ",
+  "learning_language": "Sto imparando la seguente lingua (ciò genererà un insieme di parole di vocabolario di esempio): ",
   "password": "Password",
   "password_min_length": "La password deve essere lunga almeno 8 caratteri.",
   "password_must_match": "Le password non corrispondono.",
