@@ -15,7 +15,7 @@ export const ProfilePageView: React.FC<ProfilePageViewProps> = ({
 
   return (
     <div>
-      <h1>{t("common.header_profile")}</h1>
+      <h1>{t("common:header_profile")}</h1>
       {vocabList.map((word) => (
         <p key={word.vocabId}>{`${word.vocabId} ${word.definition}`}</p>
       ))}

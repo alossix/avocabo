@@ -10,6 +10,41 @@ type LanguageSelectorProps = {
   showIcon?: boolean;
 };
 
+type LanguageLabels = InterfaceLanguages | LearningLanguages;
+
+type LanguageMapping = {
+  [K in LanguageLabels]: K;
+};
+
+const languageMapping: LanguageMapping = {
+  ca: "ca",
+  en: "en",
+  es: "es",
+  fr: "fr",
+  it: "it",
+  nl: "nl",
+};
+
+const languageLabels: Record<InterfaceLanguages | LearningLanguages, string> = {
+  ca: "Català",
+  en: "English",
+  es: "Español",
+  fr: "Français",
+  it: "Italiano",
+  nl: "Nederlands",
+};
+
+const createLanguageOptions = () => {
+  return (Object.keys(languageMapping) as Array<keyof LanguageMapping>).map(
+    (key) => ({
+      value: languageMapping[key],
+      label: languageLabels[languageMapping[key]],
+    })
+  );
+};
+
+const languageOptions = createLanguageOptions();
+
 export const LanguageSelector = React.forwardRef<
   HTMLDivElement,
   LanguageSelectorProps
@@ -37,12 +72,11 @@ export const LanguageSelector = React.forwardRef<
         <option value="" disabled aria-disabled>
           {t("common:header_language")}
         </option>
-        <option value="ct">Català</option>
-        <option value="en">English</option>
-        <option value="es">Español</option>
-        <option value="fr">Français</option>
-        <option value="it">Italiano</option>
-        <option value="nl">Nederlands</option>
+        {languageOptions.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
       </StyledSelectMenu>
     </LanguageSelectorContainer>
   );

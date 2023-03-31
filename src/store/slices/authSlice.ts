@@ -1,5 +1,5 @@
 import { handleFirebaseError } from "@/lib/firebaseError";
-import { initialVocab } from "@/lib/initialVocab";
+import { initialVocabSet } from "@/lib/initialVocab";
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -71,8 +71,14 @@ const getUserDocRef = ({ uid }: { uid: string }) => {
   return doc(db, "users", uid);
 };
 
-const setupInitialVocab = (dispatch: Dispatch<AnyAction | AppThunk>) => {
-  initialVocab.forEach((newVocabWord) => {
+const setupInitialVocab = ({
+  dispatch,
+  learningLanguage,
+}: {
+  dispatch: Dispatch<AnyAction | AppThunk>;
+  learningLanguage: LearningLanguages;
+}) => {
+  initialVocabSet[learningLanguage].forEach((newVocabWord) => {
     dispatch(addVocabEntryDB({ newVocabWord }));
   });
 };
@@ -150,8 +156,7 @@ export const createUserAuth =
       // Create a new document for the user in Firestore with the same UID
       const userDocRef = getUserDocRef({ uid: userData.uid });
       await setDoc(userDocRef, { ...userData });
-
-      setupInitialVocab(dispatch);
+      setupInitialVocab({ dispatch, learningLanguage });
     } catch (error: unknown) {
       const { message } = handleFirebaseError(error);
       dispatch(setAppError(message));

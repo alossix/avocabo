@@ -7,6 +7,7 @@ import useTranslation from "next-translate/useTranslation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../UI/Button";
+import { LanguageSelector } from "../LanguageSelector";
 
 type SignUpFormData = {
   displayName: string;
@@ -23,7 +24,9 @@ export const SignUpForm: React.FC = () => {
     formState: { errors },
   } = useForm<SignUpFormData>();
   const [error, setError] = useState("");
-  const [learningLanguage] = useState(lang as LearningLanguages);
+  const [learningLanguage, setLearningLanguage] = useState<LearningLanguages>(
+    lang as LearningLanguages
+  );
   const dispatch = useAppDispatch();
 
   const handleSignupSubmit = async (data: SignUpFormData) => {
@@ -84,6 +87,18 @@ export const SignUpForm: React.FC = () => {
         <input
           {...register("confirmPassword", { required: true })}
           type="password"
+        />
+      </InputContainer>
+      <InputContainer
+        style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
+      >
+        <label>{t("common:learning_language")}</label>
+        <LanguageSelector
+          handleSelectLanguage={(event) =>
+            setLearningLanguage(event.target.value as LearningLanguages)
+          }
+          selectedLanguage={learningLanguage}
+          showIcon={false}
         />
       </InputContainer>
       <Button
