@@ -1,15 +1,24 @@
 import { InterfaceLanguages } from "@/types/general";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const getInitialInterfaceLanguage = (): InterfaceLanguages => {
-  const interfaceLanguages: InterfaceLanguages[] = [
-    "ct",
-    "en",
-    "es",
-    "it",
-    "nl",
-  ];
+type LanguageMapping = {
+  [K in InterfaceLanguages]: K;
+};
 
+const languageMapping: LanguageMapping = {
+  ca: "ca",
+  en: "en",
+  es: "es",
+  fr: "fr",
+  it: "it",
+  nl: "nl",
+};
+
+const interfaceLanguages = (
+  Object.keys(languageMapping) as Array<keyof LanguageMapping>
+).map((key) => languageMapping[key]);
+
+const getInitialInterfaceLanguage = (): InterfaceLanguages => {
   if (typeof window !== "undefined") {
     const storedLanguage = localStorage.getItem("interfaceLanguage");
     if (

@@ -19,7 +19,7 @@
   "header_my_vocab": "Mijn Woordenlijst",
   "header_sign_out": "Uitloggen",
   "header_switch_language": "Taal Wisselen",
-  "learning_language": "Ik leer de volgende taal: ",
+  "learning_language": "Ik leer de volgende taal (dit genereert een voorbeeldset van woordenschatwoorden): ",
   "password": "Wachtwoord",
   "password_min_length": "Wachtwoord moet minimaal 8 tekens lang zijn.",
   "password_must_match": "Wachtwoorden komen niet overeen.",
