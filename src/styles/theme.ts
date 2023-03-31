@@ -1,9 +1,11 @@
 export const theme = {
   colors: {
-    lightAvocado: "#d2d8aa",
-    avocado: "#b1b787",
-    darkAvocado: "#92986c",
-    superDarkAvocado: "#5d6143",
+    superLightAvocado: "#ddeedd",
+    lightAvocado: "#99cc99",
+    avocado: "#66b266",
+    mediumAvocado: "#329932",
+    darkAvocado: "#008000",
+    superDarkAvocado: "#004d00",
     black: "#000",
     white: "#fff",
     lightGrey: "#f5f5f5",
