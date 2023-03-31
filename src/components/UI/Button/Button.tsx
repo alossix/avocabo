@@ -47,20 +47,21 @@ const ButtonComponent = styled.button<{
   alignItems: "center",
   justifyContent: "center",
   background:
-    colorSet === "green" ? theme.colors.darkAvocado : theme.colors.black,
+    colorSet === "green" ? theme.colors.lightAvocado : theme.colors.black,
   padding: "8px 16px",
   color: theme.colors.white,
   fontWeight: "bold",
   borderRadius: 4,
   border:
     colorSet === "green"
-      ? `3px solid ${theme.colors.darkAvocado}`
+      ? `3px solid ${theme.colors.lightAvocado}`
       : `3px solid ${theme.colors.black}`,
   transition: "all 0.5s ease",
   cursor: disabled ? "not-allowed" : "pointer",
 
   "&:hover": {
     background: theme.colors.white,
-    color: colorSet === "green" ? theme.colors.darkAvocado : theme.colors.black,
+    color:
+      colorSet === "green" ? theme.colors.lightAvocado : theme.colors.black,
   },
 }));

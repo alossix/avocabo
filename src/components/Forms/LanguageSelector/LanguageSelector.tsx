@@ -93,7 +93,7 @@ const LanguageSelectorContainer = styled.div({
 const StyledSelectMenu = styled.select({
   padding: "2px 4px",
   borderRadius: 4,
-  border: `1px solid ${theme.colors.darkAvocado}`,
+  border: `1px solid ${theme.colors.mediumGrey}`,
   color: theme.colors.black,
   backgroundColor: theme.colors.white,
 });
