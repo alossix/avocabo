@@ -71,6 +71,7 @@ export const addVocabEntryDB =
 
         // add vocab word to local state
         dispatch(addVocabEntryInState(newVocabWord));
+        console.log(`dispatch called with ${newVocabWord.definition}`);
       }
     } catch (error: unknown) {
       const { message } = handleFirebaseError(error);
