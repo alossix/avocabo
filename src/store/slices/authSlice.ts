@@ -26,7 +26,11 @@ import setLanguage from "next-translate/setLanguage";
 import { Dispatch } from "react";
 import { AppDispatch, AppThunk, RootState } from "../store";
 import { setInterfaceLanguage } from "./interfaceLanguageSlice";
-import { addVocabEntryDB, getVocabDB, setVocabInState } from "./vocabSlice";
+import {
+  addInitialVocabBatchDB,
+  getVocabDB,
+  setVocabInState,
+} from "./vocabSlice";
 
 type AuthState = {
   user: AppUser | null;
@@ -145,9 +149,9 @@ export const createUserAuth =
       const userDocRef = getUserDocRef({ uid: userData.uid });
       await setDoc(userDocRef, { ...userData });
 
-      initialVocabSet[learningLanguage].forEach((newVocabWord) => {
-        dispatch(addVocabEntryDB({ newVocabWord }));
-      });
+      // Add the initial vocabulary set for the user
+      const newVocabWords = initialVocabSet[learningLanguage];
+      dispatch(addInitialVocabBatchDB(newVocabWords));
     } catch (error: unknown) {
       const { message } = handleFirebaseError(error);
       dispatch(setAppError(message));

@@ -1,15 +1,19 @@
 import { ProfilePageView } from "@/components/PageViews/ProfilePageView";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
+import useFetchVocabAndAuthChanges from "@/hooks/useFetchVocabAndAuthChanges";
 import { useAppSelector } from "@/store/hooks";
+import { vocabSelector } from "@/store/slices/vocabSlice";
 
 const ProfilePage: React.FC = () => {
-  const vocabFromState = useAppSelector((state) => state.vocab);
+  const vocabList = useAppSelector(vocabSelector);
 
   const { loading } = useAuthRedirect({
     redirectTo: "/sign-in",
     authRequired: true,
   });
 
-  return loading ? null : <ProfilePageView vocabList={vocabFromState} />;
+  useFetchVocabAndAuthChanges();
+
+  return loading ? null : <ProfilePageView vocabList={vocabList} />;
 };
 export default ProfilePage;
