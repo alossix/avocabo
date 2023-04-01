@@ -82,23 +82,29 @@ export const addVocabEntryDB =
 
 export const addInitialVocabBatchDB =
   (initialVocabWords: Vocab[]): AppThunk =>
-  async (dispatch, getState) => {
-    const { user } = getState().auth;
-
-    if (!user) {
+  async (dispatch) => {
+    if (!auth.currentUser) {
       throw new Error("User is not signed in");
     }
 
-    const vocabCollectionRef = collection(db, "users", user.uid, "vocab");
+    const vocabCollectionRef = collection(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "vocab"
+    );
 
     await runTransaction(db, async (transaction) => {
       initialVocabWords.forEach(async (initialVocabWord) => {
-        const newVocabDocRef = doc(vocabCollectionRef);
+        const newVocabDocRef = doc(
+          vocabCollectionRef,
+          initialVocabWord.vocabId
+        );
         transaction.set(newVocabDocRef, initialVocabWord);
       });
     });
 
-    dispatch(getVocabDB({ userId: user.uid }));
+    dispatch(getVocabDB({ userId: auth.currentUser.uid }));
   };
 
 export const removeVocabEntryDB =
