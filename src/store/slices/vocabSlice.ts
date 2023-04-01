@@ -4,11 +4,13 @@ import {
   collection,
   db,
   deleteDoc,
+  doc,
   onSnapshot,
   query,
   setDoc,
 } from "@/services/firebase/firebaseService";
 import { Vocab } from "@/types/vocab";
+import { runTransaction } from "@firebase/firestore";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../store";
 import { setAppError } from "./authSlice";
@@ -76,6 +78,27 @@ export const addVocabEntryDB =
       const { message } = handleFirebaseError(error);
       dispatch(setAppError(message));
     }
+  };
+
+export const addInitialVocabBatchDB =
+  (initialVocabWords: Vocab[]): AppThunk =>
+  async (dispatch, getState) => {
+    const { user } = getState().auth;
+
+    if (!user) {
+      throw new Error("User is not signed in");
+    }
+
+    const vocabCollectionRef = collection(db, "users", user.uid, "vocab");
+
+    await runTransaction(db, async (transaction) => {
+      initialVocabWords.forEach(async (initialVocabWord) => {
+        const newVocabDocRef = doc(vocabCollectionRef);
+        transaction.set(newVocabDocRef, initialVocabWord);
+      });
+    });
+
+    dispatch(getVocabDB({ userId: user.uid }));
   };
 
 export const removeVocabEntryDB =

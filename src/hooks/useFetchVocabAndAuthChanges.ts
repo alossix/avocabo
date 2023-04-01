@@ -1,16 +1,18 @@
-import { listenForAuthChanges } from "@/store/slices/authSlice";
+import { useAppSelector } from "@/store/hooks";
+import {
+  listenForAuthChanges,
+  selectUserSignedIn,
+} from "@/store/slices/authSlice";
 import { getVocabDB } from "@/store/slices/vocabSlice";
-import { AppDispatch } from "@/store/store";
-import { AppUser } from "@/types/general";
+import { useAppDispatch } from "@/store/store";
 import { useEffect, useRef, useState } from "react";
 import useUserCookie from "./useUserCookie";
 
-const useFetchVocabAndAuthChanges = (
-  dispatch: AppDispatch,
-  currentUser: AppUser | null
-) => {
+const useFetchVocabAndAuthChanges = () => {
   const { setUserCookie, getUserCookie } = useUserCookie();
   const [initialized, setInitialized] = useState(false);
+  const currentUser = useAppSelector(selectUserSignedIn);
+  const dispatch = useAppDispatch();
   const fetchedVocab = useRef(false);
 
   useEffect(() => {
@@ -38,14 +40,14 @@ const useFetchVocabAndAuthChanges = (
     if (currentUser) {
       setUserCookie(currentUser);
       fetchData(currentUser.uid);
-    } else {
+    } else if (!fetchedVocab.current) {
       const user = getUserCookie();
       if (user) {
         fetchData(user.uid);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, getUserCookie]);
+  }, [currentUser]);
 
   return { initialized };
 };

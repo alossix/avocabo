@@ -26,7 +26,11 @@ import setLanguage from "next-translate/setLanguage";
 import { Dispatch } from "react";
 import { AppDispatch, AppThunk, RootState } from "../store";
 import { setInterfaceLanguage } from "./interfaceLanguageSlice";
-import { addVocabEntryDB, getVocabDB, setVocabInState } from "./vocabSlice";
+import {
+  addInitialVocabBatchDB,
+  getVocabDB,
+  setVocabInState,
+} from "./vocabSlice";
 
 type AuthState = {
   user: AppUser | null;
@@ -69,18 +73,6 @@ const authSlice = createSlice({
 
 const getUserDocRef = ({ uid }: { uid: string }) => {
   return doc(db, "users", uid);
-};
-
-const setupInitialVocab = ({
-  dispatch,
-  learningLanguage,
-}: {
-  dispatch: Dispatch<AnyAction | AppThunk>;
-  learningLanguage: LearningLanguages;
-}) => {
-  initialVocabSet[learningLanguage].forEach((newVocabWord) => {
-    dispatch(addVocabEntryDB({ newVocabWord }));
-  });
 };
 
 // Listen for changes in the user's authentication state
@@ -156,7 +148,10 @@ export const createUserAuth =
       // Create a new document for the user in Firestore with the same UID
       const userDocRef = getUserDocRef({ uid: userData.uid });
       await setDoc(userDocRef, { ...userData });
-      setupInitialVocab({ dispatch, learningLanguage });
+
+      // Add the initial vocabulary set for the user
+      const newVocabWords = initialVocabSet[learningLanguage];
+      dispatch(addInitialVocabBatchDB(newVocabWords));
     } catch (error: unknown) {
       const { message } = handleFirebaseError(error);
       dispatch(setAppError(message));
