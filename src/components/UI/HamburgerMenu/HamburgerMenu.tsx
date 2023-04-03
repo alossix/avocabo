@@ -14,13 +14,12 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   const toggleMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
     if (!mobileMenuOpen) {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         const firstFocusable = document.querySelector<HTMLElement>(
           'a[href], button, [tabindex="0"]'
         );
-
         firstFocusable?.focus();
-      }, 0);
+      });
     } else {
       const checkbox = document.getElementById("navigation-menu");
       checkbox?.focus();

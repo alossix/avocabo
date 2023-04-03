@@ -1,6 +1,8 @@
 import { Button } from "@/components/UI/Button";
+import { handleAppError } from "@/lib/handleAppError";
 import { initialVocabProperties } from "@/lib/initialVocab";
 import { useAppDispatch } from "@/store/hooks";
+import { setAppError } from "@/store/slices/authSlice";
 import { addVocabEntryDB } from "@/store/slices/vocabSlice";
 import { theme } from "@/styles/theme";
 import { Vocab, VocabCategories } from "@/types/vocab";
@@ -32,8 +34,9 @@ export const AddWordForm: React.FC = () => {
           },
         })
       );
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      const { message } = handleAppError(error);
+      dispatch(setAppError(message));
     } finally {
       if (registerForm.current) {
         registerForm.current.reset();

@@ -1,4 +1,4 @@
-import { handleFirebaseError } from "@/lib/firebaseError";
+import { handleAppError } from "@/lib/handleAppError";
 import {
   auth,
   collection,
@@ -76,7 +76,7 @@ export const addVocabEntryDB =
         dispatch(addVocabEntryInState(newVocabWord));
       }
     } catch (error: unknown) {
-      const { message } = handleFirebaseError(error);
+      const { message } = handleAppError(error);
       dispatch(setAppError(message));
     }
   };
@@ -121,7 +121,7 @@ export const removeVocabEntryDB =
 
         await deleteDoc(vocabDocRef);
       } catch (error: unknown) {
-        const { message } = handleFirebaseError(error);
+        const { message } = handleAppError(error);
         dispatch(setAppError(message));
       }
     }
@@ -160,7 +160,7 @@ export const getVocabDB =
         throw new Error("User not authenticated");
       }
     } catch (error: unknown) {
-      const { message } = handleFirebaseError(error);
+      const { message } = handleAppError(error);
       dispatch(setAppError(message));
     }
   };

@@ -1,5 +1,6 @@
+import { handleAppError } from "@/lib/handleAppError";
 import { useAppDispatch } from "@/store/hooks";
-import { createUserAuth } from "@/store/slices/authSlice";
+import { createUserAuth, setAppError } from "@/store/slices/authSlice";
 import { theme } from "@/styles/theme";
 import { InterfaceLanguages, LearningLanguages } from "@/types/general";
 import styled from "@emotion/styled";
@@ -47,12 +48,9 @@ export const SignUpForm: React.FC = () => {
           password,
         })
       );
-    } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message);
-      } else {
-        setError("An unexpected error occurred.");
-      }
+    } catch (error: unknown) {
+      const { message } = handleAppError(error);
+      dispatch(setAppError(message));
     }
   };
 
