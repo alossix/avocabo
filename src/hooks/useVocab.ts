@@ -7,7 +7,6 @@ import {
   getVocabDB,
   removeVocabEntryDB,
   updateVocabEntryDB,
-  updateVocabEntryInState,
 } from "@/store/slices/vocabSlice";
 import { RootState, useAppDispatch } from "@/store/store";
 import { RecallDifficulty, Vocab } from "@/types/vocab";

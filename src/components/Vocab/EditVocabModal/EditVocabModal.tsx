@@ -16,22 +16,6 @@ type EditVocabModalProps = {
   vocabWord: Vocab;
 };
 
-const getChangedProperties = (
-  originalVocabEntry: Vocab,
-  updatedVocabEntry: Vocab
-) => {
-  const changedProperties: Partial<Record<keyof Vocab, any>> = {};
-
-  for (const key in originalVocabEntry) {
-    const vocabKey = key as keyof Vocab;
-    if (originalVocabEntry[vocabKey] !== updatedVocabEntry[vocabKey]) {
-      changedProperties[vocabKey] = updatedVocabEntry[vocabKey];
-    }
-  }
-
-  return changedProperties;
-};
-
 export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   isOpen,
   setOpenModal,
@@ -48,11 +32,9 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   const registerForm = useRef<HTMLFormElement>(null);
 
   const handleSaveAndClose = (formData: Vocab) => {
-    const changedProperties = getChangedProperties(vocabWord, formData);
-
     updateVocabEntry({
       vocabId: vocabWord.vocabId,
-      updatedProperties: changedProperties,
+      updatedProperties: formData,
     });
 
     setOpenModal();
