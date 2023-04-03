@@ -1,5 +1,6 @@
 import { Button } from "@/components/UI/Button";
-import { signInAuth } from "@/store/slices/authSlice";
+import { handleAppError } from "@/lib/handleAppError";
+import { setAppError, signInAuth } from "@/store/slices/authSlice";
 import { RootState, useAppDispatch } from "@/store/store";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
@@ -22,7 +23,8 @@ export const SignInForm: React.FC = () => {
     try {
       await dispatch(signInAuth(data.email, data.password));
     } catch (error: unknown) {
-      console.error(error);
+      const { message } = handleAppError(error);
+      dispatch(setAppError(message));
     }
   };
 

@@ -3,7 +3,7 @@ type ErrorResponse = {
 };
 
 // Handle errors and return an error response object
-export const handleFirebaseError = (error: unknown): ErrorResponse => {
+export const handleAppError = (error: unknown): ErrorResponse => {
   if (error instanceof Error) {
     if (error.message) {
       return { message: error.message };

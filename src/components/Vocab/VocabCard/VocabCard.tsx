@@ -56,7 +56,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
         <EditButton
           aria-label={t("vocab:vocab_edit_entry_title")}
           onClick={handleEditButtonClick}
-          onKeyDown={(e) => e.key === "Enter" && handleEditButtonClick}
+          onKeyDown={(e) => e.key === "Enter" && handleEditButtonClick()}
           role="button"
           showDetails={showDetails}
           tabIndex={0}

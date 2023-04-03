@@ -1,4 +1,4 @@
-import { handleFirebaseError } from "@/lib/firebaseError";
+import { handleAppError } from "@/lib/handleAppError";
 import { initialVocabSet } from "@/lib/initialVocab";
 import {
   auth,
@@ -94,7 +94,7 @@ export const listenForAuthChanges =
             }
           });
         } catch (error: unknown) {
-          const { message } = handleFirebaseError(error);
+          const { message } = handleAppError(error);
           dispatch(setAppError(message));
         }
       } else {
@@ -153,7 +153,7 @@ export const createUserAuth =
       const newVocabWords = initialVocabSet[learningLanguage];
       dispatch(addInitialVocabBatchDB(newVocabWords));
     } catch (error: unknown) {
-      const { message } = handleFirebaseError(error);
+      const { message } = handleAppError(error);
       dispatch(setAppError(message));
     }
   };
@@ -182,7 +182,7 @@ export const signInAuth =
       });
       dispatch(getVocabDB({ userId: userCredential.user.uid }));
     } catch (error: unknown) {
-      const { message } = handleFirebaseError(error);
+      const { message } = handleAppError(error);
       dispatch(setAppError(message));
     }
   };
@@ -198,7 +198,7 @@ export const signOutAuth =
       dispatch(signOutApp());
       dispatch(setVocabInState([]));
     } catch (error: unknown) {
-      const { message } = handleFirebaseError(error);
+      const { message } = handleAppError(error);
       dispatch(setAppError(message));
     }
   };
@@ -223,7 +223,7 @@ export const updateUserAuth =
       // Update the user object in the Redux store
       dispatch(setAppUser({ user: { ...user, ...updatedUserData } }));
     } catch (error: unknown) {
-      const { message } = handleFirebaseError(error);
+      const { message } = handleAppError(error);
       dispatch(setAppError(message));
     } finally {
       dispatch(setAppLoading(false));
