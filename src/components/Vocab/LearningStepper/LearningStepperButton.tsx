@@ -30,7 +30,6 @@ export const LearningStepperButton: React.FC<LearningStepperButtonProps> = ({
   ] as StepperColorNames;
 
   const handleOnClick: ReactEventHandler<HTMLButtonElement> = () => {
-    console.log(vocabWord.vocabId);
     changeVocabBox({ vocabWord, recallDifficulty });
   };
 

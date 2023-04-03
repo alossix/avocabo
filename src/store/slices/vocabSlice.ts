@@ -18,6 +18,7 @@ import {
   dispatchAndUpdateDoc,
   getUserVocabDocRef,
 } from "./sliceUtils/firebaseUtils";
+import { getUpdatedDueDate } from "./sliceUtils/vocabUtils";
 
 const initialState: Vocab[] = [];
 
@@ -137,6 +138,20 @@ export const getVocabDB =
           const vocabList: Vocab[] = [];
           querySnapshot.forEach((doc) => {
             const vocab = doc.data() as Vocab;
+
+            // Update the dueDate if it's in the past
+            const updatedDueDate = getUpdatedDueDate(vocab.dueDate);
+            if (updatedDueDate !== vocab.dueDate) {
+              vocab.dueDate = updatedDueDate;
+              // Call updateVocabEntryDB to save the updated dueDate in the database
+              dispatch(
+                updateVocabEntryDB({
+                  vocabWord: vocab,
+                  updatedProperties: { dueDate: updatedDueDate },
+                })
+              );
+            }
+
             vocabList.push(vocab);
           });
           dispatch(setVocabInState(vocabList));
