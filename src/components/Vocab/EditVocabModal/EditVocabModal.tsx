@@ -6,7 +6,7 @@ import { Vocab, VocabCategories } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { DeleteWord } from "../DeleteWord";
 
@@ -21,7 +21,7 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   setOpenModal,
   vocabWord,
 }) => {
-  const { handleSubmit, register } = useForm<Vocab>({
+  const { handleSubmit, register, reset } = useForm<Vocab>({
     defaultValues: vocabWord,
   });
   const { t } = useTranslation("vocab");
@@ -32,10 +32,17 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   const registerForm = useRef<HTMLFormElement>(null);
 
   const handleSaveAndClose = (formData: Vocab) => {
-    updateVocabEntry({ vocabWord, updatedProperties: { ...formData } });
+    updateVocabEntry({
+      vocabId: vocabWord.vocabId,
+      updatedProperties: formData,
+    });
 
     setOpenModal();
   };
+
+  useEffect(() => {
+    reset(vocabWord);
+  }, [vocabWord, reset]);
 
   return (
     <Modal

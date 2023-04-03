@@ -146,7 +146,7 @@ export const getVocabDB =
               // Call updateVocabEntryDB to save the updated dueDate in the database
               dispatch(
                 updateVocabEntryDB({
-                  vocabWord: vocab,
+                  vocabId: vocab.vocabId,
                   updatedProperties: { dueDate: updatedDueDate },
                 })
               );
@@ -168,10 +168,10 @@ export const getVocabDB =
 // update vocab entry in db
 export const updateVocabEntryDB =
   ({
-    vocabWord,
+    vocabId,
     updatedProperties,
   }: {
-    vocabWord: Vocab;
+    vocabId: string;
     updatedProperties: Partial<Vocab>;
   }): AppThunk =>
   async (dispatch) => {
@@ -183,7 +183,7 @@ export const updateVocabEntryDB =
     if (auth.currentUser?.uid) {
       await dispatchAndUpdateDoc(
         dispatch,
-        vocabWord.vocabId,
+        vocabId,
         baseUpdatedProperties,
         updateVocabEntryInState
       );
