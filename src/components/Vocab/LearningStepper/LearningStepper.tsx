@@ -41,7 +41,7 @@ const LearningStepperContainer = styled.div({
   width: "100%",
   gap: 8,
 
-  "& > *:nth-child(4)": {
+  "& > *:nth-of-type(4)": {
     gridColumn: "1 / span 3",
   },
 });

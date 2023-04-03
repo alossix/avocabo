@@ -22,20 +22,13 @@ export const useVocab = () => {
   };
 
   const updateVocabEntry = ({
-    vocabWord,
+    vocabId,
     updatedProperties,
   }: {
-    vocabWord: Vocab;
+    vocabId: string;
     updatedProperties: Partial<Vocab>;
   }) => {
-    dispatch(
-      updateVocabEntryInState({
-        vocabId: vocabWord.vocabId,
-        updatedProperties,
-      })
-    );
-
-    dispatch(updateVocabEntryDB({ vocabWord, updatedProperties }));
+    dispatch(updateVocabEntryDB({ vocabId, updatedProperties }));
   };
 
   const removeVocabEntry = (vocabId: string) => {
@@ -59,7 +52,7 @@ export const useVocab = () => {
     };
 
     // Call updateVocabEntry to update both local state and database state
-    updateVocabEntry({ vocabWord, updatedProperties });
+    updateVocabEntry({ vocabId: vocabWord.vocabId, updatedProperties });
   };
 
   const getVocab = (userId: string) => {

@@ -76,7 +76,9 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
           <Image
             src={vocabWord.imageURL}
             alt={vocabWord.definition}
-            fill
+            width={240}
+            height={200}
+            sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 240px"
             style={{ objectFit: "contain" }}
           />
         </ImageContainer>
@@ -157,6 +159,7 @@ const ImageWrapper = styled.div({
 
 const ImageContainer = styled.div({
   display: "flex",
+  justifyContent: "center",
   position: "relative",
   width: "100%",
 });
