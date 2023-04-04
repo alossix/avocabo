@@ -15,6 +15,9 @@
   "vocab_due_date": "Fecha de vencimiento",
   "vocab_edit_entry_title": "Editar entrada de vocabulario",
   "vocab_list_title": "Mi lista de vocabulario",
+  "vocab_load_next_entries": "Carga las siguientes 20 entradas",
+  "vocab_no_more_due": "¡No hay más entradas de vocabulario pendientes hoy!",
+  "vocab_number_of_entries": "Número de entradas de vocabulario pendientes hoy: ",
   "vocab_reveal_word": "Revela la palabra",
   "vocab_save_close": "Guarda y cierra",
   "word": "Palabra"
