@@ -1,5 +1,4 @@
-import { useAppDispatch } from "@/store/hooks";
-import { removeVocabEntryDB } from "@/store/slices/vocabSlice";
+import { useVocab } from "@/hooks/useVocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
@@ -11,12 +10,12 @@ type DeleteWordProps = {
 };
 
 export const DeleteWord: React.FC<DeleteWordProps> = ({ vocabId }) => {
+  const { removeVocabEntry } = useVocab();
   const { t } = useTranslation("vocab");
-  const dispatch = useAppDispatch();
 
   const handleDeleteWordClick: ReactEventHandler<HTMLButtonElement> = () => {
     if (window.confirm(t("vocab:vocab_confirm_delete_entry"))) {
-      dispatch(removeVocabEntryDB({ vocabId }));
+      removeVocabEntry({ vocabId });
     }
   };
 

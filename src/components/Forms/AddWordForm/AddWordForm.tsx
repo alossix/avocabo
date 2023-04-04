@@ -1,9 +1,9 @@
 import { Button } from "@/components/UI/Button";
+import { useVocab } from "@/hooks/useVocab";
 import { handleAppError } from "@/lib/handleAppError";
 import { initialVocabProperties } from "@/lib/initialVocab";
 import { useAppDispatch } from "@/store/hooks";
 import { setAppError } from "@/store/slices/authSlice";
-import { addVocabEntryDB } from "@/store/slices/vocabSlice";
 import { theme } from "@/styles/theme";
 import { Vocab, VocabCategories } from "@/types/vocab";
 import styled from "@emotion/styled";
@@ -14,6 +14,7 @@ import { v4 as uuid4 } from "uuid";
 import { CategorySelector } from "../CategorySelector";
 
 export const AddWordForm: React.FC = () => {
+  const { addVocabEntry } = useVocab();
   const { t } = useTranslation("vocab");
   const { handleSubmit, register } = useForm<Vocab>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -25,15 +26,13 @@ export const AddWordForm: React.FC = () => {
     const vocabId = uuid4();
     try {
       setIsSubmitting(true);
-      dispatch(
-        addVocabEntryDB({
-          newVocabWord: {
-            ...initialVocabProperties,
-            ...vocabWordData,
-            vocabId,
-          },
-        })
-      );
+      addVocabEntry({
+        newVocabWord: {
+          ...initialVocabProperties,
+          ...vocabWordData,
+          vocabId,
+        },
+      });
     } catch (error: unknown) {
       const { message } = handleAppError(error);
       dispatch(setAppError(message));

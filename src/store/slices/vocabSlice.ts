@@ -41,6 +41,18 @@ export const vocabSlice = createSlice({
         state.splice(vocabIndex, 1);
       }
     },
+    setNextVocabEntriesDueTodayInState: (
+      state,
+      action: PayloadAction<{ vocabIds: string[] }>
+    ) => {
+      const { vocabIds } = action.payload;
+      vocabIds.forEach((vocabId) => {
+        const vocabIndex = state.findIndex((v) => v.vocabId === vocabId);
+        if (vocabIndex !== -1) {
+          state[vocabIndex].dueDate = new Date().toLocaleDateString();
+        }
+      });
+    },
     setVocabInState: (state, action: PayloadAction<Vocab[]>) => {
       return action.payload;
     },
@@ -108,25 +120,6 @@ export const addInitialVocabBatchDB =
     dispatch(getVocabDB({ userId: auth.currentUser.uid }));
   };
 
-export const removeVocabEntryDB =
-  ({ vocabId }: { vocabId: string }): AppThunk =>
-  async (dispatch) => {
-    dispatch(removeVocabEntryInState({ vocabId }));
-    if (auth.currentUser) {
-      try {
-        const vocabDocRef = getUserVocabDocRef({
-          uid: auth.currentUser.uid,
-          vocabId,
-        });
-
-        await deleteDoc(vocabDocRef);
-      } catch (error: unknown) {
-        const { message } = handleAppError(error);
-        dispatch(setAppError(message));
-      }
-    }
-  };
-
 export const getVocabDB =
   ({ userId }: { userId: string }): AppThunk =>
   async (dispatch) => {
@@ -165,6 +158,51 @@ export const getVocabDB =
     }
   };
 
+export const removeVocabEntryDB =
+  ({ vocabId }: { vocabId: string }): AppThunk =>
+  async (dispatch) => {
+    dispatch(removeVocabEntryInState({ vocabId }));
+    if (auth.currentUser) {
+      try {
+        const vocabDocRef = getUserVocabDocRef({
+          uid: auth.currentUser.uid,
+          vocabId,
+        });
+
+        await deleteDoc(vocabDocRef);
+      } catch (error: unknown) {
+        const { message } = handleAppError(error);
+        dispatch(setAppError(message));
+      }
+    }
+  };
+
+export const setNextVocabEntriesDueTodayDB =
+  (): AppThunk => async (dispatch, getState) => {
+    const state = getState();
+    const vocabList = vocabSelector(state);
+    const today = new Date().toLocaleDateString();
+    const notDueTodayVocab = vocabList.filter(
+      (vocab) => new Date(vocab.dueDate).toLocaleDateString() !== today
+    );
+    const next20VocabIds = notDueTodayVocab
+      .slice(0, 20)
+      .map((vocab) => vocab.vocabId);
+
+    // Update the dueDate of the next 20 entries in the local state
+    dispatch(setNextVocabEntriesDueTodayInState({ vocabIds: next20VocabIds }));
+
+    // Update the dueDate of the next 20 entries in the database
+    next20VocabIds.forEach((vocabId) => {
+      dispatch(
+        updateVocabEntryDB({
+          vocabId,
+          updatedProperties: { dueDate: today },
+        })
+      );
+    });
+  };
+
 // update vocab entry in db
 export const updateVocabEntryDB =
   ({
@@ -193,10 +231,14 @@ export const updateVocabEntryDB =
 export const {
   addVocabEntryInState,
   removeVocabEntryInState,
+  setNextVocabEntriesDueTodayInState,
   setVocabInState,
   updateVocabEntryInState,
 } = vocabSlice.actions;
 
-export const vocabSelector = (state: RootState) => state.vocab;
+export const vocabSelector = (state: RootState) =>
+  [...state.vocab].sort(
+    (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
+  );
 
 export default vocabSlice;

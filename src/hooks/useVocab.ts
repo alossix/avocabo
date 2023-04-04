@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/store/hooks";
 import {
   updateVocabCurrentBox,
   updateVocabDueDate,
@@ -6,32 +7,22 @@ import {
   addVocabEntryDB,
   getVocabDB,
   removeVocabEntryDB,
+  setNextVocabEntriesDueTodayDB,
   updateVocabEntryDB,
+  vocabSelector,
 } from "@/store/slices/vocabSlice";
-import { RootState, useAppDispatch } from "@/store/store";
+import { useAppDispatch } from "@/store/store";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
-import { useSelector } from "react-redux";
 
 export const useVocab = () => {
   const dispatch = useAppDispatch();
-  const vocab = useSelector((state: RootState) => state.vocab);
+  const today = new Date().toLocaleDateString();
+  const vocabListDueToday = useAppSelector(vocabSelector).filter(
+    (vocab) => new Date(vocab.dueDate).toLocaleDateString() === today
+  );
 
-  const addVocabEntry = (newVocabWord: Vocab) => {
+  const addVocabEntry = ({ newVocabWord }: { newVocabWord: Vocab }) => {
     dispatch(addVocabEntryDB({ newVocabWord }));
-  };
-
-  const updateVocabEntry = ({
-    vocabId,
-    updatedProperties,
-  }: {
-    vocabId: string;
-    updatedProperties: Partial<Vocab>;
-  }) => {
-    dispatch(updateVocabEntryDB({ vocabId, updatedProperties }));
-  };
-
-  const removeVocabEntry = (vocabId: string) => {
-    dispatch(removeVocabEntryDB({ vocabId }));
   };
 
   const changeVocabBox = ({
@@ -54,16 +45,35 @@ export const useVocab = () => {
     updateVocabEntry({ vocabId: vocabWord.vocabId, updatedProperties });
   };
 
-  const getVocab = (userId: string) => {
+  const getVocab = ({ userId }: { userId: string }) => {
     dispatch(getVocabDB({ userId }));
   };
 
+  const removeVocabEntry = ({ vocabId }: { vocabId: string }) => {
+    dispatch(removeVocabEntryDB({ vocabId }));
+  };
+
+  const setNextVocabEntriesDueToday = () => {
+    dispatch(setNextVocabEntriesDueTodayDB());
+  };
+
+  const updateVocabEntry = ({
+    vocabId,
+    updatedProperties,
+  }: {
+    vocabId: string;
+    updatedProperties: Partial<Vocab>;
+  }) => {
+    dispatch(updateVocabEntryDB({ vocabId, updatedProperties }));
+  };
+
   return {
-    vocab,
     addVocabEntry,
-    updateVocabEntry,
-    removeVocabEntry,
     changeVocabBox,
     getVocab,
+    removeVocabEntry,
+    setNextVocabEntriesDueToday,
+    updateVocabEntry,
+    vocabListDueToday,
   };
 };

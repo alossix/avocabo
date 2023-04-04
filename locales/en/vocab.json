@@ -15,6 +15,9 @@
   "vocab_due_date": "Due date",
   "vocab_edit_entry_title": "Edit vocab entry",
   "vocab_list_title": "My Vocab List",
+  "vocab_load_next_entries": "Load next 20 entries",
+  "vocab_no_more_due": "No more vocab entries due today!",
+  "vocab_number_of_entries": "Number of vocab entries due today: {{count}}",
   "vocab_reveal_word": "Reveal word",
   "vocab_save_close": "Save and close",
   "word": "Word"

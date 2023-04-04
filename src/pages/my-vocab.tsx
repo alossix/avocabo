@@ -1,11 +1,10 @@
 import { MyVocabPageView } from "@/components/PageViews/MyVocabPageView";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import useFetchVocabAndAuthChanges from "@/hooks/useFetchVocabAndAuthChanges";
-import { useAppSelector } from "@/store/hooks";
-import { vocabSelector } from "@/store/slices/vocabSlice";
+import { useVocab } from "@/hooks/useVocab";
 
 const MyVocabPage: React.FC = () => {
-  const vocabList = useAppSelector(vocabSelector);
+  const { vocabListDueToday } = useVocab();
 
   const { loading } = useAuthRedirect({
     redirectTo: "/sign-in",
@@ -14,7 +13,7 @@ const MyVocabPage: React.FC = () => {
 
   useFetchVocabAndAuthChanges();
 
-  return loading ? null : <MyVocabPageView vocabList={vocabList} />;
+  return loading ? null : <MyVocabPageView vocabList={vocabListDueToday} />;
 };
 
 export default MyVocabPage;
