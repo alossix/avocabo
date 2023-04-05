@@ -28,7 +28,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
   const handleOnShowDetailsKeyDown = (
     event: React.KeyboardEvent<HTMLDivElement>
   ) => {
-    if (event.key === "Enter" || event.key === " ") {
+    if (event.key === "Enter") {
       event.preventDefault();
       handleOnShowDetailsClick(event);
     }
