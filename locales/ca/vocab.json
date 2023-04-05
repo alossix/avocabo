@@ -17,7 +17,7 @@
   "vocab_list_title": "La meva llista de vocabulari",
   "vocab_load_next_entries": "Carrega les 20 següents entrades",
   "vocab_no_more_due": "Ja no hi ha més entrades de vocabulari a fer avui!",
-  "vocab_number_of_entries": "Nombre d'entrades de vocabulari a fer avui: ",
+  "vocab_number_of_entries": "Nombre d'entrades de vocabulari a fer avui: {{count}}",
   "vocab_reveal_word": "Revela la paraula",
   "vocab_save_close": "Desa i tanca",
   "word": "Paraula"

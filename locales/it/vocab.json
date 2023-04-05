@@ -17,7 +17,7 @@
   "vocab_list_title": "La mia lista di vocaboli",
   "vocab_load_next_entries": "Carica le prossime 20 voci",
   "vocab_no_more_due": "Non ci sono altre voci di vocabolario da ripassare oggi!",
-  "vocab_number_of_entries": "Numero di voci di vocabolario da ripassare oggi: ",
+  "vocab_number_of_entries": "Numero di voci di vocabolario da ripassare oggi: {{count}}",
   "vocab_reveal_word": "Rivela la parola",
   "vocab_save_close": "Salva e chiudi",
   "word": "Parola"

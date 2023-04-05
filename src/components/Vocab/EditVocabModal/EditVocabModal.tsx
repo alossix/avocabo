@@ -62,13 +62,43 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
           />
         </ImageContainer>
         <StyledForm ref={registerForm} name="edit_word_form">
-          <CategorySelectorContainer>
+          <StyledInputContainer>
+            <label htmlFor="definition">Definition</label>
+            <input
+              className="form-control-definition"
+              defaultValue={vocabWord.definition}
+              id="definition"
+              type="text"
+              {...register("definition")}
+            />
+          </StyledInputContainer>
+          <StyledInputContainer>
+            <label htmlFor="description">Description</label>
+            <input
+              className="form-control-description"
+              defaultValue={vocabWord.description}
+              id="description"
+              type="text"
+              {...register("description")}
+            />
+          </StyledInputContainer>
+          <StyledInputContainer>
+            <label htmlFor="image-url">Image URL</label>
+            <input
+              className="form-control-image-url"
+              defaultValue={vocabWord.imageURL}
+              id="image-url"
+              type="text"
+              {...register("imageURL")}
+            />
+          </StyledInputContainer>
+          <StyledInputContainer>
             <CategorySelector
               currentCategory={currentCategory}
               onCategoryChange={(value) => setCurrentCategory(value)}
               register={register}
             />
-          </CategorySelectorContainer>
+          </StyledInputContainer>
           <BottomRowContainer>
             <DeleteWord vocabId={vocabWord.vocabId} />
             <Button
@@ -108,12 +138,13 @@ const StyledForm = styled.form({
   flexDirection: "column",
   justifyContent: "space-between",
   flex: 1,
+  gap: 16,
 });
 
-const CategorySelectorContainer = styled.div({
+const StyledInputContainer = styled.div({
   display: "flex",
   flexDirection: "column",
-  gap: 8,
+  gap: 4,
 });
 
 const BottomRowContainer = styled.div({

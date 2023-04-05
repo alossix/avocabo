@@ -18,7 +18,7 @@ export const initialVocabSet: { [key in LearningLanguages]: Vocab[] } = {
   en: [
     {
       category: "noun",
-      definition: "the sun",
+      definition: "sun",
       description: "Never look at the ___ during an eclipse.",
       imageURL:
         "https://thumbnails.production.thenounproject.com/4evzWOXxQyDYNgtmTyF2yYyteYs=/fit-in/1000x1000/photos.production.thenounproject.com/photos/63EA1C09-599C-4DFD-9F12-EB47040C2884.jpg",
@@ -27,7 +27,7 @@ export const initialVocabSet: { [key in LearningLanguages]: Vocab[] } = {
     },
     {
       category: "noun",
-      definition: "the rain",
+      definition: "rain",
       description: "We watch the ____ during the storm.",
       imageURL:
         "https://thumbnails.production.thenounproject.com/CjieXWzlGXymb75rchqIClRsD5Y=/fit-in/1000x1000/photos.production.thenounproject.com/photos/95846160-49C7-4401-A154-EED13B1E3923.jpg",
@@ -36,7 +36,7 @@ export const initialVocabSet: { [key in LearningLanguages]: Vocab[] } = {
     },
     {
       category: "noun",
-      definition: "the crown",
+      definition: "crown",
       description: "The actor wore a _____ on his head.",
       imageURL:
         "https://thumbnails.production.thenounproject.com/oHSSI9h3Aj5m9qTK3NK62a-u1Fc=/fit-in/1000x1000/photos.production.thenounproject.com/photos/DEF25567-801B-4D36-BF44-C7B3540EF5A1.jpg",
@@ -65,7 +65,7 @@ export const initialVocabSet: { [key in LearningLanguages]: Vocab[] } = {
     },
     {
       category: "noun",
-      definition: "the t-shirt",
+      definition: "t-shirt",
       description:
         "It's a warm day, so I decided to put on a _______ instead of a sweater.",
       imageURL:
@@ -75,7 +75,7 @@ export const initialVocabSet: { [key in LearningLanguages]: Vocab[] } = {
     },
     {
       category: "noun",
-      definition: "the pants",
+      definition: "pants",
       description: "The _____ were made of blue denim.",
       imageURL:
         "https://thumbnails.production.thenounproject.com/MC1iYUKYzQ8IaJnXfMI0R1sMSog=/fit-in/1000x1000/photos.production.thenounproject.com/photos/cropped_image_of_tattooed_woman_wearing_crop_top_and_denim_pants-scopio-6d7d618d-_J4520Lp.jpg",

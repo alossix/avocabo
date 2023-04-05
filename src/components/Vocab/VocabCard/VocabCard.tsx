@@ -28,7 +28,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
   const handleOnShowDetailsKeyDown = (
     event: React.KeyboardEvent<HTMLDivElement>
   ) => {
-    if (event.key === "Enter" || event.key === " ") {
+    if (event.key === "Enter") {
       event.preventDefault();
       handleOnShowDetailsClick(event);
     }
@@ -117,7 +117,7 @@ const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
   border: `1px solid ${theme.colors.lightGrey}`,
   padding: 8,
   maxWidth: "100%",
-  height: 432,
+  height: 440,
   cursor: !showDetails ? "pointer" : "default",
   gap: 16,
 }));
