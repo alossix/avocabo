@@ -123,6 +123,7 @@ const VocabCard: React.FC<VocabCardProps> = React.memo(
     prevProps.vocabWord.vocabId === nextProps.vocabWord.vocabId
 );
 VocabCard.displayName = "VocabCard";
+
 export default VocabCard;
 
 const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
