@@ -1,3 +1,4 @@
+import { newShortDate } from "@/lib/datesAndTimes";
 import { useAppSelector } from "@/store/hooks";
 import {
   updateVocabCurrentBox,
@@ -16,9 +17,9 @@ import { RecallDifficulty, Vocab } from "@/types/vocab";
 
 export const useVocab = () => {
   const dispatch = useAppDispatch();
-  const today = new Date().toLocaleDateString();
+  const today = newShortDate();
   const vocabListDueToday = useAppSelector(vocabSelector).filter(
-    (vocab) => new Date(vocab.dueDate).toLocaleDateString() === today
+    (vocab) => newShortDate(vocab.dueDate) === today
   );
 
   const addVocabEntry = ({ newVocabWord }: { newVocabWord: Vocab }) => {

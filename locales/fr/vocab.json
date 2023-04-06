@@ -16,8 +16,9 @@
   "vocab_edit_entry_title": "Modifiez l'entrée de vocabulaire",
   "vocab_list_title": "Ma liste de vocabulaire",
   "vocab_load_next_entries": "Chargez les 20 entrées suivantes",
+  "vocab_next_words": "Prochains mots disponibles dans {{minutes}}",
   "vocab_no_more_due": "Aucune autre entrée de vocabulaire n'est due aujourd'hui!",
-  "vocab_number_of_entries": "Nombre d'entrées de vocabulaire dues aujourd'hui: {{count}}",
+  "vocab_number_of_entries": "Nombre d'entrées de vocabulaire à faire maintenant: {{count}}",
   "vocab_reveal_word": "Révèle le mot",
   "vocab_save_close": "Enregistrez et fermez",
   "word": "Mot"

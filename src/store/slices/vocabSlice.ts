@@ -49,7 +49,7 @@ export const vocabSlice = createSlice({
       vocabIds.forEach((vocabId) => {
         const vocabIndex = state.findIndex((v) => v.vocabId === vocabId);
         if (vocabIndex !== -1) {
-          state[vocabIndex].dueDate = new Date().toLocaleDateString();
+          state[vocabIndex].dueDate = new Date().toISOString();
         }
       });
     },
@@ -181,9 +181,9 @@ export const setNextVocabEntriesDueTodayDB =
   (): AppThunk => async (dispatch, getState) => {
     const state = getState();
     const vocabList = vocabSelector(state);
-    const today = new Date().toLocaleDateString();
+    const today = new Date().toISOString();
     const notDueTodayVocab = vocabList.filter(
-      (vocab) => new Date(vocab.dueDate).toLocaleDateString() !== today
+      (vocab) => new Date(vocab.dueDate).toISOString() !== today
     );
     const next20VocabIds = notDueTodayVocab
       .slice(0, 20)

@@ -1,4 +1,3 @@
-import { formatDateYearMonthDay } from "@/lib/dates";
 import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
@@ -8,109 +7,123 @@ import { ReactEventHandler, useEffect, useState } from "react";
 import { EditVocabModal } from "../EditVocabModal";
 import { LearningStepper } from "../LearningStepper";
 import EditVocabIcon from "/public/icons/edit-vocab-icon.svg";
+import { newShortDate } from "@/lib/datesAndTimes";
+import React from "react";
 
 type VocabCardProps = {
   vocabWord: Vocab;
 };
 
-export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
-  const { t } = useTranslation("vocab");
-  const [showDetails, setShowDetails] = useState<boolean>(false);
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const dueDate = formatDateYearMonthDay(vocabWord.dueDate);
+const VocabCard: React.FC<VocabCardProps> = React.memo(
+  ({ vocabWord }) => {
+    const { definition, description, imageURL } = vocabWord;
+    const { t } = useTranslation("vocab");
+    const [showDetails, setShowDetails] = useState<boolean>(false);
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const dueDate = newShortDate(vocabWord.dueDate);
 
-  const handleOnShowDetailsClick: ReactEventHandler<HTMLDivElement> = () => {
-    if (!showDetails) {
-      setShowDetails(true);
-    }
-  };
+    const handleOnShowDetailsClick: ReactEventHandler<HTMLDivElement> = () => {
+      if (!showDetails) {
+        setShowDetails(true);
+      }
+    };
 
-  const handleOnShowDetailsKeyDown = (
-    event: React.KeyboardEvent<HTMLDivElement>
-  ) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      handleOnShowDetailsClick(event);
-    }
-  };
+    const handleOnShowDetailsKeyDown = (
+      event: React.KeyboardEvent<HTMLDivElement>
+    ) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        handleOnShowDetailsClick(event);
+      }
+    };
 
-  const handleEditButtonClick = () => {
-    setOpenModal(() => !openModal);
-  };
+    const handleEditButtonClick = () => {
+      setOpenModal(() => !openModal);
+    };
 
-  useEffect(() => {
-    setShowDetails(false);
-  }, [vocabWord]);
+    useEffect(() => {
+      setShowDetails(false);
+    }, [vocabWord]);
 
-  return (
-    <CardWrapper
-      onClick={handleOnShowDetailsClick}
-      onKeyDown={handleOnShowDetailsKeyDown}
-      tabIndex={0}
-      showDetails={showDetails}
-      role="button"
-      aria-label={vocabWord.definition}
-      aria-pressed={showDetails}
-    >
-      <TopRowDetails showDetails={showDetails}>
-        <p style={{ color: theme.colors.superDarkGrey, fontSize: 12 }}>
-          {t("vocab:vocab_due_date", { dueDate })}
-        </p>
+    return (
+      <CardWrapper
+        onClick={handleOnShowDetailsClick}
+        onKeyDown={handleOnShowDetailsKeyDown}
+        tabIndex={0}
+        showDetails={showDetails}
+        role="button"
+        aria-label={definition}
+        aria-pressed={showDetails}
+      >
+        <TopRowDetails showDetails={showDetails}>
+          <p style={{ color: theme.colors.superDarkGrey, fontSize: 12 }}>
+            {t("vocab:vocab_due_date", { dueDate })}
+          </p>
 
-        <EditButton
-          aria-label={t("vocab:vocab_edit_entry_title")}
-          onClick={handleEditButtonClick}
-          onKeyDown={(e) => e.key === "Enter" && handleEditButtonClick()}
-          role="button"
-          tabIndex={0}
-        >
-          <Image alt="edit-vocab" src={EditVocabIcon} width={20} height={20} />
-        </EditButton>
+          <EditButton
+            aria-label={t("vocab:vocab_edit_entry_title")}
+            onClick={handleEditButtonClick}
+            onKeyDown={(e) => e.key === "Enter" && handleEditButtonClick()}
+            role="button"
+            tabIndex={0}
+          >
+            <Image
+              alt="edit-vocab"
+              src={EditVocabIcon}
+              width={20}
+              height={20}
+            />
+          </EditButton>
 
-        <EditVocabModal
-          isOpen={openModal}
-          setOpenModal={() => setOpenModal(!openModal)}
-          vocabWord={vocabWord}
-        />
-      </TopRowDetails>
-
-      <ImageWrapper>
-        <ImageContainer>
-          <Image
-            src={vocabWord.imageURL}
-            alt={vocabWord.definition}
-            width={240}
-            height={200}
-            sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 240px"
-            style={{ objectFit: "contain" }}
+          <EditVocabModal
+            isOpen={openModal}
+            setOpenModal={() => setOpenModal(!openModal)}
+            vocabWord={vocabWord}
           />
-        </ImageContainer>
-      </ImageWrapper>
-      <DescriptionContainer>
-        <p>{vocabWord.description}</p>
-      </DescriptionContainer>
+        </TopRowDetails>
 
-      <HR />
-      {showDetails ? (
-        <>
-          <WordContainer>
-            <p>{vocabWord.definition}</p>
-          </WordContainer>
-          <LearningStepper vocabWord={vocabWord} />
-        </>
-      ) : (
-        <>
-          <div style={{ color: theme.colors.superDarkGrey }}>
-            <p>{`${t("vocab:vocab_reveal_word")}...`}</p>
-          </div>
-          <Hidden>
+        <ImageWrapper>
+          <ImageContainer>
+            <Image
+              src={imageURL}
+              alt={definition}
+              width={240}
+              height={200}
+              sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 240px"
+              style={{ objectFit: "contain" }}
+            />
+          </ImageContainer>
+        </ImageWrapper>
+        <DescriptionContainer>
+          <p>{description}</p>
+        </DescriptionContainer>
+
+        <HR />
+        {showDetails ? (
+          <>
+            <WordContainer>
+              <p>{definition}</p>
+            </WordContainer>
             <LearningStepper vocabWord={vocabWord} />
-          </Hidden>
-        </>
-      )}
-    </CardWrapper>
-  );
-};
+          </>
+        ) : (
+          <>
+            <div style={{ color: theme.colors.superDarkGrey }}>
+              <p>{`${t("vocab:vocab_reveal_word")}...`}</p>
+            </div>
+            <Hidden>
+              <LearningStepper vocabWord={vocabWord} />
+            </Hidden>
+          </>
+        )}
+      </CardWrapper>
+    );
+  },
+  (prevProps, nextProps) =>
+    prevProps.vocabWord.vocabId === nextProps.vocabWord.vocabId
+);
+VocabCard.displayName = "VocabCard";
+export default VocabCard;
 
 const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
   display: "flex",
@@ -123,6 +136,10 @@ const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
   height: 440,
   cursor: !showDetails ? "pointer" : "default",
   gap: 16,
+
+  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+    width: 336,
+  },
 }));
 
 const TopRowDetails = styled.div<{ showDetails: boolean }>({
@@ -151,10 +168,6 @@ const ImageWrapper = styled.div({
   position: "relative",
   width: "100%",
   height: 200,
-
-  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
-    width: 336,
-  },
 });
 
 const ImageContainer = styled.div({

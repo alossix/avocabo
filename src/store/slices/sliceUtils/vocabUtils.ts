@@ -1,13 +1,9 @@
+import { newShortDate } from "@/lib/datesAndTimes";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
 
-const compareDatesWithoutTime = (date1: Date, date2: Date) => {
-  const year1 = date1.getFullYear();
-  const month1 = date1.getMonth();
-  const day1 = date1.getDate();
-
-  const year2 = date2.getFullYear();
-  const month2 = date2.getMonth();
-  const day2 = date2.getDate();
+const compareDatesWithoutTime = (date1: string, date2: string) => {
+  const [year1, month1, day1] = date1.split("-").map(Number);
+  const [year2, month2, day2] = date2.split("-").map(Number);
 
   if (year1 === year2 && month1 === month2 && day1 === day2) {
     return 0;
@@ -16,13 +12,10 @@ const compareDatesWithoutTime = (date1: Date, date2: Date) => {
 };
 
 export const getUpdatedDueDate = (dueDate: string) => {
-  const currentDate = new Date();
-  const vocabDueDate = new Date(dueDate);
+  const currentDate = newShortDate();
 
-  if (compareDatesWithoutTime(vocabDueDate, currentDate) === -1) {
-    const updatedDate = new Date(currentDate);
-    updatedDate.setHours(0, 0, 0, 0);
-    return updatedDate.toISOString();
+  if (compareDatesWithoutTime(dueDate, currentDate) === -1) {
+    return currentDate;
   }
 
   return dueDate;
@@ -64,21 +57,42 @@ export const updateVocabDueDate = ({
 }) => {
   const { currentBox, dueDate } = vocab;
   const DAY_IN_MS = 86400000;
+  const MINUTE_IN_MS = 60000;
+
+  const newDueDate = (multiplier: number) => {
+    const newDate = new Date(
+      new Date(dueDate).getTime() + multiplier * DAY_IN_MS
+    );
+    newDate.setHours(0, 0, 0, 0);
+    return newDate.toISOString();
+  };
 
   switch (recallDifficulty) {
     case "easy":
-      return new Date(
-        new Date(dueDate).getTime() + currentBox * DAY_IN_MS
-      ).toISOString();
+      if (currentBox === 0) {
+        return new Date(
+          new Date(dueDate).getTime() + 45 * MINUTE_IN_MS
+        ).toISOString();
+      } else {
+        return newDueDate(currentBox);
+      }
     case "medium":
-      return new Date(
-        new Date(dueDate).getTime() + (currentBox / 1.5) * DAY_IN_MS
-      ).toISOString();
+      if (currentBox === 0) {
+        return new Date(
+          new Date(dueDate).getTime() + 20 * MINUTE_IN_MS
+        ).toISOString();
+      } else {
+        return newDueDate(currentBox / 1.5);
+      }
     case "hard":
-      return new Date(
-        new Date(dueDate).getTime() + (currentBox * DAY_IN_MS) / 2
-      ).toISOString();
+      if (currentBox === 0) {
+        return new Date(
+          new Date(dueDate).getTime() + 5 * MINUTE_IN_MS
+        ).toISOString();
+      } else {
+        return newDueDate(currentBox / 2);
+      }
     case "forgot":
-      return new Date().toISOString();
+      return new Date(new Date().getTime() + MINUTE_IN_MS / 2).toISOString();
   }
 };
