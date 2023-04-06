@@ -4,7 +4,7 @@ import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
-import { ReactEventHandler, useState } from "react";
+import { ReactEventHandler, useEffect, useState } from "react";
 import { EditVocabModal } from "../EditVocabModal";
 import { LearningStepper } from "../LearningStepper";
 import EditVocabIcon from "/public/icons/edit-vocab-icon.svg";
@@ -38,6 +38,10 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
     setOpenModal(() => !openModal);
   };
 
+  useEffect(() => {
+    setShowDetails(false);
+  }, [vocabWord]);
+
   return (
     <CardWrapper
       onClick={handleOnShowDetailsClick}
@@ -49,16 +53,15 @@ export const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
       aria-pressed={showDetails}
     >
       <TopRowDetails showDetails={showDetails}>
-        <p style={{ color: theme.colors.superDarkGrey, fontSize: 12 }}>{`${t(
-          "vocab:vocab_due_date"
-        )}: ${dueDate}`}</p>
+        <p style={{ color: theme.colors.superDarkGrey, fontSize: 12 }}>
+          {t("vocab:vocab_due_date", { dueDate })}
+        </p>
 
         <EditButton
           aria-label={t("vocab:vocab_edit_entry_title")}
           onClick={handleEditButtonClick}
           onKeyDown={(e) => e.key === "Enter" && handleEditButtonClick()}
           role="button"
-          showDetails={showDetails}
           tabIndex={0}
         >
           <Image alt="edit-vocab" src={EditVocabIcon} width={20} height={20} />
@@ -129,21 +132,18 @@ const TopRowDetails = styled.div<{ showDetails: boolean }>({
   width: "100%",
 });
 
-const EditButton = styled.button<{ showDetails: boolean }>(
-  ({ showDetails }) => ({
-    cursor: "pointer",
-    padding: 0,
-    height: 20,
-    backgroundColor: "transparent",
-    border: "none",
-    lineHeight: 1,
-    visibility: showDetails ? "visible" : "hidden",
+const EditButton = styled.button({
+  cursor: "pointer",
+  padding: 0,
+  height: 20,
+  backgroundColor: "transparent",
+  border: "none",
+  lineHeight: 1,
 
-    "&:hover": {
-      opacity: 0.6,
-    },
-  })
-);
+  "&:hover": {
+    opacity: 0.6,
+  },
+});
 
 const ImageWrapper = styled.div({
   display: "flex",

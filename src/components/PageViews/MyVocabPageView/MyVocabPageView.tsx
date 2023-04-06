@@ -41,9 +41,7 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
             {t("vocab:vocab_number_of_entries", { count: vocabList.length })}
           </h3>
           <VocabCardsContainer>
-            {vocabList.map((vocabWord) => (
-              <VocabCard vocabWord={vocabWord} key={vocabWord.vocabId} />
-            ))}
+            <VocabCard vocabWord={vocabList[0]} />
           </VocabCardsContainer>
         </>
       )}

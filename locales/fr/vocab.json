@@ -12,7 +12,7 @@
   "vocab_confirm_delete_entry": "Êtes-vous sûr de vouloir supprimer définitivement cette entrée?",
   "vocab_current_step": "Étape actuelle: ",
   "vocab_description_sentence": "Description ou exemple de phrase",
-  "vocab_due_date": "Date d'échéance",
+  "vocab_due_date": "Date d'échéance: {{dueDate}}",
   "vocab_edit_entry_title": "Modifiez l'entrée de vocabulaire",
   "vocab_list_title": "Ma liste de vocabulaire",
   "vocab_load_next_entries": "Chargez les 20 entrées suivantes",
