@@ -1,7 +1,7 @@
 import { Button } from "@/components/UI/Button";
 import { VocabCard } from "@/components/Vocab/VocabCard";
 import { useVocab } from "@/hooks/useVocab";
-import { formatTimeHoursAndMinutes } from "@/lib/dates";
+import { formatTimeHoursAndMinutes } from "@/lib/datesAndTimes";
 import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";

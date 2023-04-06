@@ -1,4 +1,4 @@
-import { newShortDate } from "@/lib/dates";
+import { newShortDate } from "@/lib/datesAndTimes";
 import { useAppSelector } from "@/store/hooks";
 import {
   updateVocabCurrentBox,

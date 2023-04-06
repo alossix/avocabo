@@ -8,7 +8,7 @@ export const newShortDate = (dateString?: string) => {
 
 export const formatTimeHoursAndMinutes = (milliseconds: number) => {
   const totalSeconds = Math.ceil(milliseconds / 1000);
-  const totalMinutes = Math.floor(totalSeconds / 60);
+  const totalMinutes = Math.ceil(totalSeconds / 60);
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
   return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;

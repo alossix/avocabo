@@ -7,14 +7,14 @@ import { ReactEventHandler, useEffect, useState } from "react";
 import { EditVocabModal } from "../EditVocabModal";
 import { LearningStepper } from "../LearningStepper";
 import EditVocabIcon from "/public/icons/edit-vocab-icon.svg";
-import { newShortDate } from "@/lib/dates";
+import { newShortDate } from "@/lib/datesAndTimes";
 import React from "react";
 
 type VocabCardProps = {
   vocabWord: Vocab;
 };
 
-export const VocabCard: React.FC<VocabCardProps> = React.memo(
+const VocabCard: React.FC<VocabCardProps> = React.memo(
   ({ vocabWord }) => {
     const { definition, description, imageURL } = vocabWord;
     const { t } = useTranslation("vocab");
@@ -122,6 +122,8 @@ export const VocabCard: React.FC<VocabCardProps> = React.memo(
   (prevProps, nextProps) =>
     prevProps.vocabWord.vocabId === nextProps.vocabWord.vocabId
 );
+VocabCard.displayName = "VocabCard";
+export default VocabCard;
 
 const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
   display: "flex",

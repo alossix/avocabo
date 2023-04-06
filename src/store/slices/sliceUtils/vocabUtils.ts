@@ -1,4 +1,4 @@
-import { newShortDate } from "@/lib/dates";
+import { newShortDate } from "@/lib/datesAndTimes";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
 
 const compareDatesWithoutTime = (date1: string, date2: string) => {
