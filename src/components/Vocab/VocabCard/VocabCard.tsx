@@ -126,6 +126,8 @@ VocabCard.displayName = "VocabCard";
 
 export default VocabCard;
 
+export default VocabCard;
+
 const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
   display: "flex",
   flexDirection: "column",
