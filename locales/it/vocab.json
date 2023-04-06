@@ -12,7 +12,7 @@
   "vocab_confirm_delete_entry": "Sei sicuro di voler eliminare definitivamente questa voce?",
   "vocab_current_step": "Passo attuale: ",
   "vocab_description_sentence": "Descrizione o esempio di frase",
-  "vocab_due_date": "Data di scadenza",
+  "vocab_due_date": "Data di scadenza: {{dueDate}}",
   "vocab_edit_entry_title": "Modifica la voce del vocabolario",
   "vocab_list_title": "La mia lista di vocaboli",
   "vocab_load_next_entries": "Carica le prossime 20 voci",

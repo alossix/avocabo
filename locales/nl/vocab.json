@@ -12,7 +12,7 @@
   "vocab_confirm_delete_entry": "Weet u zeker dat u dit item definitief wilt verwijderen?",
   "vocab_current_step": "Huidige stap: ",
   "vocab_description_sentence": "Beschrijving of voorbeeldzin",
-  "vocab_due_date": "Vervaldatum",
+  "vocab_due_date": "Vervaldatum: {{dueDate}}",
   "vocab_edit_entry_title": "Bewerk woordenlijst item",
   "vocab_list_title": "Mijn Woordenlijst",
   "vocab_load_next_entries": "Laad de volgende 20 items",
