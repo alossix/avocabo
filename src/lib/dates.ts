@@ -1,7 +1,15 @@
-export const formatDateYearMonthDay = (dateString: string): string => {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
+export const newShortDate = (dateString?: string) => {
+  if (dateString) {
+    return new Date(dateString).toISOString().slice(0, 10);
+  } else {
+    return new Date().toISOString().slice(0, 10);
+  }
+};
+
+export const formatTimeHoursAndMinutes = (milliseconds: number) => {
+  const totalSeconds = Math.ceil(milliseconds / 1000);
+  const totalMinutes = Math.floor(totalSeconds / 60);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
 };

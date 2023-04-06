@@ -16,8 +16,9 @@
   "vocab_edit_entry_title": "Bewerk woordenlijst item",
   "vocab_list_title": "Mijn Woordenlijst",
   "vocab_load_next_entries": "Laad de volgende 20 items",
+  "vocab_next_words": "Volgende woorden beschikbaar in {{minutes}}",
   "vocab_no_more_due": "Geen woordenschat items meer vandaag te doen!",
-  "vocab_number_of_entries": "Aantal woordenschat items vandaag te doen: {{count}}",
+  "vocab_number_of_entries": "Aantal vocabulaire-items die nu moeten worden gedaan: {{count}}",
   "vocab_reveal_word": "Onthul het woord",
   "vocab_save_close": "Opslaan en sluiten",
   "word": "Woord"
