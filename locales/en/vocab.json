@@ -21,5 +21,6 @@
   "vocab_number_of_entries": "Number of vocab entries due now: {{count}}",
   "vocab_reveal_word": "Reveal word",
   "vocab_save_close": "Save and close",
+  "vocab_upload_image": "Upload image",
   "word": "Word"
 }

@@ -22,13 +22,15 @@ import {
   setDoc,
   updateDoc,
   writeBatch,
-} from "firebase/firestore"; // import getFirestore
+} from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { Vocab } from "@/types/vocab";
 
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 export const fetchVocabData = async (userId: string): Promise<Vocab[]> => {
   const vocabQuery = query(collection(db, "users", userId, "vocab"));
@@ -49,20 +51,24 @@ export const getIdToken = async (user: User): Promise<string | null> => {
 };
 
 export {
+  addDoc,
   auth,
+  collection,
   createUserWithEmailAndPassword,
   db,
+  deleteDoc,
   doc,
+  getDownloadURL,
   onAuthStateChanged,
   onSnapshot,
+  query,
+  ref,
   setDoc,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile,
-  addDoc,
-  collection,
-  deleteDoc,
-  query,
+  storage,
   updateDoc,
+  updateProfile,
+  uploadBytes,
   writeBatch,
 };

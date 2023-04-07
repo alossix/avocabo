@@ -1,7 +1,23 @@
 import { User } from "firebase/auth";
 
-export type InterfaceLanguages = "ca" | "en" | "es" | "fr" | "it" | "nl";
-export type LearningLanguages = "ca" | "en" | "es" | "fr" | "it" | "nl";
+export type InterfaceLanguages =
+  | "ca"
+  | "de"
+  | "en"
+  | "es"
+  | "fr"
+  | "it"
+  | "nl"
+  | "uk";
+export type LearningLanguages =
+  | "ca"
+  | "de"
+  | "en"
+  | "es"
+  | "fr"
+  | "it"
+  | "nl"
+  | "uk";
 
 export type AppUser = Pick<
   User,

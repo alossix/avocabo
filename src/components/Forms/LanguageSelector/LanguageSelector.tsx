@@ -20,18 +20,22 @@ const languageMapping: LanguageMapping = {
   ca: "ca",
   en: "en",
   es: "es",
+  de: "de",
   fr: "fr",
   it: "it",
   nl: "nl",
+  uk: "uk",
 };
 
 const languageLabels: Record<InterfaceLanguages | LearningLanguages, string> = {
   ca: "Català",
   en: "English",
   es: "Español",
+  de: "Deutsch",
   fr: "Français",
   it: "Italiano",
   nl: "Nederlands",
+  uk: "Українська",
 };
 
 const createLanguageOptions = () => {
