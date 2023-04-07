@@ -2,8 +2,8 @@ import { Button } from "@/components/UI/Button";
 import { useVocab } from "@/hooks/useVocab";
 import { handleAppError } from "@/lib/handleAppError";
 import { initialVocabProperties } from "@/lib/initialVocab";
-import { useAppDispatch } from "@/store/hooks";
-import { setAppError } from "@/store/slices/authSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { selectUserSignedIn, setAppError } from "@/store/slices/authSlice";
 import { theme } from "@/styles/theme";
 import { Vocab, VocabCategories } from "@/types/vocab";
 import styled from "@emotion/styled";
@@ -12,15 +12,22 @@ import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuid4 } from "uuid";
 import { CategorySelector } from "../CategorySelector";
+import {
+  getDownloadURL,
+  ref,
+  storage,
+  uploadBytes,
+} from "@/services/firebase/firebaseService";
 
 export const AddWordForm: React.FC = () => {
   const { addVocabEntry } = useVocab();
   const { t } = useTranslation("vocab");
-  const { handleSubmit, register } = useForm<Vocab>();
+  const { handleSubmit, register, setValue } = useForm<Vocab>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [currentCategory, setCurrentCategory] = useState<VocabCategories>("");
-  const registerForm = useRef<HTMLFormElement>(null);
+  const currentUser = useAppSelector(selectUserSignedIn);
   const dispatch = useAppDispatch();
+  const registerForm = useRef<HTMLFormElement>(null);
 
   const handleFormSubmit: SubmitHandler<Vocab> = (vocabWordData) => {
     const vocabId = uuid4();
@@ -47,6 +54,31 @@ export const AddWordForm: React.FC = () => {
     }
   };
 
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const fileName = uuid4();
+      const fileRef = ref(
+        storage,
+        `users/${currentUser?.uid}/images/${fileName}`
+      );
+
+      try {
+        // Upload the file to Firebase Storage
+        await uploadBytes(fileRef, file);
+
+        // Get the download URL and set it as imageURL in the form
+        const imageURL = await getDownloadURL(fileRef);
+        setValue("imageURL", imageURL); // setValue is provided by useForm
+      } catch (error: unknown) {
+        const { message } = handleAppError(error);
+        dispatch(setAppError(message));
+      }
+    }
+  };
+
   return (
     <StyledForm
       onSubmit={handleSubmit(handleFormSubmit)}
@@ -54,8 +86,8 @@ export const AddWordForm: React.FC = () => {
       name="add_word_form"
     >
       <InputContainer>
-        <label htmlFor="imageURL">Image URL</label>
-        <input {...register("imageURL")} id="imageURL" />
+        <label htmlFor="imageURL">{t("vocab:vocab_upload_image")}</label>
+        <input type="file" id="imageURL" onChange={handleImageUpload} />
       </InputContainer>
 
       <InputContainer>

@@ -1,0 +1,19 @@
+{
+  "home": {
+    "title": "Willkommen bei Avocabo!",
+    "subtitle": "Beherrsche den Wortschatz mit unserem System für wiederholtes Lernen",
+    "section1Title": "Wie unser System funktioniert",
+    "section1Text": "<p>Unser System für wiederholtes Lernen hilft dir, Vokabeln effizienter und effektiver als herkömmliche Lernmethoden zu erlernen. Es präsentiert dir Wörter zum Lernen und plant Wiederholungseinheiten in Intervallen, die für eine optimale Gedächtnisretention entworfen wurden. Während du Fortschritte machst, verfolgt unser System deine Leistung und passt den Wiederholungsplan entsprechend an. Du wirst weniger Zeit mit Lernen verbringen, während du mehr Informationen behältst.</p>",
+    "section2Title": "Die Vorteile der Nutzung unseres Systems",
+    "section2Text": "<p>Mit Avocabos System für wiederholtes Lernen kannst du Vokabeln effizienter und effektiver als herkömmliche Lernmethoden erlernen. Unser System minimiert den Zeitaufwand für das Lernen, während du mehr Informationen behältst. Avocabo gibt dir auch Feedback über deinen Fortschritt, damit du sehen kannst, wie weit du gekommen bist und Bereiche identifizieren kannst, die mehr Aufmerksamkeit benötigen. Mit unserem System hast du die Werkzeuge, um den Wortschatz zu beherrschen.</p>"
+  },
+  "howItWorks": {
+    "title": "So funktioniert unser System für wiederholtes Lernen",
+    "section1Title": "Was ist ein System für wiederholtes Lernen?",
+    "section1Text": "<p>Ein System für wiederholtes Lernen ist eine Methode zur Überprüfung von Informationen, die sich als sehr effektiv für die Gedächtnisretention erwiesen hat. Diese Methode beinhaltet das Planen von Wiederholungseinheiten in immer längeren Intervallen nach jeder erfolgreichen Erinnerung.</p><p>Durch die Wiederholung des Überprüfungsprozesses in intervallierten Intervallen kannst du die Informationen im Langzeitgedächtnis verankern und deine Fähigkeit, sie später abzurufen, erhöhen.</p>",
+    "section2Title": "Wie funktioniert unser System?",
+    "section2Text": "<p>Unser System für wiederholtes Lernen zum Lernen von Vokabeln funktioniert, indem es dir Wörter zum Lernen präsentiert und dann Wiederholungseinheiten in Intervallen plant, die für eine optimale Gedächtnisretention entworfen wurden. Die Intervalle basieren auf der Schwierigkeit des Wortes und wie gut du es während der Überprüfungseinheit erinnerst.</p><p>Das System verfolgt deinen Fortschritt und passt den Überprüfungsplan entsprechend an, damit du dich auf die Wörter konzentrieren kannst, die du am schwierigsten findest. Wenn du ein Wort erfolgreich erinnerst, wird es in längere Intervalle eingeteilt, während schwierigere Wörter häufiger wiederholt werden.</p>",
+    "section3Title": "Die Vorteile der Nutzung unseres Systems",
+    "section3Text": "<p>Durch die Nutzung unseres Systems für wiederholtes Lernen kannst du Vokabeln effizienter und effektiver als herkömmliche Lernmethoden erlernen. Durch die Optimierung des Überprüfungsplans für jedes Wort kannst du den Zeitaufwand für das Lernen minimieren und die Menge an Informationen, die du behältst, maximieren. Das System gibt auch Feedback zu deinem Fortschritt, damit du sehen kannst, wie weit du gekommen bist und Bereiche identifizieren kannst, die mehr Aufmerksamkeit benötigen. Mit unserem System hast du die Werkzeuge, um den Wortschatz zu beherrschen und dein Sprachniveau zu verbessern.</p>"
+  }
+}

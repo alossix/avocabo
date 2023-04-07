@@ -21,5 +21,6 @@
   "vocab_number_of_entries": "Nombre d'entrées de vocabulaire à faire maintenant: {{count}}",
   "vocab_reveal_word": "Révèle le mot",
   "vocab_save_close": "Enregistrez et fermez",
+  "vocab_upload_image": "Télécharger une image",
   "word": "Mot"
 }

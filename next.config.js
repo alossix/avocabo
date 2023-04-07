@@ -10,7 +10,10 @@ const nextConfig = {
   },
   ...nextTranslate(),
   images: {
-    domains: ["thumbnails.production.thenounproject.com"],
+    domains: [
+      "thumbnails.production.thenounproject.com",
+      "firebasestorage.googleapis.com",
+    ],
   },
 };
 

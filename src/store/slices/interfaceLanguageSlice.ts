@@ -7,11 +7,13 @@ type LanguageMapping = {
 
 const languageMapping: LanguageMapping = {
   ca: "ca",
+  de: "de",
   en: "en",
   es: "es",
   fr: "fr",
   it: "it",
   nl: "nl",
+  uk: "uk",
 };
 
 const interfaceLanguages = (
