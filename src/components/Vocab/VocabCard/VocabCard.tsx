@@ -101,7 +101,7 @@ const VocabCard: React.FC<VocabCardProps> = React.memo(
         <HR />
         {showDetails ? (
           <>
-            <WordContainer>
+            <WordContainer title={vocabWord.phoneticPronunciation}>
               <p>{definition}</p>
             </WordContainer>
             <LearningStepper vocabWord={vocabWord} />
@@ -192,7 +192,7 @@ const HR = styled.hr({
   margin: 0,
 });
 
-const WordContainer = styled.div({
+const WordContainer = styled.div<{ title?: string }>({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
