@@ -4,6 +4,7 @@ import { handleAppError } from "@/lib/handleAppError";
 import { initialVocabProperties } from "@/lib/initialVocab";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { selectUserSignedIn, setAppError } from "@/store/slices/authSlice";
+import { uploadVocabImage } from "@/store/slices/sliceUtils/vocabUtils";
 import { theme } from "@/styles/theme";
 import { Vocab, VocabCategories } from "@/types/vocab";
 import styled from "@emotion/styled";
@@ -12,12 +13,6 @@ import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuid4 } from "uuid";
 import { CategorySelector } from "../CategorySelector";
-import {
-  getDownloadURL,
-  ref,
-  storage,
-  uploadBytes,
-} from "@/services/firebase/firebaseService";
 
 export const AddWordForm: React.FC = () => {
   const { addVocabEntry } = useVocab();
@@ -54,31 +49,6 @@ export const AddWordForm: React.FC = () => {
     }
   };
 
-  const handleImageUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const fileName = uuid4();
-      const fileRef = ref(
-        storage,
-        `users/${currentUser?.uid}/images/${fileName}`
-      );
-
-      try {
-        // Upload the file to Firebase Storage
-        await uploadBytes(fileRef, file);
-
-        // Get the download URL and set it as imageURL in the form
-        const imageURL = await getDownloadURL(fileRef);
-        setValue("imageURL", imageURL); // setValue is provided by useForm
-      } catch (error: unknown) {
-        const { message } = handleAppError(error);
-        dispatch(setAppError(message));
-      }
-    }
-  };
-
   return (
     <StyledForm
       onSubmit={handleSubmit(handleFormSubmit)}
@@ -87,7 +57,13 @@ export const AddWordForm: React.FC = () => {
     >
       <InputContainer>
         <label htmlFor="imageURL">{t("vocab:vocab_upload_image")}</label>
-        <input type="file" id="imageURL" onChange={handleImageUpload} />
+        <input
+          type="file"
+          id="imageURL"
+          onChange={(event) =>
+            uploadVocabImage({ currentUser, dispatch, event, setValue })
+          }
+        />
       </InputContainer>
 
       <InputContainer>
@@ -105,6 +81,15 @@ export const AddWordForm: React.FC = () => {
           currentCategory={currentCategory}
           onCategoryChange={(value) => setCurrentCategory(value)}
           register={register}
+        />
+      </InputContainer>
+      <InputContainer>
+        <label htmlFor="phonetic-pronunciation">
+          {t("vocab:vocab_phonetic_pronunciation")}
+        </label>
+        <input
+          id="phonetic-pronunciation"
+          {...register("phoneticPronunciation")}
         />
       </InputContainer>
 

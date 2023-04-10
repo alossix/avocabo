@@ -115,6 +115,7 @@ const VocabCardsContainer = styled.div({
 
   [`@media (min-width: ${theme.breakpoints.desktop})`]: {
     flexDirection: "row",
-    overflowX: "scroll",
+    justifyContent: "center",
+    width: "100%",
   },
 });

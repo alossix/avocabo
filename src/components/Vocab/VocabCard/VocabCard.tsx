@@ -120,7 +120,7 @@ const VocabCard: React.FC<VocabCardProps> = React.memo(
     );
   },
   (prevProps, nextProps) =>
-    prevProps.vocabWord.vocabId === nextProps.vocabWord.vocabId
+    JSON.stringify(prevProps.vocabWord) === JSON.stringify(nextProps.vocabWord)
 );
 VocabCard.displayName = "VocabCard";
 

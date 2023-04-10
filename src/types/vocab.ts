@@ -7,6 +7,7 @@ export type Vocab = {
   dueDate: string;
   imageURL: string;
   lastUpdatedAt: string;
+  phoneticPronunciation: string;
   vocabId: string;
 };
 

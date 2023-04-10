@@ -9,6 +9,10 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { DeleteWord } from "../DeleteWord";
+import { useAppSelector } from "@/store/hooks";
+import { selectUserSignedIn } from "@/store/slices/authSlice";
+import { useAppDispatch } from "@/store/store";
+import { uploadVocabImage } from "@/store/slices/sliceUtils/vocabUtils";
 
 type EditVocabModalProps = {
   isOpen: boolean;
@@ -21,7 +25,7 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   setOpenModal,
   vocabWord,
 }) => {
-  const { handleSubmit, register, reset } = useForm<Vocab>({
+  const { handleSubmit, register, reset, setValue } = useForm<Vocab>({
     defaultValues: vocabWord,
   });
   const { t } = useTranslation("vocab");
@@ -29,6 +33,11 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   const [currentCategory, setCurrentCategory] = useState<VocabCategories>(
     vocabWord.category
   );
+  const [imageURL, setImageURL] = useState(vocabWord.imageURL);
+  const [loading, setLoading] = useState(false);
+  const currentUser = useAppSelector(selectUserSignedIn);
+  const dispatch = useAppDispatch();
+  const fileInput = useRef<HTMLInputElement>(null);
   const registerForm = useRef<HTMLFormElement>(null);
 
   const handleSaveAndClose = (formData: Vocab) => {
@@ -38,6 +47,22 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
     });
 
     setOpenModal();
+  };
+
+  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLoading(true);
+    const newImageURL = await uploadVocabImage({
+      currentUser,
+      dispatch,
+      event,
+      setValue,
+      vocabId: vocabWord.vocabId,
+    });
+
+    if (newImageURL) {
+      setImageURL(newImageURL);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -53,17 +78,39 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
     >
       <ModalContentContainer>
         <ImageContainer>
-          <Image
-            src={vocabWord.imageURL}
-            alt={vocabWord.definition}
-            width={240}
-            height={240}
-            style={{ objectFit: "contain" }}
-          />
+          {loading ? (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 240,
+                height: 240,
+              }}
+            >
+              <p>Loading...</p>
+            </div>
+          ) : (
+            <>
+              <Image
+                src={imageURL}
+                alt={vocabWord.definition}
+                width={240}
+                height={240}
+                onClick={() => fileInput.current?.click()}
+                style={{ objectFit: "contain" }}
+              />
+              <HiddenInput
+                ref={fileInput}
+                type="file"
+                onChange={handleUpload}
+              />
+            </>
+          )}
         </ImageContainer>
         <StyledForm ref={registerForm} name="edit_word_form">
           <StyledInputContainer>
-            <label htmlFor="definition">Definition</label>
+            <label htmlFor="definition">{t("vocab:vocab_definition")}</label>
             <input
               className="form-control-definition"
               defaultValue={vocabWord.definition}
@@ -73,7 +120,7 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
             />
           </StyledInputContainer>
           <StyledInputContainer>
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">{t("vocab:vocab_description")}</label>
             <input
               className="form-control-description"
               defaultValue={vocabWord.description}
@@ -83,13 +130,15 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
             />
           </StyledInputContainer>
           <StyledInputContainer>
-            <label htmlFor="image-url">Image URL</label>
+            <label htmlFor="phonetic-pronunciation">
+              {t("vocab:vocab_phonetic_pronunciation")}
+            </label>
             <input
-              className="form-control-image-url"
-              defaultValue={vocabWord.imageURL}
-              id="image-url"
+              className="form-control-phonetic-pronunciation"
+              defaultValue={vocabWord.phoneticPronunciation}
+              id="phonetic-pronunciation"
               type="text"
-              {...register("imageURL")}
+              {...register("phoneticPronunciation")}
             />
           </StyledInputContainer>
           <StyledInputContainer>
@@ -131,6 +180,10 @@ const ImageContainer = styled.div({
   display: "flex",
   justifyContent: "center",
   width: "100%",
+});
+
+const HiddenInput = styled.input({
+  display: "none",
 });
 
 const StyledForm = styled.form({
