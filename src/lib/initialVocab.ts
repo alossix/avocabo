@@ -5,10 +5,11 @@ export const initialVocabProperties: Omit<
   Vocab,
   "category" | "definition" | "imageURL" | "vocabId"
 > = {
-  currentBox: 0,
   createdAt: currentDate,
-  lastUpdatedAt: currentDate,
+  currentBox: 0,
   dueDate: currentDate,
+  lastUpdatedAt: currentDate,
+  phoneticPronunciation: "",
 };
 
 import { Vocab } from "@/types/vocab";
