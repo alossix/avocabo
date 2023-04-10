@@ -218,6 +218,13 @@ export const updateVocabEntryDB =
       lastUpdatedAt: new Date().toISOString(),
     };
 
+    dispatch(
+      updateVocabEntryInState({
+        vocabId,
+        updatedProperties: baseUpdatedProperties,
+      })
+    );
+
     if (auth.currentUser?.uid) {
       await dispatchAndUpdateDoc(
         dispatch,

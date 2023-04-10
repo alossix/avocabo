@@ -1,5 +1,19 @@
 import { newShortDate } from "@/lib/datesAndTimes";
+import { handleAppError } from "@/lib/handleAppError";
+import {
+  getDownloadURL,
+  ref,
+  storage,
+  uploadBytes,
+} from "@/services/firebase/firebaseService";
+import { RootState } from "@/store/store";
+import { AppUser } from "@/types/general";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
+import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
+import { UseFormSetValue } from "react-hook-form";
+import { v4 as uuid4 } from "uuid";
+import { setAppError } from "../authSlice";
+import { updateVocabEntryDB, updateVocabEntryInState } from "../vocabSlice";
 
 const compareDatesWithoutTime = (date1: string, date2: string) => {
   const [year1, month1, day1] = date1.split("-").map(Number);
@@ -94,5 +108,52 @@ export const updateVocabDueDate = ({
       }
     case "forgot":
       return new Date(new Date().getTime() + MINUTE_IN_MS / 2).toISOString();
+  }
+};
+
+export const uploadVocabImage = async ({
+  currentUser,
+  dispatch,
+  event,
+  setValue,
+  vocabId,
+}: {
+  currentUser: AppUser | null;
+  dispatch: ThunkDispatch<RootState, undefined, AnyAction>;
+  event: React.ChangeEvent<HTMLInputElement>;
+  setValue: UseFormSetValue<Vocab>;
+  vocabId?: string;
+}) => {
+  if (!currentUser) return null;
+
+  if (event.target.files && event.target.files[0]) {
+    const file = event.target.files[0];
+    const fileName = vocabId ? vocabId : uuid4();
+    const fileRef = ref(
+      storage,
+      `users/${currentUser?.uid}/images/${fileName}`
+    );
+
+    try {
+      // Upload the file to Firebase Storage
+      await uploadBytes(fileRef, file);
+
+      // Get the download URL and set it as imageURL in the form
+      const imageURL = await getDownloadURL(fileRef);
+      setValue("imageURL", imageURL); // setValue is provided by useForm
+
+      dispatch(
+        updateVocabEntryDB({
+          vocabId: fileName,
+          updatedProperties: { imageURL },
+        })
+      );
+      dispatch(updateVocabEntryInState);
+
+      return imageURL;
+    } catch (error: unknown) {
+      const { message } = handleAppError(error);
+      dispatch(setAppError(message));
+    }
   }
 };
