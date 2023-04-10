@@ -7,8 +7,10 @@
     "dev": "next dev",
     "e2e": "cypress open",
     "lint": "next lint && tsc --noEmit",
+    "pre-commit": "next lint && tsc --noEmit",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -39,6 +41,7 @@
     "cypress": "^12.8.1",
     "eslint-config-next": "13.2.4",
     "eslint-config-prettier": "^8.8.0",
+    "husky": "^8.0.3",
     "jest": "^29.5",
     "next-translate-plugin": "^2.0.4",
     "prettier": "^2.8.7",
