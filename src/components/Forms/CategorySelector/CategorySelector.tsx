@@ -1,11 +1,12 @@
-import { Vocab, VocabCategories } from "@/types/vocab";
+import { theme } from "@/styles/theme";
+import { VocabCategories } from "@/types/vocab";
 import useTranslation from "next-translate/useTranslation";
-import { UseFormRegister } from "react-hook-form";
+import { UseFormRegisterReturn } from "react-hook-form";
 
 type CategorySelectorProps = {
   currentCategory: VocabCategories;
   onCategoryChange: (value: VocabCategories) => void;
-  register: UseFormRegister<Vocab>;
+  register: UseFormRegisterReturn<string>;
 };
 
 export const CategorySelector: React.FC<CategorySelectorProps> = ({
@@ -17,17 +18,25 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
 
   return (
     <>
-      <label htmlFor="category">{t("vocab:category")}</label>
+      <label htmlFor="category" style={{ visibility: "hidden", height: 1 }}>
+        {t("vocab:category")}
+      </label>
       <select
         id="category"
         value={currentCategory}
-        {...register("category")}
+        {...register}
         onChange={(e) => {
           const selectedCategory = e.target.value as VocabCategories;
           onCategoryChange(selectedCategory);
         }}
+        style={{
+          padding: 5.5,
+          border: `1px solid ${theme.colors.mediumGrey}`,
+          borderRadius: 4,
+          color: theme.colors.darkGrey,
+        }}
       >
-        <option value="" disabled></option>
+        <option value="category">{t("vocab:category")}</option>
         <option value="adverb">{t("vocab:vocab_category_adverb")}</option>
         <option value="adjective">{t("vocab:vocab_category_adjective")}</option>
         <option value="conjunction">

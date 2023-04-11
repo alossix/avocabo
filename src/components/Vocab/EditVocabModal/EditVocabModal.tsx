@@ -13,6 +13,7 @@ import { useAppSelector } from "@/store/hooks";
 import { selectUserSignedIn } from "@/store/slices/authSlice";
 import { useAppDispatch } from "@/store/store";
 import { uploadVocabImage } from "@/store/slices/sliceUtils/vocabUtils";
+import { TextInput } from "@/components/UI/TextInput";
 
 type EditVocabModalProps = {
   isOpen: boolean;
@@ -112,42 +113,40 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
         </ImageContainer>
         <StyledForm ref={registerForm} name="edit_word_form">
           <StyledInputContainer>
-            <label htmlFor="definition">{t("vocab:vocab_definition")}</label>
-            <input
-              className="form-control-definition"
+            <TextInput
               defaultValue={vocabWord.definition}
               id="definition"
+              labelText={t("vocab:vocab_definition")}
+              register={register("definition")}
+              showLabel
               type="text"
-              {...register("definition")}
             />
           </StyledInputContainer>
           <StyledInputContainer>
-            <label htmlFor="description">{t("vocab:vocab_description")}</label>
-            <input
-              className="form-control-description"
+            <TextInput
               defaultValue={vocabWord.description}
               id="description"
+              labelText={t("vocab:vocab_description")}
+              register={register("description")}
+              showLabel
               type="text"
-              {...register("description")}
             />
           </StyledInputContainer>
           <StyledInputContainer>
-            <label htmlFor="phonetic-pronunciation">
-              {t("vocab:vocab_phonetic_pronunciation")}
-            </label>
-            <input
-              className="form-control-phonetic-pronunciation"
+            <TextInput
               defaultValue={vocabWord.phoneticPronunciation}
               id="phonetic-pronunciation"
+              labelText={t("vocab:vocab_phonetic_pronunciation")}
+              register={register("phoneticPronunciation")}
+              showLabel
               type="text"
-              {...register("phoneticPronunciation")}
             />
           </StyledInputContainer>
           <StyledInputContainer>
             <CategorySelector
               currentCategory={currentCategory}
               onCategoryChange={(value) => setCurrentCategory(value)}
-              register={register}
+              register={register("category")}
             />
           </StyledInputContainer>
           <BottomRowContainer>
