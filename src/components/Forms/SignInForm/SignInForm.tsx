@@ -1,4 +1,5 @@
 import { Button } from "@/components/UI/Button";
+import { TextInput } from "@/components/UI/TextInput";
 import { handleAppError } from "@/lib/handleAppError";
 import { setAppError, signInAuth } from "@/store/slices/authSlice";
 import { RootState, useAppDispatch } from "@/store/store";
@@ -19,7 +20,7 @@ export const SignInForm: React.FC = () => {
   const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
     useAppDispatch();
 
-  const onSubmit = async (data: SignInFormData) => {
+  const submitForm = async (data: SignInFormData) => {
     try {
       await dispatch(signInAuth(data.email, data.password));
     } catch (error: unknown) {
@@ -28,15 +29,36 @@ export const SignInForm: React.FC = () => {
     }
   };
 
+  const onSubmit = handleSubmit(submitForm);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      onSubmit();
+    }
+  };
+
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)} name="sign_in_form">
+    <StyledForm
+      onSubmit={onSubmit}
+      name="sign_in_form"
+      onKeyDown={handleKeyDown}
+    >
       <InputContainer>
-        <label>{`${t("common:email")}: `}</label>
-        <input type="email" {...register("email", { required: true })} />
+        <TextInput
+          id="email"
+          labelText={t("common:email")}
+          type="email"
+          register={register("email", { required: true })}
+        />
       </InputContainer>
       <InputContainer>
-        <label>{`${t("common:password")}: `}</label>
-        <input type="password" {...register("password", { required: true })} />
+        <TextInput
+          id="password"
+          labelText={t("common:password")}
+          type="password"
+          register={register("password", { required: true })}
+        />
       </InputContainer>
       <Button
         ariaLabel={t("common:sign_in")}

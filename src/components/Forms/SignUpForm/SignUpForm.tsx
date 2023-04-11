@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../UI/Button";
 import { LanguageSelector } from "../LanguageSelector";
+import { TextInput } from "@/components/UI/TextInput";
 
 type SignUpFormData = {
   displayName: string;
@@ -58,15 +59,21 @@ export const SignUpForm: React.FC = () => {
     <StyledForm
       onSubmit={handleSubmit(handleSignupSubmit)}
       name="create_user_form"
+      autoComplete="off"
     >
       <InputContainer>
-        <label>{`${t("common:profile_name")}: `}</label>
-        <input {...register("displayName", { required: true })} type="string" />
+        <TextInput
+          id="displayName"
+          labelText={t("common:profile_name")}
+          register={register("displayName", { required: true })}
+          type="string"
+        />
       </InputContainer>
       <InputContainer>
-        <label>{`${t("common:email")}: `}</label>
-        <input
-          {...register("email", {
+        <TextInput
+          id="email"
+          labelText={t("common:email")}
+          register={register("email", {
             required: true,
             pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
           })}
@@ -74,21 +81,33 @@ export const SignUpForm: React.FC = () => {
         />
       </InputContainer>
       <InputContainer>
-        <label>{`${t("common:password")}: `}</label>
-        <input
-          {...register("password", { required: true, minLength: 6 })}
+        <TextInput
+          id="password"
+          labelText={t("common:password")}
+          register={register("password", {
+            required: true,
+            minLength: 6,
+          })}
           type="password"
         />
       </InputContainer>
       <InputContainer>
-        <label>{`${t("common:confirm_password")}: `}</label>
-        <input
-          {...register("confirmPassword", { required: true })}
+        <TextInput
+          id="confirmPassword"
+          labelText={t("common:confirm_password")}
+          register={register("confirmPassword", {
+            required: true,
+          })}
           type="password"
         />
       </InputContainer>
       <InputContainer
-        style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          gap: 8,
+          color: theme.colors.darkGrey,
+        }}
       >
         <label>{t("common:learning_language")}</label>
         <LanguageSelector

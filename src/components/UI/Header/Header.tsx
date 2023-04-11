@@ -10,9 +10,9 @@ import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
+import { LanguageSelector } from "../../Forms/LanguageSelector";
 import { Button } from "../Button";
 import { HamburgerMenu } from "../HamburgerMenu";
-import { LanguageSelector } from "../../Forms/LanguageSelector";
 
 export const Header: React.FC<{
   mainContentRef: React.RefObject<HTMLDivElement>;

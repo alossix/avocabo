@@ -1,4 +1,5 @@
 import { Button } from "@/components/UI/Button";
+import { TextInput } from "@/components/UI/TextInput";
 import { useVocab } from "@/hooks/useVocab";
 import { handleAppError } from "@/lib/handleAppError";
 import { initialVocabProperties } from "@/lib/initialVocab";
@@ -51,12 +52,21 @@ export const AddWordForm: React.FC = () => {
 
   return (
     <StyledForm
+      autoComplete="off"
+      name="add_word_form"
       onSubmit={handleSubmit(handleFormSubmit)}
       ref={registerForm}
-      name="add_word_form"
     >
       <InputContainer>
-        <label htmlFor="imageURL">{t("vocab:vocab_upload_image")}</label>
+        <label
+          htmlFor="imageURL"
+          style={{
+            color: theme.colors.darkGrey,
+            marginBottom: 4,
+          }}
+        >
+          {t("vocab:vocab_upload_image")}
+        </label>
         <input
           type="file"
           id="imageURL"
@@ -69,36 +79,37 @@ export const AddWordForm: React.FC = () => {
               vocabId,
             })
           }
+          style={{ color: theme.colors.darkGrey }}
         />
       </InputContainer>
-
       <InputContainer>
-        <label htmlFor="definition">{t("vocab:word")}</label>
-        <input {...register("definition")} id="definition" required />
+        <TextInput
+          id="definition"
+          labelText={t("vocab:word")}
+          register={register("definition")}
+        />
       </InputContainer>
       <InputContainer>
-        <label htmlFor="description">
-          {t("vocab:vocab_description_sentence")}
-        </label>
-        <input {...register("description")} id="description" />
+        <TextInput
+          id="description"
+          labelText={t("vocab:vocab_description_sentence")}
+          register={register("description")}
+        />
       </InputContainer>
       <InputContainer>
         <CategorySelector
           currentCategory={currentCategory}
           onCategoryChange={(value) => setCurrentCategory(value)}
-          register={register}
+          register={register("category")}
         />
       </InputContainer>
       <InputContainer>
-        <label htmlFor="phonetic-pronunciation">
-          {t("vocab:vocab_phonetic_pronunciation")}
-        </label>
-        <input
+        <TextInput
           id="phonetic-pronunciation"
-          {...register("phoneticPronunciation")}
+          labelText={t("vocab:vocab_phonetic_pronunciation")}
+          register={register("phoneticPronunciation")}
         />
       </InputContainer>
-
       <Button
         type="submit"
         disabled={isSubmitting}
