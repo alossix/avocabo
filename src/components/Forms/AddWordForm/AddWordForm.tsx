@@ -23,9 +23,9 @@ export const AddWordForm: React.FC = () => {
   const currentUser = useAppSelector(selectUserSignedIn);
   const dispatch = useAppDispatch();
   const registerForm = useRef<HTMLFormElement>(null);
+  const vocabId = uuid4();
 
   const handleFormSubmit: SubmitHandler<Vocab> = (vocabWordData) => {
-    const vocabId = uuid4();
     try {
       setIsSubmitting(true);
       addVocabEntry({
@@ -61,7 +61,13 @@ export const AddWordForm: React.FC = () => {
           type="file"
           id="imageURL"
           onChange={(event) =>
-            uploadVocabImage({ currentUser, dispatch, event, setValue })
+            uploadVocabImage({
+              currentUser,
+              dispatch,
+              event,
+              setValue,
+              vocabId,
+            })
           }
         />
       </InputContainer>

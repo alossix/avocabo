@@ -6,16 +6,21 @@ import { ReactEventHandler } from "react";
 import DeleteIcon from "/public/icons/delete-icon.svg";
 
 type DeleteWordProps = {
+  setOpenModal: () => void;
   vocabId: string;
 };
 
-export const DeleteWord: React.FC<DeleteWordProps> = ({ vocabId }) => {
+export const DeleteWord: React.FC<DeleteWordProps> = ({
+  setOpenModal,
+  vocabId,
+}) => {
   const { removeVocabEntry } = useVocab();
   const { t } = useTranslation("vocab");
 
   const handleDeleteWordClick: ReactEventHandler<HTMLButtonElement> = () => {
     if (window.confirm(t("vocab:vocab_confirm_delete_entry"))) {
       removeVocabEntry({ vocabId });
+      setOpenModal();
     }
   };
 
