@@ -11,9 +11,8 @@ import { AppUser } from "@/types/general";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
 import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import { UseFormSetValue } from "react-hook-form";
-import { v4 as uuid4 } from "uuid";
 import { setAppError } from "../authSlice";
-import { updateVocabEntryDB, updateVocabEntryInState } from "../vocabSlice";
+import { resizeImage } from "@/lib/resizeImages";
 
 const compareDatesWithoutTime = (date1: string, date2: string) => {
   const [year1, month1, day1] = date1.split("-").map(Number);
@@ -122,33 +121,25 @@ export const uploadVocabImage = async ({
   dispatch: ThunkDispatch<RootState, undefined, AnyAction>;
   event: React.ChangeEvent<HTMLInputElement>;
   setValue: UseFormSetValue<Vocab>;
-  vocabId?: string;
+  vocabId: string;
 }) => {
   if (!currentUser) return null;
 
   if (event.target.files && event.target.files[0]) {
     const file = event.target.files[0];
-    const fileName = vocabId ? vocabId : uuid4();
-    const fileRef = ref(
-      storage,
-      `users/${currentUser?.uid}/images/${fileName}`
-    );
+    const fileRef = ref(storage, `users/${currentUser?.uid}/images/${vocabId}`);
 
     try {
-      // Upload the file to Firebase Storage
-      await uploadBytes(fileRef, file);
+      // Resize the image before uploading
+      const resizedImageBlob = await resizeImage(file, 800, 800);
+
+      // Upload the resized image to Firebase Storage
+      await uploadBytes(fileRef, resizedImageBlob);
 
       // Get the download URL and set it as imageURL in the form
       const imageURL = await getDownloadURL(fileRef);
-      setValue("imageURL", imageURL); // setValue is provided by useForm
 
-      dispatch(
-        updateVocabEntryDB({
-          vocabId: fileName,
-          updatedProperties: { imageURL },
-        })
-      );
-      dispatch(updateVocabEntryInState);
+      setValue("imageURL", imageURL); // setValue is provided by useForm
 
       return imageURL;
     } catch (error: unknown) {

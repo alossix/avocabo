@@ -67,6 +67,8 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
 
   useEffect(() => {
     reset(vocabWord);
+    setImageURL(vocabWord.imageURL);
+    setCurrentCategory(vocabWord.category);
   }, [vocabWord, reset]);
 
   return (
@@ -149,7 +151,10 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
             />
           </StyledInputContainer>
           <BottomRowContainer>
-            <DeleteWord vocabId={vocabWord.vocabId} />
+            <DeleteWord
+              vocabId={vocabWord.vocabId}
+              setOpenModal={setOpenModal}
+            />
             <Button
               ariaLabel={t("vocab:vocab_save_close")}
               colorSet="black"

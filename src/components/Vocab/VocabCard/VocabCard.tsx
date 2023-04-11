@@ -14,115 +14,107 @@ type VocabCardProps = {
   vocabWord: Vocab;
 };
 
-const VocabCard: React.FC<VocabCardProps> = React.memo(
-  ({ vocabWord }) => {
-    const { definition, description, imageURL } = vocabWord;
-    const { t } = useTranslation("vocab");
-    const [showDetails, setShowDetails] = useState<boolean>(false);
-    const [openModal, setOpenModal] = useState<boolean>(false);
-    const dueDate = newShortDate(vocabWord.dueDate);
+const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
+  const { t } = useTranslation("vocab");
+  const [showDetails, setShowDetails] = useState<boolean>(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+  const dueDate = newShortDate(vocabWord.dueDate);
 
-    const handleOnShowDetailsClick: ReactEventHandler<HTMLDivElement> = () => {
-      if (!showDetails) {
-        setShowDetails(true);
-      }
-    };
+  const handleOnShowDetailsClick: ReactEventHandler<HTMLDivElement> = () => {
+    if (!showDetails) {
+      setShowDetails(true);
+    }
+  };
 
-    const handleOnShowDetailsKeyDown = (
-      event: React.KeyboardEvent<HTMLDivElement>
-    ) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        handleOnShowDetailsClick(event);
-      }
-    };
+  const handleOnShowDetailsKeyDown = (
+    event: React.KeyboardEvent<HTMLDivElement>
+  ) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleOnShowDetailsClick(event);
+    }
+  };
 
-    const handleEditButtonClick = () => {
-      setOpenModal(() => !openModal);
-    };
+  const handleEditButtonClick = (
+    event: React.MouseEvent | React.KeyboardEvent
+  ) => {
+    event.stopPropagation();
+    setOpenModal((prevOpen) => !prevOpen);
+  };
 
-    useEffect(() => {
-      setShowDetails(false);
-    }, [vocabWord]);
+  useEffect(() => {
+    setShowDetails(false);
+  }, [vocabWord]);
 
-    return (
-      <CardWrapper
-        onClick={handleOnShowDetailsClick}
-        onKeyDown={handleOnShowDetailsKeyDown}
-        tabIndex={0}
-        showDetails={showDetails}
-        role="button"
-        aria-label={definition}
-        aria-pressed={showDetails}
-      >
-        <TopRowDetails showDetails={showDetails}>
-          <p style={{ color: theme.colors.superDarkGrey, fontSize: 12 }}>
-            {t("vocab:vocab_due_date", { dueDate })}
-          </p>
+  return (
+    <CardWrapper
+      onClick={handleOnShowDetailsClick}
+      onKeyDown={handleOnShowDetailsKeyDown}
+      tabIndex={0}
+      showDetails={showDetails}
+      role="button"
+      aria-label={vocabWord.definition}
+      aria-pressed={showDetails}
+    >
+      <TopRowDetails showDetails={showDetails}>
+        <p style={{ color: theme.colors.superDarkGrey, fontSize: 12 }}>
+          {t("vocab:vocab_due_date", { dueDate })}
+        </p>
 
-          <EditButton
-            aria-label={t("vocab:vocab_edit_entry_title")}
-            onClick={handleEditButtonClick}
-            onKeyDown={(e) => e.key === "Enter" && handleEditButtonClick()}
-            role="button"
-            tabIndex={0}
-          >
-            <Image
-              alt="edit-vocab"
-              src={EditVocabIcon}
-              width={20}
-              height={20}
-            />
-          </EditButton>
+        <EditButton
+          aria-label={t("vocab:vocab_edit_entry_title")}
+          onClick={handleEditButtonClick}
+          onKeyDown={(e) => e.key === "Enter" && handleEditButtonClick(e)}
+          role="button"
+          tabIndex={0}
+        >
+          <Image alt="edit-vocab" src={EditVocabIcon} width={20} height={20} />
+        </EditButton>
 
-          <EditVocabModal
-            isOpen={openModal}
-            setOpenModal={() => setOpenModal(!openModal)}
-            vocabWord={vocabWord}
+        <EditVocabModal
+          isOpen={openModal}
+          setOpenModal={() => setOpenModal(!openModal)}
+          vocabWord={vocabWord}
+        />
+      </TopRowDetails>
+
+      <ImageWrapper>
+        <ImageContainer>
+          <Image
+            src={vocabWord.imageURL}
+            alt={vocabWord.definition}
+            width={240}
+            height={200}
+            sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 240px"
+            style={{ objectFit: "contain" }}
           />
-        </TopRowDetails>
+        </ImageContainer>
+      </ImageWrapper>
+      <DescriptionContainer>
+        <p>{vocabWord.description}</p>
+      </DescriptionContainer>
 
-        <ImageWrapper>
-          <ImageContainer>
-            <Image
-              src={imageURL}
-              alt={definition}
-              width={240}
-              height={200}
-              sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 240px"
-              style={{ objectFit: "contain" }}
-            />
-          </ImageContainer>
-        </ImageWrapper>
-        <DescriptionContainer>
-          <p>{description}</p>
-        </DescriptionContainer>
-
-        <HR />
-        {showDetails ? (
-          <>
-            <WordContainer title={vocabWord.phoneticPronunciation}>
-              <p>{definition}</p>
-            </WordContainer>
+      <HR />
+      {showDetails ? (
+        <>
+          <WordContainer title={vocabWord.phoneticPronunciation}>
+            <p>{vocabWord.definition}</p>
+          </WordContainer>
+          <LearningStepper vocabWord={vocabWord} />
+        </>
+      ) : (
+        <>
+          <div style={{ color: theme.colors.superDarkGrey }}>
+            <p>{`${t("vocab:vocab_reveal_word")}...`}</p>
+          </div>
+          <Hidden>
             <LearningStepper vocabWord={vocabWord} />
-          </>
-        ) : (
-          <>
-            <div style={{ color: theme.colors.superDarkGrey }}>
-              <p>{`${t("vocab:vocab_reveal_word")}...`}</p>
-            </div>
-            <Hidden>
-              <LearningStepper vocabWord={vocabWord} />
-            </Hidden>
-          </>
-        )}
-      </CardWrapper>
-    );
-  },
-  (prevProps, nextProps) =>
-    JSON.stringify(prevProps.vocabWord) === JSON.stringify(nextProps.vocabWord)
-);
-VocabCard.displayName = "VocabCard";
+          </Hidden>
+        </>
+      )}
+    </CardWrapper>
+  );
+};
 
 export default VocabCard;
 
