@@ -32,7 +32,7 @@ import {
   setVocabInState,
 } from "./vocabSlice";
 
-type AuthState = {
+export type AuthState = {
   user: AppUser | null;
   loading: boolean;
   error: string;

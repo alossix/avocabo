@@ -89,6 +89,7 @@ export const Modal = ({ children, isOpen, toggleOpen, title }: ModalProps) => {
   return (
     <ReactPortal wrapperId="react-portal-modal-container">
       <ModalBackdrop
+        aria-label={title}
         onClick={handleBackdropClick}
         ref={backdropRef}
         tabIndex={-1}
