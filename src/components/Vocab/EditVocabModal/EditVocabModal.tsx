@@ -74,7 +74,6 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
 
   return (
     <Modal
-      aria-label={t("vocab:vocab_edit_entry_title")}
       isOpen={isOpen}
       title={t("vocab:vocab_edit_entry_title")}
       toggleOpen={() => setOpenModal()}

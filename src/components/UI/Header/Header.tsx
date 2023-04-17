@@ -15,7 +15,7 @@ import { Button } from "../Button";
 import { HamburgerMenu } from "../HamburgerMenu";
 
 export const Header: React.FC<{
-  mainContentRef: React.RefObject<HTMLDivElement>;
+  mainContentRef: React.RefObject<HTMLDivElement> | null;
 }> = ({ mainContentRef }) => {
   const { t } = useTranslation("common");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -77,7 +77,7 @@ export const Header: React.FC<{
     if (
       mobileMenuOpen &&
       headerRef.current &&
-      mainContentRef.current &&
+      mainContentRef?.current &&
       !headerRef.current.contains(event.target as Node) &&
       mainContentRef.current.contains(event.target as Node)
     ) {

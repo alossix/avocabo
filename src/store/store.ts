@@ -16,6 +16,28 @@ export const store = configureStore({
     }),
 });
 
+interface SetInitialStateAction extends Action {
+  payload: RootState;
+}
+
+export const rootReducer = (
+  state: RootState | undefined,
+  action: Action
+): RootState => {
+  if ((action as SetInitialStateAction).type === "SET_INITIAL_STATE") {
+    return (action as SetInitialStateAction).payload;
+  }
+
+  return {
+    auth: authSlice.reducer(state?.auth, action),
+    interfaceLanguage: interfaceLanguageSlice.reducer(
+      state?.interfaceLanguage,
+      action
+    ),
+    vocab: vocabSlice.reducer(state?.vocab, action),
+  };
+};
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>;
