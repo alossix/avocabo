@@ -1,5 +1,9 @@
 import { useAppSelector } from "@/store/hooks";
-import { signOutAuth, updateUserAuth } from "@/store/slices/authSlice";
+import {
+  selectUserSignedIn,
+  signOutAuth,
+  updateUserAuth,
+} from "@/store/slices/authSlice";
 import { setInterfaceLanguage } from "@/store/slices/interfaceLanguageSlice";
 import { AppDispatch, useAppDispatch } from "@/store/store";
 import { theme } from "@/styles/theme";
@@ -19,7 +23,7 @@ export const Header: React.FC<{
 }> = ({ mainContentRef }) => {
   const { t } = useTranslation("common");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const currentUser = useAppSelector((state) => state.auth.user);
+  const currentUser = useAppSelector(selectUserSignedIn);
   const dispatch: AppDispatch = useAppDispatch();
   const headerRef = useRef<HTMLDivElement | null>(null);
   const initialLanguage = useAppSelector(
@@ -56,7 +60,7 @@ export const Header: React.FC<{
     signOut?: boolean;
   }) => {
     if (currentUser && signOut) {
-      dispatch(signOutAuth(currentUser));
+      dispatch(signOutAuth());
     }
     const isKeyboardEvent = (
       event: React.KeyboardEvent | React.MouseEvent
@@ -227,7 +231,7 @@ export const Header: React.FC<{
                   href="/"
                   onClick={(event) => {
                     event.preventDefault();
-                    dispatch(signOutAuth(currentUser));
+                    dispatch(signOutAuth());
                     handleInteractWithMenu({ event, path: "/", signOut: true });
                   }}
                 >

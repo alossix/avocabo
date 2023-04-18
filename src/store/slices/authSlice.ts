@@ -5,10 +5,10 @@ import {
   createUserWithEmailAndPassword,
   db,
   doc,
+  signOut as firebaseSignOut,
   onSnapshot,
   setDoc,
   signInWithEmailAndPassword,
-  signOut as firebaseSignOut,
   updateDoc,
 } from "@/services/firebase/firebaseService";
 import {
@@ -18,14 +18,14 @@ import {
 } from "@/types/general";
 import {
   AnyAction,
-  createSlice,
   PayloadAction,
   ThunkDispatch,
+  createSlice,
 } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 import setLanguage from "next-translate/setLanguage";
 import { Dispatch } from "react";
-import { AppDispatch, AppThunk, RootState } from "../store";
-import { setInterfaceLanguage } from "./interfaceLanguageSlice";
+import { AppThunk, RootState } from "../store";
 import {
   addInitialVocabBatchDB,
   getVocabDB,
@@ -71,41 +71,9 @@ const authSlice = createSlice({
   },
 });
 
-const getUserDocRef = ({ uid }: { uid: string }) => {
+export const getUserDocRef = ({ uid }: { uid: string }) => {
   return doc(db, "users", uid);
 };
-
-// Listen for changes in the user's authentication state
-export const listenForAuthChanges =
-  (setUserCookie: (user: AppUser) => void) =>
-  (dispatch: AppDispatch): (() => void) => {
-    const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        // Retrieve the user data from Firestore and dispatch the setUser action
-        const userDocRef = getUserDocRef({ uid: user.uid });
-        try {
-          onSnapshot(userDocRef, (doc) => {
-            if (doc.exists()) {
-              const userData = doc.data() as AppUser;
-              dispatch(setAppUser({ user: userData }));
-
-              // Set user cookie
-              setUserCookie(userData);
-            }
-          });
-        } catch (error: unknown) {
-          const { message } = handleAppError(error);
-          dispatch(setAppError(message));
-        }
-      } else {
-        dispatch(signOutApp());
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  };
 
 // Create a new user with email and password
 export const createUserAuth =
@@ -189,12 +157,13 @@ export const signInAuth =
 
 // Sign out
 export const signOutAuth =
-  (currentUser: AppUser): AppThunk =>
-  async (dispatch: Dispatch<AnyAction | AppThunk>) => {
+  (): AppThunk => async (dispatch: Dispatch<AnyAction | AppThunk>) => {
     dispatch(setAppLoading(true));
-    dispatch(setInterfaceLanguage(currentUser.interfaceLanguage));
     try {
+      Cookies.remove("currentUser");
+
       await firebaseSignOut(auth);
+
       dispatch(signOutApp());
       dispatch(setVocabInState([]));
     } catch (error: unknown) {

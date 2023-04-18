@@ -11,7 +11,7 @@ import {
 } from "@/services/firebase/firebaseService";
 import { Vocab } from "@/types/vocab";
 import { runTransaction } from "@firebase/firestore";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { PayloadAction, Unsubscribe, createSlice } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../store";
 import { setAppError } from "./authSlice";
 import {
@@ -121,13 +121,14 @@ export const addInitialVocabBatchDB =
   };
 
 export const getVocabDB =
-  ({ userId }: { userId: string }): AppThunk =>
+  ({ userId }: { userId: string }): AppThunk<Promise<Unsubscribe>> =>
   async (dispatch) => {
-    try {
-      if (auth.currentUser) {
+    const user = auth.currentUser;
+    if (user) {
+      try {
         const vocabCollectionRef = collection(db, "users", userId, "vocab");
         const vocabQuery = query(vocabCollectionRef);
-        onSnapshot(vocabQuery, (querySnapshot) => {
+        const unsubscribe = onSnapshot(vocabQuery, (querySnapshot) => {
           const vocabList: Vocab[] = [];
           querySnapshot.forEach((doc) => {
             const vocab = doc.data() as Vocab;
@@ -149,12 +150,14 @@ export const getVocabDB =
           });
           dispatch(setVocabInState(vocabList));
         });
-      } else {
-        throw new Error("User not authenticated");
+        return Promise.resolve(unsubscribe);
+      } catch (error: unknown) {
+        const { message } = handleAppError(error);
+        dispatch(setAppError(message));
+        return Promise.reject(error);
       }
-    } catch (error: unknown) {
-      const { message } = handleAppError(error);
-      dispatch(setAppError(message));
+    } else {
+      return Promise.reject(new Error("User not authenticated"));
     }
   };
 
