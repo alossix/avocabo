@@ -6,7 +6,8 @@ import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
-import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 type MyVocabPageViewProps = {
   vocabList: Vocab[];
@@ -19,19 +20,24 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
   const { setNextVocabEntriesDueToday } = useVocab();
   const [updateKey, setUpdateKey] = useState(0);
 
-  const dueVocabList = vocabList.filter(
-    (vocab) => new Date(vocab.dueDate) < new Date()
+  const dueVocabList = useMemo(
+    () => vocabList.filter((vocab) => new Date(vocab.dueDate) < new Date()),
+    [vocabList]
   );
 
-  const nextVocab = vocabList
-    .filter((vocab) => new Date(vocab.dueDate) > new Date())
-    .reduce<Vocab | null>(
-      (min, vocab) =>
-        min === null || new Date(vocab.dueDate) < new Date(min.dueDate)
-          ? vocab
-          : min,
-      null
-    );
+  const nextVocab = useMemo(
+    () =>
+      vocabList
+        .filter((vocab) => new Date(vocab.dueDate) > new Date())
+        .reduce<Vocab | null>(
+          (min, vocab) =>
+            min === null || new Date(vocab.dueDate) < new Date(min.dueDate)
+              ? vocab
+              : min,
+          null
+        ),
+    [vocabList]
+  );
 
   const [timeToNextVocab, setTimeToNextVocab] = useState(
     nextVocab
@@ -39,7 +45,8 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
       : null
   );
 
-  const countIsZero = dueVocabList.length === 0;
+  const dueCountIsZero = dueVocabList.length === 0;
+  const vocabCountIsZero = vocabList.length === 0;
 
   const handleLoadEntries = useCallback(() => {
     setNextVocabEntriesDueToday();
@@ -70,33 +77,43 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
   return (
     <VocabWindowContainer key={updateKey}>
       <h2>{t("vocab:vocab_list_title")}</h2>
-      {countIsZero ? (
-        <>
-          {timeToNextVocab && (
-            <h3>
-              {t("vocab:vocab_next_words", {
-                minutes: formatTimeHoursAndMinutes(timeToNextVocab),
-              })}
-            </h3>
-          )}
-          {vocabList.length > 0 && (
-            <Button
-              ariaLabel={t("vocab:vocab_load_next_entries")}
-              onClick={handleLoadEntries}
-              title={t("vocab:vocab_load_next_entries")}
-            >
-              {t("vocab:vocab_load_next_entries")}
-            </Button>
-          )}
-        </>
+      {vocabCountIsZero ? (
+        <h3>
+          {t("vocab:vocab_no_words")}{" "}
+          <Link href="/add-words">{t("vocab:vocab_no_words_add")}</Link>
+        </h3>
       ) : (
         <>
-          <h3>
-            {t("vocab:vocab_number_of_entries", { count: dueVocabList.length })}
-          </h3>
-          <VocabCardsContainer>
-            <VocabCard vocabWord={dueVocabList[0]} />
-          </VocabCardsContainer>
+          {dueCountIsZero ? (
+            <>
+              {timeToNextVocab && (
+                <h3>
+                  {t("vocab:vocab_next_words", {
+                    minutes: formatTimeHoursAndMinutes(timeToNextVocab),
+                  })}
+                </h3>
+              )}
+
+              <Button
+                ariaLabel={t("vocab:vocab_load_next_entries")}
+                onClick={handleLoadEntries}
+                title={t("vocab:vocab_load_next_entries")}
+              >
+                {t("vocab:vocab_load_next_entries")}
+              </Button>
+            </>
+          ) : (
+            <>
+              <h3>
+                {t("vocab:vocab_number_of_entries", {
+                  count: dueVocabList.length,
+                })}
+              </h3>
+              <VocabCardsContainer>
+                <VocabCard vocabWord={dueVocabList[0]} />
+              </VocabCardsContainer>
+            </>
+          )}
         </>
       )}
     </VocabWindowContainer>
