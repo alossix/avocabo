@@ -21,6 +21,7 @@
   "header_switch_language": "Changer de langue",
   "invalid_email": "Veuillez saisir une adresse email valide.",
   "learning_language": "J'apprends la langue suivante (cela générera un ensemble d'exemples de mots de vocabulaire): ",
+  "other": "Autre",
   "password": "Mot de passe",
   "password_min_length": "Le mot de passe doit contenir au moins 8 caractères.",
   "password_must_match": "Les mots de passe ne correspondent pas.",

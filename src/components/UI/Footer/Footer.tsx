@@ -34,6 +34,7 @@ export const Footer: React.FC = () => {
     <FooterContent>
       <LanguageSelector
         handleSelectLanguage={handleSelectInterfaceLanguage}
+        languageSet={"interface"}
         selectedLanguage={
           currentUser ? currentUser.interfaceLanguage : initialLanguage
         }
