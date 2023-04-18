@@ -77,19 +77,20 @@ const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
           vocabWord={vocabWord}
         />
       </TopRowDetails>
-
-      <ImageWrapper>
-        <ImageContainer>
-          <Image
-            src={vocabWord.imageURL}
-            alt={vocabWord.definition}
-            width={240}
-            height={200}
-            sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 240px"
-            style={{ objectFit: "contain" }}
-          />
-        </ImageContainer>
-      </ImageWrapper>
+      {vocabWord.imageURL && (
+        <ImageWrapper>
+          <ImageContainer>
+            <Image
+              src={vocabWord.imageURL}
+              alt={vocabWord.definition}
+              width={240}
+              height={200}
+              sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 240px"
+              style={{ objectFit: "contain" }}
+            />
+          </ImageContainer>
+        </ImageWrapper>
+      )}
       <DescriptionContainer>
         <p>{vocabWord.description}</p>
       </DescriptionContainer>
@@ -122,6 +123,7 @@ const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  justifyContent: "space-between",
   borderRadius: 4,
   border: `1px solid ${theme.colors.lightGrey}`,
   padding: 8,

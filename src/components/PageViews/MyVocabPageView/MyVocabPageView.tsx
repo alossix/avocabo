@@ -79,13 +79,15 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
               })}
             </h3>
           )}
-          <Button
-            ariaLabel={t("vocab:vocab_load_next_entries")}
-            onClick={handleLoadEntries}
-            title={t("vocab:vocab_load_next_entries")}
-          >
-            {t("vocab:vocab_load_next_entries")}
-          </Button>
+          {vocabList.length > 0 && (
+            <Button
+              ariaLabel={t("vocab:vocab_load_next_entries")}
+              onClick={handleLoadEntries}
+              title={t("vocab:vocab_load_next_entries")}
+            >
+              {t("vocab:vocab_load_next_entries")}
+            </Button>
+          )}
         </>
       ) : (
         <>

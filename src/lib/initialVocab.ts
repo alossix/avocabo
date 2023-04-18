@@ -560,4 +560,5 @@ export const initialVocabSet: { [key in LearningLanguages]: Vocab[] } = {
       ...initialVocabProperties,
     },
   ],
+  other: [],
 };

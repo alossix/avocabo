@@ -21,6 +21,7 @@
   "header_switch_language": "Canvia l'idioma",
   "invalid_email": "Si us plau, introdueixi una adreça de correu electrònic vàlida.",
   "learning_language": "Estic aprenent el següent idioma (això generarà un conjunt d'exemples de paraules de vocabulari): ",
+  "other": "Altres",
   "password": "Contrasenya",
   "password_min_length": "La contrasenya ha de tenir almenys 8 caràcters de llargada.",
   "password_must_match": "Les contrasenyes no coincideixen.",

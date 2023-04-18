@@ -17,7 +17,8 @@ export type LearningLanguages =
   | "fr"
   | "it"
   | "nl"
-  | "uk";
+  | "uk"
+  | "other";
 
 export type AppUser = Pick<
   User,

@@ -206,6 +206,7 @@ export const Header: React.FC<{
                 <HeaderItem>
                   <LanguageSelector
                     handleSelectLanguage={handleSelectInterfaceLanguage}
+                    languageSet={"interface"}
                     ref={languageSelectorRef}
                     selectedLanguage={
                       currentUser?.interfaceLanguage as InterfaceLanguages
@@ -258,6 +259,7 @@ export const Header: React.FC<{
                 <HeaderItem>
                   <LanguageSelector
                     handleSelectLanguage={handleSelectInterfaceLanguage}
+                    languageSet={"interface"}
                     selectedLanguage={initialLanguage}
                   />
                 </HeaderItem>
