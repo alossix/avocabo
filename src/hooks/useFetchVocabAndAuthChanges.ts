@@ -1,53 +1,79 @@
-import { useAppSelector } from "@/store/hooks";
+import { handleAppError } from "@/lib/handleAppError";
+import { auth, onSnapshot } from "@/services/firebase/firebaseService";
 import {
-  listenForAuthChanges,
-  selectUserSignedIn,
+  getUserDocRef,
+  setAppError,
+  setAppUser,
 } from "@/store/slices/authSlice";
 import { getVocabDB } from "@/store/slices/vocabSlice";
 import { useAppDispatch } from "@/store/store";
+import { AppUser } from "@/types/general";
 import { useEffect, useRef, useState } from "react";
 import useUserCookie from "./useUserCookie";
 
 const useFetchVocabAndAuthChanges = () => {
-  const { setUserCookie, getUserCookie } = useUserCookie();
+  const { setUserCookie } = useUserCookie();
   const [initialized, setInitialized] = useState(false);
-  const currentUser = useAppSelector(selectUserSignedIn);
   const dispatch = useAppDispatch();
-  const fetchedVocab = useRef(false);
+  const snapshotUnsubscribe = useRef<(() => void) | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  const unsubscribeVocabRef = useRef<() => void>(() => {});
 
   useEffect(() => {
-    const unsubscribe = listenForAuthChanges(setUserCookie)(dispatch);
-
-    setInitialized(true);
-
-    // Cleanup function that will remove the listener for auth changes
-    return () => {
-      if (unsubscribe) {
-        unsubscribe();
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
-
-  useEffect(() => {
-    const fetchData = (uid: string) => {
-      if (!fetchedVocab.current) {
-        dispatch(getVocabDB({ userId: uid }));
-        fetchedVocab.current = true;
-      }
-    };
-
-    if (currentUser) {
-      setUserCookie(currentUser);
-      fetchData(currentUser.uid);
-    } else if (!fetchedVocab.current) {
-      const user = getUserCookie();
+    const unsubscribeAuth = auth.onAuthStateChanged(async (user) => {
       if (user) {
-        fetchData(user.uid);
+        try {
+          const userDocRef = getUserDocRef({ uid: user.uid });
+          // Unsubscribe from the previous snapshot listener
+          if (snapshotUnsubscribe.current) {
+            snapshotUnsubscribe.current();
+          }
+          snapshotUnsubscribe.current = onSnapshot(userDocRef, (doc) => {
+            if (doc.exists()) {
+              const userData = doc.data() as AppUser;
+              dispatch(setAppUser({ user: userData }));
+              setUserCookie(userData);
+            }
+          });
+
+          if (!fetchedVocab.current) {
+            const unsubscribeVocab = await dispatch(
+              getVocabDB({ userId: user.uid })
+            );
+            unsubscribeVocabRef.current = unsubscribeVocab;
+            fetchedVocab.current = true;
+          }
+
+          setInitialized(true);
+        } catch (error: unknown) {
+          const { message } = handleAppError(error);
+          dispatch(setAppError(message));
+        }
+      } else {
+        setUserCookie(null);
+        fetchedVocab.current = false;
+        if (snapshotUnsubscribe.current) {
+          snapshotUnsubscribe.current();
+        }
+        if (unsubscribeVocabRef.current) {
+          unsubscribeVocabRef.current();
+        }
+        setInitialized(true);
       }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser]);
+    });
+
+    return () => {
+      unsubscribeAuth();
+      if (snapshotUnsubscribe.current) {
+        snapshotUnsubscribe.current();
+      }
+      if (unsubscribeVocabRef.current) {
+        unsubscribeVocabRef.current();
+      }
+    };
+  }, [dispatch, setUserCookie]);
+
+  const fetchedVocab = useRef(false);
 
   return { initialized };
 };

@@ -2,6 +2,7 @@ import { MyVocabPageView } from "@/components/PageViews/MyVocabPageView";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import useFetchVocabAndAuthChanges from "@/hooks/useFetchVocabAndAuthChanges";
 import { useVocab } from "@/hooks/useVocab";
+import { useEffect, useState } from "react";
 
 const MyVocabPage: React.FC = () => {
   const { vocabListDueToday } = useVocab();
@@ -11,9 +12,21 @@ const MyVocabPage: React.FC = () => {
     authRequired: true,
   });
 
-  useFetchVocabAndAuthChanges();
+  const { initialized } = useFetchVocabAndAuthChanges();
 
-  return loading ? null : <MyVocabPageView vocabList={vocabListDueToday} />;
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    if (initialized) {
+      setIsReady(true);
+    }
+  }, [initialized]);
+
+  if (loading || !isReady) {
+    return null;
+  }
+
+  return <MyVocabPageView vocabList={vocabListDueToday} />;
 };
 
 export default MyVocabPage;
