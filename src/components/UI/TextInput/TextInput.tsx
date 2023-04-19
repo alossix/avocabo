@@ -4,6 +4,7 @@ import React from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
 
 type TextInputProps = {
+  autoComplete?: "off" | "on";
   defaultValue?: string;
   id: string;
   labelText: string;
@@ -14,6 +15,7 @@ type TextInputProps = {
 };
 
 export const TextInput: React.FC<TextInputProps> = ({
+  autoComplete = "off",
   defaultValue,
   id,
   labelText,
@@ -28,6 +30,7 @@ export const TextInput: React.FC<TextInputProps> = ({
         {labelText}
       </StyledLabel>
       <StyledInput
+        autoComplete={autoComplete}
         defaultValue={defaultValue}
         id={id}
         placeholder={showLabel ? "" : labelText}

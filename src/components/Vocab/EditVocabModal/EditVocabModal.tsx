@@ -14,6 +14,7 @@ import { selectUserSignedIn } from "@/store/slices/authSlice";
 import { useAppDispatch } from "@/store/store";
 import { uploadVocabImage } from "@/store/slices/sliceUtils/vocabUtils";
 import { TextInput } from "@/components/UI/TextInput";
+import { BlackoutEditor } from "../BlackoutEditor";
 
 type EditVocabModalProps = {
   isOpen: boolean;
@@ -131,6 +132,14 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
               type="text"
             />
           </StyledInputContainer>
+          {vocabWord.description && (
+            <BlackoutEditor
+              onUpdateVocabWord={() => console.log(`clicked confirm`)}
+              definition={vocabWord.definition}
+              description={vocabWord.description}
+              vocabId={vocabWord.vocabId}
+            />
+          )}
           <StyledInputContainer>
             <TextInput
               defaultValue={vocabWord.phoneticPronunciation}
