@@ -1,5 +1,6 @@
 import { Button } from "@/components/UI/Button";
 import { TextInput } from "@/components/UI/TextInput";
+import { BlackoutEditor } from "@/components/Vocab/BlackoutEditor";
 import { useVocab } from "@/hooks/useVocab";
 import { handleAppError } from "@/lib/handleAppError";
 import { initialVocabProperties } from "@/lib/initialVocab";
@@ -18,10 +19,15 @@ import { CategorySelector } from "../CategorySelector";
 export const AddWordForm: React.FC = () => {
   const { addVocabEntry } = useVocab();
   const { t } = useTranslation("vocab");
-  const { handleSubmit, register, setValue } = useForm<Vocab>();
+  const { handleSubmit, register, reset, setValue, watch } = useForm<Vocab>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [blackoutWords, setBlackoutWords] = useState<{ [key: number]: number }>(
+    []
+  );
   const [currentCategory, setCurrentCategory] = useState<VocabCategories>("");
   const currentUser = useAppSelector(selectUserSignedIn);
+  const definitionValue = watch("definition");
+  const descriptionValue = watch("description");
   const dispatch = useAppDispatch();
   const registerForm = useRef<HTMLFormElement>(null);
   const vocabId = uuid4();
@@ -33,20 +39,21 @@ export const AddWordForm: React.FC = () => {
         newVocabWord: {
           ...initialVocabProperties,
           ...vocabWordData,
+          blackoutWords,
           vocabId,
         },
       });
     } catch (error: unknown) {
       const { message } = handleAppError(error);
       dispatch(setAppError(message));
+      console.error(error);
     } finally {
-      if (registerForm.current) {
-        registerForm.current.reset();
-        setTimeout(() => {
-          setIsSubmitting(false);
-        }, 300);
-      }
+      reset();
+      setTimeout(() => {
+        setIsSubmitting(false);
+      }, 300);
       setCurrentCategory("");
+      setBlackoutWords([]);
     }
   };
 
@@ -96,6 +103,14 @@ export const AddWordForm: React.FC = () => {
           register={register("description")}
         />
       </InputContainer>
+      {descriptionValue && (
+        <BlackoutEditor
+          blackoutWords={blackoutWords}
+          definition={definitionValue}
+          description={descriptionValue}
+          setBlackoutWords={setBlackoutWords}
+        />
+      )}
       <InputContainer>
         <CategorySelector
           currentCategory={currentCategory}

@@ -76,6 +76,7 @@ export const addVocabEntryDB =
     try {
       if (auth.currentUser) {
         // Add the new vocab to the database
+        console.log(newVocabWord.blackoutWords);
         await setDoc(
           getUserVocabDocRef({
             uid: auth.currentUser.uid,

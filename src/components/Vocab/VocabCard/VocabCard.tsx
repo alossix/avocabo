@@ -1,5 +1,6 @@
 import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
+import { useWordHighlighting } from "@/hooks/useWordHighlighting";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
@@ -16,6 +17,9 @@ type VocabCardProps = {
 
 const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
   const { t } = useTranslation("vocab");
+  const { isRangeHighlighted } = useWordHighlighting({
+    blackoutWords: vocabWord.blackoutWords,
+  });
   const [showDetails, setShowDetails] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
   const dueDate = newShortDate(vocabWord.dueDate);
@@ -45,6 +49,29 @@ const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
   useEffect(() => {
     setShowDetails(false);
   }, [vocabWord]);
+
+  let currentPosition = 0;
+  const words = vocabWord.description?.split(/(\s+)/).map((word, index) => {
+    const isSpace = /^\s+$/.test(word);
+    const start = currentPosition;
+    const end = start + word.length;
+    currentPosition = end;
+
+    const isHighlighted =
+      !isSpace && !showDetails && isRangeHighlighted(start, end);
+
+    return (
+      <span
+        key={index}
+        style={{
+          backgroundColor: isHighlighted ? theme.colors.black : "transparent",
+          color: theme.colors.black,
+        }}
+      >
+        {word}
+      </span>
+    );
+  });
 
   return (
     <CardWrapper
@@ -92,7 +119,7 @@ const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
         </ImageWrapper>
       )}
       <DescriptionContainer>
-        <p>{vocabWord.description}</p>
+        <p>{words}</p>
       </DescriptionContainer>
 
       <HR />

@@ -1,6 +1,6 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // data structure: starting position in string, ending position in string?
 // highlight on hover over word, but not spaces
@@ -13,42 +13,53 @@ import { useState } from "react";
 // clear on edit definition or description
 
 type BlackoutEditorProps = {
+  blackoutWords?: { [key: number]: number };
   definition: string;
   description: string;
-  vocabId: string;
-  onUpdateVocabWord: (vocabId: string, newWord: string) => void;
+  setBlackoutWords: (blackoutWordsData: { [key: number]: number }) => void;
 };
 
 export const BlackoutEditor: React.FC<BlackoutEditorProps> = ({
-  // definition,
+  blackoutWords,
   description,
-  vocabId,
-  onUpdateVocabWord,
+  setBlackoutWords,
 }) => {
-  const [highlightedWords, setHighlightedWords] = useState<string[]>([]);
+  const [highlightedRanges, setHighlightedRanges] = useState<{
+    [key: number]: number;
+  }>(blackoutWords || {});
 
-  const onClick = (word: string) => {
-    if (highlightedWords.includes(word)) {
-      setHighlightedWords(highlightedWords.filter((w) => w !== word));
+  useEffect(() => {
+    setHighlightedRanges(blackoutWords || {});
+  }, [blackoutWords]);
+
+  const onClick = (start: number, end: number) => {
+    const newHighlightedRanges = { ...highlightedRanges };
+    if (start in newHighlightedRanges) {
+      delete newHighlightedRanges[start];
     } else {
-      setHighlightedWords([...highlightedWords, word]);
+      newHighlightedRanges[start] = end;
     }
+    setHighlightedRanges(newHighlightedRanges);
+    setBlackoutWords(newHighlightedRanges);
   };
 
-  const isWordHighlighted = (word: string) => {
-    return highlightedWords.some((highlightedWord) =>
-      word.toLowerCase().includes(highlightedWord.toLowerCase())
-    );
+  const isRangeHighlighted = (start: number, end: number) => {
+    return highlightedRanges[start] === end;
   };
 
+  let currentPosition = 0;
   const words = description.split(/(\s+)/).map((word, index) => {
     const isSpace = /^\s+$/.test(word);
-    const isHighlighted = !isSpace && isWordHighlighted(word);
+    const start = currentPosition;
+    const end = start + word.length;
+    currentPosition = end;
+
+    const isHighlighted = !isSpace && isRangeHighlighted(start, end);
 
     return (
       <span
         key={index}
-        onClick={!isSpace ? () => onClick(word) : undefined}
+        onClick={!isSpace ? () => onClick(start, end) : undefined}
         style={{
           backgroundColor: isHighlighted
             ? theme.colors.mediumGrey
@@ -61,19 +72,12 @@ export const BlackoutEditor: React.FC<BlackoutEditorProps> = ({
     );
   });
 
-  const handleConfirm = () => {
-    onUpdateVocabWord(vocabId, highlightedWords.join(" "));
-  };
-
   return (
     <BlackoutContainer>
       <BlackoutLabel>
         <p>Blackout</p>
       </BlackoutLabel>
       <p>{words}</p>
-      <button onClick={handleConfirm} disabled={!highlightedWords.length}>
-        Confirm
-      </button>
     </BlackoutContainer>
   );
 };

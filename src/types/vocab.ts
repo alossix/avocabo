@@ -1,8 +1,5 @@
 export type Vocab = {
-  blackout?: {
-    beginning: number;
-    end: number;
-  };
+  blackoutWords?: { [key: number]: number };
   currentBox: number;
   category: VocabCategories;
   createdAt: string;
