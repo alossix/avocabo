@@ -2,16 +2,6 @@ import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 
-// data structure: starting position in string, ending position in string?
-// highlight on hover over word, but not spaces
-// auto highlight if full word present in sentence
-// highlight on mousein and unhighlight on mouseout
-// description of feature
-// confirmation button
-// update vocab word
-// implementation in vocabcard
-// clear on edit definition or description
-
 type BlackoutEditorProps = {
   blackoutWords?: { [key: number]: number };
   definition: string;
