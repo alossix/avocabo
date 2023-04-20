@@ -14,6 +14,7 @@ import { selectUserSignedIn } from "@/store/slices/authSlice";
 import { useAppDispatch } from "@/store/store";
 import { uploadVocabImage } from "@/store/slices/sliceUtils/vocabUtils";
 import { TextInput } from "@/components/UI/TextInput";
+import { BlackoutEditor } from "../BlackoutEditor";
 
 type EditVocabModalProps = {
   isOpen: boolean;
@@ -31,6 +32,9 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   });
   const { t } = useTranslation("vocab");
   const { updateVocabEntry } = useVocab();
+  const [blackoutWords, setBlackoutWords] = useState<{
+    [key: number]: number;
+  }>(vocabWord.blackoutWords || {});
   const [currentCategory, setCurrentCategory] = useState<VocabCategories>(
     vocabWord.category
   );
@@ -44,7 +48,7 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   const handleSaveAndClose = (formData: Vocab) => {
     updateVocabEntry({
       vocabId: vocabWord.vocabId,
-      updatedProperties: formData,
+      updatedProperties: { ...formData, blackoutWords },
     });
 
     setOpenModal();
@@ -70,6 +74,7 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
     reset(vocabWord);
     setImageURL(vocabWord.imageURL);
     setCurrentCategory(vocabWord.category);
+    setBlackoutWords(vocabWord.blackoutWords || {});
   }, [vocabWord, reset]);
 
   return (
@@ -79,37 +84,39 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
       toggleOpen={() => setOpenModal()}
     >
       <ModalContentContainer>
-        <ImageContainer>
-          {loading ? (
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                width: 240,
-                height: 240,
-              }}
-            >
-              <p>Loading...</p>
-            </div>
-          ) : (
-            <>
-              <Image
-                src={imageURL}
-                alt={vocabWord.definition}
-                width={240}
-                height={240}
-                onClick={() => fileInput.current?.click()}
-                style={{ objectFit: "contain" }}
-              />
-              <HiddenInput
-                ref={fileInput}
-                type="file"
-                onChange={handleUpload}
-              />
-            </>
-          )}
-        </ImageContainer>
+        {imageURL && (
+          <ImageContainer>
+            {loading ? (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 240,
+                  height: 240,
+                }}
+              >
+                <p>Loading...</p>
+              </div>
+            ) : (
+              <>
+                <Image
+                  src={imageURL}
+                  alt={vocabWord.definition}
+                  width={240}
+                  height={240}
+                  onClick={() => fileInput.current?.click()}
+                  style={{ objectFit: "contain" }}
+                />
+                <HiddenInput
+                  ref={fileInput}
+                  type="file"
+                  onChange={handleUpload}
+                />
+              </>
+            )}
+          </ImageContainer>
+        )}
         <StyledForm ref={registerForm} name="edit_word_form">
           <StyledInputContainer>
             <TextInput
@@ -131,6 +138,14 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
               type="text"
             />
           </StyledInputContainer>
+          {vocabWord.description && (
+            <BlackoutEditor
+              blackoutWords={vocabWord.blackoutWords}
+              definition={vocabWord.definition}
+              description={vocabWord.description}
+              setBlackoutWords={setBlackoutWords}
+            />
+          )}
           <StyledInputContainer>
             <TextInput
               defaultValue={vocabWord.phoneticPronunciation}
