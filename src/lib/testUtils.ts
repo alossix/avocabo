@@ -3,16 +3,17 @@ import { Vocab } from "@/types/vocab";
 const newDate = new Date().toISOString();
 
 export const mockVocabEntry: Vocab = {
-  vocabId: "123",
+  blackoutWords: [],
+  category: "noun",
+  createdAt: newDate,
+  currentBox: 1,
   definition: "hat",
   description: "a representative hat",
-  currentBox: 1,
-  createdAt: newDate,
-  category: "noun",
   dueDate: newDate,
   imageURL: "http://localhost:3000/image123.jpg",
   lastUpdatedAt: newDate,
   phoneticPronunciation: "",
+  vocabId: "123",
 };
 
 export const mockVocabList: Vocab[] = [

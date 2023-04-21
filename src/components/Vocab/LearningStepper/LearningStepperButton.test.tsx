@@ -16,7 +16,9 @@ describe("LearningStepperButton", () => {
     render(
       <LearningStepperButton
         recallDifficulty={recallDifficulty}
-        vocabWord={mockVocabEntry}
+        currentBox={0}
+        dueDate={""}
+        vocabId={""}
       />
     );
 

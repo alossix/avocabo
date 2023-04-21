@@ -62,13 +62,14 @@ export const updateVocabCurrentBox = ({
 };
 
 export const updateVocabDueDate = ({
-  vocab,
+  currentBox,
+  dueDate,
   recallDifficulty,
 }: {
-  vocab: Vocab;
+  currentBox: number;
+  dueDate: string;
   recallDifficulty: RecallDifficulty;
 }) => {
-  const { currentBox, dueDate } = vocab;
   const DAY_IN_MS = 86400000;
   const MINUTE_IN_MS = 60000;
 

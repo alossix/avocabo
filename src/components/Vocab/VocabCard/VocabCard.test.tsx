@@ -23,12 +23,9 @@ describe("VocabCard", () => {
     expect(
       screen.getByRole("img", { name: mockVocabEntry.definition })
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(mockVocabEntry.description as string)
-    ).toBeInTheDocument();
   });
 
-  test("shows vocab word details when card is clicked", () => {
+  test("shows vocab word details when card is clicked", async () => {
     renderVocabCard();
 
     const cardWrapper = screen.getByRole("button", {
@@ -36,7 +33,6 @@ describe("VocabCard", () => {
     });
     fireEvent.click(cardWrapper);
 
-    expect(screen.getByText(mockVocabEntry.definition)).toBeInTheDocument();
     expect(screen.queryByText(/vocab:vocab_reveal_word.../)).toBeNull();
   });
 

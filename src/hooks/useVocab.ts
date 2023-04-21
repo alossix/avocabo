@@ -14,37 +14,73 @@ import {
 } from "@/store/slices/vocabSlice";
 import { useAppDispatch } from "@/store/store";
 import { RecallDifficulty, Vocab } from "@/types/vocab";
+import { useCallback, useMemo } from "react";
 
 export const useVocab = () => {
   const dispatch = useAppDispatch();
   const today = newShortDate();
-  const vocabListDueToday = useAppSelector(vocabSelector).filter(
-    (vocab) => newShortDate(vocab.dueDate) === today
-  );
+  const allVocab = useAppSelector(vocabSelector);
+  const vocabMap = useMemo(() => {
+    const map = new Map();
+    for (const vocab of allVocab) {
+      map.set(vocab.vocabId, vocab);
+    }
+    return map;
+  }, [allVocab]);
+
+  const vocabListDueToday = useMemo(() => {
+    const dueTodayList = [];
+    for (const vocab of vocabMap.values()) {
+      if (newShortDate(vocab.dueDate) === today) {
+        dueTodayList.push(vocab);
+      }
+    }
+    return dueTodayList;
+  }, [vocabMap, today]);
 
   const addVocabEntry = ({ newVocabWord }: { newVocabWord: Vocab }) => {
     dispatch(addVocabEntryDB({ newVocabWord }));
   };
 
-  const changeVocabBox = ({
-    vocabWord,
-    recallDifficulty,
-  }: {
-    vocabWord: Vocab;
-    recallDifficulty: RecallDifficulty;
-  }) => {
-    const updatedProperties: Partial<Vocab> = {
-      currentBox: updateVocabCurrentBox({
-        currentBox: vocabWord.currentBox,
-        recallDifficulty,
-      }),
-      dueDate: updateVocabDueDate({ vocab: vocabWord, recallDifficulty }),
-      lastUpdatedAt: new Date().toISOString(),
-    };
+  const updateVocabEntry = useCallback(
+    ({
+      vocabId,
+      updatedProperties,
+    }: {
+      vocabId: string;
+      updatedProperties: Partial<Vocab>;
+    }) => {
+      dispatch(updateVocabEntryDB({ vocabId, updatedProperties }));
+    },
+    [dispatch]
+  );
 
-    // Call updateVocabEntry to update both local state and database state
-    updateVocabEntry({ vocabId: vocabWord.vocabId, updatedProperties });
-  };
+  const changeVocabBox = useCallback(
+    ({
+      currentBox,
+      dueDate,
+      recallDifficulty,
+      vocabId,
+    }: {
+      currentBox: number;
+      dueDate: string;
+      recallDifficulty: RecallDifficulty;
+      vocabId: string;
+    }) => {
+      const updatedProperties: Partial<Vocab> = {
+        currentBox: updateVocabCurrentBox({
+          currentBox: currentBox,
+          recallDifficulty,
+        }),
+        dueDate: updateVocabDueDate({ currentBox, dueDate, recallDifficulty }),
+        lastUpdatedAt: new Date().toISOString(),
+      };
+
+      // Call updateVocabEntry to update both local state and database state
+      updateVocabEntry({ vocabId, updatedProperties });
+    },
+    [updateVocabEntry]
+  );
 
   const getVocab = ({ userId }: { userId: string }) => {
     dispatch(getVocabDB({ userId }));
@@ -56,16 +92,6 @@ export const useVocab = () => {
 
   const setNextVocabEntriesDueToday = () => {
     dispatch(setNextVocabEntriesDueTodayDB());
-  };
-
-  const updateVocabEntry = ({
-    vocabId,
-    updatedProperties,
-  }: {
-    vocabId: string;
-    updatedProperties: Partial<Vocab>;
-  }) => {
-    dispatch(updateVocabEntryDB({ vocabId, updatedProperties }));
   };
 
   return {

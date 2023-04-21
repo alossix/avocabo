@@ -23,9 +23,11 @@ export const LearningStepper: React.FC<LearningStepperProps> = ({
     <LearningStepperContainer aria-label={t("common:button_recall_label")}>
       {recallDifficulties.map((recallDifficulty) => (
         <LearningStepperButton
-          recallDifficulty={recallDifficulty}
+          currentBox={vocabWord.currentBox}
+          dueDate={vocabWord.dueDate}
           key={recallDifficulty}
-          vocabWord={vocabWord}
+          recallDifficulty={recallDifficulty}
+          vocabId={vocabWord.vocabId}
         />
       ))}
     </LearningStepperContainer>

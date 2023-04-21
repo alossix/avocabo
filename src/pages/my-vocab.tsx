@@ -5,6 +5,7 @@ import { useVocab } from "@/hooks/useVocab";
 import { useEffect, useState } from "react";
 
 const MyVocabPage: React.FC = () => {
+  const [isReady, setIsReady] = useState(false);
   const { vocabListDueToday } = useVocab();
 
   const { loading } = useAuthRedirect({
@@ -13,8 +14,6 @@ const MyVocabPage: React.FC = () => {
   });
 
   const { initialized } = useFetchVocabAndAuthChanges();
-
-  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     if (initialized) {

@@ -1,15 +1,14 @@
+import { useWordHighlighting } from "@/hooks/useWordHighlighting";
+import { newShortDate } from "@/lib/datesAndTimes";
 import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
-import { useWordHighlighting } from "@/hooks/useWordHighlighting";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
-import { ReactEventHandler, useEffect, useState } from "react";
+import React, { ReactEventHandler, useEffect, useState } from "react";
 import { EditVocabModal } from "../EditVocabModal";
 import { LearningStepper } from "../LearningStepper";
 import EditVocabIcon from "/public/icons/edit-vocab-icon.svg";
-import { newShortDate } from "@/lib/datesAndTimes";
-import React from "react";
 
 type VocabCardProps = {
   vocabWord: Vocab;
