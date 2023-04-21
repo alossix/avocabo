@@ -67,17 +67,10 @@ export const Modal = ({ children, isOpen, toggleOpen, title }: ModalProps) => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
       document.addEventListener("keydown", handleKeyDown);
-
-      setTimeout(() => {
-        if (closeButtonRef.current) {
-          closeButtonRef.current.focus();
-        }
-      }, 100);
     } else {
       document.body.style.overflow = "auto";
       document.removeEventListener("keydown", handleKeyDown);
     }
-
     return () => {
       document.body.style.overflow = "auto";
       document.removeEventListener("keydown", handleKeyDown);

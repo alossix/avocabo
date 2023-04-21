@@ -104,12 +104,20 @@ export const AddWordForm: React.FC = () => {
         />
       </InputContainer>
       {descriptionValue && (
-        <BlackoutEditor
-          blackoutWords={blackoutWords}
-          definition={definitionValue}
-          description={descriptionValue}
-          setBlackoutWords={setBlackoutWords}
-        />
+        <>
+          <BlackoutEditor
+            blackoutWords={blackoutWords}
+            definition={definitionValue}
+            description={descriptionValue}
+            setBlackoutWords={setBlackoutWords}
+          />
+          <InputContainer>
+            <p style={{ color: theme.colors.darkGrey, marginLeft: 16 }}>
+              {"* "}
+              {t("vocab:vocab_blackout_description")}
+            </p>
+          </InputContainer>
+        </>
       )}
       <InputContainer>
         <CategorySelector

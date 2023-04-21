@@ -1,5 +1,6 @@
 {
   "category": "Categoria",
+  "vocab_blackout_description": "Questo ti consente di nascondere la tua voce di vocabolario nel testo di descrizione. Cliccando su una parola la evidenzia, e cliccando di nuovo la rimuove.",
   "vocab_category_noun": "Sostantivo",
   "vocab_category_verb": "Verbo",
   "vocab_category_adverb": "Avverbio",
