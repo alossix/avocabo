@@ -15,6 +15,7 @@ import { useAppDispatch } from "@/store/store";
 import { uploadVocabImage } from "@/store/slices/sliceUtils/vocabUtils";
 import { TextInput } from "@/components/UI/TextInput";
 import { BlackoutEditor } from "../BlackoutEditor";
+import { theme } from "@/styles/theme";
 
 type EditVocabModalProps = {
   isOpen: boolean;
@@ -27,7 +28,7 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   setOpenModal,
   vocabWord,
 }) => {
-  const { handleSubmit, register, reset, setValue } = useForm<Vocab>({
+  const { handleSubmit, register, reset, setValue, watch } = useForm<Vocab>({
     defaultValues: vocabWord,
   });
   const { t } = useTranslation("vocab");
@@ -41,6 +42,8 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   const [imageURL, setImageURL] = useState(vocabWord.imageURL);
   const [loading, setLoading] = useState(false);
   const currentUser = useAppSelector(selectUserSignedIn);
+  const definitionValue = watch("definition");
+  const descriptionValue = watch("description");
   const dispatch = useAppDispatch();
   const fileInput = useRef<HTMLInputElement>(null);
   const registerForm = useRef<HTMLFormElement>(null);
@@ -138,13 +141,21 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
               type="text"
             />
           </StyledInputContainer>
-          {vocabWord.description && (
-            <BlackoutEditor
-              blackoutWords={vocabWord.blackoutWords}
-              definition={vocabWord.definition}
-              description={vocabWord.description}
-              setBlackoutWords={setBlackoutWords}
-            />
+          {descriptionValue && (
+            <>
+              <BlackoutEditor
+                blackoutWords={vocabWord.blackoutWords}
+                definition={definitionValue}
+                description={descriptionValue}
+                setBlackoutWords={setBlackoutWords}
+              />
+              <StyledInputContainer>
+                <p style={{ color: theme.colors.darkGrey, marginLeft: 16 }}>
+                  {"* "}
+                  {t("vocab:vocab_blackout_description")}
+                </p>
+              </StyledInputContainer>
+            </>
           )}
           <StyledInputContainer>
             <TextInput

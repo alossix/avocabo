@@ -1,5 +1,6 @@
 {
   "category": "Categorie",
+  "vocab_blackout_description": "Hiermee kunt u uw vocabulaire-item verbergen in de beschrijvingstekst. Door op een woord te klikken, wordt het gemarkeerd en door nogmaals te klikken, wordt de markering verwijderd.",
   "vocab_category_noun": "Zelfstandig naamwoord",
   "vocab_category_verb": "Werkwoord",
   "vocab_category_adverb": "Bijwoord",

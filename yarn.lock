@@ -6175,6 +6175,59 @@ __metadata:
   languageName: node
   linkType: hard
 
+"avocabo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "avocabo@workspace:."
+  dependencies:
+    "@emotion/react": ^11.10.6
+    "@emotion/styled": ^11.10.6
+    "@hookform/resolvers": ^2.9.11
+    "@reduxjs/toolkit": ^1.9.5
+    "@storybook/addon-essentials": ^7.0.4
+    "@storybook/addon-interactions": ^7.0.4
+    "@storybook/addon-links": ^7.0.4
+    "@storybook/blocks": ^7.0.4
+    "@storybook/nextjs": ^7.0.4
+    "@storybook/react": ^7.0.4
+    "@storybook/testing-library": ^0.0.14-next.2
+    "@testing-library/jest-dom": ^5.16.5
+    "@testing-library/react": ^14.0.0
+    "@types/jest": ^29.5.0
+    "@types/js-cookie": ^3
+    "@types/node": 18.15.11
+    "@types/react": 18.0.37
+    "@types/react-dom": 18.0.11
+    "@types/react-redux": ^7.1.25
+    "@types/uuid": ^9.0.1
+    "@typescript-eslint/eslint-plugin": ^5.59.0
+    "@typescript-eslint/parser": ^5.59.0
+    cypress: ^12.8.1
+    dotenv: ^16.0.3
+    eslint: ^8.38.0
+    eslint-config-next: 13.2.4
+    eslint-config-prettier: ^8.8.0
+    eslint-plugin-storybook: ^0.6.11
+    firebase: ^9.19.1
+    husky: ^8.0.3
+    jest: ^29.5.0
+    jest-environment-jsdom: ^29.5.0
+    js-cookie: ^3.0.1
+    next: 13.3.0
+    next-translate: 2.0.5
+    next-translate-plugin: ^2.0.5
+    prettier: ^2.8.7
+    react: 18.2.0
+    react-dom: 18.2.0
+    react-firebase-hooks: ^5.1.1
+    react-hook-form: ^7.43.9
+    react-redux: ^8.0.5
+    storybook: ^7.0.5
+    typescript: ^5.0.4
+    uuid: ^9.0.0
+    yarn-audit-fix: ^9.3.10
+  languageName: unknown
+  linkType: soft
+
 "aws-sign2@npm:~0.7.0":
   version: 0.7.0
   resolution: "aws-sign2@npm:0.7.0"
@@ -15443,59 +15496,6 @@ __metadata:
   checksum: c431df0bedf2088b227a4e051e0ff4ca54df2c114096b0c01e1cbaadb021c30a04d7dd5b41ab277bcd51246ca135bf931d4c4c796ecae7a4fef6d744ecef36ea
   languageName: node
   linkType: hard
-
-"vocab-web@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "vocab-web@workspace:."
-  dependencies:
-    "@emotion/react": ^11.10.6
-    "@emotion/styled": ^11.10.6
-    "@hookform/resolvers": ^2.9.11
-    "@reduxjs/toolkit": ^1.9.5
-    "@storybook/addon-essentials": ^7.0.4
-    "@storybook/addon-interactions": ^7.0.4
-    "@storybook/addon-links": ^7.0.4
-    "@storybook/blocks": ^7.0.4
-    "@storybook/nextjs": ^7.0.4
-    "@storybook/react": ^7.0.4
-    "@storybook/testing-library": ^0.0.14-next.2
-    "@testing-library/jest-dom": ^5.16.5
-    "@testing-library/react": ^14.0.0
-    "@types/jest": ^29.5.0
-    "@types/js-cookie": ^3
-    "@types/node": 18.15.11
-    "@types/react": 18.0.37
-    "@types/react-dom": 18.0.11
-    "@types/react-redux": ^7.1.25
-    "@types/uuid": ^9.0.1
-    "@typescript-eslint/eslint-plugin": ^5.59.0
-    "@typescript-eslint/parser": ^5.59.0
-    cypress: ^12.8.1
-    dotenv: ^16.0.3
-    eslint: ^8.38.0
-    eslint-config-next: 13.2.4
-    eslint-config-prettier: ^8.8.0
-    eslint-plugin-storybook: ^0.6.11
-    firebase: ^9.19.1
-    husky: ^8.0.3
-    jest: ^29.5.0
-    jest-environment-jsdom: ^29.5.0
-    js-cookie: ^3.0.1
-    next: 13.3.0
-    next-translate: 2.0.5
-    next-translate-plugin: ^2.0.5
-    prettier: ^2.8.7
-    react: 18.2.0
-    react-dom: 18.2.0
-    react-firebase-hooks: ^5.1.1
-    react-hook-form: ^7.43.9
-    react-redux: ^8.0.5
-    storybook: ^7.0.5
-    typescript: ^5.0.4
-    uuid: ^9.0.0
-    yarn-audit-fix: ^9.3.10
-  languageName: unknown
-  linkType: soft
 
 "w3c-xmlserializer@npm:^4.0.0":
   version: 4.0.0

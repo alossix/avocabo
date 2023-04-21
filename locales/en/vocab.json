@@ -1,5 +1,6 @@
 {
   "category": "Category",
+  "vocab_blackout_description": "This allows you to hide your vocab entry in the description text. Clicking on a word highlights it, and clicking again removes the highlight.",
   "vocab_category_noun": "Noun",
   "vocab_category_verb": "Verb",
   "vocab_category_adverb": "Adverb",

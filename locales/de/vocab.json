@@ -1,5 +1,6 @@
 {
   "category": "Kategorie",
+  "vocab_blackout_description": "Dies ermöglicht es Ihnen, Ihren Vokabeleintrag im Beschreibungstext zu verbergen. Durch Klicken auf ein Wort wird es hervorgehoben, und durch erneutes Klicken wird die Hervorhebung entfernt.",
   "vocab_category_noun": "Substantiv",
   "vocab_category_verb": "Verb",
   "vocab_category_adverb": "Adverb",

@@ -1,5 +1,6 @@
 {
   "category": "Catégorie",
+  "vocab_blackout_description": "Cela vous permet de masquer votre entrée de vocabulaire dans le texte de description. En cliquant sur un mot, il est mis en évidence, et en cliquant de nouveau, la mise en évidence est supprimée.",
   "vocab_category_noun": "Nom",
   "vocab_category_verb": "Verbe",
   "vocab_category_adverb": "Adverbe",

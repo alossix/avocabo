@@ -1,6 +1,6 @@
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type BlackoutEditorProps = {
   blackoutWords?: { [key: number]: number };
@@ -11,16 +11,15 @@ type BlackoutEditorProps = {
 
 export const BlackoutEditor: React.FC<BlackoutEditorProps> = ({
   blackoutWords,
+  definition,
   description,
   setBlackoutWords,
 }) => {
   const [highlightedRanges, setHighlightedRanges] = useState<{
     [key: number]: number;
   }>(blackoutWords || {});
-
-  useEffect(() => {
-    setHighlightedRanges(blackoutWords || {});
-  }, [blackoutWords]);
+  const prevDefinition = useRef(definition);
+  const prevDescription = useRef(description);
 
   const onClick = (start: number, end: number) => {
     const newHighlightedRanges = { ...highlightedRanges };
@@ -62,10 +61,26 @@ export const BlackoutEditor: React.FC<BlackoutEditorProps> = ({
     );
   });
 
+  useEffect(() => {
+    setHighlightedRanges(blackoutWords || {});
+  }, [blackoutWords]);
+
+  useEffect(() => {
+    if (
+      definition !== prevDefinition.current ||
+      description !== prevDescription.current
+    ) {
+      setHighlightedRanges({});
+      setBlackoutWords({});
+    }
+    prevDefinition.current = definition;
+    prevDescription.current = description;
+  }, [definition, description, setBlackoutWords]);
+
   return (
     <BlackoutContainer>
       <BlackoutLabel>
-        <p>Blackout</p>
+        <p>Blackout *</p>
       </BlackoutLabel>
       <p>{words}</p>
     </BlackoutContainer>
