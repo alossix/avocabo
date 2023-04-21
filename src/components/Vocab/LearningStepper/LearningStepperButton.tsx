@@ -1,14 +1,16 @@
 import { useVocab } from "@/hooks/useVocab";
 import { theme } from "@/styles/theme";
 import { StepperColorNames, StepperColors } from "@/types/design";
-import { RecallDifficulty, Vocab } from "@/types/vocab";
+import { RecallDifficulty } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
-import { ReactEventHandler } from "react";
+import React, { ReactEventHandler } from "react";
 
 type LearningStepperButtonProps = {
+  currentBox: number;
+  dueDate: string;
   recallDifficulty: RecallDifficulty;
-  vocabWord: Vocab;
+  vocabId: string;
 };
 
 const stepperColors: StepperColors = {
@@ -18,41 +20,41 @@ const stepperColors: StepperColors = {
   forgot: "forgotPurple",
 };
 
-export const LearningStepperButton: React.FC<LearningStepperButtonProps> = ({
-  recallDifficulty,
-  vocabWord,
-}) => {
-  const { t } = useTranslation("common");
-  const { changeVocabBox } = useVocab();
+export const LearningStepperButton: React.FC<LearningStepperButtonProps> =
+  React.memo(({ currentBox, dueDate, recallDifficulty, vocabId }) => {
+    const { t } = useTranslation("common");
+    const { changeVocabBox } = useVocab();
 
-  const color = theme.stepperColors[
-    stepperColors[recallDifficulty]
-  ] as StepperColorNames;
+    const color = theme.stepperColors[
+      stepperColors[recallDifficulty]
+    ] as StepperColorNames;
 
-  const handleOnClick: ReactEventHandler<HTMLButtonElement> = () => {
-    changeVocabBox({ vocabWord, recallDifficulty });
-  };
+    const handleOnClick: ReactEventHandler<HTMLButtonElement> = () => {
+      changeVocabBox({ currentBox, dueDate, recallDifficulty, vocabId });
+    };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      handleOnClick(event);
-    }
-  };
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        handleOnClick(event);
+      }
+    };
 
-  return (
-    <Button
-      type="button"
-      recallDifficulty={recallDifficulty}
-      onClick={handleOnClick}
-      onKeyDown={handleKeyDown}
-      aria-label={t(`common:button_recall_${recallDifficulty}`)}
-      color={color}
-    >
-      {t(`common:button_recall_${recallDifficulty}`)}
-    </Button>
-  );
-};
+    return (
+      <Button
+        type="button"
+        recallDifficulty={recallDifficulty}
+        onClick={handleOnClick}
+        onKeyDown={handleKeyDown}
+        aria-label={t(`common:button_recall_${recallDifficulty}`)}
+        color={color}
+      >
+        {t(`common:button_recall_${recallDifficulty}`)}
+      </Button>
+    );
+  });
+
+LearningStepperButton.displayName = "LearningStepperButton";
 
 const Button = styled.button<{
   recallDifficulty: RecallDifficulty;

@@ -7,7 +7,7 @@ import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type MyVocabPageViewProps = {
   vocabList: Vocab[];
@@ -18,7 +18,7 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
 }) => {
   const { t } = useTranslation("vocab");
   const { setNextVocabEntriesDueToday } = useVocab();
-  const [updateKey, setUpdateKey] = useState(0);
+  const updateKeyRef = useRef(0);
 
   const dueVocabList = useMemo(
     () => vocabList.filter((vocab) => new Date(vocab.dueDate) < new Date()),
@@ -57,7 +57,7 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
       const timer = setInterval(() => {
         setTimeToNextVocab(timeToNextVocab - 10000);
         if (timeToNextVocab - 60000 <= 300000) {
-          setUpdateKey((prevKey) => prevKey + 1);
+          updateKeyRef.current += 1;
         }
       }, 10000);
       return () => clearInterval(timer);
@@ -75,7 +75,7 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
   }, [nextVocab]);
 
   return (
-    <VocabWindowContainer key={updateKey}>
+    <VocabWindowContainer>
       <h2>{t("vocab:vocab_list_title")}</h2>
       {vocabCountIsZero ? (
         <h3>

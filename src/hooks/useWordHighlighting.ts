@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 type UseWordHighlightingProps = {
   blackoutWords?: { [key: number]: number };
@@ -15,9 +15,12 @@ export const useWordHighlighting = ({
     setHighlightedRanges(blackoutWords || {});
   }, [blackoutWords]);
 
-  const isRangeHighlighted = (start: number, end: number) => {
-    return highlightedRanges[start] === end;
-  };
+  const isRangeHighlighted = useCallback(
+    (start: number, end: number) => {
+      return highlightedRanges[start] === end;
+    },
+    [highlightedRanges]
+  );
 
   return { isRangeHighlighted };
 };
