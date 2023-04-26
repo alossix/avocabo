@@ -11,14 +11,20 @@ jest.mock("@/hooks/useVocab", () => ({
   }),
 }));
 
+const expectedVocabWord = {
+  currentBox: mockVocabEntry.currentBox,
+  dueDate: mockVocabEntry.dueDate,
+  vocabId: mockVocabEntry.vocabId,
+};
+
 describe("LearningStepperButton", () => {
   const renderComponent = (recallDifficulty: RecallDifficulty) =>
     render(
       <LearningStepperButton
         recallDifficulty={recallDifficulty}
-        currentBox={0}
-        dueDate={""}
-        vocabId={""}
+        currentBox={mockVocabEntry.currentBox}
+        dueDate={mockVocabEntry.dueDate}
+        vocabId={mockVocabEntry.vocabId}
       />
     );
 
@@ -37,8 +43,8 @@ describe("LearningStepperButton", () => {
     renderComponent("easy");
     fireEvent.click(screen.getByLabelText(/common:button_recall_easy/i));
     expect(mockChangeVocabBox).toHaveBeenCalledWith({
-      vocabWord: mockVocabEntry,
       recallDifficulty: "easy",
+      vocabWord: expectedVocabWord,
     });
   });
 
@@ -48,8 +54,8 @@ describe("LearningStepperButton", () => {
       key: "Enter",
     });
     expect(mockChangeVocabBox).toHaveBeenCalledWith({
-      vocabWord: mockVocabEntry,
       recallDifficulty: "easy",
+      vocabWord: expectedVocabWord,
     });
   });
 
@@ -59,8 +65,8 @@ describe("LearningStepperButton", () => {
       key: " ",
     });
     expect(mockChangeVocabBox).toHaveBeenCalledWith({
-      vocabWord: mockVocabEntry,
       recallDifficulty: "easy",
+      vocabWord: expectedVocabWord,
     });
   });
 });

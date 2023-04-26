@@ -57,27 +57,31 @@ export const useVocab = () => {
 
   const changeVocabBox = useCallback(
     ({
-      currentBox,
-      dueDate,
+      vocabWord,
       recallDifficulty,
-      vocabId,
     }: {
-      currentBox: number;
-      dueDate: string;
+      vocabWord: {
+        currentBox: number;
+        dueDate: string;
+        vocabId: string;
+      };
       recallDifficulty: RecallDifficulty;
-      vocabId: string;
     }) => {
       const updatedProperties: Partial<Vocab> = {
         currentBox: updateVocabCurrentBox({
-          currentBox: currentBox,
+          currentBox: vocabWord.currentBox,
           recallDifficulty,
         }),
-        dueDate: updateVocabDueDate({ currentBox, dueDate, recallDifficulty }),
+        dueDate: updateVocabDueDate({
+          currentBox: vocabWord.currentBox,
+          dueDate: vocabWord.dueDate,
+          recallDifficulty,
+        }),
         lastUpdatedAt: new Date().toISOString(),
       };
 
       // Call updateVocabEntry to update both local state and database state
-      updateVocabEntry({ vocabId, updatedProperties });
+      updateVocabEntry({ vocabId: vocabWord.vocabId, updatedProperties });
     },
     [updateVocabEntry]
   );
