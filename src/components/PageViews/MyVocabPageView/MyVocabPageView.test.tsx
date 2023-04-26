@@ -42,24 +42,35 @@ describe("MyVocabPageView", () => {
     expect(screen.getByText(/vocab:vocab_list_title/i)).toBeInTheDocument();
   });
 
-  it("should render the button for loading next vocab entries when no vocab items are due", () => {
-    const noDueVocabList = mockVocabList.filter(
+  it("should render the message for adding words when no vocab items are due", () => {
+    const notDueVocabList = mockVocabList.filter(
       (vocab) => new Date(vocab.dueDate) > new Date()
     );
 
     mockedUseVocab.mockReturnValue({
-      ...mockedUseVocab(),
+      addVocabEntry: jest.fn(),
+      changeVocabBox: jest.fn(),
+      getVocab: jest.fn(),
+      removeVocabEntry: jest.fn(),
+      setNextVocabEntriesDueToday: jest.fn(),
+      updateVocabEntry: jest.fn(),
       vocabListDueToday: [],
     });
 
     render(
       <Provider store={store}>
-        <MyVocabPageView vocabList={noDueVocabList} />
+        <MyVocabPageView vocabList={notDueVocabList} />
       </Provider>
     );
 
     expect(
-      screen.getByText(/vocab:vocab_load_next_entries/i)
+      screen.getByText((content, element) => {
+        return (
+          element?.tagName.toLowerCase() === "h3" &&
+          content.includes("vocab:vocab_no_words")
+        );
+      })
     ).toBeInTheDocument();
+    expect(screen.getByText(/vocab:vocab_no_words_add/i)).toBeInTheDocument();
   });
 });

@@ -30,7 +30,14 @@ export const LearningStepperButton: React.FC<LearningStepperButtonProps> =
     ] as StepperColorNames;
 
     const handleOnClick: ReactEventHandler<HTMLButtonElement> = () => {
-      changeVocabBox({ currentBox, dueDate, recallDifficulty, vocabId });
+      changeVocabBox({
+        vocabWord: {
+          currentBox: currentBox,
+          dueDate: dueDate,
+          vocabId: vocabId,
+        },
+        recallDifficulty: recallDifficulty,
+      });
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
