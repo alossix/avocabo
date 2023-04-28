@@ -21,6 +21,8 @@
   "header_switch_language": "Перемкнути мову",
   "invalid_email": "Будь ласка, введіть дійсну адресу електронної пошти.",
   "learning_language": "Я вивчаю наступну мову (це згенерує зразковий набір слів): ",
+  "learning_language_simple": "Мова навчання",
+  "number_of_vocab_entries": "Кількість слів у словнику",
   "other": "Інший",
   "password": "Пароль",
   "password_min_length": "Пароль повинен містити не менше 8 символів.",

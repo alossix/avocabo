@@ -21,6 +21,8 @@
   "header_switch_language": "Cambia de idioma",
   "invalid_email": "Por favor, introduce una dirección de correo electrónico válida.",
   "learning_language": "Estoy aprendiendo el siguiente idioma (esto generará un conjunto de palabras de vocabulario de muestra): ",
+  "learning_language_simple": "Idioma de aprendizaje",
+  "number_of_vocab_entries": "Número de entradas de vocabulario",
   "other": "Otro",
   "password": "Contraseña",
   "password_min_length": "La contraseña debe tener al menos 8 caracteres de longitud.",

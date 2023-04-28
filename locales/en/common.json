@@ -21,6 +21,8 @@
   "header_switch_language": "Switch Language",
   "invalid_email": "Please enter a valid email address.",
   "learning_language": "I am learning the following language (this will generate a sample set of vocabulary words): ",
+  "learning_language_simple": "Learning language",
+  "number_of_vocab_entries": "Number of vocabulary entries",
   "other": "Other",
   "password": "Password",
   "password_min_length": "Password must be at least 8 characters long.",
