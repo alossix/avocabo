@@ -11,6 +11,17 @@ type LanguageSelectorProps = {
   showIcon?: boolean;
 };
 
+const languageLabelsInterface: Record<InterfaceLanguages, string> = {
+  ca: "Català",
+  en: "English",
+  es: "Español",
+  de: "Deutsch",
+  fr: "Français",
+  it: "Italiano",
+  nl: "Nederlands",
+  uk: "Українська",
+};
+
 export const LanguageSelector = React.forwardRef<
   HTMLDivElement,
   LanguageSelectorProps
@@ -20,17 +31,6 @@ export const LanguageSelector = React.forwardRef<
     ref
   ) => {
     const { t } = useTranslation();
-
-    const languageLabelsInterface: Record<InterfaceLanguages, string> = {
-      ca: "Català",
-      en: "English",
-      es: "Español",
-      de: "Deutsch",
-      fr: "Français",
-      it: "Italiano",
-      nl: "Nederlands",
-      uk: "Українська",
-    };
 
     const languageLabelsLearning: Record<LearningLanguages, string> = {
       ...languageLabelsInterface,
