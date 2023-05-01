@@ -99,7 +99,7 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
                   height: 240,
                 }}
               >
-                <p>Loading...</p>
+                <p>{t("common:loading")}</p>
               </div>
             ) : (
               <>

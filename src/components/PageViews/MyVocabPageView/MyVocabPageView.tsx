@@ -76,22 +76,22 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
 
   return (
     <VocabWindowContainer>
-      <h2>{t("vocab:vocab_list_title")}</h2>
+      <h1>{t("vocab:vocab_list_title")}</h1>
       {vocabCountIsZero ? (
-        <h3>
+        <StyledH3>
           {t("vocab:vocab_no_words")}{" "}
           <Link href="/add-words">{t("vocab:vocab_no_words_add")}</Link>
-        </h3>
+        </StyledH3>
       ) : (
         <>
           {dueCountIsZero ? (
             <>
               {timeToNextVocab && (
-                <h3>
+                <StyledH3>
                   {t("vocab:vocab_next_words", {
                     minutes: formatTimeHoursAndMinutes(timeToNextVocab),
                   })}
-                </h3>
+                </StyledH3>
               )}
 
               <Button
@@ -104,11 +104,11 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
             </>
           ) : (
             <>
-              <h3>
+              <StyledH3>
                 {t("vocab:vocab_number_of_entries", {
                   count: dueVocabList.length,
                 })}
-              </h3>
+              </StyledH3>
               <VocabCardsContainer>
                 <VocabCard vocabWord={dueVocabList[0]} />
               </VocabCardsContainer>
@@ -133,8 +133,13 @@ const VocabCardsContainer = styled.div({
   gap: 8,
 
   [`@media (min-width: ${theme.breakpoints.desktop})`]: {
-    flexDirection: "row",
     justifyContent: "center",
+    alignItems: "center",
+    marginTop: 64,
     width: "100%",
   },
+});
+
+const StyledH3 = styled.h3({
+  margin: "32px 0",
 });

@@ -22,6 +22,7 @@
   "invalid_email": "Veuillez saisir une adresse email valide.",
   "learning_language": "J'apprends la langue suivante (cela générera un ensemble d'exemples de mots de vocabulaire): ",
   "learning_language_simple": "Langue d'apprentissage",
+  "loading": "Chargement...",
   "number_of_vocab_entries": "Nombre d'entrées de vocabulaire",
   "other": "Autre",
   "password": "Mot de passe",
