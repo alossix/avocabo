@@ -22,6 +22,7 @@
   "invalid_email": "Si us plau, introdueixi una adreça de correu electrònic vàlida.",
   "learning_language": "Estic aprenent el següent idioma (això generarà un conjunt d'exemples de paraules de vocabulari): ",
   "learning_language_simple": "Idioma d'aprenentatge",
+  "loading": "Carregant...",
   "number_of_vocab_entries": "Nombre d'entrades de vocabulari",
   "other": "Altres",
   "password": "Contrasenya",

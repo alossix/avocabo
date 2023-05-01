@@ -22,6 +22,7 @@
   "invalid_email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
   "learning_language": "Ich lerne folgende Sprache (dies generiert eine Beispielliste von Vokabeln):",
   "learning_language_simple": "Lernsprache",
+  "loading": "Wird geladen...",
   "number_of_vocab_entries": "Anzahl der Vokabeleinträge",
   "other": "Andere",
   "password": "Passwort",

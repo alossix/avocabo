@@ -33,7 +33,7 @@ const PageWrapper = styled.main`
 `;
 const MainContent = styled.section`
   display: flex;
-  grid-area: 2 / 1 / -1 / 9;
+  grid-area: 2 / 1 / 8 / 9;
   overflow-y: auto;
   padding: 8px;
 `;
