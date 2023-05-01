@@ -72,8 +72,6 @@ const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
     );
   });
 
-  console.log(vocabWord.blackoutWords);
-
   return (
     <CardWrapper
       onClick={handleOnShowDetailsClick}
