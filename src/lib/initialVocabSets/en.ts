@@ -4,6 +4,7 @@ import { initialVocabProperties } from "../initialVocab";
 
 export const initialVocabSetEN: Vocab[] = [
   {
+    blackoutWords: { 18: 21 },
     category: "noun",
     definition: "sun",
     description: "Never look at the sun during an eclipse.",
@@ -13,6 +14,7 @@ export const initialVocabSetEN: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 13: 17 },
     category: "noun",
     definition: "rain",
     description: "We watch the rain during the storm.",
@@ -22,6 +24,7 @@ export const initialVocabSetEN: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 17: 22 },
     category: "noun",
     definition: "crown",
     description: "The actor wore a crown on his head.",
@@ -31,6 +34,7 @@ export const initialVocabSetEN: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 10: 13 },
     category: "noun",
     definition: "the hat",
     description:
@@ -41,6 +45,7 @@ export const initialVocabSetEN: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 34: 41 },
     category: "noun",
     definition: "the glasses",
     description:
@@ -51,6 +56,7 @@ export const initialVocabSetEN: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 42: 49 },
     category: "noun",
     definition: "t-shirt",
     description:
@@ -61,6 +67,7 @@ export const initialVocabSetEN: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 4: 9 },
     category: "noun",
     definition: "pants",
     description: "The pants were made of blue denim.",

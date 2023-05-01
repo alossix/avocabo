@@ -4,6 +4,7 @@ import { initialVocabProperties } from "../initialVocab";
 
 export const initialVocabSetCA: Vocab[] = [
   {
+    blackoutWords: { 13: 16 },
     category: "noun",
     definition: "el sol",
     description: "Mai miris al sol durant un eclipsi.",
@@ -13,6 +14,7 @@ export const initialVocabSetCA: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 6: 8, 9: 14 },
     category: "noun",
     definition: "la pluja",
     description: "Mirem la pluja durant la tempesta.",
@@ -22,6 +24,7 @@ export const initialVocabSetCA: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 20: 26 },
     category: "noun",
     definition: "la corona",
     description: "L'actor portava una corona al cap.",
@@ -31,6 +34,7 @@ export const initialVocabSetCA: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 10: 16 },
     category: "noun",
     definition: "el barret",
     description:
@@ -41,6 +45,7 @@ export const initialVocabSetCA: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 37: 40, 41: 48 },
     category: "noun",
     definition: "les ulleres",
     description:
@@ -51,6 +56,7 @@ export const initialVocabSetCA: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 48: 57 },
     category: "noun",
     definition: "la samarreta",
     description:
@@ -61,6 +67,7 @@ export const initialVocabSetCA: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 0: 3, 4: 13 },
     category: "noun",
     definition: "els pantalons",
     description: "Els pantalons eren de texà blau.",

@@ -4,6 +4,7 @@ import { initialVocabProperties } from "../initialVocab";
 
 export const initialVocabSetES: Vocab[] = [
   {
+    blackoutWords: { 15: 18 },
     category: "noun",
     definition: "el sol",
     description: "Nunca mires al sol durante un eclipse.",
@@ -13,6 +14,7 @@ export const initialVocabSetES: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 8: 10, 11: 17 },
     category: "noun",
     definition: "la lluvia",
     description: "Miramos la lluvia durante la tormenta.",
@@ -22,6 +24,7 @@ export const initialVocabSetES: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 21: 27 },
     category: "noun",
     definition: "la corona",
     description: "El actor llevaba una corona en su cabeza.",
@@ -31,6 +34,7 @@ export const initialVocabSetES: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 8: 16 },
     category: "noun",
     definition: "el sombrero",
     description:
@@ -41,6 +45,7 @@ export const initialVocabSetES: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 35: 40 },
     category: "noun",
     definition: "las gafas",
     description:
@@ -51,6 +56,7 @@ export const initialVocabSetES: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 43: 51 },
     category: "noun",
     definition: "la camiseta",
     description:
@@ -61,6 +67,7 @@ export const initialVocabSetES: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 0: 3, 4: 14 },
     category: "noun",
     definition: "los pantalones",
     description: "Los pantalones eran de mezclilla azul.",

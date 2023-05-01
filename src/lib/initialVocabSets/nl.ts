@@ -4,6 +4,7 @@ import { initialVocabProperties } from "../initialVocab";
 
 export const initialVocabSetNL: Vocab[] = [
   {
+    blackoutWords: { 16: 18, 19: 22 },
     category: "noun",
     definition: "de zon",
     description: "Kijk nooit naar de zon tijdens een zonsverduistering.",
@@ -13,6 +14,7 @@ export const initialVocabSetNL: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 15: 17, 18: 23 },
     category: "noun",
     definition: "de regen",
     description: "We kijken naar de regen tijdens de storm.",
@@ -22,6 +24,7 @@ export const initialVocabSetNL: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 20: 25 },
     category: "noun",
     definition: "de kroon",
     description: "De acteur droeg een kroon op zijn hoofd.",
@@ -31,6 +34,7 @@ export const initialVocabSetNL: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 4: 8 },
     category: "noun",
     definition: "de hoed",
     description:
@@ -41,6 +45,7 @@ export const initialVocabSetNL: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 35: 39 },
     category: "noun",
     definition: "de bril",
     description: "Nu ik ouder ben, moet ik vaker een bril dragen om te lezen.",
@@ -50,8 +55,9 @@ export const initialVocabSetNL: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 49: 56 },
     category: "noun",
-    definition: "het T-shirt",
+    definition: "het t-shirt",
     description:
       "Het is een warme dag, dus ik heb besloten om een T-shirt aan te trekken in plaats van een trui.",
     imageURL:
@@ -60,6 +66,7 @@ export const initialVocabSetNL: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 0: 2, 3: 8 },
     category: "noun",
     definition: "de broek",
     description: "De broek was van blauw denim.",

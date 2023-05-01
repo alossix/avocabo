@@ -4,6 +4,7 @@ import { initialVocabProperties } from "../initialVocab";
 
 export const initialVocabSetUK: Vocab[] = [
   {
+    blackoutWords: { 22: 27 },
     category: "noun",
     definition: "сонце",
     description: "Ніколи не дивіться на сонце під час сонячного затемнення.",
@@ -13,6 +14,7 @@ export const initialVocabSetUK: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 20: 25 },
     category: "noun",
     definition: "дощ",
     description: "Ми спостерігаємо за дощем під час грози.",
@@ -22,6 +24,7 @@ export const initialVocabSetUK: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 12: 18 },
     category: "noun",
     definition: "корона",
     description: "Актор носив корону на голові.",
@@ -31,6 +34,7 @@ export const initialVocabSetUK: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 8: 16 },
     category: "noun",
     definition: "капелюх",
     description:
@@ -41,6 +45,7 @@ export const initialVocabSetUK: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 58: 67 },
     category: "noun",
     definition: "окуляри",
     description:
@@ -51,6 +56,7 @@ export const initialVocabSetUK: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 43: 51 },
     category: "noun",
     definition: "футболка",
     description:
@@ -61,6 +67,7 @@ export const initialVocabSetUK: Vocab[] = [
     ...initialVocabProperties,
   },
   {
+    blackoutWords: { 0: 5 },
     category: "noun",
     definition: "штани",
     description: "Штани були з синього деніму.",
