@@ -1,5 +1,13 @@
 import { handleAppError } from "@/lib/handleAppError";
-import { initialVocabSet } from "@/lib/initialVocab";
+import { initialVocabSetCA as ca } from "@/lib/initialVocabSets/ca";
+import { initialVocabSetDE as de } from "@/lib/initialVocabSets/de";
+import { initialVocabSetEN as en } from "@/lib/initialVocabSets/en";
+import { initialVocabSetES as es } from "@/lib/initialVocabSets/es";
+import { initialVocabSetFR as fr } from "@/lib/initialVocabSets/fr";
+import { initialVocabSetIT as it } from "@/lib/initialVocabSets/it";
+import { initialVocabSetNL as nl } from "@/lib/initialVocabSets/nl";
+import { initialVocabSetOther as other } from "@/lib/initialVocabSets/other";
+import { initialVocabSetUK as uk } from "@/lib/initialVocabSets/uk";
 import {
   auth,
   createUserWithEmailAndPassword,
@@ -16,6 +24,7 @@ import {
   InterfaceLanguages,
   LearningLanguages,
 } from "@/types/general";
+import { Vocab } from "@/types/vocab";
 import {
   AnyAction,
   PayloadAction,
@@ -31,6 +40,18 @@ import {
   getVocabDB,
   setVocabInState,
 } from "./vocabSlice";
+
+const initialVocabSet: { [key in LearningLanguages]: Vocab[] } = {
+  ca,
+  de,
+  en,
+  es,
+  fr,
+  it,
+  nl,
+  other,
+  uk,
+};
 
 export type AuthState = {
   user: AppUser | null;
