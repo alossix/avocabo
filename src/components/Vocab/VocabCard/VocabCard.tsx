@@ -1,6 +1,7 @@
 import { useWordHighlighting } from "@/hooks/useWordHighlighting";
 import { newShortDate } from "@/lib/datesAndTimes";
 import { theme } from "@/styles/theme";
+import { AppUser } from "@/types/general";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
@@ -11,10 +12,11 @@ import { LearningStepper } from "../LearningStepper";
 import EditVocabIcon from "/public/icons/edit-vocab-icon.svg";
 
 type VocabCardProps = {
+  currentUser: AppUser;
   vocabWord: Vocab;
 };
 
-const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
+const VocabCard: React.FC<VocabCardProps> = ({ currentUser, vocabWord }) => {
   const { t } = useTranslation("vocab");
   const { isRangeHighlighted } = useWordHighlighting({
     blackoutWords: vocabWord.blackoutWords,
@@ -98,6 +100,7 @@ const VocabCard: React.FC<VocabCardProps> = ({ vocabWord }) => {
         </EditButton>
 
         <EditVocabModal
+          currentUser={currentUser}
           isOpen={openModal}
           setOpenModal={() => setOpenModal(!openModal)}
           vocabWord={vocabWord}

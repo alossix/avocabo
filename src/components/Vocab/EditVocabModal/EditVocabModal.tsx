@@ -1,29 +1,30 @@
 import { CategorySelector } from "@/components/Forms/CategorySelector";
 import { Button } from "@/components/UI/Button";
 import { Modal } from "@/components/UI/Modal";
+import { TextInput } from "@/components/UI/TextInput";
 import { useVocab } from "@/hooks/useVocab";
+import { uploadVocabImage } from "@/store/slices/sliceUtils/vocabUtils";
+import { useAppDispatch } from "@/store/store";
+import { theme } from "@/styles/theme";
+import { AppUser } from "@/types/general";
 import { Vocab, VocabCategories } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { DeleteWord } from "../DeleteWord";
-import { useAppSelector } from "@/store/hooks";
-import { selectUserSignedIn } from "@/store/slices/authSlice";
-import { useAppDispatch } from "@/store/store";
-import { uploadVocabImage } from "@/store/slices/sliceUtils/vocabUtils";
-import { TextInput } from "@/components/UI/TextInput";
 import { BlackoutEditor } from "../BlackoutEditor";
-import { theme } from "@/styles/theme";
+import { DeleteWord } from "../DeleteWord";
 
 type EditVocabModalProps = {
+  currentUser: AppUser;
   isOpen: boolean;
   setOpenModal: () => void;
   vocabWord: Vocab;
 };
 
 export const EditVocabModal: React.FC<EditVocabModalProps> = ({
+  currentUser,
   isOpen,
   setOpenModal,
   vocabWord,
@@ -41,7 +42,6 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   );
   const [imageURL, setImageURL] = useState(vocabWord.imageURL);
   const [loading, setLoading] = useState(false);
-  const currentUser = useAppSelector(selectUserSignedIn);
   const definitionValue = watch("definition");
   const descriptionValue = watch("description");
   const dispatch = useAppDispatch();

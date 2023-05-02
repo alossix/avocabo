@@ -31,7 +31,7 @@ describe("ProfilePageView", () => {
     render(
       <ProfilePageView
         currentUser={currentUser}
-        vocabCount={mockVocabList.length}
+        vocabCount={Object.keys(mockVocabList).length}
       />
     );
     expect(screen.getByText(currentUser.displayName ?? "")).toBeInTheDocument();
@@ -41,7 +41,7 @@ describe("ProfilePageView", () => {
     render(
       <ProfilePageView
         currentUser={currentUser}
-        vocabCount={mockVocabList.length}
+        vocabCount={Object.keys(mockVocabList).length}
       />
     );
     expect(screen.getByText(currentUser.email ?? "")).toBeInTheDocument();
@@ -51,11 +51,11 @@ describe("ProfilePageView", () => {
     render(
       <ProfilePageView
         currentUser={currentUser}
-        vocabCount={mockVocabList.length}
+        vocabCount={Object.keys(mockVocabList).length}
       />
     );
     expect(
-      screen.getByText(mockVocabList.length.toString())
+      screen.getByText(Object.keys(mockVocabList).length.toString())
     ).toBeInTheDocument();
   });
 
@@ -63,11 +63,12 @@ describe("ProfilePageView", () => {
     render(
       <ProfilePageView
         currentUser={currentUser}
-        vocabCount={mockVocabList.length}
+        vocabCount={Object.keys(mockVocabList).length}
       />
     );
-    const learningLanguage = "Català";
-    expect(screen.getByText(learningLanguage)).toBeInTheDocument();
+    const expectedLanguageName =
+      languageLabelsLearning[currentUser.learningLanguage];
+    expect(screen.getByText(expectedLanguageName)).toBeInTheDocument();
   });
 
   it.each(Object.entries(languageLabelsLearning))(
@@ -80,7 +81,7 @@ describe("ProfilePageView", () => {
       render(
         <ProfilePageView
           currentUser={testUser}
-          vocabCount={mockVocabList.length}
+          vocabCount={Object.keys(mockVocabList).length}
         />
       );
       expect(screen.getByText(expectedLanguageName)).toBeInTheDocument();

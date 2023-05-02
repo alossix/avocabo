@@ -2,11 +2,14 @@ import { MyVocabPageView } from "@/components/PageViews/MyVocabPageView";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import useFetchVocabAndAuthChanges from "@/hooks/useFetchVocabAndAuthChanges";
 import { useVocab } from "@/hooks/useVocab";
+import { useAppSelector } from "@/store/hooks";
+import { selectUserSignedIn } from "@/store/slices/authSlice";
 import { useEffect, useState } from "react";
 
 const MyVocabPage: React.FC = () => {
-  const [isReady, setIsReady] = useState(false);
   const { vocabListDueToday } = useVocab();
+  const [isReady, setIsReady] = useState(false);
+  const currentUser = useAppSelector(selectUserSignedIn);
 
   const { loading } = useAuthRedirect({
     redirectTo: "/sign-in",
@@ -21,11 +24,13 @@ const MyVocabPage: React.FC = () => {
     }
   }, [initialized]);
 
-  if (loading || !isReady) {
+  if (loading || !isReady || !currentUser) {
     return null;
   }
 
-  return <MyVocabPageView vocabList={vocabListDueToday} />;
+  return (
+    <MyVocabPageView currentUser={currentUser} vocabList={vocabListDueToday} />
+  );
 };
 
 export default MyVocabPage;

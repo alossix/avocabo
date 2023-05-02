@@ -8,26 +8,25 @@ import {
   onSnapshot,
   query,
   setDoc,
+  updateDoc,
 } from "@/services/firebase/firebaseService";
 import { Vocab } from "@/types/vocab";
 import { runTransaction } from "@firebase/firestore";
 import { PayloadAction, Unsubscribe, createSlice } from "@reduxjs/toolkit";
 import { AppThunk, RootState } from "../store";
 import { setAppError } from "./authSlice";
-import {
-  dispatchAndUpdateDoc,
-  getUserVocabDocRef,
-} from "./sliceUtils/firebaseUtils";
+import { getUserVocabDocRef } from "./sliceUtils/firebaseUtils";
 import { getUpdatedDueDate } from "./sliceUtils/vocabUtils";
 
-const initialState: Vocab[] = [];
+const initialState: { [vocabId: string]: Vocab } = {};
 
 export const vocabSlice = createSlice({
   name: "vocab",
   initialState,
   reducers: {
     addVocabEntryInState: (state, action: PayloadAction<Vocab>) => {
-      state.push(action.payload);
+      const vocab = action.payload;
+      state[vocab.vocabId] = vocab;
     },
 
     removeVocabEntryInState: (
@@ -35,27 +34,31 @@ export const vocabSlice = createSlice({
       action: PayloadAction<{ vocabId: string }>
     ) => {
       const { vocabId } = action.payload;
-      const vocabIndex = state.findIndex((v) => v.vocabId === vocabId);
-
-      if (vocabIndex !== -1) {
-        state.splice(vocabIndex, 1);
-      }
+      delete state[vocabId];
     },
+
     setNextVocabEntriesDueTodayInState: (
       state,
       action: PayloadAction<{ vocabIds: string[] }>
     ) => {
       const { vocabIds } = action.payload;
+      const today = new Date().toISOString();
+
       vocabIds.forEach((vocabId) => {
-        const vocabIndex = state.findIndex((v) => v.vocabId === vocabId);
-        if (vocabIndex !== -1) {
-          state[vocabIndex].dueDate = new Date().toISOString();
+        if (state[vocabId]) {
+          state[vocabId].dueDate = today;
         }
       });
     },
-    setVocabInState: (state, action: PayloadAction<Vocab[]>) => {
-      return action.payload;
+
+    setVocabInState: (
+      state,
+      action: PayloadAction<{ [vocabId: string]: Vocab }>
+    ) => {
+      const vocabObject = action.payload;
+      return { ...vocabObject };
     },
+
     updateVocabEntryInState: (
       state,
       action: PayloadAction<{
@@ -64,8 +67,7 @@ export const vocabSlice = createSlice({
       }>
     ) => {
       const { vocabId, updatedProperties } = action.payload;
-      const vocabIndex = state.findIndex((v) => v.vocabId === vocabId);
-      state[vocabIndex] = { ...state[vocabIndex], ...updatedProperties };
+      state[vocabId] = { ...state[vocabId], ...updatedProperties };
     },
   },
 });
@@ -73,28 +75,25 @@ export const vocabSlice = createSlice({
 export const addVocabEntryDB =
   ({ newVocabWord }: { newVocabWord: Vocab }): AppThunk =>
   async (dispatch) => {
-    try {
-      if (auth.currentUser) {
-        // Add the new vocab to the database
-        await setDoc(
-          getUserVocabDocRef({
-            uid: auth.currentUser.uid,
-            vocabId: newVocabWord.vocabId,
-          }),
-          { ...newVocabWord }
-        );
-
-        // add vocab word to local state
-        dispatch(addVocabEntryInState(newVocabWord));
-      }
-    } catch (error: unknown) {
-      const { message } = handleAppError(error);
-      dispatch(setAppError(message));
+    if (!auth.currentUser) {
+      throw new Error("User is not signed in");
     }
+
+    const vocabDocRef = doc(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "vocab",
+      newVocabWord.vocabId // reference the document by vocabId instead of index
+    );
+
+    await setDoc(vocabDocRef, newVocabWord);
+
+    dispatch(getVocabDB({ userId: auth.currentUser.uid }));
   };
 
 export const addInitialVocabBatchDB =
-  (initialVocabWords: Vocab[]): AppThunk =>
+  (initialVocabWords: { [vocabId: string]: Vocab }): AppThunk =>
   async (dispatch) => {
     if (!auth.currentUser) {
       throw new Error("User is not signed in");
@@ -108,7 +107,8 @@ export const addInitialVocabBatchDB =
     );
 
     await runTransaction(db, async (transaction) => {
-      initialVocabWords.forEach(async (initialVocabWord) => {
+      Object.keys(initialVocabWords).forEach(async (vocabId) => {
+        const initialVocabWord = initialVocabWords[vocabId];
         const newVocabDocRef = doc(
           vocabCollectionRef,
           initialVocabWord.vocabId
@@ -129,7 +129,7 @@ export const getVocabDB =
         const vocabCollectionRef = collection(db, "users", userId, "vocab");
         const vocabQuery = query(vocabCollectionRef);
         const unsubscribe = onSnapshot(vocabQuery, (querySnapshot) => {
-          const vocabList: Vocab[] = [];
+          const vocabList: { [vocabId: string]: Vocab } = {};
           querySnapshot.forEach((doc) => {
             const vocab = doc.data() as Vocab;
 
@@ -146,7 +146,7 @@ export const getVocabDB =
               );
             }
 
-            vocabList.push(vocab);
+            vocabList[vocab.vocabId] = vocab;
           });
           dispatch(setVocabInState(vocabList));
         });
@@ -183,7 +183,7 @@ export const removeVocabEntryDB =
 export const setNextVocabEntriesDueTodayDB =
   (): AppThunk => async (dispatch, getState) => {
     const state = getState();
-    const vocabList = vocabSelector(state);
+    const vocabList = Object.values(vocabSelector(state));
     const today = new Date().toISOString();
     const notDueTodayVocab = vocabList.filter(
       (vocab) => new Date(vocab.dueDate).toISOString() !== today
@@ -216,26 +216,21 @@ export const updateVocabEntryDB =
     updatedProperties: Partial<Vocab>;
   }): AppThunk =>
   async (dispatch) => {
-    const baseUpdatedProperties = {
-      ...updatedProperties,
-      lastUpdatedAt: new Date().toISOString(),
-    };
+    if (!auth.currentUser) {
+      throw new Error("User is not signed in");
+    }
 
-    dispatch(
-      updateVocabEntryInState({
-        vocabId,
-        updatedProperties: baseUpdatedProperties,
-      })
+    const vocabDocRef = doc(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "vocab",
+      vocabId // reference the document by vocabId instead of index
     );
 
-    if (auth.currentUser?.uid) {
-      await dispatchAndUpdateDoc(
-        dispatch,
-        vocabId,
-        baseUpdatedProperties,
-        updateVocabEntryInState
-      );
-    }
+    await updateDoc(vocabDocRef, updatedProperties);
+
+    dispatch(getVocabDB({ userId: auth.currentUser.uid }));
   };
 
 export const {
@@ -246,9 +241,8 @@ export const {
   updateVocabEntryInState,
 } = vocabSlice.actions;
 
-export const vocabSelector = (state: RootState) =>
-  [...state.vocab].sort(
-    (a, b) => new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
-  );
+export const vocabSelector = (state: RootState) => {
+  return state.vocab;
+};
 
 export default vocabSlice;

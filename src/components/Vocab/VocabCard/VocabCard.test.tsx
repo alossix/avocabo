@@ -1,4 +1,4 @@
-import { mockVocabEntry } from "@/lib/testUtils";
+import { mockUser, mockVocabEntry } from "@/lib/testUtils";
 import { store } from "@/store/store";
 import { fireEvent, render, screen, within } from "@testing-library/react";
 import { Provider } from "react-redux";
@@ -8,7 +8,7 @@ describe("VocabCard", () => {
   const renderVocabCard = () => {
     return render(
       <Provider store={store}>
-        <VocabCard vocabWord={mockVocabEntry} />
+        <VocabCard currentUser={mockUser} vocabWord={mockVocabEntry} />
       </Provider>
     );
   };

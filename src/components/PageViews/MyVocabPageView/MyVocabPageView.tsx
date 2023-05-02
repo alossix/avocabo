@@ -3,6 +3,7 @@ import { VocabCard } from "@/components/Vocab/VocabCard";
 import { useVocab } from "@/hooks/useVocab";
 import { formatTimeHoursAndMinutes } from "@/lib/datesAndTimes";
 import { theme } from "@/styles/theme";
+import { AppUser } from "@/types/general";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
@@ -10,10 +11,12 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type MyVocabPageViewProps = {
-  vocabList: Vocab[];
+  currentUser: AppUser;
+  vocabList: Record<string, Vocab>;
 };
 
 export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
+  currentUser,
   vocabList,
 }) => {
   const { t } = useTranslation("vocab");
@@ -21,23 +24,25 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
   const updateKeyRef = useRef(0);
 
   const dueVocabList = useMemo(
-    () => vocabList.filter((vocab) => new Date(vocab.dueDate) < new Date()),
+    () =>
+      Object.values(vocabList).filter(
+        (vocab) => new Date(vocab.dueDate) < new Date()
+      ),
     [vocabList]
   );
 
-  const nextVocab = useMemo(
-    () =>
-      vocabList
-        .filter((vocab) => new Date(vocab.dueDate) > new Date())
-        .reduce<Vocab | null>(
-          (min, vocab) =>
-            min === null || new Date(vocab.dueDate) < new Date(min.dueDate)
-              ? vocab
-              : min,
-          null
-        ),
-    [vocabList]
-  );
+  const nextVocab = useMemo(() => {
+    const sortedVocabList = Object.values(vocabList).filter(
+      (vocab) => new Date(vocab.dueDate) > new Date()
+    );
+    if (sortedVocabList.length === 0) return null;
+
+    return sortedVocabList.reduce<Vocab>(
+      (min, vocab) =>
+        new Date(vocab.dueDate) < new Date(min.dueDate) ? vocab : min,
+      sortedVocabList[0]
+    );
+  }, [vocabList]);
 
   const [timeToNextVocab, setTimeToNextVocab] = useState(
     nextVocab
@@ -46,7 +51,7 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
   );
 
   const dueCountIsZero = dueVocabList.length === 0;
-  const vocabCountIsZero = vocabList.length === 0;
+  const vocabCountIsZero = Object.keys(vocabList).length === 0;
 
   const handleLoadEntries = useCallback(() => {
     setNextVocabEntriesDueToday();
@@ -110,7 +115,10 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
                 })}
               </StyledH3>
               <VocabCardsContainer>
-                <VocabCard vocabWord={dueVocabList[0]} />
+                <VocabCard
+                  currentUser={currentUser}
+                  vocabWord={dueVocabList[0]}
+                />
               </VocabCardsContainer>
             </>
           )}
