@@ -118,14 +118,12 @@ export const uploadVocabImage = async ({
   setValue,
   vocabId,
 }: {
-  currentUser: AppUser | null;
+  currentUser: AppUser;
   dispatch: ThunkDispatch<RootState, undefined, AnyAction>;
   event: React.ChangeEvent<HTMLInputElement>;
   setValue: UseFormSetValue<Vocab>;
   vocabId: string;
 }) => {
-  if (!currentUser) return null;
-
   if (event.target.files && event.target.files[0]) {
     const file = event.target.files[0];
     const fileRef = ref(storage, `users/${currentUser?.uid}/images/${vocabId}`);

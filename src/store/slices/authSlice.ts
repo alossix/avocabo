@@ -41,7 +41,9 @@ import {
   setVocabInState,
 } from "./vocabSlice";
 
-const initialVocabSet: { [key in LearningLanguages]: Vocab[] } = {
+const initialVocabSet: {
+  [key in LearningLanguages]: { [vocabId: string]: Vocab };
+} = {
   ca,
   de,
   en,
@@ -139,8 +141,7 @@ export const createUserAuth =
       await setDoc(userDocRef, { ...userData });
 
       // Add the initial vocabulary set for the user
-      const newVocabWords = initialVocabSet[learningLanguage];
-      dispatch(addInitialVocabBatchDB(newVocabWords));
+      dispatch(addInitialVocabBatchDB(initialVocabSet[learningLanguage]));
     } catch (error: unknown) {
       const { message } = handleAppError(error);
       dispatch(setAppError(message));
@@ -186,7 +187,7 @@ export const signOutAuth =
       await firebaseSignOut(auth);
 
       dispatch(signOutApp());
-      dispatch(setVocabInState([]));
+      dispatch(setVocabInState({}));
     } catch (error: unknown) {
       const { message } = handleAppError(error);
       dispatch(setAppError(message));

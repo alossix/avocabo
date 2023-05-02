@@ -20,23 +20,24 @@ export const useVocab = () => {
   const dispatch = useAppDispatch();
   const today = newShortDate();
   const allVocab = useAppSelector(vocabSelector);
-  const vocabMap = useMemo(() => {
-    const map = new Map();
-    for (const vocab of allVocab) {
-      map.set(vocab.vocabId, vocab);
+
+  const vocabById = useMemo(() => {
+    const byId: Record<string, Vocab> = {};
+    for (const [vocabId, vocab] of Object.entries(allVocab)) {
+      byId[vocabId] = vocab;
     }
-    return map;
+    return byId;
   }, [allVocab]);
 
   const vocabListDueToday = useMemo(() => {
-    const dueTodayList = [];
-    for (const vocab of vocabMap.values()) {
+    const dueTodayList: Record<string, Vocab> = {};
+    for (const [vocabId, vocab] of Object.entries(vocabById)) {
       if (newShortDate(vocab.dueDate) === today) {
-        dueTodayList.push(vocab);
+        dueTodayList[vocabId] = vocab;
       }
     }
     return dueTodayList;
-  }, [vocabMap, today]);
+  }, [vocabById, today]);
 
   const addVocabEntry = ({ newVocabWord }: { newVocabWord: Vocab }) => {
     dispatch(addVocabEntryDB({ newVocabWord }));

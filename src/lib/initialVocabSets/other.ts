@@ -1,3 +1,3 @@
 import { Vocab } from "@/types/vocab";
 
-export const initialVocabSetOther: Vocab[] = [];
+export const initialVocabSetOther: { [vocabId: string]: Vocab } = {};

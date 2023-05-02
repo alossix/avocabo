@@ -32,14 +32,16 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
 
-export const fetchVocabData = async (userId: string): Promise<Vocab[]> => {
+export const fetchVocabData = async (
+  userId: string
+): Promise<{ [vocabId: string]: Vocab }> => {
   const vocabQuery = query(collection(db, "users", userId, "vocab"));
   const vocabSnapshot = await getDocs(vocabQuery);
 
-  const vocabData: Vocab[] = [];
+  const vocabData: { [vocabId: string]: Vocab } = {};
   vocabSnapshot.forEach((doc) => {
     const vocab = doc.data() as Vocab;
-    vocabData.push(vocab);
+    vocabData[vocab.vocabId] = vocab;
   });
 
   return vocabData;

@@ -32,6 +32,8 @@ export const AddWordForm: React.FC = () => {
   const registerForm = useRef<HTMLFormElement>(null);
   const vocabId = uuid4();
 
+  if (!currentUser) return null;
+
   const handleFormSubmit: SubmitHandler<Vocab> = (vocabWordData) => {
     try {
       setIsSubmitting(true);

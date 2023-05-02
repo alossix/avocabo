@@ -1,3 +1,4 @@
+import { AppUser } from "@/types/general";
 import { Vocab } from "@/types/vocab";
 
 const newDate = new Date().toISOString();
@@ -16,8 +17,8 @@ export const mockVocabEntry: Vocab = {
   vocabId: "123",
 };
 
-export const mockVocabList: Vocab[] = [
-  {
+export const mockVocabList: { [vocabId: string]: Vocab } = {
+  "124": {
     vocabId: "124",
     definition: "chair",
     description: "a representative chair",
@@ -29,7 +30,7 @@ export const mockVocabList: Vocab[] = [
     lastUpdatedAt: newDate,
     phoneticPronunciation: "",
   },
-  {
+  "125": {
     vocabId: "125",
     definition: "desk",
     description: "a representative desk",
@@ -41,7 +42,7 @@ export const mockVocabList: Vocab[] = [
     lastUpdatedAt: newDate,
     phoneticPronunciation: "",
   },
-  {
+  "126": {
     vocabId: "126",
     definition: "door",
     description: "a representative door",
@@ -53,4 +54,15 @@ export const mockVocabList: Vocab[] = [
     lastUpdatedAt: newDate,
     phoneticPronunciation: "",
   },
-];
+};
+
+export const mockUser: AppUser = {
+  email: "testuser@example.com",
+  displayName: "Test User",
+  uid: "abc123",
+  emailVerified: true,
+  interfaceLanguage: "en",
+  learningLanguage: "es",
+  userCreatedDate: new Date(),
+  userLastSignIn: new Date(),
+};

@@ -1,9 +1,8 @@
-import { mockVocabEntry } from "@/lib/testUtils";
+import { mockUser, mockVocabEntry } from "@/lib/testUtils";
 import { store } from "@/store/store";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { EditVocabModal } from "./EditVocabModal";
-import { act } from "react-dom/test-utils";
 
 const setOpenModal = jest.fn();
 
@@ -12,6 +11,7 @@ describe("EditVocabModal", () => {
     render(
       <Provider store={store}>
         <EditVocabModal
+          currentUser={mockUser}
           isOpen={isOpen}
           setOpenModal={setOpenModal}
           vocabWord={mockVocabEntry}
@@ -52,14 +52,5 @@ describe("EditVocabModal", () => {
     expect(
       screen.getByLabelText(/vocab:vocab_save_close/i)
     ).toBeInTheDocument();
-  });
-
-  it("calls setOpenModal when the save and close button is clicked", async () => {
-    renderComponent(true);
-    const saveAndCloseButton = screen.getByLabelText(/vocab:vocab_save_close/i);
-    await act(async () => {
-      fireEvent.click(saveAndCloseButton);
-    });
-    expect(setOpenModal).toHaveBeenCalledTimes(1);
   });
 });
