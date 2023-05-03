@@ -1,5 +1,7 @@
 {
   "category": "Categoria",
+  "vocab_added_error": "Errore nell'aggiunta della voce del vocabolario",
+  "vocab_added_success": "Voce del vocabolario aggiunta con successo",
   "vocab_blackout_description": "Questo ti consente di nascondere la tua voce di vocabolario nel testo di descrizione. Cliccando su una parola la evidenzia, e cliccando di nuovo la rimuove.",
   "vocab_category_noun": "Sostantivo",
   "vocab_category_verb": "Verbo",
