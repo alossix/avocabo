@@ -4,10 +4,11 @@ import { BlackoutEditor } from "@/components/Vocab/BlackoutEditor";
 import { useVocab } from "@/hooks/useVocab";
 import { handleAppError } from "@/lib/handleAppError";
 import { initialVocabProperties } from "@/lib/initialVocab";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { selectUserSignedIn, setAppError } from "@/store/slices/authSlice";
+import { useAppDispatch } from "@/store/hooks";
+import { setAppError } from "@/store/slices/authSlice";
 import { uploadVocabImage } from "@/store/slices/sliceUtils/vocabUtils";
 import { theme } from "@/styles/theme";
+import { AppUser } from "@/types/general";
 import { Vocab, VocabCategories } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
@@ -16,7 +17,17 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuid4 } from "uuid";
 import { CategorySelector } from "../CategorySelector";
 
-export const AddWordForm: React.FC = () => {
+type AddWordFormProps = {
+  currentUser: AppUser;
+  setShowErrorMessage: (error: boolean) => void;
+  setShowSuccessMessage: (success: boolean) => void;
+};
+
+export const AddWordForm: React.FC<AddWordFormProps> = ({
+  currentUser,
+  setShowErrorMessage,
+  setShowSuccessMessage,
+}) => {
   const { addVocabEntry } = useVocab();
   const { t } = useTranslation("vocab");
   const { handleSubmit, register, reset, setValue, watch } = useForm<Vocab>();
@@ -25,14 +36,25 @@ export const AddWordForm: React.FC = () => {
     []
   );
   const [currentCategory, setCurrentCategory] = useState<VocabCategories>("");
-  const currentUser = useAppSelector(selectUserSignedIn);
   const definitionValue = watch("definition");
   const descriptionValue = watch("description");
   const dispatch = useAppDispatch();
   const registerForm = useRef<HTMLFormElement>(null);
   const vocabId = uuid4();
 
-  if (!currentUser) return null;
+  const handleSuccess = () => {
+    setShowSuccessMessage(true);
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 3000);
+  };
+
+  const handleError = () => {
+    setShowErrorMessage(true);
+    setTimeout(() => {
+      setShowErrorMessage(false);
+    }, 3000);
+  };
 
   const handleFormSubmit: SubmitHandler<Vocab> = (vocabWordData) => {
     try {
@@ -45,10 +67,12 @@ export const AddWordForm: React.FC = () => {
           vocabId,
         },
       });
+      handleSuccess();
     } catch (error: unknown) {
       const { message } = handleAppError(error);
       dispatch(setAppError(message));
       console.error(error);
+      handleError();
     } finally {
       reset();
       setTimeout(() => {
@@ -70,7 +94,7 @@ export const AddWordForm: React.FC = () => {
         <label
           htmlFor="imageURL"
           style={{
-            color: theme.colors.darkGrey,
+            color: theme.colors.lightBlack,
             marginBottom: 4,
           }}
         >
@@ -88,7 +112,7 @@ export const AddWordForm: React.FC = () => {
               vocabId,
             })
           }
-          style={{ color: theme.colors.darkGrey }}
+          style={{ color: theme.colors.lightBlack }}
         />
       </InputContainer>
       <InputContainer>
@@ -114,7 +138,7 @@ export const AddWordForm: React.FC = () => {
             setBlackoutWords={setBlackoutWords}
           />
           <InputContainer>
-            <p style={{ color: theme.colors.darkGrey, marginLeft: 16 }}>
+            <p style={{ color: theme.colors.lightBlack, marginLeft: 16 }}>
               {"* "}
               {t("vocab:vocab_blackout_description")}
             </p>
@@ -152,10 +176,6 @@ const StyledForm = styled.form({
   flexDirection: "column",
   width: "100%",
   gap: 16,
-
-  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
-    width: "50%",
-  },
 });
 
 const InputContainer = styled.div({

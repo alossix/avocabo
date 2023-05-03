@@ -94,7 +94,7 @@ const Line = styled.span<{ mobileMenuOpen: boolean }>`
   height: 4px;
   width: 100%;
   border-radius: 10px;
-  background: ${theme.colors.black};
+  background: ${theme.colors.lightBlack};
 
   &.line1 {
     transform-origin: 0% 0%;

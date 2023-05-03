@@ -16,7 +16,9 @@ const ProfilePage: React.FC = () => {
 
   useFetchVocabAndAuthChanges();
 
-  return loading || !currentUser ? null : (
+  if (loading || !currentUser) return null;
+
+  return (
     <ProfilePageView
       currentUser={currentUser}
       vocabCount={Object.keys(vocabList).length}

@@ -65,8 +65,10 @@ const VocabCard: React.FC<VocabCardProps> = ({ currentUser, vocabWord }) => {
       <span
         key={index}
         style={{
-          backgroundColor: isHighlighted ? theme.colors.black : "transparent",
-          color: theme.colors.black,
+          backgroundColor: isHighlighted
+            ? theme.colors.lightBlack
+            : "transparent",
+          color: theme.colors.lightBlack,
         }}
       >
         {word}
@@ -85,7 +87,7 @@ const VocabCard: React.FC<VocabCardProps> = ({ currentUser, vocabWord }) => {
       aria-pressed={showDetails}
     >
       <TopRowDetails showDetails={showDetails}>
-        <p style={{ color: theme.colors.superDarkGrey, fontSize: 12 }}>
+        <p style={{ color: theme.colors.lightBlack, fontSize: 12 }}>
           {t("vocab:vocab_due_date", { dueDate })}
         </p>
 
@@ -134,7 +136,7 @@ const VocabCard: React.FC<VocabCardProps> = ({ currentUser, vocabWord }) => {
         </>
       ) : (
         <>
-          <div style={{ color: theme.colors.superDarkGrey }}>
+          <div style={{ color: theme.colors.lightBlack }}>
             <p>{`${t("vocab:vocab_reveal_word")}...`}</p>
           </div>
           <Hidden>
@@ -204,7 +206,7 @@ const ImageContainer = styled.div({
 const DescriptionContainer = styled.div({
   display: "flex",
   margin: "0px 16px",
-  color: theme.colors.superDarkGrey,
+  color: theme.colors.lightBlack,
 });
 
 const HR = styled.hr({

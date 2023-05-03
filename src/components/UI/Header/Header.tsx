@@ -351,10 +351,10 @@ const HeaderItem = styled.li({
 
 const HeaderLink = styled(Link)({
   textDecoration: "none",
-  color: theme.colors.black,
+  color: theme.colors.lightBlack,
   whiteSpace: "nowrap",
 
-  "&:visited": { color: theme.colors.black },
+  "&:visited": { color: theme.colors.lightBlack },
   "&:active": {
     color: theme.colors.lightAvocado,
   },
