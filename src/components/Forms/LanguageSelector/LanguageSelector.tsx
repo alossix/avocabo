@@ -94,6 +94,6 @@ const StyledSelectMenu = styled.select({
   padding: "2px 4px",
   borderRadius: 4,
   border: `1px solid ${theme.colors.mediumGrey}`,
-  color: theme.colors.black,
+  color: theme.colors.lightBlack,
   backgroundColor: theme.colors.white,
 });

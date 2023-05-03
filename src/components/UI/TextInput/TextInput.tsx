@@ -45,10 +45,15 @@ export const TextInput: React.FC<TextInputProps> = ({
 const StyledLabel = styled.label<{ showLabel: boolean }>(({ showLabel }) => ({
   visibility: showLabel ? "visible" : "hidden",
   height: showLabel ? "auto" : 1,
+  color: theme.colors.lightBlack,
 }));
 
 const StyledInput = styled.input({
   padding: 8,
   border: `1px solid ${theme.colors.mediumGrey}`,
   borderRadius: 4,
+
+  "::placeholder": {
+    color: theme.colors.lightBlack,
+  },
 });

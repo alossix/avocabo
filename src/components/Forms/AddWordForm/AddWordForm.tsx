@@ -94,7 +94,7 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
         <label
           htmlFor="imageURL"
           style={{
-            color: theme.colors.darkGrey,
+            color: theme.colors.lightBlack,
             marginBottom: 4,
           }}
         >
@@ -112,7 +112,7 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
               vocabId,
             })
           }
-          style={{ color: theme.colors.darkGrey }}
+          style={{ color: theme.colors.lightBlack }}
         />
       </InputContainer>
       <InputContainer>
@@ -138,7 +138,7 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
             setBlackoutWords={setBlackoutWords}
           />
           <InputContainer>
-            <p style={{ color: theme.colors.darkGrey, marginLeft: 16 }}>
+            <p style={{ color: theme.colors.lightBlack, marginLeft: 16 }}>
               {"* "}
               {t("vocab:vocab_blackout_description")}
             </p>

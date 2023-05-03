@@ -77,7 +77,7 @@ const ToastContainer = styled.div<{ toastType: ToastProps["toastType"] }>(
 
 const StyledToastText = styled.h3({
   fontWeight: "bold",
-  color: theme.colors.black,
+  color: theme.colors.lightBlack,
 });
 
 const fadeIn = keyframes`

@@ -33,7 +33,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
           padding: 5.5,
           border: `1px solid ${theme.colors.mediumGrey}`,
           borderRadius: 4,
-          color: theme.colors.darkGrey,
+          color: theme.colors.lightBlack,
         }}
       >
         <option value="category">{t("vocab:category")}</option>

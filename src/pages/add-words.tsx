@@ -14,7 +14,9 @@ const AddWordsPage: React.FC = () => {
     authRequired: true,
   });
 
-  return loading || !currentUser ? null : (
+  if (loading || !currentUser) return null;
+
+  return (
     <>
       <Head>
         <title>{t("common:header_add_words")}</title>

@@ -8,7 +8,6 @@ import { vocabSelector } from "@/store/slices/vocabSlice";
 const ProfilePage: React.FC = () => {
   const currentUser = useAppSelector(selectUserSignedIn);
   const vocabList = useAppSelector(vocabSelector);
-  console.log(vocabList);
 
   const { loading } = useAuthRedirect({
     redirectTo: "/sign-in",
@@ -17,7 +16,9 @@ const ProfilePage: React.FC = () => {
 
   useFetchVocabAndAuthChanges();
 
-  return loading || !currentUser ? null : (
+  if (loading || !currentUser) return null;
+
+  return (
     <ProfilePageView
       currentUser={currentUser}
       vocabCount={Object.keys(vocabList).length}
