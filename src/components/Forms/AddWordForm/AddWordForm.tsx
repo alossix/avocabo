@@ -152,10 +152,6 @@ const StyledForm = styled.form({
   flexDirection: "column",
   width: "100%",
   gap: 16,
-
-  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
-    width: "50%",
-  },
 });
 
 const InputContainer = styled.div({

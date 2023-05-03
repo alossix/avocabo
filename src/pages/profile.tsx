@@ -8,6 +8,7 @@ import { vocabSelector } from "@/store/slices/vocabSlice";
 const ProfilePage: React.FC = () => {
   const currentUser = useAppSelector(selectUserSignedIn);
   const vocabList = useAppSelector(vocabSelector);
+  console.log(vocabList);
 
   const { loading } = useAuthRedirect({
     redirectTo: "/sign-in",

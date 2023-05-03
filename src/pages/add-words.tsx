@@ -1,4 +1,4 @@
-import { AddWordForm } from "@/components/Forms/AddWordForm";
+import { AddWordsPageView } from "@/components/PageViews/AddWordsPageView";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
@@ -16,10 +16,7 @@ const AddWordsPage: React.FC = () => {
       <Head>
         <title>{t("common:header_add_words")}</title>
       </Head>
-      <div style={{ width: "100%" }}>
-        <h1>{t("common:header_add_words")}</h1>
-        <AddWordForm />
-      </div>
+      <AddWordsPageView />
     </>
   );
 };

@@ -1,0 +1,1 @@
+export { AddWordsPageView } from "./AddWordsPageView";

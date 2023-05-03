@@ -11,6 +11,7 @@ const MyVocabPage: React.FC = () => {
   const [isReady, setIsReady] = useState(false);
   const currentUser = useAppSelector(selectUserSignedIn);
 
+  console.log(vocabListDueToday);
   const { loading } = useAuthRedirect({
     redirectTo: "/sign-in",
     authRequired: true,
