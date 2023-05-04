@@ -4,13 +4,15 @@ import useFetchVocabAndAuthChanges from "@/hooks/useFetchVocabAndAuthChanges";
 import { useAppSelector } from "@/store/hooks";
 import { selectUserSignedIn } from "@/store/slices/authSlice";
 import { vocabSelector } from "@/store/slices/vocabSlice";
+import useTranslation from "next-translate/useTranslation";
 
 const ProfilePage: React.FC = () => {
+  const { lang } = useTranslation();
   const currentUser = useAppSelector(selectUserSignedIn);
   const vocabList = useAppSelector(vocabSelector);
 
   const { loading } = useAuthRedirect({
-    redirectTo: "/sign-in",
+    redirectTo: `${lang}/sign-in`,
     authRequired: true,
   });
 

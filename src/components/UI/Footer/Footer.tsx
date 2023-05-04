@@ -1,3 +1,4 @@
+import useUserCookie from "@/hooks/useUserCookie";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { updateUserAuth } from "@/store/slices/authSlice";
 import { setInterfaceLanguage } from "@/store/slices/interfaceLanguageSlice";
@@ -5,14 +6,15 @@ import { theme } from "@/styles/theme";
 import { InterfaceLanguages } from "@/types/general";
 import styled from "@emotion/styled";
 import setLanguage from "next-translate/setLanguage";
+import useTranslation from "next-translate/useTranslation";
 import { LanguageSelector } from "../../Forms/LanguageSelector";
 
 export const Footer: React.FC = () => {
+  const { lang } = useTranslation();
+  const { getUserCookie, setUserCookie } = useUserCookie();
   const currentUser = useAppSelector((state) => state.auth.user);
-  const initialLanguage = useAppSelector(
-    (state) => state.interfaceLanguage.interfaceLanguage
-  );
   const dispatch = useAppDispatch();
+  const userCookie = getUserCookie();
 
   const handleSelectInterfaceLanguage = async (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -20,6 +22,12 @@ export const Footer: React.FC = () => {
     const newInterfaceLanguage = event.target.value as InterfaceLanguages;
     // set language in next-translate context
     setLanguage(newInterfaceLanguage);
+
+    const updatedUserCookie = {
+      ...userCookie,
+      interfaceLanguage: newInterfaceLanguage,
+    };
+    setUserCookie(updatedUserCookie);
 
     if (currentUser) {
       // update user object in both firebase and local state
@@ -36,7 +44,9 @@ export const Footer: React.FC = () => {
         handleSelectLanguage={handleSelectInterfaceLanguage}
         languageSet={"interface"}
         selectedLanguage={
-          currentUser ? currentUser.interfaceLanguage : initialLanguage
+          userCookie?.interfaceLanguage ??
+          currentUser?.interfaceLanguage ??
+          (lang as InterfaceLanguages)
         }
       />
     </FooterContent>

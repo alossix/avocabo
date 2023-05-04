@@ -17,11 +17,13 @@ import { useEffect, useRef, useState } from "react";
 import { LanguageSelector } from "../../Forms/LanguageSelector";
 import { Button } from "../Button";
 import { HamburgerMenu } from "../HamburgerMenu";
+import useUserCookie from "@/hooks/useUserCookie";
 
 export const Header: React.FC<{
   mainContentRef: React.RefObject<HTMLDivElement> | null;
 }> = ({ mainContentRef }) => {
-  const { t } = useTranslation("common");
+  const { getUserCookie, setUserCookie } = useUserCookie();
+  const { lang, t } = useTranslation("common");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const currentUser = useAppSelector(selectUserSignedIn);
   const dispatch: AppDispatch = useAppDispatch();
@@ -31,6 +33,7 @@ export const Header: React.FC<{
   );
   const languageSelectorRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
+  const userCookie = getUserCookie();
 
   const handleSelectInterfaceLanguage = async (
     event: React.ChangeEvent<HTMLSelectElement>
@@ -38,6 +41,12 @@ export const Header: React.FC<{
     const newInterfaceLanguage = event.target.value as InterfaceLanguages;
     // set language in next-translate context
     setLanguage(newInterfaceLanguage);
+
+    const updatedUserCookie = {
+      ...userCookie,
+      interfaceLanguage: newInterfaceLanguage,
+    };
+    setUserCookie(updatedUserCookie);
 
     if (currentUser) {
       // update user object in both firebase and local state
@@ -110,7 +119,9 @@ export const Header: React.FC<{
         <LeftContent>
           <HeaderItem
             aria-label={t("common:header_home")}
-            onKeyDown={(event) => handleInteractWithMenu({ event, path: "/" })}
+            onKeyDown={(event) =>
+              handleInteractWithMenu({ event, path: `/${lang}` })
+            }
             role="link"
             tabIndex={0}
             style={{
@@ -119,8 +130,10 @@ export const Header: React.FC<{
             }}
           >
             <HeaderLink
-              href="/"
-              onClick={(event) => handleInteractWithMenu({ event, path: "/" })}
+              href={`/${lang}/`}
+              onClick={(event) =>
+                handleInteractWithMenu({ event, path: `/${lang}/` })
+              }
             >
               {t("common:header_home")}
             </HeaderLink>
@@ -136,15 +149,15 @@ export const Header: React.FC<{
             aria-label={t("common:header_how_it_works")}
             onKeyDown={(event) =>
               event.key === "Enter" &&
-              handleInteractWithMenu({ event, path: "/about" })
+              handleInteractWithMenu({ event, path: `/${lang}/about` })
             }
             role="listitem"
             tabIndex={0}
           >
             <HeaderLink
-              href="/about"
+              href={`/${lang}/about`}
               onClick={(event) =>
-                handleInteractWithMenu({ event, path: "/about" })
+                handleInteractWithMenu({ event, path: `/${lang}/about` })
               }
             >
               {t("common:header_how_it_works")}
@@ -156,15 +169,15 @@ export const Header: React.FC<{
                 aria-label={t("common:header_my_vocab")}
                 onKeyDown={(event) =>
                   event.key === "Enter" &&
-                  handleInteractWithMenu({ event, path: "/my-vocab" })
+                  handleInteractWithMenu({ event, path: `/${lang}/my-vocab` })
                 }
                 role="listitem"
                 tabIndex={0}
               >
                 <HeaderLink
-                  href="/my-vocab"
+                  href={`/${lang}/my-vocab`}
                   onClick={(event) =>
-                    handleInteractWithMenu({ event, path: "/my-vocab" })
+                    handleInteractWithMenu({ event, path: `/${lang}/my-vocab` })
                   }
                 >
                   {t("common:header_my_vocab")}
@@ -174,15 +187,18 @@ export const Header: React.FC<{
                 aria-label={t("common:header_add_words")}
                 onKeyDown={(event) =>
                   event.key === "Enter" &&
-                  handleInteractWithMenu({ event, path: "/add-words" })
+                  handleInteractWithMenu({ event, path: `/${lang}/add-words` })
                 }
                 role="listitem"
                 tabIndex={0}
               >
                 <HeaderLink
-                  href="/add-words"
+                  href={`/${lang}/add-words`}
                   onClick={(event) =>
-                    handleInteractWithMenu({ event, path: "/add-words" })
+                    handleInteractWithMenu({
+                      event,
+                      path: `/${lang}/add-words`,
+                    })
                   }
                 >
                   {t("common:header_add_words")}
@@ -192,15 +208,15 @@ export const Header: React.FC<{
                 aria-label={t("common:header_profile")}
                 onKeyDown={(event) =>
                   event.key === "Enter" &&
-                  handleInteractWithMenu({ event, path: "/profile" })
+                  handleInteractWithMenu({ event, path: `/${lang}/profile` })
                 }
                 role="listitem"
                 tabIndex={0}
               >
                 <HeaderLink
-                  href="/profile"
+                  href={`/${lang}/profile`}
                   onClick={(event) =>
-                    handleInteractWithMenu({ event, path: "/profile" })
+                    handleInteractWithMenu({ event, path: `/${lang}/profile` })
                   }
                 >
                   {t("common:header_profile")}
@@ -222,17 +238,25 @@ export const Header: React.FC<{
                 aria-label={t("common:header_sign_out")}
                 onKeyDown={(event) =>
                   event.key === "Enter" &&
-                  handleInteractWithMenu({ event, path: "/", signOut: true })
+                  handleInteractWithMenu({
+                    event,
+                    path: `/${lang}/`,
+                    signOut: true,
+                  })
                 }
                 role="listitem"
                 tabIndex={0}
               >
                 <HeaderLink
-                  href="/"
+                  href={`/${lang}/`}
                   onClick={(event) => {
                     event.preventDefault();
                     dispatch(signOutAuth());
-                    handleInteractWithMenu({ event, path: "/", signOut: true });
+                    handleInteractWithMenu({
+                      event,
+                      path: `/${lang}/`,
+                      signOut: true,
+                    });
                   }}
                 >
                   {t("common:header_sign_out")}
@@ -245,15 +269,15 @@ export const Header: React.FC<{
                 aria-label={t("common:sign_in")}
                 onKeyDown={(event) =>
                   event.key === "Enter" &&
-                  handleInteractWithMenu({ event, path: "/sign-in" })
+                  handleInteractWithMenu({ event, path: `/${lang}/sign-in` })
                 }
                 role="listitem"
                 tabIndex={0}
               >
                 <HeaderLink
-                  href="/sign-in"
+                  href={`/${lang}/sign-in`}
                   onClick={(event) =>
-                    handleInteractWithMenu({ event, path: "/sign-in" })
+                    handleInteractWithMenu({ event, path: `/${lang}/sign-in` })
                   }
                 >
                   {t("common:sign_in")}
@@ -270,10 +294,10 @@ export const Header: React.FC<{
               </MobileOnly>
               <Button
                 ariaLabel={t("common:sign_up")}
-                onClick={() => router.push("/sign-up")}
+                onClick={() => router.push(`/${lang}/sign-up`)}
                 onKeyDown={(event) =>
                   event.key === "Enter" &&
-                  handleInteractWithMenu({ event, path: "/sign-up" })
+                  handleInteractWithMenu({ event, path: `/${lang}/sign-up` })
                 }
                 title={t("common:sign_up")}
               >

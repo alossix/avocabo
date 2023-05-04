@@ -3,9 +3,9 @@ import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import useTranslation from "next-translate/useTranslation";
 
 const SignInPage: React.FC = () => {
-  const { t } = useTranslation("common");
+  const { lang, t } = useTranslation("common");
   const { loading } = useAuthRedirect({
-    redirectTo: "/my-vocab",
+    redirectTo: `/${lang}/my-vocab`,
     authRequired: false,
   });
 

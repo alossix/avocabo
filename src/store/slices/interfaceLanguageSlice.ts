@@ -1,5 +1,6 @@
 import { InterfaceLanguages } from "@/types/general";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 type LanguageMapping = {
   [K in InterfaceLanguages]: K;
@@ -22,16 +23,17 @@ const interfaceLanguages = (
 
 const getInitialInterfaceLanguage = (): InterfaceLanguages => {
   if (typeof window !== "undefined") {
-    const storedLanguage = localStorage.getItem("interfaceLanguage");
-    if (
-      storedLanguage &&
-      Object.values(interfaceLanguages).includes(
-        storedLanguage as InterfaceLanguages
-      )
-    ) {
-      return storedLanguage as InterfaceLanguages;
+    // get the interfaceLanguage from the user cookie
+    const userCookie = Cookies.get("currentUser");
+
+    if (userCookie) {
+      const { interfaceLanguage } = JSON.parse(userCookie);
+      if (interfaceLanguage && interfaceLanguages.includes(interfaceLanguage)) {
+        return interfaceLanguage;
+      }
     }
   }
+
   return "en";
 };
 
