@@ -21,7 +21,7 @@ const stepperColors: StepperColors = {
 };
 
 export const LearningStepperButton: React.FC<LearningStepperButtonProps> =
-  React.memo(({ currentBox, dueDate, recallDifficulty, vocabId }) => {
+  React.memo(({ currentBox, recallDifficulty, vocabId }) => {
     const { t } = useTranslation("common");
     const { changeVocabBox } = useVocab();
 
@@ -33,7 +33,6 @@ export const LearningStepperButton: React.FC<LearningStepperButtonProps> =
       changeVocabBox({
         vocabWord: {
           currentBox: currentBox,
-          dueDate: dueDate,
           vocabId: vocabId,
         },
         recallDifficulty: recallDifficulty,

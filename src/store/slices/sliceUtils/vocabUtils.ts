@@ -63,20 +63,16 @@ export const updateVocabCurrentBox = ({
 
 export const updateVocabDueDate = ({
   currentBox,
-  dueDate,
   recallDifficulty,
 }: {
   currentBox: number;
-  dueDate: string;
   recallDifficulty: RecallDifficulty;
 }) => {
   const DAY_IN_MS = 86400000;
   const MINUTE_IN_MS = 60000;
 
   const newDueDate = (multiplier: number) => {
-    const newDate = new Date(
-      new Date(dueDate).getTime() + multiplier * DAY_IN_MS
-    );
+    const newDate = new Date(new Date().getTime() + multiplier * DAY_IN_MS);
     newDate.setHours(0, 0, 0, 0);
     return newDate.toISOString();
   };
@@ -84,25 +80,19 @@ export const updateVocabDueDate = ({
   switch (recallDifficulty) {
     case "easy":
       if (currentBox === 0) {
-        return new Date(
-          new Date(dueDate).getTime() + 45 * MINUTE_IN_MS
-        ).toISOString();
+        return new Date(new Date().getTime() + 45 * MINUTE_IN_MS).toISOString();
       } else {
         return newDueDate(currentBox);
       }
     case "medium":
       if (currentBox === 0) {
-        return new Date(
-          new Date(dueDate).getTime() + 20 * MINUTE_IN_MS
-        ).toISOString();
+        return new Date(new Date().getTime() + 20 * MINUTE_IN_MS).toISOString();
       } else {
         return newDueDate(currentBox / 1.5);
       }
     case "hard":
       if (currentBox === 0) {
-        return new Date(
-          new Date(dueDate).getTime() + 5 * MINUTE_IN_MS
-        ).toISOString();
+        return new Date(new Date().getTime() + 5 * MINUTE_IN_MS).toISOString();
       } else {
         return newDueDate(currentBox / 2);
       }

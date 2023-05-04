@@ -8,7 +8,7 @@ import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 type MyVocabPageViewProps = {
   currentUser: AppUser;
@@ -21,20 +21,24 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
 }) => {
   const { t } = useTranslation("vocab");
   const { setNextVocabEntriesDueToday } = useVocab();
-  const updateKeyRef = useRef(0);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  const sortByDueDate = (a: Vocab, b: Vocab) =>
+    new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
 
   const dueVocabList = useMemo(
     () =>
-      Object.values(vocabList).filter(
-        (vocab) => new Date(vocab.dueDate) < new Date()
-      ),
-    [vocabList]
+      Object.values(vocabList)
+        .filter((vocab) => new Date(vocab.dueDate) < new Date())
+        .sort(sortByDueDate),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [vocabList, refreshKey]
   );
 
   const nextVocab = useMemo(() => {
-    const sortedVocabList = Object.values(vocabList).filter(
-      (vocab) => new Date(vocab.dueDate) > new Date()
-    );
+    const sortedVocabList = Object.values(vocabList)
+      .filter((vocab) => new Date(vocab.dueDate) > new Date())
+      .sort(sortByDueDate);
     if (sortedVocabList.length === 0) return null;
 
     return sortedVocabList.reduce<Vocab>(
@@ -61,8 +65,8 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
     if (timeToNextVocab !== null) {
       const timer = setInterval(() => {
         setTimeToNextVocab(timeToNextVocab - 10000);
-        if (timeToNextVocab - 60000 <= 300000) {
-          updateKeyRef.current += 1;
+        if (timeToNextVocab <= 60000) {
+          setRefreshKey((prevKey) => prevKey + 1);
         }
       }, 10000);
       return () => clearInterval(timer);

@@ -1,4 +1,4 @@
-import { SignInForm } from "@/components/Forms/SignInForm";
+import { SignInPageView } from "@/components/PageViews/SignInPageView";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import useTranslation from "next-translate/useTranslation";
 
@@ -13,12 +13,7 @@ const SignInPage: React.FC = () => {
     return <div>{t("common:loading")}</div>;
   }
 
-  return (
-    <div style={{ width: "100%" }}>
-      <h1>{t("common:sign_in")}</h1>
-      <SignInForm />
-    </div>
-  );
+  return <SignInPageView />;
 };
 
 export default SignInPage;
