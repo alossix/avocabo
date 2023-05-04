@@ -72,30 +72,11 @@ export const vocabSlice = createSlice({
   },
 });
 
-export const addVocabEntryDB =
-  ({ newVocabWord }: { newVocabWord: Vocab }): AppThunk =>
-  async (dispatch) => {
-    if (!auth.currentUser) {
-      throw new Error("User is not signed in");
-    }
-
-    const vocabDocRef = doc(
-      db,
-      "users",
-      auth.currentUser.uid,
-      "vocab",
-      newVocabWord.vocabId // reference the document by vocabId instead of index
-    );
-
-    await setDoc(vocabDocRef, newVocabWord);
-
-    dispatch(getVocabDB({ userId: auth.currentUser.uid }));
-  };
-
 export const addInitialVocabBatchDB =
   (initialVocabWords: { [vocabId: string]: Vocab }): AppThunk =>
   async (dispatch) => {
     if (!auth.currentUser) {
+      dispatch(setAppError("User is not signed in"));
       throw new Error("User is not signed in");
     }
 
@@ -120,68 +101,96 @@ export const addInitialVocabBatchDB =
     dispatch(getVocabDB({ userId: auth.currentUser.uid }));
   };
 
+export const addVocabEntryDB =
+  ({ newVocabWord }: { newVocabWord: Vocab }): AppThunk =>
+  async (dispatch) => {
+    if (!auth.currentUser) {
+      dispatch(setAppError("User is not signed in"));
+      throw new Error("User is not signed in");
+    }
+
+    const vocabDocRef = doc(
+      db,
+      "users",
+      auth.currentUser.uid,
+      "vocab",
+      newVocabWord.vocabId
+    );
+
+    await setDoc(vocabDocRef, newVocabWord);
+
+    dispatch(addVocabEntryInState(newVocabWord));
+  };
+
 export const getVocabDB =
   ({ userId }: { userId: string }): AppThunk<Promise<Unsubscribe>> =>
   async (dispatch) => {
-    const user = auth.currentUser;
-    if (user) {
-      try {
-        const vocabCollectionRef = collection(db, "users", userId, "vocab");
-        const vocabQuery = query(vocabCollectionRef);
-        const unsubscribe = onSnapshot(vocabQuery, (querySnapshot) => {
-          const vocabList: { [vocabId: string]: Vocab } = {};
-          querySnapshot.forEach((doc) => {
-            const vocab = doc.data() as Vocab;
+    if (!auth.currentUser) {
+      dispatch(setAppError("User is not signed in"));
+      throw new Error("User is not signed in");
+    }
 
-            // Update the dueDate if it's in the past
-            const updatedDueDate = getUpdatedDueDate(vocab.dueDate);
-            if (updatedDueDate !== vocab.dueDate) {
-              vocab.dueDate = updatedDueDate;
-              // Call updateVocabEntryDB to save the updated dueDate in the database
-              dispatch(
-                updateVocabEntryDB({
-                  vocabId: vocab.vocabId,
-                  updatedProperties: { dueDate: updatedDueDate },
-                })
-              );
-            }
+    try {
+      const vocabCollectionRef = collection(db, "users", userId, "vocab");
+      const vocabQuery = query(vocabCollectionRef);
+      return onSnapshot(vocabQuery, (querySnapshot) => {
+        const vocabList: { [vocabId: string]: Vocab } = {};
+        querySnapshot.forEach((doc) => {
+          const vocab = doc.data() as Vocab;
 
-            vocabList[vocab.vocabId] = vocab;
-          });
-          dispatch(setVocabInState(vocabList));
+          // Update the dueDate if it's in the past
+          const updatedDueDate = getUpdatedDueDate(vocab.dueDate);
+          if (updatedDueDate !== vocab.dueDate) {
+            vocab.dueDate = updatedDueDate;
+            dispatch(
+              updateVocabEntryDB({
+                vocabId: vocab.vocabId,
+                updatedProperties: { dueDate: updatedDueDate },
+              })
+            );
+          }
+
+          vocabList[vocab.vocabId] = vocab;
         });
-        return Promise.resolve(unsubscribe);
-      } catch (error: unknown) {
-        const { message } = handleAppError(error);
-        dispatch(setAppError(message));
-        return Promise.reject(error);
-      }
-    } else {
-      return Promise.reject(new Error("User not authenticated"));
+        dispatch(setVocabInState(vocabList));
+      });
+    } catch (error: unknown) {
+      const { message } = handleAppError(error);
+      dispatch(setAppError(message));
+      return Promise.reject(error);
     }
   };
 
 export const removeVocabEntryDB =
   ({ vocabId }: { vocabId: string }): AppThunk =>
   async (dispatch) => {
-    dispatch(removeVocabEntryInState({ vocabId }));
-    if (auth.currentUser) {
-      try {
-        const vocabDocRef = getUserVocabDocRef({
-          uid: auth.currentUser.uid,
-          vocabId,
-        });
+    if (!auth.currentUser) {
+      dispatch(setAppError("User is not signed in"));
+      throw new Error("User is not signed in");
+    }
 
-        await deleteDoc(vocabDocRef);
-      } catch (error: unknown) {
-        const { message } = handleAppError(error);
-        dispatch(setAppError(message));
-      }
+    dispatch(removeVocabEntryInState({ vocabId }));
+
+    try {
+      const vocabDocRef = getUserVocabDocRef({
+        uid: auth.currentUser.uid,
+        vocabId,
+      });
+
+      await deleteDoc(vocabDocRef);
+    } catch (error: unknown) {
+      const { message } = handleAppError(error);
+      dispatch(setAppError(message));
     }
   };
 
 export const setNextVocabEntriesDueTodayDB =
   (): AppThunk => async (dispatch, getState) => {
+    if (!auth.currentUser) {
+      dispatch(setAppError("User is not signed in"));
+      throw new Error("User is not signed in");
+    }
+
     const state = getState();
     const vocabList = Object.values(vocabSelector(state));
     const today = new Date().toISOString();
@@ -196,14 +205,16 @@ export const setNextVocabEntriesDueTodayDB =
     dispatch(setNextVocabEntriesDueTodayInState({ vocabIds: next20VocabIds }));
 
     // Update the dueDate of the next 20 entries in the database
-    next20VocabIds.forEach((vocabId) => {
-      dispatch(
-        updateVocabEntryDB({
-          vocabId,
-          updatedProperties: { dueDate: today },
-        })
-      );
-    });
+    await Promise.all(
+      next20VocabIds.map((vocabId) =>
+        dispatch(
+          updateVocabEntryDB({
+            vocabId,
+            updatedProperties: { dueDate: today },
+          })
+        )
+      )
+    );
   };
 
 // update vocab entry in db
@@ -217,6 +228,7 @@ export const updateVocabEntryDB =
   }): AppThunk =>
   async (dispatch) => {
     if (!auth.currentUser) {
+      dispatch(setAppError("User is not signed in"));
       throw new Error("User is not signed in");
     }
 
@@ -225,12 +237,12 @@ export const updateVocabEntryDB =
       "users",
       auth.currentUser.uid,
       "vocab",
-      vocabId // reference the document by vocabId instead of index
+      vocabId
     );
 
     await updateDoc(vocabDocRef, updatedProperties);
 
-    dispatch(getVocabDB({ userId: auth.currentUser.uid }));
+    dispatch(updateVocabEntryInState({ vocabId, updatedProperties }));
   };
 
 export const {

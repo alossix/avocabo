@@ -63,7 +63,6 @@ export const useVocab = () => {
     }: {
       vocabWord: {
         currentBox: number;
-        dueDate: string;
         vocabId: string;
       };
       recallDifficulty: RecallDifficulty;
@@ -75,7 +74,6 @@ export const useVocab = () => {
         }),
         dueDate: updateVocabDueDate({
           currentBox: vocabWord.currentBox,
-          dueDate: vocabWord.dueDate,
           recallDifficulty,
         }),
         lastUpdatedAt: new Date().toISOString(),

@@ -53,7 +53,7 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
     setShowErrorMessage(true);
     setTimeout(() => {
       setShowErrorMessage(false);
-    }, 3000);
+    }, 10000);
   };
 
   const handleFormSubmit: SubmitHandler<Vocab> = (vocabWordData) => {
@@ -174,7 +174,6 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
 const StyledForm = styled.form({
   display: "flex",
   flexDirection: "column",
-  width: "100%",
   gap: 16,
 });
 

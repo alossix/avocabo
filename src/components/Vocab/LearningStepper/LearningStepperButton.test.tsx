@@ -13,7 +13,6 @@ jest.mock("@/hooks/useVocab", () => ({
 
 const expectedVocabWord = {
   currentBox: mockVocabEntry.currentBox,
-  dueDate: mockVocabEntry.dueDate,
   vocabId: mockVocabEntry.vocabId,
 };
 

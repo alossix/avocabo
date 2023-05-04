@@ -1,31 +1,40 @@
 import { Button } from "@/components/UI/Button";
 import { TextInput } from "@/components/UI/TextInput";
-import { handleAppError } from "@/lib/handleAppError";
-import { setAppError, signInAuth } from "@/store/slices/authSlice";
-import { RootState, useAppDispatch } from "@/store/store";
-import { theme } from "@/styles/theme";
+import { useAppSelector } from "@/store/hooks";
+import { selectError, signInAuth } from "@/store/slices/authSlice";
+import { useAppDispatch } from "@/store/store";
 import styled from "@emotion/styled";
-import { AnyAction, ThunkDispatch } from "@reduxjs/toolkit";
 import useTranslation from "next-translate/useTranslation";
 import { useForm } from "react-hook-form";
+
+type SignInFormProps = {
+  setErrorMessageText: (message: string) => void;
+  setShowErrorMessage: (showMessage: boolean) => void;
+};
 
 type SignInFormData = {
   email: string;
   password: string;
 };
 
-export const SignInForm: React.FC = () => {
+export const SignInForm: React.FC<SignInFormProps> = ({
+  setErrorMessageText,
+  setShowErrorMessage,
+}) => {
   const { t } = useTranslation();
   const { register, handleSubmit } = useForm<SignInFormData>();
-  const dispatch: ThunkDispatch<RootState, undefined, AnyAction> =
-    useAppDispatch();
+  const dispatch = useAppDispatch();
+  const errorMessage = useAppSelector(selectError);
 
   const submitForm = async (data: SignInFormData) => {
-    try {
-      await dispatch(signInAuth(data.email, data.password));
-    } catch (error: unknown) {
-      const { message } = handleAppError(error);
-      dispatch(setAppError(message));
+    await dispatch(signInAuth(data.email, data.password));
+
+    if (errorMessage) {
+      setShowErrorMessage(true);
+      setErrorMessageText(errorMessage);
+      setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 10000);
     }
   };
 
@@ -74,12 +83,7 @@ export const SignInForm: React.FC = () => {
 const StyledForm = styled.form({
   display: "flex",
   flexDirection: "column",
-  width: "100%",
   gap: 16,
-
-  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
-    width: "50%",
-  },
 });
 
 const InputContainer = styled.div({
