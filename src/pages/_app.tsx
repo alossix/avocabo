@@ -11,6 +11,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import setLanguage from "next-translate/setLanguage";
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   const { t } = useTranslation("common");
@@ -45,7 +46,15 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      localStorage.setItem("interfaceLanguage", router.locale || "en");
+      const userCookie = Cookies.get("currentUser");
+      const { interfaceLanguage } = userCookie ? JSON.parse(userCookie) : "en";
+      const lang = interfaceLanguage || router.locale;
+      Cookies.set("interfaceLanguage", lang, {
+        path: "/",
+        sameSite: "None",
+        secure: true,
+      });
+      setLanguage(lang);
     }
   }, [router.locale]);
 

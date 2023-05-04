@@ -6,11 +6,11 @@ import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
 
 const AddWordsPage: React.FC = () => {
-  const { t } = useTranslation("common");
+  const { lang, t } = useTranslation("common");
   const currentUser = useAppSelector(selectUserSignedIn);
 
   const { loading } = useAuthRedirect({
-    redirectTo: "/sign-in",
+    redirectTo: `${lang}/sign-in`,
     authRequired: true,
   });
 
