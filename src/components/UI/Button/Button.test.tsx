@@ -51,7 +51,7 @@ describe("Button", () => {
     );
 
     const button = screen.getByRole("button");
-    expect(button).toHaveStyle("background: rgb(0, 0, 0)");
+    expect(button).toHaveStyle("background: rgb(32, 32, 32)");
   });
 
   it("should call the onKeyDown handler when a key is pressed on the button", () => {
