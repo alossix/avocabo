@@ -1,5 +1,6 @@
 {
   "category": "Category",
+  "error_definition_required": "'Word' field is required",
   "vocab_added_error": "Error adding vocab entry",
   "vocab_added_success": "Successfully added vocab entry",
   "vocab_blackout_description": "This allows you to hide your vocab entry in the description text. Clicking on a word highlights it, and clicking again removes the highlight.",

@@ -1,0 +1,1 @@
+export { SignUpPageView } from "./SignUpPageView";

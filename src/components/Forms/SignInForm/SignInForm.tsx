@@ -27,7 +27,27 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   const errorMessage = useAppSelector(selectError);
 
   const submitForm = async (data: SignInFormData) => {
-    await dispatch(signInAuth(data.email, data.password));
+    const { email, password } = data;
+
+    if (!email) {
+      setShowErrorMessage(true);
+      setErrorMessageText(t("common:email_required"));
+      setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 10000);
+      return;
+    }
+
+    if (!password) {
+      setShowErrorMessage(true);
+      setErrorMessageText(t("common:password_required"));
+      setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 10000);
+      return;
+    }
+
+    await dispatch(signInAuth(email, password));
 
     if (errorMessage) {
       setShowErrorMessage(true);
@@ -41,6 +61,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   const onSubmit = handleSubmit(submitForm);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    setShowErrorMessage(false);
     if (e.key === "Enter") {
       e.preventDefault();
       onSubmit();
@@ -58,7 +79,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
           id="email"
           labelText={t("common:email")}
           type="email"
-          register={register("email", { required: true })}
+          register={register("email")}
         />
       </InputContainer>
       <InputContainer>
@@ -66,7 +87,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
           id="password"
           labelText={t("common:password")}
           type="password"
-          register={register("password", { required: true })}
+          register={register("password")}
         />
       </InputContainer>
       <Button

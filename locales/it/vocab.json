@@ -1,5 +1,6 @@
 {
   "category": "Categoria",
+  "error_definition_required": "Il campo 'Parola' è obbligatorio",
   "vocab_added_error": "Errore nell'aggiunta della voce del vocabolario",
   "vocab_added_success": "Voce del vocabolario aggiunta con successo",
   "vocab_blackout_description": "Questo ti consente di nascondere la tua voce di vocabolario nel testo di descrizione. Cliccando su una parola la evidenzia, e cliccando di nuovo la rimuove.",
