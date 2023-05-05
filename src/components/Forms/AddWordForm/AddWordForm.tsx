@@ -19,12 +19,14 @@ import { CategorySelector } from "../CategorySelector";
 
 type AddWordFormProps = {
   currentUser: AppUser;
+  setErrorMessageText: (message: string) => void;
   setShowErrorMessage: (error: boolean) => void;
   setShowSuccessMessage: (success: boolean) => void;
 };
 
 export const AddWordForm: React.FC<AddWordFormProps> = ({
   currentUser,
+  setErrorMessageText,
   setShowErrorMessage,
   setShowSuccessMessage,
 }) => {
@@ -49,14 +51,26 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
     }, 3000);
   };
 
-  const handleError = () => {
+  const handleError = (message?: string) => {
     setShowErrorMessage(true);
+
+    if (message) {
+      setErrorMessageText(message);
+    }
+
     setTimeout(() => {
       setShowErrorMessage(false);
     }, 10000);
   };
 
   const handleFormSubmit: SubmitHandler<Vocab> = (vocabWordData) => {
+    const { definition } = vocabWordData;
+
+    if (!definition) {
+      handleError(t("vocab:error_definition_required"));
+      return;
+    }
+
     try {
       setIsSubmitting(true);
       addVocabEntry({
@@ -83,11 +97,22 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
     }
   };
 
+  const onSubmit = handleSubmit(handleFormSubmit);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    setShowErrorMessage(false);
+    if (e.key === "Enter") {
+      e.preventDefault();
+      onSubmit();
+    }
+  };
+
   return (
     <StyledForm
       autoComplete="off"
       name="add_word_form"
-      onSubmit={handleSubmit(handleFormSubmit)}
+      onKeyDown={handleKeyDown}
+      onSubmit={onSubmit}
       ref={registerForm}
     >
       <InputContainer>

@@ -1,4 +1,4 @@
-import { SignUpForm } from "@/components/Forms/SignUpForm";
+import { SignUpPageView } from "@/components/PageViews/SignUpPageView";
 import { useAuthRedirect } from "@/hooks/useAuthRedirect";
 import useTranslation from "next-translate/useTranslation";
 
@@ -13,12 +13,7 @@ const SignUpPage: React.FC = () => {
     return <div>{t("common:loading")}</div>;
   }
 
-  return (
-    <div>
-      <h1>{t("common:sign_up")}</h1>
-      <SignUpForm />
-    </div>
-  );
+  return <SignUpPageView />;
 };
 
 export default SignUpPage;

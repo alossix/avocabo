@@ -1,6 +1,6 @@
-import { handleAppError } from "@/lib/handleAppError";
+import { TextInput } from "@/components/UI/TextInput";
 import { useAppDispatch } from "@/store/hooks";
-import { createUserAuth, setAppError } from "@/store/slices/authSlice";
+import { createUserAuth } from "@/store/slices/authSlice";
 import { theme } from "@/styles/theme";
 import { InterfaceLanguages, LearningLanguages } from "@/types/general";
 import styled from "@emotion/styled";
@@ -9,63 +9,110 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../UI/Button";
 import { LanguageSelector } from "../LanguageSelector";
-import { TextInput } from "@/components/UI/TextInput";
+
+type SignUpFormProps = {
+  setErrorMessageText: (message: string) => void;
+  setShowErrorMessage: (showMessage: boolean) => void;
+};
 
 type SignUpFormData = {
+  confirmPassword: string;
   displayName: string;
   email: string;
   password: string;
-  confirmPassword: string;
 };
 
-export const SignUpForm: React.FC = () => {
-  const { t, lang } = useTranslation("common");
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignUpFormData>();
-  const [error, setError] = useState("");
+export const SignUpForm: React.FC<SignUpFormProps> = ({
+  setErrorMessageText,
+  setShowErrorMessage,
+}) => {
+  const { lang, t } = useTranslation("common");
+  const { handleSubmit, register } = useForm<SignUpFormData>();
   const [learningLanguage, setLearningLanguage] = useState<LearningLanguages>(
     lang as LearningLanguages
   );
   const dispatch = useAppDispatch();
 
+  const getErrorMessage = (errorType: string) => {
+    const errorMessages: { [key: string]: string } = {
+      displayNameRequired: t("common:display_name_required"),
+      emailRequired: t("common:email_required"),
+      invalidEmail: t("common:invalid_email"),
+      passwordRequired: t("common:password_required"),
+      passwordMinLength: t("common:password_min_length"),
+      confirmPasswordRequired: t("common:confirm_password_required"),
+      passwordMismatch: t("common:password_must_match"),
+    };
+
+    return errorMessages[errorType] || "";
+  };
+
+  const displayErrorMessage = (errorType: string) => {
+    setShowErrorMessage(true);
+    setErrorMessageText(getErrorMessage(errorType));
+    setTimeout(() => {
+      setShowErrorMessage(false);
+    }, 10000);
+  };
+
   const handleSignupSubmit = async (data: SignUpFormData) => {
     const { displayName, email, password, confirmPassword } = data;
 
-    if (password !== confirmPassword) {
-      setError(t("common:password_must_match"));
+    if (!displayName) {
+      displayErrorMessage("displayNameRequired");
       return;
     }
 
-    try {
-      dispatch(
-        createUserAuth({
-          displayName,
-          email,
-          interfaceLanguage: lang as InterfaceLanguages,
-          learningLanguage,
-          password,
-        })
+    if (!email || !/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i.test(email)) {
+      displayErrorMessage(!email ? "emailRequired" : "invalidEmail");
+      return;
+    }
+
+    if (!password || password.length < 6) {
+      displayErrorMessage(!password ? "passwordRequired" : "passwordMinLength");
+      return;
+    }
+
+    if (!confirmPassword || confirmPassword !== password) {
+      displayErrorMessage(
+        !confirmPassword ? "confirmPasswordRequired" : "passwordMismatch"
       );
-    } catch (error: unknown) {
-      const { message } = handleAppError(error);
-      dispatch(setAppError(message));
+      return;
+    }
+
+    dispatch(
+      createUserAuth({
+        displayName,
+        email,
+        interfaceLanguage: lang as InterfaceLanguages,
+        learningLanguage,
+        password,
+      })
+    );
+  };
+
+  const onSubmit = handleSubmit(handleSignupSubmit);
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    setShowErrorMessage(false);
+    if (e.key === "Enter") {
+      e.preventDefault();
+      onSubmit();
     }
   };
 
   return (
     <StyledForm
-      onSubmit={handleSubmit(handleSignupSubmit)}
-      name="create_user_form"
       autoComplete="off"
+      name="create_user_form"
+      onKeyDown={handleKeyDown}
+      onSubmit={onSubmit}
     >
       <InputContainer>
         <TextInput
           id="displayName"
           labelText={t("common:profile_name")}
-          register={register("displayName", { required: true })}
+          register={register("displayName")}
           type="string"
         />
       </InputContainer>
@@ -73,10 +120,7 @@ export const SignUpForm: React.FC = () => {
         <TextInput
           id="email"
           labelText={t("common:email")}
-          register={register("email", {
-            required: true,
-            pattern: /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/,
-          })}
+          register={register("email")}
           type="email"
         />
       </InputContainer>
@@ -84,10 +128,7 @@ export const SignUpForm: React.FC = () => {
         <TextInput
           id="password"
           labelText={t("common:password")}
-          register={register("password", {
-            required: true,
-            minLength: 6,
-          })}
+          register={register("password")}
           type="password"
         />
       </InputContainer>
@@ -95,9 +136,7 @@ export const SignUpForm: React.FC = () => {
         <TextInput
           id="confirmPassword"
           labelText={t("common:confirm_password")}
-          register={register("confirmPassword", {
-            required: true,
-          })}
+          register={register("confirmPassword")}
           type="password"
         />
       </InputContainer>
@@ -126,32 +165,6 @@ export const SignUpForm: React.FC = () => {
       >
         {t("common:sign_up")}
       </Button>
-      {/* Display Name Error */}
-      {errors.displayName && errors.displayName.type === "required" && (
-        <p>{t("common:display_name_required")}</p>
-      )}
-
-      {/* Email Error */}
-      {errors.email && errors.email.type === "required" && (
-        <p>{t("common:email_required")}</p>
-      )}
-      {errors.email && errors.email.type === "pattern" && (
-        <p>{t("common:invalid_email")}</p>
-      )}
-
-      {/* Password Error */}
-      {errors.password && errors.password.type === "required" && (
-        <p>{t("common:password_required")}</p>
-      )}
-      {errors.password && errors.password.type === "minLength" && (
-        <p>{t("common:password_min_length")}</p>
-      )}
-
-      {/* Confirm Password Error */}
-      {errors.confirmPassword && errors.confirmPassword.type === "required" && (
-        <p>{t("common:confirm_password_required")}</p>
-      )}
-      {error && <p>{error}</p>}
     </StyledForm>
   );
 };
@@ -159,12 +172,7 @@ export const SignUpForm: React.FC = () => {
 const StyledForm = styled.form({
   display: "flex",
   flexDirection: "column",
-  width: "100%",
   gap: 16,
-
-  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
-    width: "50%",
-  },
 });
 
 const InputContainer = styled.div({

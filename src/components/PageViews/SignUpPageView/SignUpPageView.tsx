@@ -1,30 +1,30 @@
-import { SignInForm } from "@/components/Forms/SignInForm";
+import { SignUpForm } from "@/components/Forms/SignUpForm";
 import { Toast } from "@/components/UI/Toast";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import { useState } from "react";
 
-export const SignInPageView: React.FC = () => {
+export const SignUpPageView: React.FC = () => {
   const { t } = useTranslation();
   const [errorMessageText, setErrorMessageText] = useState<string>("");
   const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
 
   return (
-    <SignInPageViewContainer>
-      <h1>{t("common:sign_in")}</h1>
-      <SignInForm
-        setErrorMessageText={setErrorMessageText}
+    <SignUpPageViewContainer>
+      <h1>{t("common:sign_up")}</h1>
+      <SignUpForm
         setShowErrorMessage={setShowErrorMessage}
+        setErrorMessageText={setErrorMessageText}
       />
       {showErrorMessage && (
         <Toast toastType="error" toastText={errorMessageText} />
       )}
-    </SignInPageViewContainer>
+    </SignUpPageViewContainer>
   );
 };
 
-const SignInPageViewContainer = styled.div({
+const SignUpPageViewContainer = styled.div({
   display: "flex",
   flexDirection: "column",
   gap: 16,

@@ -1,5 +1,6 @@
 {
   "category": "Catégorie",
+  "error_definition_required": "Le champ 'Mot' est requis",
   "vocab_added_error": "Erreur lors de l'ajout de l'entrée de vocabulaire",
   "vocab_added_success": "Entrée de vocabulaire ajoutée avec succès",
   "vocab_blackout_description": "Cela vous permet de masquer votre entrée de vocabulaire dans le texte de description. En cliquant sur un mot, il est mis en évidence, et en cliquant de nouveau, la mise en évidence est supprimée.",
