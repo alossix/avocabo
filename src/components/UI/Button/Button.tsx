@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 type ButtonProps = {
   ariaLabel: string;
   children?: React.ReactNode;
-  colorSet?: "black" | "green";
+  colorSet?: "black" | "green" | "red";
   disabled?: boolean;
   onClick?: React.MouseEventHandler;
   onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
@@ -40,14 +40,18 @@ export const Button: React.FC<ButtonProps> = ({
 };
 
 const ButtonComponent = styled.button<{
-  colorSet: "green" | "black";
+  colorSet: ButtonProps["colorSet"];
   disabled: boolean;
 }>(({ colorSet, disabled }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
   background:
-    colorSet === "green" ? theme.colors.lightAvocado : theme.colors.lightBlack,
+    colorSet === "green"
+      ? theme.colors.lightAvocado
+      : colorSet === "black"
+      ? theme.colors.lightBlack
+      : theme.colors.UIRed,
   padding: "8px 16px",
   color: theme.colors.white,
   fontWeight: "bold",
@@ -55,7 +59,9 @@ const ButtonComponent = styled.button<{
   border:
     colorSet === "green"
       ? `3px solid ${theme.colors.lightAvocado}`
-      : `3px solid ${theme.colors.lightBlack}`,
+      : colorSet === "black"
+      ? `3px solid ${theme.colors.lightBlack}`
+      : `3px solid ${theme.colors.UIRed}`,
   transition: "all 0.5s ease",
   cursor: disabled ? "not-allowed" : "pointer",
 
@@ -64,6 +70,8 @@ const ButtonComponent = styled.button<{
     color:
       colorSet === "green"
         ? theme.colors.lightAvocado
-        : theme.colors.lightBlack,
+        : colorSet === "black"
+        ? theme.colors.lightBlack
+        : theme.colors.UIRed,
   },
 }));

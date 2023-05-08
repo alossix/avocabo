@@ -2,6 +2,8 @@ import { mockVocabList } from "@/lib/testUtils";
 import { AppUser, LearningLanguages } from "@/types/general";
 import { render, screen } from "@testing-library/react";
 import { ProfilePageView } from "./ProfilePageView";
+import { Provider } from "react-redux";
+import { store } from "@/store/store";
 
 const currentUser: AppUser = {
   email: "test@example.com",
@@ -29,30 +31,36 @@ const languageLabelsLearning = {
 describe("ProfilePageView", () => {
   it("should render the user's display name", () => {
     render(
-      <ProfilePageView
-        currentUser={currentUser}
-        vocabCount={Object.keys(mockVocabList).length}
-      />
+      <Provider store={store}>
+        <ProfilePageView
+          currentUser={currentUser}
+          vocabCount={Object.keys(mockVocabList).length}
+        />
+      </Provider>
     );
     expect(screen.getByText(currentUser.displayName ?? "")).toBeInTheDocument();
   });
 
   it("should render the user's email", () => {
     render(
-      <ProfilePageView
-        currentUser={currentUser}
-        vocabCount={Object.keys(mockVocabList).length}
-      />
+      <Provider store={store}>
+        <ProfilePageView
+          currentUser={currentUser}
+          vocabCount={Object.keys(mockVocabList).length}
+        />
+      </Provider>
     );
     expect(screen.getByText(currentUser.email ?? "")).toBeInTheDocument();
   });
 
   it("should render the total number of vocab items", () => {
     render(
-      <ProfilePageView
-        currentUser={currentUser}
-        vocabCount={Object.keys(mockVocabList).length}
-      />
+      <Provider store={store}>
+        <ProfilePageView
+          currentUser={currentUser}
+          vocabCount={Object.keys(mockVocabList).length}
+        />
+      </Provider>
     );
     expect(
       screen.getByText(Object.keys(mockVocabList).length.toString())
@@ -61,10 +69,12 @@ describe("ProfilePageView", () => {
 
   it("should render the user's learning language", () => {
     render(
-      <ProfilePageView
-        currentUser={currentUser}
-        vocabCount={Object.keys(mockVocabList).length}
-      />
+      <Provider store={store}>
+        <ProfilePageView
+          currentUser={currentUser}
+          vocabCount={Object.keys(mockVocabList).length}
+        />
+      </Provider>
     );
     const expectedLanguageName =
       languageLabelsLearning[currentUser.learningLanguage];
@@ -79,10 +89,12 @@ describe("ProfilePageView", () => {
         learningLanguage: learningLanguageKey as LearningLanguages,
       };
       render(
-        <ProfilePageView
-          currentUser={testUser}
-          vocabCount={Object.keys(mockVocabList).length}
-        />
+        <Provider store={store}>
+          <ProfilePageView
+            currentUser={testUser}
+            vocabCount={Object.keys(mockVocabList).length}
+          />
+        </Provider>
       );
       expect(screen.getByText(expectedLanguageName)).toBeInTheDocument();
     }

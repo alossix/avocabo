@@ -12,9 +12,11 @@ import {
   auth,
   createUserWithEmailAndPassword,
   db,
+  deleteDoc,
   doc,
   signOut as firebaseSignOut,
   onSnapshot,
+  sendEmailVerification,
   setDoc,
   signInWithEmailAndPassword,
   updateDoc,
@@ -123,6 +125,8 @@ export const createUserAuth =
         password
       );
 
+      await sendEmailVerification(userCredential.user);
+
       const userData: AppUser = {
         email: userCredential.user.email,
         uid: userCredential.user.uid,
@@ -145,6 +149,57 @@ export const createUserAuth =
     } catch (error: unknown) {
       const { message } = handleAppError(error);
       dispatch(setAppError(message));
+    }
+  };
+
+// delete user storage folder
+// const deleteUserFolder = async (userId: string) => {
+//   const storage = getStorage();
+//   const userFolderRef = ref(storage, `users/${userId}`);
+
+//   try {
+//     const { items } = await listAll(userFolderRef);
+//     const deletePromises = items.map((item) => deleteObject(item));
+//     await Promise.all(deletePromises);
+//   } catch (error) {
+//     console.error("Error deleting user folder:", error);
+//   }
+// };
+
+// delete user
+export const deleteUserAuth =
+  (): AppThunk =>
+  async (dispatch: Dispatch<AnyAction | AppThunk>, getState) => {
+    dispatch(setAppLoading(true));
+
+    try {
+      const { user } = getState().auth;
+
+      if (!user) {
+        throw new Error("User is not signed in");
+      }
+
+      // Delete the user folder in Firebase Storage: custom user images
+      // await deleteUserFolder(user.uid);
+
+      // Delete the user document in Firestore
+      const userDocRef = getUserDocRef({ uid: user.uid });
+      await deleteDoc(userDocRef);
+
+      // Delete the user's authentication data
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        // Delete the user
+        await currentUser.delete();
+      }
+
+      // Sign out the user
+      dispatch(signOutAuth());
+    } catch (error: unknown) {
+      const { message } = handleAppError(error);
+      dispatch(setAppError(message));
+    } finally {
+      dispatch(setAppLoading(false));
     }
   };
 
