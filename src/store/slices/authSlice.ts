@@ -13,12 +13,16 @@ import {
   createUserWithEmailAndPassword,
   db,
   deleteDoc,
+  deleteObject,
   doc,
   signOut as firebaseSignOut,
+  listAll,
   onSnapshot,
+  ref,
   sendEmailVerification,
   setDoc,
   signInWithEmailAndPassword,
+  storage,
   updateDoc,
 } from "@/services/firebase/firebaseService";
 import {
@@ -153,18 +157,29 @@ export const createUserAuth =
   };
 
 // delete user storage folder
-// const deleteUserFolder = async (userId: string) => {
-//   const storage = getStorage();
-//   const userFolderRef = ref(storage, `users/${userId}`);
+const deleteUserFolder = async (userId: string, folderPath: string) => {
+  const userFolderRef = ref(storage, folderPath);
+  try {
+    const { items, prefixes } = await listAll(userFolderRef);
 
-//   try {
-//     const { items } = await listAll(userFolderRef);
-//     const deletePromises = items.map((item) => deleteObject(item));
-//     await Promise.all(deletePromises);
-//   } catch (error) {
-//     console.error("Error deleting user folder:", error);
-//   }
-// };
+    // Delete all files in the user folder
+    const deleteFilesPromises = items.map((item) => deleteObject(item));
+    await Promise.all(deleteFilesPromises);
+
+    // Recursively delete all subdirectories in the user folder
+    const deleteSubdirectoriesPromises = prefixes.map((subdirectory) => {
+      const relativePath = subdirectory.fullPath.replace(
+        `users/${userId}/`,
+        ""
+      );
+      return deleteUserFolder(userId, `users/${userId}/${relativePath}`);
+    });
+    await Promise.all(deleteSubdirectoriesPromises);
+  } catch (error) {
+    console.error("Error deleting user folder:", error);
+    throw error;
+  }
+};
 
 // delete user
 export const deleteUserAuth =
@@ -180,7 +195,7 @@ export const deleteUserAuth =
       }
 
       // Delete the user folder in Firebase Storage: custom user images
-      // await deleteUserFolder(user.uid);
+      await deleteUserFolder(user.uid, `users/${user.uid}`);
 
       // Delete the user document in Firestore
       const userDocRef = getUserDocRef({ uid: user.uid });
