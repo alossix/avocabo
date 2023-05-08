@@ -18,7 +18,12 @@ export const SignInPageView: React.FC = () => {
         setShowErrorMessage={setShowErrorMessage}
       />
       {showErrorMessage && (
-        <Toast toastType="error" toastText={errorMessageText} />
+        <Toast
+          duration={10000}
+          onClose={() => setShowErrorMessage(false)}
+          toastType="error"
+          toastText={errorMessageText}
+        />
       )}
     </SignInPageViewContainer>
   );
@@ -31,6 +36,6 @@ const SignInPageViewContainer = styled.div({
   width: "100%",
 
   [`@media (min-width: ${theme.breakpoints.desktop})`]: {
-    width: "50%",
+    alignItems: "center",
   },
 });

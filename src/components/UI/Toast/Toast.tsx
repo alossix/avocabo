@@ -6,6 +6,8 @@ import { keyframes } from "@emotion/react";
 import { useEffect, useState } from "react";
 
 type ToastProps = {
+  duration: number;
+  onClose: () => void;
   toastText: string;
   toastType: "error" | "info" | "success" | "warning";
 };
@@ -27,18 +29,25 @@ const toastIconSwitch = (toastType: ToastProps["toastType"]) => {
   }
 };
 
-export const Toast: React.FC<ToastProps> = ({ toastText, toastType }) => {
+export const Toast: React.FC<ToastProps> = ({
+  duration,
+  onClose,
+  toastText,
+  toastType,
+}) => {
   const [isUnmounting, setIsUnmounting] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      onClose();
       setIsUnmounting(true);
-    }, 3000);
+    }, duration);
 
     return () => {
       clearTimeout(timer);
     };
-  }, []);
+  }, [duration, onClose]);
+
   return (
     <ToastContainer
       toastType={toastType}
