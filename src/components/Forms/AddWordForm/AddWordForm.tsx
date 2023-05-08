@@ -46,9 +46,6 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
 
   const handleSuccess = () => {
     setShowSuccessMessage(true);
-    setTimeout(() => {
-      setShowSuccessMessage(false);
-    }, 3000);
   };
 
   const handleError = (message?: string) => {
@@ -57,10 +54,6 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
     if (message) {
       setErrorMessageText(message);
     }
-
-    setTimeout(() => {
-      setShowErrorMessage(false);
-    }, 10000);
   };
 
   const handleFormSubmit: SubmitHandler<Vocab> = (vocabWordData) => {
@@ -89,9 +82,7 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
       handleError();
     } finally {
       reset();
-      setTimeout(() => {
-        setIsSubmitting(false);
-      }, 300);
+      setIsSubmitting(false);
       setCurrentCategory("");
       setBlackoutWords([]);
     }
@@ -200,6 +191,11 @@ const StyledForm = styled.form({
   display: "flex",
   flexDirection: "column",
   gap: 16,
+  width: "100%",
+
+  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+    width: "50%",
+  },
 });
 
 const InputContainer = styled.div({

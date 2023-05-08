@@ -24,10 +24,17 @@ export const AddWordsPageView: React.FC<{ currentUser: AppUser }> = ({
         setShowSuccessMessage={setShowSuccessMessage}
       />
       {showSuccessMessage && (
-        <Toast toastType="success" toastText={t("vocab:vocab_added_success")} />
+        <Toast
+          duration={3000}
+          onClose={() => setShowSuccessMessage(false)}
+          toastType="success"
+          toastText={t("vocab:vocab_added_success")}
+        />
       )}
       {showErrorMessage && (
         <Toast
+          duration={10000}
+          onClose={() => setShowErrorMessage(false)}
           toastType="error"
           toastText={errorMessageText ?? t("vocab:vocab_added_error")}
         />
@@ -43,6 +50,6 @@ const AddWordsPageContainer = styled.div({
   width: "100%",
 
   [`@media (min-width: ${theme.breakpoints.desktop})`]: {
-    width: "50%",
+    alignItems: "center",
   },
 });

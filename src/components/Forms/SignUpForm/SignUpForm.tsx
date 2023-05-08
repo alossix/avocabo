@@ -50,9 +50,6 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   const displayErrorMessage = (errorType: string) => {
     setShowErrorMessage(true);
     setErrorMessageText(getErrorMessage(errorType));
-    setTimeout(() => {
-      setShowErrorMessage(false);
-    }, 10000);
   };
 
   const handleSignupSubmit = async (data: SignUpFormData) => {
@@ -173,6 +170,11 @@ const StyledForm = styled.form({
   display: "flex",
   flexDirection: "column",
   gap: 16,
+  width: "100%",
+
+  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+    width: "50%",
+  },
 });
 
 const InputContainer = styled.div({

@@ -3,8 +3,10 @@ import { TextInput } from "@/components/UI/TextInput";
 import { useAppSelector } from "@/store/hooks";
 import { selectError, signInAuth } from "@/store/slices/authSlice";
 import { useAppDispatch } from "@/store/store";
+import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 type SignInFormProps = {
@@ -32,30 +34,16 @@ export const SignInForm: React.FC<SignInFormProps> = ({
     if (!email) {
       setShowErrorMessage(true);
       setErrorMessageText(t("common:email_required"));
-      setTimeout(() => {
-        setShowErrorMessage(false);
-      }, 10000);
       return;
     }
 
     if (!password) {
       setShowErrorMessage(true);
       setErrorMessageText(t("common:password_required"));
-      setTimeout(() => {
-        setShowErrorMessage(false);
-      }, 10000);
       return;
     }
 
     await dispatch(signInAuth(email, password));
-
-    if (errorMessage) {
-      setShowErrorMessage(true);
-      setErrorMessageText(errorMessage);
-      setTimeout(() => {
-        setShowErrorMessage(false);
-      }, 10000);
-    }
   };
 
   const onSubmit = handleSubmit(submitForm);
@@ -67,6 +55,14 @@ export const SignInForm: React.FC<SignInFormProps> = ({
       onSubmit();
     }
   };
+
+  useEffect(() => {
+    if (errorMessage) {
+      setShowErrorMessage(true);
+      console.log(errorMessage);
+      setErrorMessageText(errorMessage);
+    }
+  }, [errorMessage, setErrorMessageText, setShowErrorMessage]);
 
   return (
     <StyledForm
@@ -105,6 +101,11 @@ const StyledForm = styled.form({
   display: "flex",
   flexDirection: "column",
   gap: 16,
+  width: "100%",
+
+  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
+    width: "50%",
+  },
 });
 
 const InputContainer = styled.div({
