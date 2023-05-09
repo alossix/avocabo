@@ -98,6 +98,22 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
     }
   };
 
+  const handleUploadImage = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    try {
+      await uploadVocabImage({
+        currentUser,
+        dispatch,
+        event,
+        setValue,
+        vocabId,
+      });
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
   return (
     <StyledForm
       autoComplete="off"
@@ -119,15 +135,7 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
         <input
           type="file"
           id="imageURL"
-          onChange={(event) =>
-            uploadVocabImage({
-              currentUser,
-              dispatch,
-              event,
-              setValue,
-              vocabId,
-            })
-          }
+          onChange={handleUploadImage}
           style={{ color: theme.colors.lightBlack }}
         />
       </InputContainer>

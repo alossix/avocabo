@@ -4,10 +4,13 @@ import {
   collection,
   db,
   deleteDoc,
+  deleteObject,
   doc,
   onSnapshot,
   query,
+  ref,
   setDoc,
+  storage,
   updateDoc,
 } from "@/services/firebase/firebaseService";
 import { Vocab } from "@/types/vocab";
@@ -178,6 +181,11 @@ export const removeVocabEntryDB =
       });
 
       await deleteDoc(vocabDocRef);
+
+      // Delete the uploaded image
+      const userId = auth.currentUser.uid;
+      const imageStorageRef = ref(storage, `users/${userId}/images/${vocabId}`);
+      await deleteObject(imageStorageRef);
     } catch (error: unknown) {
       const { message } = handleAppError(error);
       dispatch(setAppError(message));

@@ -95,6 +95,7 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
     signOutApp: (state) => {
+      state.error = "";
       state.user = null;
     },
   },
