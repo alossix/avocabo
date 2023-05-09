@@ -1,9 +1,11 @@
 import { initializeApp } from "firebase/app";
 import {
   createUserWithEmailAndPassword,
+  EmailAuthProvider,
   getAuth,
   getIdTokenResult,
   onAuthStateChanged,
+  sendEmailVerification,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
@@ -21,9 +23,15 @@ import {
   query,
   setDoc,
   updateDoc,
-  writeBatch,
 } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  getStorage,
+  listAll,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 import { Vocab } from "@/types/vocab";
 
 const app = initializeApp(firebaseConfig);
@@ -59,12 +67,17 @@ export {
   createUserWithEmailAndPassword,
   db,
   deleteDoc,
+  deleteObject,
   doc,
+  EmailAuthProvider,
   getDownloadURL,
+  getStorage,
+  listAll,
   onAuthStateChanged,
   onSnapshot,
   query,
   ref,
+  sendEmailVerification,
   setDoc,
   signInWithEmailAndPassword,
   signOut,
@@ -72,5 +85,4 @@ export {
   updateDoc,
   updateProfile,
   uploadBytes,
-  writeBatch,
 };

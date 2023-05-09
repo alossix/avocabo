@@ -59,7 +59,6 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   useEffect(() => {
     if (errorMessage) {
       setShowErrorMessage(true);
-      console.log(errorMessage);
       setErrorMessageText(errorMessage);
     }
   }, [errorMessage, setErrorMessageText, setShowErrorMessage]);

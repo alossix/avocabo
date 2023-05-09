@@ -1,3 +1,7 @@
+import { Button } from "@/components/UI/Button";
+import { deleteUserAuth } from "@/store/slices/authSlice";
+import { useAppDispatch } from "@/store/store";
+import { theme } from "@/styles/theme";
 import { AppUser, LearningLanguages } from "@/types/general";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
@@ -12,6 +16,8 @@ export const ProfilePageView: React.FC<ProfilePageViewProps> = ({
   vocabCount,
 }) => {
   const { t } = useTranslation("common");
+  const dispatch = useAppDispatch();
+
   const languageLabelsLearning: Record<LearningLanguages, string> = {
     ca: "Català",
     en: "English",
@@ -24,6 +30,12 @@ export const ProfilePageView: React.FC<ProfilePageViewProps> = ({
     other: `${t("common:other")}`,
   };
   const languageName = languageLabelsLearning[currentUser.learningLanguage];
+
+  const handleDeleteAccount = () => {
+    if (window.confirm(t("common:confirm_delete_account"))) {
+      dispatch(deleteUserAuth());
+    }
+  };
 
   return (
     <ProfilePageContainer>
@@ -43,6 +55,19 @@ export const ProfilePageView: React.FC<ProfilePageViewProps> = ({
       <div>
         <h3>{t("common:learning_language_simple")}</h3>
         <p>{languageName}</p>
+      </div>
+      <div>
+        <h3 style={{ color: theme.colors.UIRed }}>
+          {t("common:delete_account")}
+        </h3>
+        <Button
+          ariaLabel={t("common:delete_account")}
+          colorSet="red"
+          onClick={handleDeleteAccount}
+          title={t("common:delete_account")}
+        >
+          {t("common:delete_account")}
+        </Button>
       </div>
     </ProfilePageContainer>
   );

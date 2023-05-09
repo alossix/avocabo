@@ -6,7 +6,7 @@ export type Vocab = {
   definition: string;
   description?: string;
   dueDate: string;
-  imageURL: string;
+  imageURL?: string;
   lastUpdatedAt: string;
   phoneticPronunciation: string;
   vocabId: string;

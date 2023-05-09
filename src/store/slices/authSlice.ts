@@ -10,13 +10,20 @@ import { initialVocabSetOther as other } from "@/lib/initialVocabSets/other";
 import { initialVocabSetUK as uk } from "@/lib/initialVocabSets/uk";
 import {
   auth,
+  collection,
   createUserWithEmailAndPassword,
   db,
+  deleteDoc,
+  deleteObject,
   doc,
   signOut as firebaseSignOut,
+  listAll,
   onSnapshot,
+  ref,
+  sendEmailVerification,
   setDoc,
   signInWithEmailAndPassword,
+  storage,
   updateDoc,
 } from "@/services/firebase/firebaseService";
 import {
@@ -40,6 +47,7 @@ import {
   getVocabDB,
   setVocabInState,
 } from "./vocabSlice";
+import { DocumentReference, getDocs } from "firebase/firestore";
 
 const initialVocabSet: {
   [key in LearningLanguages]: { [vocabId: string]: Vocab };
@@ -89,6 +97,7 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
     signOutApp: (state) => {
+      state.error = "";
       state.user = null;
     },
   },
@@ -123,6 +132,8 @@ export const createUserAuth =
         password
       );
 
+      await sendEmailVerification(userCredential.user);
+
       const userData: AppUser = {
         email: userCredential.user.email,
         uid: userCredential.user.uid,
@@ -145,6 +156,90 @@ export const createUserAuth =
     } catch (error: unknown) {
       const { message } = handleAppError(error);
       dispatch(setAppError(message));
+    }
+  };
+
+// delete user collections in firestore
+const deleteSubcollections = async (parentRef: DocumentReference) => {
+  const subcollections = ["vocab"];
+
+  for (const subcollection of subcollections) {
+    const subcollectionRef = collection(parentRef, subcollection);
+    const subcollectionDocs = await getDocs(subcollectionRef);
+
+    for (const subcollectionDoc of subcollectionDocs.docs) {
+      await deleteSubcollections(subcollectionDoc.ref);
+      await deleteDoc(subcollectionDoc.ref);
+    }
+  }
+};
+
+// delete user document in firestore
+const deleteUserDocument = async (userId: string) => {
+  const userDocRef = getUserDocRef({ uid: userId });
+
+  await deleteSubcollections(userDocRef);
+  await deleteDoc(userDocRef);
+};
+
+// delete user folder in firebase storage
+const deleteUserFolder = async (userId: string, folderPath: string) => {
+  const userFolderRef = ref(storage, folderPath);
+  try {
+    const { items, prefixes } = await listAll(userFolderRef);
+
+    // Delete all files in the user folder
+    const deleteFilesPromises = items.map((item) => deleteObject(item));
+    await Promise.all(deleteFilesPromises);
+
+    // Recursively delete all subdirectories in the user folder
+    const deleteSubdirectoriesPromises = prefixes.map((subdirectory) => {
+      const relativePath = subdirectory.fullPath.replace(
+        `users/${userId}/`,
+        ""
+      );
+      return deleteUserFolder(userId, `users/${userId}/${relativePath}`);
+    });
+    await Promise.all(deleteSubdirectoriesPromises);
+  } catch (error) {
+    console.error("Error deleting user folder:", error);
+    throw error;
+  }
+};
+
+// delete user
+export const deleteUserAuth =
+  (): AppThunk =>
+  async (dispatch: Dispatch<AnyAction | AppThunk>, getState) => {
+    dispatch(setAppLoading(true));
+
+    try {
+      const { user } = getState().auth;
+
+      if (!user) {
+        throw new Error("User is not signed in");
+      }
+
+      // Delete the user folder in Firebase Storage: custom user images
+      await deleteUserFolder(user.uid, `users/${user.uid}`);
+
+      // Delete the user document in Firestore
+      await deleteUserDocument(user.uid);
+
+      // Delete the user's authentication data
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        // Delete the user
+        await currentUser.delete();
+      }
+
+      // Sign out the user
+      dispatch(signOutAuth());
+    } catch (error: unknown) {
+      const { message } = handleAppError(error);
+      dispatch(setAppError(message));
+    } finally {
+      dispatch(setAppLoading(false));
     }
   };
 
