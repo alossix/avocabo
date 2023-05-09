@@ -101,17 +101,13 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
   const handleUploadImage = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    try {
-      await uploadVocabImage({
-        currentUser,
-        dispatch,
-        event,
-        setValue,
-        vocabId,
-      });
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
+    uploadVocabImage({
+      currentUser,
+      dispatch,
+      event,
+      setValue,
+      vocabId,
+    });
   };
 
   return (

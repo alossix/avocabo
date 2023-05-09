@@ -5,12 +5,17 @@ import { DeleteWord } from "./DeleteWord";
 
 const setOpenModal = jest.fn();
 const mockVocabId = "1";
+const mockVocabImageURL = "example.org/mock";
 
 describe("DeleteWord", () => {
   const renderComponent = () =>
     render(
       <Provider store={store}>
-        <DeleteWord setOpenModal={setOpenModal} vocabId={mockVocabId} />
+        <DeleteWord
+          imageURL={mockVocabImageURL}
+          setOpenModal={setOpenModal}
+          vocabId={mockVocabId}
+        />
       </Provider>
     );
 

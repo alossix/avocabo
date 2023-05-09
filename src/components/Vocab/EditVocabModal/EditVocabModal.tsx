@@ -40,7 +40,9 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
   const [currentCategory, setCurrentCategory] = useState<VocabCategories>(
     vocabWord.category
   );
-  const [imageURL, setImageURL] = useState(vocabWord.imageURL);
+  const [imageURL, setImageURL] = useState<string | undefined>(
+    vocabWord.imageURL
+  );
   const [loading, setLoading] = useState(false);
   const definitionValue = watch("definition");
   const descriptionValue = watch("description");
@@ -176,6 +178,7 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
           </StyledInputContainer>
           <BottomRowContainer>
             <DeleteWord
+              imageURL={vocabWord.imageURL}
               vocabId={vocabWord.vocabId}
               setOpenModal={setOpenModal}
             />

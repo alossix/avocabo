@@ -165,7 +165,7 @@ export const getVocabDB =
   };
 
 export const removeVocabEntryDB =
-  ({ vocabId }: { vocabId: string }): AppThunk =>
+  ({ imageURL, vocabId }: { imageURL?: string; vocabId: string }): AppThunk =>
   async (dispatch) => {
     if (!auth.currentUser) {
       dispatch(setAppError("User is not signed in"));
@@ -182,10 +182,24 @@ export const removeVocabEntryDB =
 
       await deleteDoc(vocabDocRef);
 
-      // Delete the uploaded image
-      const userId = auth.currentUser.uid;
-      const imageStorageRef = ref(storage, `users/${userId}/images/${vocabId}`);
-      await deleteObject(imageStorageRef);
+      // Delete the uploaded image if available
+      if (imageURL) {
+        function extractUuidFromUrl(url: string): string | null {
+          const uuidRegex =
+            /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/;
+          const match = url.match(uuidRegex);
+
+          return match ? match[0] : null;
+        }
+
+        const imageUUID = extractUuidFromUrl(imageURL);
+        const userId = auth.currentUser.uid;
+        const imageStorageRef = ref(
+          storage,
+          `users/${userId}/images/${imageUUID}`
+        );
+        await deleteObject(imageStorageRef);
+      }
     } catch (error: unknown) {
       const { message } = handleAppError(error);
       dispatch(setAppError(message));

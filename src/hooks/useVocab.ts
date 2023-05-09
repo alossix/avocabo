@@ -89,8 +89,14 @@ export const useVocab = () => {
     dispatch(getVocabDB({ userId }));
   };
 
-  const removeVocabEntry = ({ vocabId }: { vocabId: string }) => {
-    dispatch(removeVocabEntryDB({ vocabId }));
+  const removeVocabEntry = ({
+    imageURL,
+    vocabId,
+  }: {
+    imageURL?: string;
+    vocabId: string;
+  }) => {
+    dispatch(removeVocabEntryDB({ imageURL, vocabId }));
   };
 
   const setNextVocabEntriesDueToday = () => {

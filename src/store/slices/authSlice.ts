@@ -10,6 +10,7 @@ import { initialVocabSetOther as other } from "@/lib/initialVocabSets/other";
 import { initialVocabSetUK as uk } from "@/lib/initialVocabSets/uk";
 import {
   auth,
+  collection,
   createUserWithEmailAndPassword,
   db,
   deleteDoc,
@@ -46,6 +47,7 @@ import {
   getVocabDB,
   setVocabInState,
 } from "./vocabSlice";
+import { DocumentReference, getDocs } from "firebase/firestore";
 
 const initialVocabSet: {
   [key in LearningLanguages]: { [vocabId: string]: Vocab };
@@ -157,7 +159,30 @@ export const createUserAuth =
     }
   };
 
-// delete user storage folder
+// delete user collections in firestore
+const deleteSubcollections = async (parentRef: DocumentReference) => {
+  const subcollections = ["vocab"];
+
+  for (const subcollection of subcollections) {
+    const subcollectionRef = collection(parentRef, subcollection);
+    const subcollectionDocs = await getDocs(subcollectionRef);
+
+    for (const subcollectionDoc of subcollectionDocs.docs) {
+      await deleteSubcollections(subcollectionDoc.ref);
+      await deleteDoc(subcollectionDoc.ref);
+    }
+  }
+};
+
+// delete user document in firestore
+const deleteUserDocument = async (userId: string) => {
+  const userDocRef = getUserDocRef({ uid: userId });
+
+  await deleteSubcollections(userDocRef);
+  await deleteDoc(userDocRef);
+};
+
+// delete user folder in firebase storage
 const deleteUserFolder = async (userId: string, folderPath: string) => {
   const userFolderRef = ref(storage, folderPath);
   try {
@@ -199,8 +224,7 @@ export const deleteUserAuth =
       await deleteUserFolder(user.uid, `users/${user.uid}`);
 
       // Delete the user document in Firestore
-      const userDocRef = getUserDocRef({ uid: user.uid });
-      await deleteDoc(userDocRef);
+      await deleteUserDocument(user.uid);
 
       // Delete the user's authentication data
       const currentUser = auth.currentUser;
