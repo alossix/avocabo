@@ -1,4 +1,3 @@
-import { useAppDispatch } from "@/store/store";
 import { theme } from "@/styles/theme";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";

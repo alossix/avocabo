@@ -25,16 +25,16 @@ type SignUpFormData = {
 export const SignUpForm: React.FC = () => {
   const { lang, t } = useTranslation("common");
   const {
+    formState: { errors },
     handleSubmit,
     register,
-    formState: { errors },
-    watch,
   } = useForm<SignUpFormData>();
   const [learningLanguage, setLearningLanguage] = useState<LearningLanguages>(
     lang as LearningLanguages
   );
-  const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
   const appErrorMessage = useAppSelector(selectError);
+  const [showErrorMessage, setShowErrorMessage] =
+    useState<string>(appErrorMessage);
   const dispatch = useAppDispatch();
 
   const getErrorMessage = (errorType: string) => {
@@ -53,11 +53,9 @@ export const SignUpForm: React.FC = () => {
 
   const displayErrorMessage = (errorType: string) => {
     dispatch(setAppError(getErrorMessage(errorType)));
-    setShowErrorMessage(true);
 
     setTimeout(() => {
       dispatch(setAppError(""));
-      setShowErrorMessage(false);
     }, 10000);
   };
 
@@ -101,7 +99,6 @@ export const SignUpForm: React.FC = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     dispatch(setAppError(""));
-    setShowErrorMessage(false);
     if (e.key === "Enter") {
       e.preventDefault();
       onSubmit();
@@ -109,15 +106,28 @@ export const SignUpForm: React.FC = () => {
   };
 
   useEffect(() => {
-    if (appErrorMessage) {
-      setShowErrorMessage(true);
-
-      setTimeout(() => {
-        dispatch(setAppError(""));
-        setShowErrorMessage(false);
-      }, 10000);
+    const fieldErrors = Object.values(errors)
+      .filter((error) => error !== undefined)
+      .map((error) => error.message || "");
+    if (fieldErrors.length > 0) {
+      const message = getErrorMessage(fieldErrors[0]);
+      if (message !== showErrorMessage) {
+        setShowErrorMessage(message);
+      }
+    } else if (appErrorMessage && appErrorMessage !== showErrorMessage) {
+      setShowErrorMessage(appErrorMessage);
+    } else {
+      setShowErrorMessage("");
     }
-  }, [appErrorMessage]);
+    // Clear the appErrorMessage after 10 seconds
+    const timeout = setTimeout(() => {
+      dispatch(setAppError(""));
+    }, 10000);
+
+    // Clear the timeout when the component unmounts or appErrorMessage changes
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appErrorMessage, dispatch, errors]);
 
   return (
     <StyledForm
@@ -186,9 +196,9 @@ export const SignUpForm: React.FC = () => {
       {showErrorMessage && (
         <Toast
           duration={10000}
-          onClose={() => setShowErrorMessage(false)}
+          onClose={() => setShowErrorMessage("")}
           toastType="error"
-          toastText={appErrorMessage}
+          toastText={showErrorMessage}
         />
       )}
     </StyledForm>
