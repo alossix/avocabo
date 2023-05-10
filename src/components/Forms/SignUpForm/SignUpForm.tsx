@@ -1,19 +1,19 @@
 import { TextInput } from "@/components/UI/TextInput";
-import { useAppDispatch } from "@/store/hooks";
-import { createUserAuth } from "@/store/slices/authSlice";
+import { Toast } from "@/components/UI/Toast";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import {
+  createUserAuth,
+  selectError,
+  setAppError,
+} from "@/store/slices/authSlice";
 import { theme } from "@/styles/theme";
 import { InterfaceLanguages, LearningLanguages } from "@/types/general";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../UI/Button";
 import { LanguageSelector } from "../LanguageSelector";
-
-type SignUpFormProps = {
-  setErrorMessageText: (message: string) => void;
-  setShowErrorMessage: (showMessage: boolean) => void;
-};
 
 type SignUpFormData = {
   confirmPassword: string;
@@ -22,15 +22,19 @@ type SignUpFormData = {
   password: string;
 };
 
-export const SignUpForm: React.FC<SignUpFormProps> = ({
-  setErrorMessageText,
-  setShowErrorMessage,
-}) => {
+export const SignUpForm: React.FC = () => {
   const { lang, t } = useTranslation("common");
-  const { handleSubmit, register } = useForm<SignUpFormData>();
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+  } = useForm<SignUpFormData>();
   const [learningLanguage, setLearningLanguage] = useState<LearningLanguages>(
     lang as LearningLanguages
   );
+  const appErrorMessage = useAppSelector(selectError);
+  const [showErrorMessage, setShowErrorMessage] =
+    useState<string>(appErrorMessage);
   const dispatch = useAppDispatch();
 
   const getErrorMessage = (errorType: string) => {
@@ -48,8 +52,11 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   };
 
   const displayErrorMessage = (errorType: string) => {
-    setShowErrorMessage(true);
-    setErrorMessageText(getErrorMessage(errorType));
+    dispatch(setAppError(getErrorMessage(errorType)));
+
+    setTimeout(() => {
+      dispatch(setAppError(""));
+    }, 10000);
   };
 
   const handleSignupSubmit = async (data: SignUpFormData) => {
@@ -91,12 +98,36 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
   const onSubmit = handleSubmit(handleSignupSubmit);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    setShowErrorMessage(false);
+    dispatch(setAppError(""));
     if (e.key === "Enter") {
       e.preventDefault();
       onSubmit();
     }
   };
+
+  useEffect(() => {
+    const fieldErrors = Object.values(errors)
+      .filter((error) => error !== undefined)
+      .map((error) => error.message || "");
+    if (fieldErrors.length > 0) {
+      const message = getErrorMessage(fieldErrors[0]);
+      if (message !== showErrorMessage) {
+        setShowErrorMessage(message);
+      }
+    } else if (appErrorMessage && appErrorMessage !== showErrorMessage) {
+      setShowErrorMessage(appErrorMessage);
+    } else {
+      setShowErrorMessage("");
+    }
+    // Clear the appErrorMessage after 10 seconds
+    const timeout = setTimeout(() => {
+      dispatch(setAppError(""));
+    }, 10000);
+
+    // Clear the timeout when the component unmounts or appErrorMessage changes
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appErrorMessage, dispatch, errors]);
 
   return (
     <StyledForm
@@ -162,6 +193,14 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({
       >
         {t("common:sign_up")}
       </Button>
+      {showErrorMessage && (
+        <Toast
+          duration={10000}
+          onClose={() => setShowErrorMessage("")}
+          toastType="error"
+          toastText={showErrorMessage}
+        />
+      )}
     </StyledForm>
   );
 };

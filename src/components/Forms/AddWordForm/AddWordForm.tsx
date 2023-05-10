@@ -16,20 +16,13 @@ import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { v4 as uuid4 } from "uuid";
 import { CategorySelector } from "../CategorySelector";
+import { Toast } from "@/components/UI/Toast";
 
 type AddWordFormProps = {
   currentUser: AppUser;
-  setErrorMessageText: (message: string) => void;
-  setShowErrorMessage: (error: boolean) => void;
-  setShowSuccessMessage: (success: boolean) => void;
 };
 
-export const AddWordForm: React.FC<AddWordFormProps> = ({
-  currentUser,
-  setErrorMessageText,
-  setShowErrorMessage,
-  setShowSuccessMessage,
-}) => {
+export const AddWordForm: React.FC<AddWordFormProps> = ({ currentUser }) => {
   const { addVocabEntry } = useVocab();
   const { t } = useTranslation("vocab");
   const { handleSubmit, register, reset, setValue, watch } = useForm<Vocab>();
@@ -38,6 +31,9 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
     []
   );
   const [currentCategory, setCurrentCategory] = useState<VocabCategories>("");
+  const [errorMessageText, setErrorMessageText] = useState<string>("");
+  const [showSuccessMessage, setShowSuccessMessage] = useState<boolean>(false);
+  const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
   const definitionValue = watch("definition");
   const descriptionValue = watch("description");
   const dispatch = useAppDispatch();
@@ -78,7 +74,6 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
     } catch (error: unknown) {
       const { message } = handleAppError(error);
       dispatch(setAppError(message));
-      console.error(error);
       handleError();
     } finally {
       reset();
@@ -187,6 +182,23 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({
       >
         {t("common:submit")}
       </Button>
+
+      {showSuccessMessage && (
+        <Toast
+          duration={3000}
+          onClose={() => setShowSuccessMessage(false)}
+          toastType="success"
+          toastText={t("vocab:vocab_added_success")}
+        />
+      )}
+      {showErrorMessage && (
+        <Toast
+          duration={10000}
+          onClose={() => setShowErrorMessage(false)}
+          toastType="error"
+          toastText={errorMessageText ?? t("vocab:vocab_added_error")}
+        />
+      )}
     </StyledForm>
   );
 };

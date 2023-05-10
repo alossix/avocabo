@@ -3,17 +3,11 @@ import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { SignUpForm } from "./SignUpForm";
 
-const setErrorMessageText = jest.fn();
-const setShowErrorMessage = jest.fn();
-
 describe("SignUpForm", () => {
   const renderComponent = () =>
     render(
       <Provider store={store}>
-        <SignUpForm
-          setErrorMessageText={setErrorMessageText}
-          setShowErrorMessage={setShowErrorMessage}
-        />
+        <SignUpForm />
       </Provider>
     );
 

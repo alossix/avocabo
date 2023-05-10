@@ -1,45 +1,42 @@
 import { Button } from "@/components/UI/Button";
 import { TextInput } from "@/components/UI/TextInput";
+import { Toast } from "@/components/UI/Toast";
 import { useAppSelector } from "@/store/hooks";
-import { selectError, signInAuth } from "@/store/slices/authSlice";
+import { selectError, setAppError, signInAuth } from "@/store/slices/authSlice";
 import { useAppDispatch } from "@/store/store";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-
-type SignInFormProps = {
-  setErrorMessageText: (message: string) => void;
-  setShowErrorMessage: (showMessage: boolean) => void;
-};
 
 type SignInFormData = {
   email: string;
   password: string;
 };
 
-export const SignInForm: React.FC<SignInFormProps> = ({
-  setErrorMessageText,
-  setShowErrorMessage,
-}) => {
+export const SignInForm: React.FC = () => {
   const { t } = useTranslation();
-  const { register, handleSubmit } = useForm<SignInFormData>();
+  const {
+    formState: { errors },
+    handleSubmit,
+    register,
+  } = useForm<SignInFormData>();
+  const appErrorMessage = useAppSelector(selectError);
+  const [showErrorMessage, setShowErrorMessage] =
+    useState<string>(appErrorMessage);
   const dispatch = useAppDispatch();
-  const errorMessage = useAppSelector(selectError);
 
   const submitForm = async (data: SignInFormData) => {
     const { email, password } = data;
 
     if (!email) {
-      setShowErrorMessage(true);
-      setErrorMessageText(t("common:email_required"));
+      dispatch(setAppError(t("common:email_required")));
       return;
     }
 
     if (!password) {
-      setShowErrorMessage(true);
-      setErrorMessageText(t("common:password_required"));
+      dispatch(setAppError(t("common:password_required")));
       return;
     }
 
@@ -49,7 +46,7 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   const onSubmit = handleSubmit(submitForm);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    setShowErrorMessage(false);
+    dispatch(setAppError(""));
     if (e.key === "Enter") {
       e.preventDefault();
       onSubmit();
@@ -57,11 +54,28 @@ export const SignInForm: React.FC<SignInFormProps> = ({
   };
 
   useEffect(() => {
-    if (errorMessage) {
-      setShowErrorMessage(true);
-      setErrorMessageText(errorMessage);
+    const fieldErrors = Object.values(errors)
+      .filter((error) => error !== undefined)
+      .map((error) => error.message || "");
+    if (fieldErrors.length > 0) {
+      const message = fieldErrors[0];
+      if (message !== showErrorMessage) {
+        setShowErrorMessage(message);
+      }
+    } else if (appErrorMessage && appErrorMessage !== showErrorMessage) {
+      setShowErrorMessage(appErrorMessage);
+    } else {
+      setShowErrorMessage("");
     }
-  }, [errorMessage, setErrorMessageText, setShowErrorMessage]);
+    // Clear the appErrorMessage after 10 seconds
+    const timeout = setTimeout(() => {
+      dispatch(setAppError(""));
+    }, 10000);
+
+    // Clear the timeout when the component unmounts or appErrorMessage changes
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appErrorMessage, errors, dispatch]);
 
   return (
     <StyledForm
@@ -92,6 +106,14 @@ export const SignInForm: React.FC<SignInFormProps> = ({
       >
         {t("common:sign_in")}
       </Button>
+      {showErrorMessage && (
+        <Toast
+          duration={10000}
+          onClose={() => setShowErrorMessage("")}
+          toastType="error"
+          toastText={showErrorMessage}
+        />
+      )}
     </StyledForm>
   );
 };

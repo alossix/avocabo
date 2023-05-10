@@ -1,9 +1,9 @@
 import { theme } from "@/styles/theme";
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
 import { SuccessIcon } from "../Icons";
 import { InfoIcon, WarningIcon } from "../Icons/";
-import { keyframes } from "@emotion/react";
-import { useEffect, useState } from "react";
 
 type ToastProps = {
   duration: number;
@@ -70,6 +70,7 @@ const ToastContainer = styled.div<{ toastType: ToastProps["toastType"] }>(
     alignItems: "center",
     padding: 8,
     gap: 8,
+    maxWidth: "100%",
     opacity: 0.7,
     backgroundColor:
       toastType === "error"

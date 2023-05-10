@@ -1,30 +1,15 @@
 import { SignUpForm } from "@/components/Forms/SignUpForm";
-import { Toast } from "@/components/UI/Toast";
 import { theme } from "@/styles/theme";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
-import { useState } from "react";
 
 export const SignUpPageView: React.FC = () => {
   const { t } = useTranslation();
-  const [errorMessageText, setErrorMessageText] = useState<string>("");
-  const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
 
   return (
     <SignUpPageViewContainer>
       <h1>{t("common:sign_up")}</h1>
-      <SignUpForm
-        setShowErrorMessage={setShowErrorMessage}
-        setErrorMessageText={setErrorMessageText}
-      />
-      {showErrorMessage && (
-        <Toast
-          duration={10000}
-          onClose={() => setShowErrorMessage(false)}
-          toastType="error"
-          toastText={errorMessageText}
-        />
-      )}
+      <SignUpForm />
     </SignUpPageViewContainer>
   );
 };
