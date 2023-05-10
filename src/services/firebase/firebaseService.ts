@@ -23,6 +23,7 @@ import {
   query,
   setDoc,
   updateDoc,
+  writeBatch,
 } from "firebase/firestore";
 import {
   deleteObject,
@@ -85,4 +86,5 @@ export {
   updateDoc,
   updateProfile,
   uploadBytes,
+  writeBatch,
 };

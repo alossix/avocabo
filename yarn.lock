@@ -6291,6 +6291,7 @@ __metadata:
     eslint: ^8.39.0
     eslint-config-next: 13.2.4
     eslint-config-prettier: ^8.8.0
+    eslint-plugin-jsx-a11y: ^6.7.1
     eslint-plugin-storybook: ^0.6.11
     firebase: 9.21.0
     husky: ^8.0.3
@@ -8478,7 +8479,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsx-a11y@npm:^6.5.1":
+"eslint-plugin-jsx-a11y@npm:^6.5.1, eslint-plugin-jsx-a11y@npm:^6.7.1":
   version: 6.7.1
   resolution: "eslint-plugin-jsx-a11y@npm:6.7.1"
   dependencies:
