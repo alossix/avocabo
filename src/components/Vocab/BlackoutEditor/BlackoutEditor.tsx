@@ -45,10 +45,24 @@ export const BlackoutEditor: React.FC<BlackoutEditorProps> = ({
 
     const isHighlighted = !isSpace && isRangeHighlighted(start, end);
 
+    const handleKeyDown = (
+      event: React.KeyboardEvent<HTMLSpanElement>,
+      start: number,
+      end: number
+    ) => {
+      if (event.key === "Enter") {
+        onClick(start, end);
+      }
+    };
+
     return (
       <span
         key={index}
+        tabIndex={!isSpace ? 0 : undefined}
         onClick={!isSpace ? () => onClick(start, end) : undefined}
+        onKeyDown={
+          !isSpace ? (event) => handleKeyDown(event, start, end) : undefined
+        }
         style={{
           backgroundColor: isHighlighted
             ? theme.colors.mediumGrey

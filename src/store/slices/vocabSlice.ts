@@ -12,6 +12,7 @@ import {
   setDoc,
   storage,
   updateDoc,
+  writeBatch,
 } from "@/services/firebase/firebaseService";
 import { Vocab } from "@/types/vocab";
 import { runTransaction } from "@firebase/firestore";
@@ -208,7 +209,7 @@ export const removeVocabEntryDB =
 
 export const setNextVocabEntriesDueTodayDB =
   (): AppThunk => async (dispatch, getState) => {
-    if (!auth.currentUser) {
+    if (auth.currentUser === null) {
       dispatch(setAppError("User is not signed in"));
       throw new Error("User is not signed in");
     }
@@ -227,16 +228,19 @@ export const setNextVocabEntriesDueTodayDB =
     dispatch(setNextVocabEntriesDueTodayInState({ vocabIds: next20VocabIds }));
 
     // Update the dueDate of the next 20 entries in the database
-    await Promise.all(
-      next20VocabIds.map((vocabId) =>
-        dispatch(
-          updateVocabEntryDB({
-            vocabId,
-            updatedProperties: { dueDate: today },
-          })
-        )
-      )
-    );
+    const batch = writeBatch(db);
+    next20VocabIds.forEach((vocabId) => {
+      const vocabDocRef = doc(
+        db,
+        "users",
+        //eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        auth.currentUser!.uid,
+        "vocab",
+        vocabId
+      );
+      batch.update(vocabDocRef, { dueDate: today });
+    });
+    await batch.commit();
   };
 
 // update vocab entry in db
