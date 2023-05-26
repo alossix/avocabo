@@ -13,6 +13,7 @@
   "display_name_required": "Le nom d'affichage est requis.",
   "email": "Email",
   "email_required": "L'adresse email est requise.",
+  "example": "Exemple",
   "header_add_words": "Ajouter mots",
   "header_profile": "Profil",
   "header_home": "Avocabo",
