@@ -1,23 +1,19 @@
 import { useWordHighlighting } from "@/hooks/useWordHighlighting";
-import { newShortDate } from "@/lib/datesAndTimes";
 import { theme } from "@/styles/theme";
-import { AppUser } from "@/types/general";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import React, { ReactEventHandler, useEffect, useState } from "react";
-import { EditVocabModal } from "../EditVocabModal";
-import { LearningStepper } from "../LearningStepper";
+import { LearningStepperExample } from "../LearningStepperExample";
 import EditVocabIcon from "/public/icons/edit-vocab-icon.svg";
+import { newShortDate } from "@/lib/datesAndTimes";
 
-type VocabCardProps = {
-  currentUser: AppUser;
+type VocabCardExampleProps = {
   vocabWord: Vocab;
 };
 
-export const VocabCard: React.FC<VocabCardProps> = ({
-  currentUser,
+export const VocabCardExample: React.FC<VocabCardExampleProps> = ({
   vocabWord,
 }) => {
   const { t } = useTranslation("vocab");
@@ -25,8 +21,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({
     blackoutWords: vocabWord.blackoutWords,
   });
   const [showDetails, setShowDetails] = useState<boolean>(false);
-  const [openModal, setOpenModal] = useState<boolean>(false);
-  const dueDate = newShortDate(vocabWord.dueDate);
+  const dueDate = newShortDate();
 
   const handleOnShowDetailsClick: ReactEventHandler<HTMLDivElement> = () => {
     if (!showDetails) {
@@ -41,13 +36,6 @@ export const VocabCard: React.FC<VocabCardProps> = ({
       event.preventDefault();
       handleOnShowDetailsClick(event);
     }
-  };
-
-  const handleEditButtonClick = (
-    event: React.MouseEvent | React.KeyboardEvent
-  ) => {
-    event.stopPropagation();
-    setOpenModal((prevOpen) => !prevOpen);
   };
 
   useEffect(() => {
@@ -96,20 +84,11 @@ export const VocabCard: React.FC<VocabCardProps> = ({
 
         <EditButton
           aria-label={t("vocab:vocab_edit_entry_title")}
-          onClick={handleEditButtonClick}
-          onKeyDown={(e) => e.key === "Enter" && handleEditButtonClick(e)}
           role="button"
           tabIndex={0}
         >
           <Image alt="edit-vocab" src={EditVocabIcon} width={20} height={20} />
         </EditButton>
-
-        <EditVocabModal
-          currentUser={currentUser}
-          isOpen={openModal}
-          setOpenModal={() => setOpenModal(!openModal)}
-          vocabWord={vocabWord}
-        />
       </TopRowDetails>
       {vocabWord.imageURL && (
         <ImageWrapper>
@@ -135,7 +114,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({
           <WordContainer title={vocabWord.phoneticPronunciation}>
             <p>{vocabWord.definition}</p>
           </WordContainer>
-          <LearningStepper vocabWord={vocabWord} />
+          <LearningStepperExample vocabWord={vocabWord} />
         </>
       ) : (
         <>
@@ -143,7 +122,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({
             <p>{`${t("vocab:vocab_reveal_word")}...`}</p>
           </div>
           <Hidden>
-            <LearningStepper vocabWord={vocabWord} />
+            <LearningStepperExample vocabWord={vocabWord} />
           </Hidden>
         </>
       )}
