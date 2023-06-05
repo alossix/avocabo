@@ -1,12 +1,53 @@
+import { VocabCardExample } from "@/components/Vocab/VocabCardExample";
+import { initialVocabSetCA } from "@/lib/initialVocabSets/ca";
+import { initialVocabSetDE } from "@/lib/initialVocabSets/de";
+import { initialVocabSetEN } from "@/lib/initialVocabSets/en";
+import { initialVocabSetES } from "@/lib/initialVocabSets/es";
+import { initialVocabSetFR } from "@/lib/initialVocabSets/fr";
+import { initialVocabSetIT } from "@/lib/initialVocabSets/it";
+import { initialVocabSetNL } from "@/lib/initialVocabSets/nl";
+import { initialVocabSetOther } from "@/lib/initialVocabSets/other";
+import { initialVocabSetUK } from "@/lib/initialVocabSets/uk";
 import { theme } from "@/styles/theme";
+import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
-import Image from "next/image";
-import VocabExampleAfter from "../../../../public/images/vocab-card-example-after.png";
-import VocabExampleBefore from "../../../../public/images/vocab-card-example-before.png";
 
 export const HomePageView: React.FC = () => {
-  const { t } = useTranslation("about");
+  const { lang, t } = useTranslation("about");
+
+  let vocabSet: Vocab;
+  switch (lang) {
+    case "ca":
+      vocabSet = Object.values(initialVocabSetCA)[0];
+      break;
+    case "de":
+      vocabSet = Object.values(initialVocabSetDE)[0];
+      break;
+    case "en":
+      vocabSet = Object.values(initialVocabSetEN)[0];
+      break;
+    case "es":
+      vocabSet = Object.values(initialVocabSetES)[0];
+      break;
+    case "fr":
+      vocabSet = Object.values(initialVocabSetFR)[0];
+      break;
+    case "it":
+      vocabSet = Object.values(initialVocabSetIT)[0];
+      break;
+    case "nl":
+      vocabSet = Object.values(initialVocabSetNL)[0];
+      break;
+    case "other":
+      vocabSet = Object.values(initialVocabSetOther)[0];
+      break;
+    case "uk":
+      vocabSet = Object.values(initialVocabSetUK)[0];
+      break;
+    default:
+      vocabSet = Object.values(initialVocabSetEN)[0]; // default language
+  }
 
   return (
     <HomePageViewContainer>
@@ -31,8 +72,7 @@ export const HomePageView: React.FC = () => {
         <section>
           <h2 style={{ marginTop: 16 }}>{t("common:example")}</h2>
           <HeroContainer>
-            <Image src={VocabExampleBefore} alt={"vocab-1"} width={300} />
-            <Image src={VocabExampleAfter} alt={"vocab-2"} width={300} />
+            <VocabCardExample vocabWord={vocabSet} />
           </HeroContainer>
         </section>
       </section>

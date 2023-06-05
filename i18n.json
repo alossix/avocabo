@@ -3,7 +3,7 @@
   "defaultLocale": "en",
   "pages": {
     "*": ["common"],
-    "/": ["about"],
+    "/": ["about", "vocab"],
     "/about": ["about"],
     "/add-words": ["vocab"],
     "/my-vocab": ["vocab"]
