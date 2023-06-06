@@ -2,11 +2,15 @@ import { RecallDifficulty, Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import { LearningStepperButtonExample } from "../LearningStepperButtonExample";
+
+import { Dispatch, SetStateAction } from "react";
 type LearningStepperExampleProps = {
+  setMessageText?: Dispatch<SetStateAction<string>>;
   vocabWord: Vocab;
 };
 
 export const LearningStepperExample: React.FC<LearningStepperExampleProps> = ({
+  setMessageText,
   vocabWord,
 }) => {
   const { t } = useTranslation("common");
@@ -24,6 +28,7 @@ export const LearningStepperExample: React.FC<LearningStepperExampleProps> = ({
         <LearningStepperButtonExample
           key={recallDifficulty}
           recallDifficulty={recallDifficulty}
+          setMessageText={setMessageText}
           vocabId={vocabWord.vocabId}
         />
       ))}

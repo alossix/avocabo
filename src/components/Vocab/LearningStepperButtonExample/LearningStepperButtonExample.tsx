@@ -3,10 +3,11 @@ import { StepperColorNames, StepperColors } from "@/types/design";
 import { RecallDifficulty } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 type LearningStepperButtonExampleProps = {
   recallDifficulty: RecallDifficulty;
+  setMessageText?: Dispatch<SetStateAction<string>>;
   vocabId: string;
 };
 
@@ -18,9 +19,15 @@ const stepperColors: StepperColors = {
 };
 
 export const LearningStepperButtonExample: React.FC<LearningStepperButtonExampleProps> =
-  React.memo(({ recallDifficulty }) => {
+  React.memo(({ recallDifficulty, setMessageText }) => {
     const { t } = useTranslation("common");
 
+    const handleButtonClick = () => {
+      const compiledMessage = t("common:example_marked", {
+        recallDifficulty: `${t(`common:button_recall_${recallDifficulty}`)}`,
+      });
+      setMessageText && setMessageText(compiledMessage);
+    };
     const color = theme.stepperColors[
       stepperColors[recallDifficulty]
     ] as StepperColorNames;
@@ -31,6 +38,7 @@ export const LearningStepperButtonExample: React.FC<LearningStepperButtonExample
         recallDifficulty={recallDifficulty}
         aria-label={t(`common:button_recall_${recallDifficulty}`)}
         color={color}
+        onClick={handleButtonClick}
       >
         {t(`common:button_recall_${recallDifficulty}`)}
       </Button>
@@ -54,7 +62,6 @@ const Button = styled.button<{
   borderRadius: 4,
   minWidth: "20%",
   flexGrow: 1,
-  // opacity: 0.7,
 
   "&:hover": {
     backgroundColor: color,

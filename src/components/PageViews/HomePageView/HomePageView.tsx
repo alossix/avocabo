@@ -1,3 +1,4 @@
+import { Toast } from "@/components/UI/Toast";
 import { VocabCardExample } from "@/components/Vocab/VocabCardExample";
 import { initialVocabSetCA } from "@/lib/initialVocabSets/ca";
 import { initialVocabSetDE } from "@/lib/initialVocabSets/de";
@@ -12,9 +13,11 @@ import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
+import { useState } from "react";
 
 export const HomePageView: React.FC = () => {
   const { lang, t } = useTranslation("about");
+  const [messageText, setMessageText] = useState<string>("");
 
   let vocabSet: Vocab;
   switch (lang) {
@@ -72,7 +75,18 @@ export const HomePageView: React.FC = () => {
         <section>
           <h2 style={{ marginTop: 16 }}>{t("common:example")}</h2>
           <HeroContainer>
-            <VocabCardExample vocabWord={vocabSet} />
+            <VocabCardExample
+              vocabWord={vocabSet}
+              setMessageText={setMessageText}
+            />
+            {messageText && (
+              <Toast
+                duration={5000}
+                onClose={() => setMessageText("")}
+                toastText={messageText}
+                toastType={"success"}
+              />
+            )}
           </HeroContainer>
         </section>
       </section>
@@ -98,9 +112,4 @@ const HeroContainer = styled.section({
   margin: "4px 0",
   padding: 16,
   backgroundColor: theme.colors.UILightGreen,
-
-  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
-    flexDirection: "row",
-    justifyContent: "center",
-  },
 });

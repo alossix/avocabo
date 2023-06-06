@@ -1,3 +1,4 @@
+import useUserCookie from "@/hooks/useUserCookie";
 import { useAppSelector } from "@/store/hooks";
 import {
   selectUserSignedIn,
@@ -17,7 +18,7 @@ import { useEffect, useRef, useState } from "react";
 import { LanguageSelector } from "../../Forms/LanguageSelector";
 import { Button } from "../Button";
 import { HamburgerMenu } from "../HamburgerMenu";
-import useUserCookie from "@/hooks/useUserCookie";
+import { AvocaboLogoIcon } from "../Icons";
 
 export const Header: React.FC<{
   mainContentRef: React.RefObject<HTMLDivElement> | null;
@@ -134,8 +135,14 @@ export const Header: React.FC<{
               onClick={(event) =>
                 handleInteractWithMenu({ event, path: `/${lang}/` })
               }
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+              }}
             >
               {t("common:header_home")}
+              <AvocaboLogoIcon />
             </HeaderLink>
           </HeaderItem>
         </LeftContent>
@@ -384,6 +391,9 @@ const HeaderLink = styled(Link)({
   },
   "&:hover": {
     color: theme.colors.lightAvocado,
+    "& svg path": {
+      fill: theme.colors.lightAvocado,
+    },
   },
 });
 
