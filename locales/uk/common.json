@@ -14,6 +14,7 @@
   "email": "Електронна пошта",
   "email_required": "Електронна пошта є обов'язковою.",
   "example": "Приклад",
+  "example_marked": "Позначено як '{{recallDifficulty}}'",
   "header_add_words": "Додати слова",
   "header_profile": "Профіль",
   "header_home": "Avocabo",

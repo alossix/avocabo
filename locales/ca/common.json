@@ -14,6 +14,7 @@
   "email": "Correu electrònic",
   "email_required": "Cal un correu electrònic.",
   "example": "Exemple",
+  "example_marked": "Marcada com a '{{recallDifficulty}}'",
   "header_add_words": "Afegeix paraules",
   "header_profile": "Perfil",
   "header_home": "Avocabo",

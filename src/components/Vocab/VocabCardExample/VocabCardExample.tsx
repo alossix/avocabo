@@ -1,19 +1,26 @@
 import { useWordHighlighting } from "@/hooks/useWordHighlighting";
+import { newShortDate } from "@/lib/datesAndTimes";
 import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
-import React, { ReactEventHandler, useEffect, useState } from "react";
+import React, {
+  Dispatch,
+  ReactEventHandler,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import { LearningStepperExample } from "../LearningStepperExample";
-import EditVocabIcon from "/public/icons/edit-vocab-icon.svg";
-import { newShortDate } from "@/lib/datesAndTimes";
 
 type VocabCardExampleProps = {
+  setMessageText: Dispatch<SetStateAction<string>>;
   vocabWord: Vocab;
 };
 
 export const VocabCardExample: React.FC<VocabCardExampleProps> = ({
+  setMessageText,
   vocabWord,
 }) => {
   const { t } = useTranslation("vocab");
@@ -81,14 +88,6 @@ export const VocabCardExample: React.FC<VocabCardExampleProps> = ({
         <p style={{ color: theme.colors.lightBlack, fontSize: 12 }}>
           {t("vocab:vocab_due_date", { dueDate })}
         </p>
-
-        <EditButton
-          aria-label={t("vocab:vocab_edit_entry_title")}
-          role="button"
-          tabIndex={0}
-        >
-          <Image alt="edit-vocab" src={EditVocabIcon} width={20} height={20} />
-        </EditButton>
       </TopRowDetails>
       {vocabWord.imageURL && (
         <ImageWrapper>
@@ -114,7 +113,10 @@ export const VocabCardExample: React.FC<VocabCardExampleProps> = ({
           <WordContainer title={vocabWord.phoneticPronunciation}>
             <p>{vocabWord.definition}</p>
           </WordContainer>
-          <LearningStepperExample vocabWord={vocabWord} />
+          <LearningStepperExample
+            setMessageText={setMessageText}
+            vocabWord={vocabWord}
+          />
         </>
       ) : (
         <>
@@ -154,19 +156,6 @@ const TopRowDetails = styled.div<{ showDetails: boolean }>({
   justifyContent: "space-between",
   alignItems: "center",
   width: "100%",
-});
-
-const EditButton = styled.button({
-  cursor: "pointer",
-  padding: 0,
-  height: 20,
-  backgroundColor: "transparent",
-  border: "none",
-  lineHeight: 1,
-
-  "&:hover": {
-    opacity: 0.6,
-  },
 });
 
 const ImageWrapper = styled.div({

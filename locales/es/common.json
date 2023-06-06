@@ -14,6 +14,7 @@
   "email": "Correo electrónico",
   "email_required": "Se requiere correo electrónico.",
   "example": "Ejemplo",
+  "example_marked": "Marcado como '{{recallDifficulty}}'",
   "header_add_words": "Añade palabras",
   "header_profile": "Perfil",
   "header_home": "Avocabo",

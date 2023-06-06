@@ -14,6 +14,7 @@
   "email": "Email",
   "email_required": "L'adresse email est requise.",
   "example": "Exemple",
+  "example_marked": "Marqué comme '{{recallDifficulty}}'",
   "header_add_words": "Ajouter mots",
   "header_profile": "Profil",
   "header_home": "Avocabo",
