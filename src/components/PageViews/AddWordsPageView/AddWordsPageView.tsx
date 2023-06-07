@@ -1,5 +1,4 @@
 import { AddWordForm } from "@/components/Forms/AddWordForm";
-import { theme } from "@/styles/theme";
 import { AppUser } from "@/types/general";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
@@ -22,8 +21,4 @@ const AddWordsPageContainer = styled.div({
   flexDirection: "column",
   gap: 16,
   width: "100%",
-
-  [`@media (min-width: ${theme.breakpoints.desktop})`]: {
-    alignItems: "center",
-  },
 });

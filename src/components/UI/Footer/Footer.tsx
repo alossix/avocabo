@@ -39,25 +39,27 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <FooterContent>
-      <LanguageSelector
-        handleSelectLanguage={handleSelectInterfaceLanguage}
-        languageSet={"interface"}
-        selectedLanguage={
-          userCookie?.interfaceLanguage ??
-          currentUser?.interfaceLanguage ??
-          (lang as InterfaceLanguages)
-        }
-      />
-    </FooterContent>
+    <FooterNav>
+      <FooterContent>
+        <LanguageSelector
+          handleSelectLanguage={handleSelectInterfaceLanguage}
+          languageSet={"interface"}
+          selectedLanguage={
+            userCookie?.interfaceLanguage ??
+            currentUser?.interfaceLanguage ??
+            (lang as InterfaceLanguages)
+          }
+        />
+      </FooterContent>
+    </FooterNav>
   );
 };
 
-const FooterContent = styled.footer({
+const FooterNav = styled.footer({
   display: "none",
   justifyContent: "flex-end",
   gridArea: "8 / 1 / 9 / 9",
-  padding: 8,
+
   backgroundColor: theme.colors.white,
   zIndex: 999,
   boxShadow:
@@ -65,5 +67,15 @@ const FooterContent = styled.footer({
 
   [`@media (min-width: ${theme.breakpoints.desktop})`]: {
     display: "flex",
+    justifyContent: "center",
+    width: "100%",
   },
+});
+
+const FooterContent = styled.div({
+  display: "flex",
+  justifyContent: "flex-end",
+  width: "100%",
+  maxWidth: 1024,
+  padding: 8,
 });
