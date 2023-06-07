@@ -1,5 +1,6 @@
 import { Footer } from "@/components/UI/Footer";
 import { Header } from "@/components/UI/Header";
+import { MainContent } from "@/components/UI/MainContent";
 import styled from "@emotion/styled";
 import { useRef } from "react";
 import { theme } from "./theme";
@@ -29,17 +30,5 @@ const PageWrapper = styled.main`
 
   @media (min-width: ${theme.breakpoints.desktop}) {
     grid-template-rows: 4rem repeat(6, 1fr) auto;
-  }
-`;
-
-const MainContent = styled.section`
-  display: grid;
-  justify-self: center;
-  grid-area: 2 / 1 / 8 / 9;
-  overflow-y: auto;
-  padding: 8px;
-
-  @media (min-width: ${theme.breakpoints.desktop}) {
-    max-width: 1024px;
   }
 `;
