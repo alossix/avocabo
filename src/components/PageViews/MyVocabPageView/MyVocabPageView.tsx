@@ -87,20 +87,20 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
     <VocabWindowContainer>
       <h1>{t("vocab:vocab_list_title")}</h1>
       {vocabCountIsZero ? (
-        <StyledH3>
+        <h3>
           {t("vocab:vocab_no_words")}{" "}
           <Link href="/add-words">{t("vocab:vocab_no_words_add")}</Link>
-        </StyledH3>
+        </h3>
       ) : (
         <>
           {dueCountIsZero ? (
             <>
               {timeToNextVocab && (
-                <StyledH3>
+                <h3>
                   {t("vocab:vocab_next_words", {
                     minutes: formatTimeHoursAndMinutes(timeToNextVocab),
                   })}
-                </StyledH3>
+                </h3>
               )}
 
               <Button
@@ -113,11 +113,11 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
             </>
           ) : (
             <>
-              <StyledH3>
+              <h3>
                 {t("vocab:vocab_number_of_entries", {
                   count: dueVocabList.length,
                 })}
-              </StyledH3>
+              </h3>
               <VocabCardsContainer>
                 <VocabCard
                   currentUser={currentUser}
@@ -150,8 +150,4 @@ const VocabCardsContainer = styled.div({
     marginTop: 64,
     width: "100%",
   },
-});
-
-const StyledH3 = styled.h3({
-  margin: "32px 0",
 });

@@ -141,7 +141,7 @@ const CardWrapper = styled.div<{ showDetails: boolean }>(({ showDetails }) => ({
   border: `1px solid ${theme.colors.lightGrey}`,
   padding: 8,
   backgroundColor: theme.colors.white,
-  maxWidth: "100%",
+  width: "100%",
   height: 440,
   cursor: !showDetails ? "pointer" : "default",
   gap: 16,

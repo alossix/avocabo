@@ -320,7 +320,7 @@ export const Header: React.FC<{
 
 const HeaderNav = styled.nav({
   display: "flex",
-  justifyContent: "space-between",
+  justifyContent: "center",
   alignItems: "center",
   gridArea: "1 / 1 / 2 / 9",
   padding: "8px",
@@ -333,6 +333,14 @@ const HeaderContent = styled.header({
   justifyContent: "space-between",
   position: "relative",
   width: "100%",
+  maxWidth: 1024,
+});
+
+const LeftContent = styled.div({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  flex: 1,
 });
 
 const HeaderUL = styled.ul<{ mobileMenuOpen: boolean }>(
@@ -395,13 +403,6 @@ const HeaderLink = styled(Link)({
       fill: theme.colors.lightAvocado,
     },
   },
-});
-
-const LeftContent = styled.div({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  flex: 1,
 });
 
 const MobileOnly = styled.div({
