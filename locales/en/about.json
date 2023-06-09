@@ -1,19 +1,34 @@
 {
   "home": {
-    "title": "Welcome to Avocabo!",
-    "subtitle": "Master Vocabulary with our Spaced Repetition System",
-    "section1Title": "How Our System Works",
-    "section1Text": "<p>Our spaced repetition system helps you learn vocabulary more efficiently and effectively than traditional study methods. It presents you with words to learn and schedules review sessions at intervals designed to optimize memory retention. As you progress, our system tracks your performance and adjusts the review schedule accordingly. You'll spend less time studying while retaining more information.</p>",
-    "section2Title": "The Benefits of Using Our System",
-    "section2Text": "<p>By using Avocabo's spaced repetition system, you can learn vocabulary more efficiently and effectively than traditional study methods. Our system minimizes the amount of time you spend studying while maximizing the amount you retain. Avocabo also provides feedback on your progress, so you can see how far you've come and identify areas that need more attention. With our system, you'll have the tools you need to master vocabulary.</p>"
+    "title": "Welcome to Avocabo: Master Languages Through Visual Spaced Repetition",
+    "subtitle": "Unlock the power of your brain to learn languages faster and more effectively with Avocabo!",
+    "subtitleText": "Our unique, flashcard-based spaced repetition system is designed to optimize your language learning process. Leveraging the cognitive science of how our brains retain information, Avocabo introduces language flashcards at increasing intervals, imprinting the information in your long-term memory, making language learning more durable and efficient.",
+    "section1Title": "Visual Learning Meets Memory Science",
+    "section1Text": "We understand that every learner is unique. Some people are more visual and connect with images better. With Avocabo, we take this to a whole new level. Our platform allows you to upload your own photographs to create personalized flashcards, serving as powerful memory anchors. With every card, you are not just learning a new word or phrase, but creating a visual story that improves recall.",
+    "section2Title": "Personalized Learning Paths",
+    "section2Text": "Our smart algorithm adapts to your learning speed and the difficulty level of the content. It prioritizes your weak points and continually challenges your strong points, ensuring a well-rounded learning experience.",
+    "section3Title": "Reclaim Your Language Learning Experience",
+    "section3Text": "Learn at your own pace. Anytime, anywhere. With Avocabo, you're in control. Dive into a rich learning experience that keeps you engaged, motivated, and makes mastering languages less daunting and more enjoyable.",
+    "section4Title": "Connect With a Community of Language Learners",
+    "section4Text": "Join our community of enthusiastic language learners from around the world. Share experiences, find learning partners, and enjoy the journey together. Avocabo is not just a language learning app, it's a community.",
+    "section5Title": "Start Your Language Learning Journey Today",
+    "section5Text": "Discover the joy of learning a new language. Sign up for Avocabo and get started on your journey to linguistic mastery. Harness the power of visual spaced repetition, and transform the way you learn languages, forever.",
+    "section5Text2": "With Avocabo, you're not just learning a new language, you're creating lasting memories. Let's embark on this journey together!"
   },
   "howItWorks": {
-    "title": "How Our Spaced Repetition System Works",
-    "section1Title": "What is a Spaced Repetition System?",
-    "section1Text": "<p>A spaced repetition system is a method of reviewing information that has been shown to be highly effective for memory retention. This method involves scheduling review sessions at increasingly longer intervals after each successful recall.</p><p>By repeating the review process at spaced intervals, you can commit the information to long-term memory and increase your ability to recall it later.</p>",
-    "section2Title": "How Our System Works",
-    "section2Text": "<p>Our spaced repetition system for studying vocabulary works by presenting you with vocabulary words that you need to learn, and then scheduling review sessions at intervals that are designed to optimize memory retention. The intervals are based on the difficulty of the word and how well you recall it during the review session.</p><p>The system tracks your progress and adjusts the review schedule accordingly, so that you can focus on the words that you find most challenging.</p>",
-    "section3Title": "The Benefits of Using Our System",
-    "section3Text": "<p>Using our spaced repetition system can help you learn vocabulary more efficiently and effectively than traditional study methods. By optimizing the review schedule for each word, you can minimize the amount of time you spend studying while maximizing the amount you retain.</p><p>The system also provides feedback on your progress, so you can see how far you've come and identify areas that need more attention.</p>"
+    "title": "How Avocabo Works",
+    "section1Title": "What is Avocabo?",
+    "section1Text": "Avocabo is a state-of-the-art, flashcard-based spaced repetition system designed to optimize your language learning process. We incorporate the power of visual learning, cognitive science, and personalization to ensure a robust, efficient, and enjoyable language acquisition experience.",
+    "section2Title": "How Does Our Spaced Repetition System Work?",
+    "section2Text": "Our innovative system revolves around the concept of presenting language flashcards at increasing intervals, thereby imprinting the information in your long-term memory. The intervals are intelligently designed based on the difficulty level of the word or phrase and how well you recall it during review sessions.",
+    "section2Text2": "Avocabo's system diligently tracks your progress and adaptively modifies the review schedule, allowing you to focus more on challenging vocabulary.",
+    "section3Title": "Visual Learning and Memory Science",
+    "section3Text": "At Avocabo, we believe that every learner is unique. Many people are visual learners who can connect better with images. For this reason, Avocabo allows you to upload your photographs and use them as memory anchors, making each flashcard a visual story that greatly enhances recall.",
+    "section4Title": "Personalized Learning Paths",
+    "section4Text": "Our intelligent algorithm accommodates your learning speed and the difficulty level of the language content. It pinpoints your weak areas for extra attention and continually challenges your strong points to ensure a well-rounded learning experience.",
+    "section5Title": "Benefits of Using Avocabo",
+    "section5Text": "Avocabo can make your language learning more efficient and effective compared to traditional methods. By customizing the review schedule for each word or phrase, it reduces unnecessary study time and enhances retention.",
+    "section5Text2": "Moreover, Avocabo offers comprehensive feedback on your progress, allowing you to track your journey and identify areas needing more focus. With Avocabo, you don't just learn a new language - you create lasting memories!",
+    "section5Text3": "Start your journey towards linguistic mastery today with Avocabo, and transform the way you learn languages forever."
   }
 }

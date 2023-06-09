@@ -1,19 +1,34 @@
 {
   "home": {
-    "title": "¡Bienvenido a Avocabo!",
-    "subtitle": "Domina el vocabulario con nuestro sistema de repetición espaciada",
-    "section1Title": "Cómo funciona nuestro sistema",
-    "section1Text": "<p>Nuestro sistema de repetición espaciada te ayuda a aprender vocabulario de manera más eficiente y efectiva que los métodos de estudio tradicionales. Te presenta palabras para aprender y programa sesiones de revisión a intervalos diseñados para optimizar la retención de memoria. A medida que progresas, nuestro sistema sigue tu rendimiento y ajusta el calendario de revisión en consecuencia. Pasarás menos tiempo estudiando mientras retienes más información.</p>",
-    "section2Title": "Los beneficios de usar nuestro sistema",
-    "section2Text": "<p>Usando el sistema de repetición espaciada de Avocabo, puedes aprender vocabulario de manera más eficiente y efectiva que los métodos de estudio tradicionales. Nuestro sistema minimiza el tiempo que dedicas al estudio, mientras que maximiza la cantidad que retienes. Avocabo también proporciona comentarios sobre tu progreso, para que puedas ver cuánto has avanzado e identificar áreas que necesitan más atención. Con nuestro sistema, tendrás las herramientas que necesitas para dominar el vocabulario.</p>"
+    "title": "Bienvenido a Avocabo: Domina idiomas a través de la repetición espaciada visual",
+    "subtitle": "¡Desbloquea el poder de tu cerebro para aprender idiomas más rápido y de manera más efectiva con Avocabo!",
+    "subtitleText": "Nuestro sistema único de repetición espaciada basado en tarjetas está diseñado para optimizar tu proceso de aprendizaje de idiomas. Utilizando la ciencia cognitiva de cómo nuestro cerebro retiene información, Avocabo introduce tarjetas de idiomas en intervalos cada vez mayores, imprimiendo la información en tu memoria a largo plazo, haciendo el aprendizaje de idiomas más duradero y eficiente.",
+    "section1Title": "El aprendizaje visual se encuentra con la ciencia de la memoria",
+    "section1Text": "Entendemos que cada estudiante es único. Algunas personas son más visuales y conectan mejor con las imágenes. Con Avocabo, llevamos esto a un nivel completamente nuevo. Nuestra plataforma te permite subir tus propias fotografías para crear tarjetas personalizadas, sirviendo como potentes anclas de memoria. Con cada tarjeta, no solo estás aprendiendo una nueva palabra o frase, sino creando una historia visual que mejora la recordación.",
+    "section2Title": "Rutas de aprendizaje personalizadas",
+    "section2Text": "Nuestro algoritmo inteligente se adapta a tu velocidad de aprendizaje y al nivel de dificultad del contenido. Prioriza tus puntos débiles y desafía continuamente tus puntos fuertes, asegurando una experiencia de aprendizaje equilibrada.",
+    "section3Title": "Recupera tu experiencia de aprendizaje de idiomas",
+    "section3Text": "Aprende a tu propio ritmo. En cualquier momento, en cualquier lugar. Con Avocabo, tú tienes el control. Sumérgete en una rica experiencia de aprendizaje que te mantiene comprometido, motivado y hace que dominar los idiomas sea menos intimidante y más agradable.",
+    "section4Title": "Conéctate con una comunidad de aprendices de idiomas",
+    "section4Text": "Únete a nuestra comunidad de entusiastas aprendices de idiomas de todo el mundo. Comparte experiencias, encuentra compañeros de aprendizaje y disfruta el viaje juntos. Avocabo no es solo una aplicación para aprender idiomas, es una comunidad.",
+    "section5Title": "Inicia tu viaje de aprendizaje de idiomas hoy",
+    "section5Text": "Descubre el placer de aprender un nuevo idioma. Regístrate en Avocabo y comienza tu viaje hacia la maestría lingüística. Aprovecha el poder de la repetición espaciada visual y transforma la forma en que aprendes idiomas, para siempre.",
+    "section5Text2": "Con Avocabo, no solo estás aprendiendo un nuevo idioma, estás creando recuerdos duraderos. ¡Embarquémonos juntos en este viaje!"
   },
   "howItWorks": {
-    "title": "Cómo funciona nuestro sistema de repetición espaciada",
-    "section1Title": "¿Qué es un sistema de repetición espaciada?",
-    "section1Text": "<p>Un sistema de repetición espaciada es un método de revisión de información que se ha demostrado altamente efectivo para la retención de memoria. Este método implica programar sesiones de revisión a intervalos cada vez más largos después de cada recuerdo exitoso.</p><p>Al repetir el proceso de revisión a intervalos espaciados, puedes comprometer la información en la memoria a largo plazo y aumentar tu capacidad para recordarla más tarde.</p>",
-    "section2Title": "Cómo funciona nuestro sistema",
-    "section2Text": "<p>Nuestro sistema de repetición espaciada para estudiar vocabulario funciona presentándote palabras que necesitas aprender, y luego programando sesiones de revisión a intervalos diseñados para optimizar la retención de memoria. Los intervalos se basan en la dificultad de la palabra y en cómo la recuerdas durante la sesión de revisión.</p><p>El sistema sigue tu progreso y ajusta el programa de revisión en consecuencia, para que puedas centrarte en las palabras que te resulten más desafiantes.</p>",
-    "section3Title": "Los beneficios de usar nuestro sistema",
-    "section3Text": "<p>Usar nuestro sistema de repetición espaciada puede ayudarte a aprender vocabulario de manera más eficiente y efectiva que los métodos de estudio tradicionales. Al optimizar el programa de revisión para cada palabra, puedes minimizar el tiempo que dedicas al estudio mientras maximizas la cantidad que retienes.</p><p>El sistema también proporciona retroalimentación sobre tu progreso, para que puedas ver cuánto has avanzado e identificar áreas que necesiten más atención.</p>"
+    "title": "Cómo funciona Avocabo",
+    "section1Title": "¿Qué es Avocabo?",
+    "section1Text": "Avocabo es un sistema de repetición espaciada basado en tarjetas de memoria de última generación diseñado para optimizar tu proceso de aprendizaje de idiomas. Incorporamos el poder del aprendizaje visual, la ciencia cognitiva y la personalización para asegurar una experiencia de adquisición de idiomas robusta, eficiente y agradable.",
+    "section2Title": "¿Cómo funciona nuestro sistema de repetición espaciada?",
+    "section2Text": "Nuestro innovador sistema gira en torno al concepto de presentar tarjetas de idiomas en intervalos cada vez más largos, lo que imprime la información en tu memoria a largo plazo. Los intervalos se diseñan de manera inteligente basándose en el nivel de dificultad de la palabra o frase y qué tan bien la recuerdas durante las sesiones de revisión.",
+    "section2Text2": "El sistema de Avocabo sigue cuidadosamente tu progreso y modifica adaptativamente el horario de revisión, lo que te permite concentrarte más en el vocabulario que encuentras más desafiante.",
+    "section3Title": "Aprendizaje visual y ciencia de la memoria",
+    "section3Text": "En Avocabo, creemos que cada aprendiz es único. Muchas personas son aprendices visuales que conectan mejor con las imágenes. Por esta razón, Avocabo te permite subir tus fotografías y utilizarlas como anclajes de memoria, convirtiendo cada tarjeta en una historia visual que mejora enormemente la retención.",
+    "section4Title": "Rutas de aprendizaje personalizadas",
+    "section4Text": "Nuestro algoritmo inteligente se ajusta a tu velocidad de aprendizaje y al nivel de dificultad del contenido del idioma. Identifica tus áreas débiles para darles más atención y desafía continuamente tus puntos fuertes para asegurar una experiencia de aprendizaje equilibrada.",
+    "section5Title": "Beneficios de usar Avocabo",
+    "section5Text": "Avocabo puede hacer que tu aprendizaje de idiomas sea más eficiente y efectivo en comparación con los métodos de estudio tradicionales. Al personalizar el horario de revisión para cada palabra o frase, se reduce el tiempo de estudio innecesario y se mejora la retención.",
+    "section5Text2": "Además, Avocabo ofrece un feedback completo sobre tu progreso, permitiéndote seguir tu trayectoria e identificar las áreas que necesitan más atención. Con Avocabo, no solo aprendes un nuevo idioma, ¡creas recuerdos duraderos!",
+    "section5Text3": "Comienza hoy tu viaje hacia la maestría lingüística con Avocabo, y transforma la manera en la que aprendes idiomas para siempre."
   }
 }

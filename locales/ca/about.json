@@ -1,19 +1,34 @@
 {
   "home": {
-    "title": "Benvinguts a Avocabo!",
-    "subtitle": "Domineu el vocabulari amb el nostre sistema de repetició espaiada",
-    "section1Title": "Com funciona el nostre sistema",
-    "section1Text": "<p>El nostre sistema de repetició espaiada us ajuda a aprendre vocabulari de manera més eficient i efectiva que els mètodes d'estudi tradicionals. Us presenta paraules per aprendre i programa sessions de revisió a intervals dissenyats per optimitzar la retenció de memòria. A mesura que programeu, el nostre sistema segueix el vostre rendiment i ajusta el calendari de revisió en consequència. Passareu menys temps estudiant mentre reteniu més informació.</p>",
-    "section2Title": "Els beneficis d'utilitzar el nostre sistema",
-    "section2Text": "<p>Utilitzant el sistema de repetició espaiada d'Avocabo, podeu aprendre vocabulari de manera més eficient i efectiva que amb els mètodes d'estudi tradicionals. El nostre sistema minimitza el temps que dediqueu a l'estudi, mentre que maximitza la quantitat que reteniu. Avocabo també proporciona comentaris sobre el vostre progrés, perquè pugueu veure el camí que heu recorregut i identificar les àrees que necessiten més atenció. Amb el nostre sistema, tindreu les eines que necessiteu per dominar el vocabulari.</p>"
+    "title": "Benvingut a Avocabo: Domina les llengües amb la repetició espaiada visual",
+    "subtitle": "Desbloqueja el poder del teu cervell per aprendre idiomes més ràpidament i eficaçment amb Avocabo!",
+    "subtitleText": "El nostre sistema únic de repetició espaiada basat en targetes didàctiques està dissenyat per optimitzar el teu procés d'aprenentatge de llengües. Utilitzant la ciència cognitiva de com el nostre cervell reté informació, Avocabo introdueix targetes didàctiques de llengües a intervals cada vegada més llargs, imprimint la informació en la teva memòria a llarg termini, fent l'aprenentatge de llengües més durador i eficient.",
+    "section1Title": "L'aprenentatge visual es troba amb la ciència de la memòria",
+    "section1Text": "Entenem que cada aprenent és únic. Algunes persones són més visuals i connecten millor amb les imatges. Amb Avocabo, això s'emporta a un nivell completament nou. La nostra plataforma et permet pujar les teves pròpies fotografies per crear targetes didàctiques personalitzades, que serveixen com a potents ancores de memòria. Amb cada targeta, no només estàs aprenent una nova paraula o frase, sinó que estàs creant una història visual que millora el record.",
+    "section2Title": "Caminis d'aprenentatge personalitzats",
+    "section2Text": "El nostre algoritme intel·ligent s'adapta a la teva velocitat d'aprenentatge i al nivell de dificultat del contingut. Prioritza els teus punts febles i desafia continuament els teus punts forts, garantint una experiència d'aprenentatge completa.",
+    "section3Title": "Recupera la teva experiència d'aprenentatge de llengües",
+    "section3Text": "Aprèn al teu ritme. A qualsevol hora, a qualsevol lloc. Amb Avocabo, tu tens el control. Submergeix-te en una experiència d'aprenentatge enriquidora que et manté compromès, motivat i fa que el domini de les llengües sigui menys intimidant i més agradable.",
+    "section4Title": "Connecta amb una comunitat d'aprenents de llengües",
+    "section4Text": "Uneix-te a la nostra comunitat d'aprenents de llengües entusiastes de tot el món. Comparteix experiències, troba companys d'aprenentatge i gaudeix del viatge junts. Avocabo no és només una aplicació d'aprenentatge de llengües, és una comunitat.",
+    "section5Title": "Comença el teu viatge d'aprenentatge de llengües avui",
+    "section5Text": "Descobreix l'alegria d'aprendre una nova llengua. Registra't a Avocabo i comença el teu viatge cap al domini lingüístic. Aprofita el poder de la repetició espaiada visual, i transforma la manera com aprens llengües, per sempre.",
+    "section5Text2": "Amb Avocabo, no només estàs aprenent una nova llengua, estàs creant records duradors. Anem a embarcar-nos en aquest viatge junts!"
   },
   "howItWorks": {
-    "title": "Com Funciona el Nostre Sistema de Repetició Espaiada",
-    "section1Title": "Què és un Sistema de Repetició Espaiada?",
-    "section1Text": "<p>Un sistema de repetició espaiada és un mètode per repassar informació que s'ha demostrat altament efectiu per a la retenció de memòria. Aquest mètode implica programar sessions de repàs a intervals cada vegada més llargs després de cada recordatoris reeixit.</p><p>Repetint el procés de repàs en intervals espaiats, podeu fixar la informació a la memòria de llarga durada i augmentar la vostra capacitat de recordar-la més endavant.</p>",
-    "section2Title": "Com Funciona el Nostre Sistema",
-    "section2Text": "<p>El nostre sistema de repetició espaiada per estudiar vocabulari funciona presentant-vos paraules de vocabulari que heu de aprendre i programant sessions de repàs a intervals que estan dissenyats per optimitzar la retenció de memòria. Els intervals es basen en la dificultat de la paraula i en com la recordeu durant la sessió de repàs.</p><p>El sistema fa un seguiment del vostre progrés i ajusta el calendari de repàs en consequència, perquè pugueu centrar-vos en les paraules que trobeu més desafiantes.</p>",
-    "section3Title": "Els Beneficis d'Utilitzar el Nostre Sistema",
-    "section3Text": "<p>L'ús del nostre sistema de repetició espaiada pot ajudar-vos a aprendre vocabulari de manera més eficient i efectiva que els mètodes d'estudi tradicionals. Optimitzant el calendari de repàs per a cada paraula, podeu minimitzar el temps que dediqueu a estudiar mentre maximitzeu la quantitat que reteniu.</p><p>El sistema també proporciona comentaris sobre el vostre progrés, de manera que pugueu veure fins on heu arribat i identificar les àrees que necessiten més atenció.</p>"
+    "title": "Com funciona Avocabo",
+    "section1Title": "Què és Avocabo?",
+    "section1Text": "Avocabo és un sistema de repetició espaiada basat en targetes de memòria d'avantguarda dissenyat per optimitzar el teu procés d'aprenentatge de llengües. Incorporem el poder de l'aprenentatge visual, la ciència cognitiva i la personalització per garantir una experiència d'adquisició de llengua robusta, eficient i agradable.",
+    "section2Title": "Com funciona el nostre sistema de repetició espaiada?",
+    "section2Text": "El nostre sistema innovador gira entorn del concepte de presentar targetes de llengua en intervals cada vegada més grans, imprimint així la informació en la teva memòria a llarg termini. Els intervals es dissenyen intel·ligentment en funció del nivell de dificultat de la paraula o frase i de com la recordes durant les sessions de revisió.",
+    "section2Text2": "El sistema d'Avocabo segueix diligentment el teu progrés i modifica adaptativament l'horari de revisió, permetent-te concentrar-te més en el vocabulari que trobes més desafiador.",
+    "section3Title": "Aprenentatge visual i ciència de la memòria",
+    "section3Text": "A Avocabo, creiem que cada aprenent és únic. Moltes persones són aprenents visuals que connecten millor amb les imatges. Per aquesta raó, Avocabo et permet pujar les teves fotografies i utilitzar-les com a àncores de memòria, convertint cada targeta en una història visual que millora enormement el record.",
+    "section4Title": "Rutes d'aprenentatge personalitzades",
+    "section4Text": "El nostre algoritme intel·ligent s'adapta a la teva velocitat d'aprenentatge i al nivell de dificultat del contingut lingüístic. Identifica les teves àrees febles per a més atenció i desafia constantment els teus punts forts per garantir una experiència d'aprenentatge equilibrada.",
+    "section5Title": "Beneficis de l'ús d'Avocabo",
+    "section5Text": "Avocabo pot fer que el teu aprenentatge de llengües sigui més eficient i efectiu en comparació amb els mètodes d'estudi tradicionals. Personalitzant l'horari de revisió per a cada paraula o frase, es redueix el temps d'estudi innecessari i s'augmenta la retenció.",
+    "section5Text2": "A més, Avocabo ofereix una retroacció completa sobre el teu progrés, permetent-te seguir el teu recorregut i identificar les àrees que necessiten més atenció. Amb Avocabo, no només aprens una nova llengua, crees records duradors!",
+    "section5Text3": "Comença avui mateix el teu viatge cap a la mestria lingüística amb Avocabo, i transforma la manera en què aprens llengües per sempre."
   }
 }

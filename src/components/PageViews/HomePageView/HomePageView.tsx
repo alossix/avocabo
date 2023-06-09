@@ -55,40 +55,51 @@ export const HomePageView: React.FC = () => {
   return (
     <HomePageViewContainer>
       <h1>{t("about:home.title")}</h1>
+      <p>{t("about:home.subtitle")}</p>
+      <p>{t("about:home.subtitleText")}</p>
 
       <section>
         <h2>{t("about:home.section1Title")}</h2>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: t("about:home.section1Text"),
-          }}
-        />
+        <p>{t("about:home.section1Text")}</p>
       </section>
 
       <section>
-        <h2>{t("about:home.section2Title")}</h2>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: t("about:home.section2Text"),
-          }}
-        />
-        <section>
+        <h3>{t("about:home.section2Title")}</h3>
+        <p>{t("about:home.section2Text")}</p>
+      </section>
+
+      <section>
+        <h3>{t("about:home.section3Title")}</h3>
+        <p>{t("about:home.section3Text")}</p>
+      </section>
+
+      <section>
+        <h3>{t("about:home.section4Title")}</h3>
+        <p>{t("about:home.section4Text")}</p>
+      </section>
+
+      <section>
+        <h3>{t("about:home.section5Title")}</h3>
+        <p>{t("about:home.section5Text")}</p>
+        <p>{t("about:home.section5Text2")}</p>
+      </section>
+
+      <section>
+        <HeroContainer>
           <h2 style={{ marginTop: 16 }}>{t("common:example")}</h2>
-          <HeroContainer>
-            <VocabCardExample
-              vocabWord={vocabSet}
-              setMessageText={setMessageText}
+          <VocabCardExample
+            vocabWord={vocabSet}
+            setMessageText={setMessageText}
+          />
+          {messageText && (
+            <Toast
+              duration={5000}
+              onClose={() => setMessageText("")}
+              toastText={messageText}
+              toastType={"success"}
             />
-            {messageText && (
-              <Toast
-                duration={5000}
-                onClose={() => setMessageText("")}
-                toastText={messageText}
-                toastType={"success"}
-              />
-            )}
-          </HeroContainer>
-        </section>
+          )}
+        </HeroContainer>
       </section>
     </HomePageViewContainer>
   );
