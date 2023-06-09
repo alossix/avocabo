@@ -13,9 +13,9 @@ type LanguageSelectorProps = {
 
 const languageLabelsInterface: Record<InterfaceLanguages, string> = {
   ca: "Català",
+  de: "Deutsch",
   en: "English",
   es: "Español",
-  de: "Deutsch",
   fr: "Français",
   it: "Italiano",
   nl: "Nederlands",

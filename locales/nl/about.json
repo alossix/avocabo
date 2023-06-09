@@ -1,19 +1,34 @@
 {
   "home": {
-    "title": "Welkom bij Avocabo!",
-    "subtitle": "Beheers woordenschat met ons Spaced Repetition System",
-    "section1Title": "Hoe ons systeem werkt",
-    "section1Text": "<p>Ons spaced repetition systeem helpt je efficiënter en effectiever woordenschat te leren dan traditionele studiemethoden. Het presenteert je woorden om te leren en plant herhalingssessies op intervallen die zijn ontworpen om het geheugenbehoud te optimaliseren. Naarmate je vordert, volgt ons systeem je prestaties en past het de herhalingsplanning dienovereenkomstig aan. Je besteedt minder tijd aan studeren terwijl je meer informatie onthoudt.</p>",
-    "section2Title": "De voordelen van het gebruik van ons systeem",
-    "section2Text": "<p>Door Avocabo's spaced repetition systeem te gebruiken, kun je woordenschat efficiënter en effectiever leren dan traditionele studiemethoden. Ons systeem minimaliseert de hoeveelheid tijd die je besteedt aan studeren terwijl het maximaliseert hoeveel je onthoudt. Avocabo geeft ook feedback over je voortgang, zodat je kunt zien hoe ver je bent gekomen en gebieden kunt identificeren die meer aandacht nodig hebben. Met ons systeem heb je de tools die je nodig hebt om woordenschat te beheersen.</p>"
+    "title": "Welkom bij Avocabo: Beheers talen via visuele gespreide herhaling",
+    "subtitle": "Ontgrendel de kracht van je hersenen om talen sneller en effectiever te leren met Avocabo!",
+    "subtitleText": "Ons unieke, flashcard-gebaseerde gespreide herhalingssysteem is ontworpen om je taalleerproces te optimaliseren. Door gebruik te maken van de cognitieve wetenschap van hoe onze hersenen informatie behouden, introduceert Avocabo taalflashcards op toenemende intervallen, waardoor de informatie in je lange termijn geheugen wordt geprint, waardoor het leren van talen duurzamer en efficiënter wordt.",
+    "section1Title": "Visueel leren ontmoet geheugenwetenschap",
+    "section1Text": "We begrijpen dat elke leerling uniek is. Sommige mensen zijn meer visueel en verbinden beter met afbeeldingen. Met Avocabo brengen we dit naar een hoger niveau. Ons platform stelt je in staat om je eigen foto's te uploaden om gepersonaliseerde flashcards te maken, die dienen als krachtige geheugenankers. Met elke kaart leer je niet alleen een nieuw woord of zin, maar creëer je een visueel verhaal dat het terughalen verbetert.",
+    "section2Title": "Gepersonaliseerde leerpaden",
+    "section2Text": "Ons slimme algoritme past zich aan aan je leersnelheid en het moeilijkheidsniveau van de inhoud. Het geeft prioriteit aan je zwakke punten en blijft je sterke punten uitdagen, zodat je een evenwichtige leerervaring krijgt.",
+    "section3Title": "Herclaim je taalleerervaring",
+    "section3Text": "Leer in je eigen tempo. Altijd, overal. Met Avocabo heb je de controle. Duik in een rijke leerervaring die je betrokken, gemotiveerd houdt, en het beheersen van talen minder ontmoedigend en meer plezierig maakt.",
+    "section4Title": "Verbind met een gemeenschap van taalleerders",
+    "section4Text": "Sluit je aan bij onze gemeenschap van enthousiaste taalleerders van over de hele wereld. Deel ervaringen, vind leerpartners en geniet samen van de reis. Avocabo is niet alleen een taalleerapp, het is een gemeenschap.",
+    "section5Title": "Begin vandaag nog met je taalleerervaring",
+    "section5Text": "Ontdek de vreugde van het leren van een nieuwe taal. Schrijf je in voor Avocabo en begin je reis naar taalbeheersing. Benut de kracht van visuele gespreide herhaling en verander de manier waarop je talen leert, voor altijd.",
+    "section5Text2": "Met Avocabo leer je niet alleen een nieuwe taal, je creëert blijvende herinneringen. Laten we samen aan deze reis beginnen!"
   },
   "howItWorks": {
-    "title": "Hoe ons Spaced Repetition Systeem werkt",
-    "section1Title": "Wat is een Spaced Repetition System?",
-    "section1Text": "<p>Een spaced repetition systeem is een methode voor het herzien van informatie die zeer effectief is gebleken voor het onthouden van informatie. Deze methode houdt in dat herhalingssessies gepland worden met steeds langere intervallen na elke succesvolle herinnering.</p><p>Door het herhalingsproces op gespreide intervallen te herhalen, kun je de informatie in het langetermijngeheugen opnemen en je vermogen om het later te herinneren vergroten.</p>",
-    "section2Title": "Hoe ons systeem werkt",
-    "section2Text": "<p>Ons spaced repetition systeem voor het bestuderen van woordenschat werkt door je woorden te presenteren die je moet leren en vervolgens herhalingssessies te plannen op intervallen die zijn ontworpen om het geheugenbehoud te optimaliseren. De intervallen zijn gebaseerd op de moeilijkheid van het woord en hoe goed je het herinnert tijdens de herhalingssessie.</p><p>Het systeem volgt je voortgang en past de herhalingsplanning dienovereenkomstig aan, zodat je je kunt concentreren op de woorden die je het meest uitdagend vindt.</p>",
-    "section3Title": "De voordelen van het gebruik van ons systeem",
-    "section3Text": "<p>Using our spaced repetition system can help you learn vocabulary more efficiently and effectively than traditional study methods. By optimizing the review schedule for each word, you can minimize the amount of time you spend studying while maximizing the amount you retain.</p><p>The system also provides feedback on your progress, so you can see how far you've come and identify areas that need more attention.</p>"
+    "title": "Hoe Avocabo Werkt",
+    "section1Title": "Wat is Avocabo?",
+    "section1Text": "Avocabo is een state-of-the-art, flashcard-gebaseerd gespreid herhalingssysteem ontworpen om je taal leerproces te optimaliseren. We integreren de kracht van visueel leren, cognitieve wetenschap en personalisatie om een robuuste, efficiënte en plezierige taalverwerving ervaring te garanderen.",
+    "section2Title": "Hoe Werkt Ons Gespreid Herhalingssysteem?",
+    "section2Text": "Ons innovatieve systeem draait om het concept van het presenteren van taal flashcards op toenemende intervallen, waardoor de informatie in je langetermijngeheugen wordt geïmplementeerd. De intervallen zijn intelligent ontworpen op basis van het moeilijkheidsniveau van het woord of de zin en hoe goed je het tijdens de herzieningssessies onthoudt.",
+    "section2Text2": "Het systeem van Avocabo volgt zorgvuldig je voortgang en past het herzieningsschema adaptief aan, zodat je meer kunt focussen op uitdagende woordenschat.",
+    "section3Title": "Visueel Leren en Geheugenwetenschap",
+    "section3Text": "Bij Avocabo geloven we dat elke leerling uniek is. Veel mensen zijn visuele leerlingen die beter kunnen verbinden met afbeeldingen. Daarom stelt Avocabo je in staat om je foto's te uploaden en ze te gebruiken als geheugenankers, waardoor elke flashcard een visueel verhaal wordt dat het herinneren sterk verbetert.",
+    "section4Title": "Gepersonaliseerde Leerpaden",
+    "section4Text": "Ons intelligente algoritme past zich aan je leersnelheid en de moeilijkheidsgraad van de taalinhoud aan. Het identificeert je zwakke punten voor extra aandacht en daagt continu je sterke punten uit om een evenwichtige leerervaring te garanderen.",
+    "section5Title": "Voordelen van het Gebruik van Avocabo",
+    "section5Text": "Avocabo kan je taal leren efficiënter en effectiever maken in vergelijking met traditionele studiemethoden. Door het herzieningsschema voor elk woord of zin aan te passen, vermindert het onnodige studietijd en verbetert het de retentie.",
+    "section5Text2": "Bovendien biedt Avocabo uitgebreide feedback over je voortgang, waardoor je je reis kunt volgen en gebieden kunt identificeren die meer aandacht nodig hebben. Met Avocabo leer je niet alleen een nieuwe taal, je creëert blijvende herinneringen!",
+    "section5Text3": "Begin vandaag nog je reis naar taalmeesterschap met Avocabo en verander voor altijd de manier waarop je talen leert."
   }
 }

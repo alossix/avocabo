@@ -1,19 +1,34 @@
 {
   "home": {
-    "title": "Bienvenue chez Avocabo!",
-    "subtitle": "Maîtrisez le vocabulaire avec notre système de répétition espacée",
-    "section1Title": "Comment fonctionne notre système",
-    "section1Text": "<p>Notre système de répétition espacée vous aide à apprendre le vocabulaire de manière plus efficace et plus efficace que les méthodes d'étude traditionnelles. Il vous présente des mots à apprendre et planifie des sessions de révision à des intervalles conçus pour optimiser la rétention de la mémoire. Au fur et à mesure de votre progression, notre système suit vos performances et ajuste le calendrier de révision en conséquence. Vous passerez moins de temps à étudier tout en retenant plus d'informations.</p>",
-    "section2Title": "Les avantages de l'utilisation de notre système",
-    "section2Text": "<p>En utilisant le système de répétition espacée d'Avocabo, vous pouvez apprendre le vocabulaire de manière plus efficace et plus efficace que les méthodes d'étude traditionnelles. Notre système minimise le temps que vous passez à étudier tout en maximisant la quantité que vous retenez. Avocabo fournit également des commentaires sur votre progression, vous pouvez donc voir à quel point vous êtes avancé et identifier les domaines qui nécessitent plus d'attention. Avec notre système, vous disposerez des outils dont vous avez besoin pour maîtriser le vocabulaire.</p>"
+    "title": "Bienvenue sur Avocabo : Maîtrisez les langues grâce à la répétition espacée visuelle",
+    "subtitle": "Débloquez la puissance de votre cerveau pour apprendre les langues plus rapidement et plus efficacement avec Avocabo !",
+    "subtitleText": "Notre système unique de répétition espacée basé sur des flashcards est conçu pour optimiser votre processus d'apprentissage des langues. En s'appuyant sur la science cognitive de la façon dont notre cerveau retient l'information, Avocabo introduit des flashcards de langues à des intervalles de plus en plus longs, imprégnant l'information dans votre mémoire à long terme, rendant l'apprentissage des langues plus durable et efficace.",
+    "section1Title": "L'apprentissage visuel rencontre la science de la mémoire",
+    "section1Text": "Nous comprenons que chaque apprenant est unique. Certaines personnes sont plus visuelles et se connectent mieux avec les images. Avec Avocabo, nous passons cela à un niveau supérieur. Notre plateforme vous permet de télécharger vos propres photographies pour créer des flashcards personnalisées, servant de puissants ancres de mémoire. Avec chaque carte, vous n'apprenez pas seulement un nouveau mot ou une phrase, mais vous créez une histoire visuelle qui améliore le rappel.",
+    "section2Title": "Parcours d'apprentissage personnalisés",
+    "section2Text": "Notre algorithme intelligent s'adapte à votre vitesse d'apprentissage et au niveau de difficulté du contenu. Il priorise vos points faibles et met constamment au défi vos points forts, garantissant une expérience d'apprentissage équilibrée.",
+    "section3Title": "Reprenez le contrôle de votre expérience d'apprentissage des langues",
+    "section3Text": "Apprenez à votre propre rythme. À tout moment, n'importe où. Avec Avocabo, vous êtes aux commandes. Plongez dans une riche expérience d'apprentissage qui vous maintient engagé, motivé, et rend la maîtrise des langues moins intimidante et plus agréable.",
+    "section4Title": "Connectez-vous avec une communauté d'apprenants de langues",
+    "section4Text": "Rejoignez notre communauté d'apprenants de langues enthousiastes du monde entier. Partagez des expériences, trouvez des partenaires d'apprentissage, et profitez du voyage ensemble. Avocabo n'est pas seulement une application d'apprentissage des langues, c'est une communauté.",
+    "section5Title": "Commencez votre voyage d'apprentissage des langues aujourd'hui",
+    "section5Text": "Découvrez la joie d'apprendre une nouvelle langue. Inscrivez-vous à Avocabo et commencez votre voyage vers la maîtrise linguistique. Exploitez la puissance de la répétition espacée visuelle, et transformez la façon dont vous apprenez les langues, pour toujours.",
+    "section5Text2": "Avec Avocabo, vous n'apprenez pas seulement une nouvelle langue, vous créez des souvenirs durables. Embarquons ensemble dans ce voyage !"
   },
   "howItWorks": {
-    "title": "Comment fonctionne notre système de répétition espacée",
-    "section1Title": "Qu'est-ce qu'un système de répétition espacée?",
-    "section1Text": "<p>Un système de répétition espacée est une méthode de révision d'informations qui a été montrée comme étant hautement efficace pour la rétention de la mémoire. Cette méthode consiste à planifier des sessions de révision à des intervalles de plus en plus longs après chaque rappel réussi.</p><p>En répétant le processus de révision à des intervalles espacés, vous pouvez mémoriser l'information à long terme et augmenter votre capacité à vous en souvenir plus tard.</p>",
-    "section2Title": "Comment fonctionne notre système",
-    "section2Text": "<p>Notre système de répétition espacée pour étudier le vocabulaire fonctionne en vous présentant des mots de vocabulaire que vous devez apprendre, puis en planifiant des sessions de révision à des intervalles conçus pour optimiser la rétention de la mémoire. Les intervalles sont basés sur la difficulté du mot et sur votre capacité à vous en souvenir lors de la session de révision.</p><p>Le système suit votre progression et ajuste le calendrier de révision en conséquence, afin que vous puissiez vous concentrer sur les mots qui vous posent le plus de difficultés.</p>",
-    "section3Title": "Les avantages de l'utilisation de notre système",
-    "section3Text": "<p>L'utilisation de notre système de répétition espacée peut vous aider à apprendre le vocabulaire de manière plus efficace et plus efficace que les méthodes d'étude traditionnelles. En optimisant le calendrier de révision pour chaque mot, vous pouvez minimiser le temps que vous passez à étudier tout en maximisant la quantité que vous retenez.</p><p>Le système fournit également des commentaires sur votre progression, vous permettant de voir à quel point vous êtes avancé et d'identifier les domaines qui nécessitent plus d'attention.</p>"
+    "title": "Comment fonctionne Avocabo",
+    "section1Title": "Qu'est-ce qu'Avocabo ?",
+    "section1Text": "Avocabo est un système de répétition espacée basé sur des cartes flash de pointe conçu pour optimiser votre processus d'apprentissage des langues. Nous incorporons le pouvoir de l'apprentissage visuel, la science cognitive et la personnalisation pour assurer une expérience robuste, efficace et agréable de l'acquisition de la langue.",
+    "section2Title": "Comment fonctionne notre système de répétition espacée ?",
+    "section2Text": "Notre système innovant tourne autour du concept de présentation de cartes flash de langue à des intervalles de plus en plus longs, ancrant ainsi l'information dans votre mémoire à long terme. Les intervalles sont intelligemment conçus en fonction du niveau de difficulté du mot ou de la phrase et de la qualité de votre rappel lors des sessions de révision.",
+    "section2Text2": "Le système Avocabo suit attentivement vos progrès et modifie de manière adaptative le calendrier de révision, vous permettant de vous concentrer davantage sur le vocabulaire difficile.",
+    "section3Title": "Apprentissage visuel et science de la mémoire",
+    "section3Text": "Chez Avocabo, nous croyons que chaque apprenant est unique. Beaucoup de personnes apprennent mieux visuellement et peuvent mieux se connecter avec les images. C'est pourquoi Avocabo vous permet de télécharger vos propres photos et de les utiliser comme ancrages mémoriels, faisant de chaque carte flash une histoire visuelle qui améliore grandement le rappel.",
+    "section4Title": "Parcours d'apprentissage personnalisés",
+    "section4Text": "Notre algorithme intelligent s'adapte à votre vitesse d'apprentissage et au niveau de difficulté du contenu linguistique. Il identifie vos points faibles pour une attention supplémentaire et défie constamment vos points forts pour assurer une expérience d'apprentissage équilibrée.",
+    "section5Title": "Avantages de l'utilisation d'Avocabo",
+    "section5Text": "Avocabo peut rendre votre apprentissage des langues plus efficace et efficient par rapport aux méthodes d'étude traditionnelles. En personnalisant le calendrier de révision pour chaque mot ou phrase, il réduit le temps d'étude inutile et améliore la rétention.",
+    "section5Text2": "De plus, Avocabo offre un retour d'information complet sur vos progrès, vous permettant de suivre votre parcours et d'identifier les zones nécessitant plus d'attention. Avec Avocabo, vous n'apprenez pas seulement une nouvelle langue, vous créez des souvenirs durables !",
+    "section5Text3": "Commencez dès aujourd'hui votre parcours vers la maîtrise linguistique avec Avocabo, et transformez pour toujours votre façon d'apprendre les langues."
   }
 }

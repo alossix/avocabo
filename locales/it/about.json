@@ -1,19 +1,34 @@
 {
   "home": {
-    "title": "Benvenuti in Avocabo!",
-    "subtitle": "Migliora il tuo vocabolario con il nostro sistema di ripetizione spaziata",
-    "section1Title": "Come funziona il nostro sistema",
-    "section1Text": "<p>Il nostro sistema di ripetizione spaziata ti aiuta a imparare il vocabolario in modo più efficiente ed efficace rispetto ai metodi di studio tradizionali. Ti presenta le parole da imparare e programma sessioni di revisione a intervalli progettati per ottimizzare la memoria di retention. Man mano che progredisci, il nostro sistema tiene traccia delle tue prestazioni e regola il calendario di revisione di conseguenza. Trascorrerai meno tempo a studiare, ma ricorderai più informazioni.</p>",
-    "section2Title": "I vantaggi dell'utilizzo del nostro sistema",
-    "section2Text": "<p>Utilizzando il sistema di ripetizione spaziata di Avocabo, puoi imparare il vocabolario in modo più efficiente ed efficace rispetto ai metodi di studio tradizionali. Il nostro sistema minimizza il tempo che dedichi allo studio, ma massimizza la quantità che ricordi. Avocabo fornisce anche un feedback sul tuo progresso, in modo da poter vedere quanto hai progredito e identificare le aree che richiedono più attenzione. Con il nostro sistema, avrai gli strumenti necessari per padroneggiare il vocabolario.</p>"
+    "title": "Benvenuto su Avocabo: padroneggia le lingue attraverso la ripetizione spaziata visuale",
+    "subtitle": "Sblocca il potere del tuo cervello per imparare le lingue più velocemente e in modo più efficace con Avocabo!",
+    "subtitleText": "Il nostro unico sistema di ripetizione spaziata basato su flashcard è progettato per ottimizzare il tuo processo di apprendimento delle lingue. Sfruttando la scienza cognitiva di come il nostro cervello trattiene le informazioni, Avocabo introduce flashcard linguistiche a intervalli crescenti, imprimendo le informazioni nella tua memoria a lungo termine, rendendo l'apprendimento delle lingue più duraturo ed efficiente.",
+    "section1Title": "L'apprendimento visuale incontra la scienza della memoria",
+    "section1Text": "Capiamo che ogni discente è unico. Alcune persone sono più visive e si connettono meglio con le immagini. Con Avocabo, portiamo tutto a un livello superiore. La nostra piattaforma ti permette di caricare le tue fotografie per creare flashcard personalizzate, fungendo da potenti ancoraggi di memoria. Con ogni carta, non stai solo imparando una nuova parola o frase, ma stai creando una storia visiva che migliora il ricordo.",
+    "section2Title": "Percorsi di apprendimento personalizzati",
+    "section2Text": "Il nostro algoritmo intelligente si adatta alla tua velocità di apprendimento e al livello di difficoltà del contenuto. Priorizza i tuoi punti deboli e sfida continuamente i tuoi punti di forza, garantendo un'esperienza di apprendimento equilibrata.",
+    "section3Title": "Riprenditi la tua esperienza di apprendimento delle lingue",
+    "section3Text": "Impara al tuo ritmo. In qualsiasi momento, ovunque. Con Avocabo, sei tu a comandare. Immergiti in un'esperienza di apprendimento coinvolgente che ti mantiene impegnato, motivato, e rende il padroneggiamento delle lingue meno intimidatorio e più piacevole.",
+    "section4Title": "Connettiti con una comunità di apprendisti linguistici",
+    "section4Text": "Unisciti alla nostra comunità di appassionati apprendisti di lingue da tutto il mondo. Condividi esperienze, trova partner di apprendimento e goditi il viaggio insieme. Avocabo non è solo un'app per l'apprendimento delle lingue, è una comunità.",
+    "section5Title": "Inizia oggi il tuo percorso di apprendimento delle lingue",
+    "section5Text": "Scopri la gioia di imparare una nuova lingua. Iscriviti ad Avocabo e inizia il tuo viaggio verso la padronanza linguistica. Sfrutta il potere della ripetizione spaziata visuale e trasforma il modo in cui impari le lingue, per sempre.",
+    "section5Text2": "Con Avocabo, non stai solo imparando una nuova lingua, stai creando ricordi duraturi. Imbarchiamoci insieme in questo viaggio!"
   },
   "howItWorks": {
-    "title": "Come funziona il nostro sistema di ripetizione spaziata",
-    "section1Title": "Cosa è un sistema di ripetizione spaziata?",
-    "section1Text": "<p>Un sistema di ripetizione spaziata è un metodo di revisione delle informazioni che si è dimostrato molto efficace per la memorizzazione. Questo metodo prevede la pianificazione di sessioni di revisione a intervalli sempre più lunghi dopo ogni successo.</p><p>Ripetendo il processo di revisione a intervalli spaziati, è possibile memorizzare le informazioni nella memoria a lungo termine e aumentare la capacità di richiamarle successivamente.</p>",
-    "section2Title": "Come funziona il nostro sistema",
-    "section2Text": "<p>Il nostro sistema di ripetizione spaziata per lo studio del vocabolario funziona presentandoti le parole che devi imparare e pianificando sessioni di revisione ad intervalli pensati per ottimizzare la memorizzazione. Gli intervalli si basano sulla difficoltà della parola e su come la richiami durante la sessione di revisione.</p><p>Il sistema traccia il tuo progresso e adatta la pianificazione della revisione di conseguenza, in modo da concentrarti sulle parole che trovi più difficili.</p>",
-    "section3Title": "I vantaggi dell'utilizzo del nostro sistema",
-    "section3Text": "<p>Utilizzando il nostro sistema di ripetizione spaziata puoi imparare il vocabolario in modo più efficiente ed efficace rispetto ai metodi di studio tradizionali. Ottimizzando la pianificazione della revisione per ogni parola, puoi ridurre al minimo il tempo dedicato allo studio e massimizzare il contenuto che memorizzi.</p><p>Il sistema fornisce anche feedback sul tuo progresso, in modo da poter valutare quanto hai imparato e individuare le aree che richiedono maggior attenzione.</p>"
+    "title": "Come funziona Avocabo",
+    "section1Title": "Cos'è Avocabo?",
+    "section1Text": "Avocabo è un sistema di ripetizione spaziata basato su flashcard all'avanguardia, progettato per ottimizzare il tuo processo di apprendimento delle lingue. Incorporiamo il potere dell'apprendimento visuale, la scienza cognitiva e la personalizzazione per garantire un'esperienza di acquisizione linguistica solida, efficiente e piacevole.",
+    "section2Title": "Come funziona il nostro sistema di ripetizione spaziata?",
+    "section2Text": "Il nostro sistema innovativo ruota attorno al concetto di presentare flashcard linguistiche a intervalli sempre più lunghi, imprimendo così le informazioni nella tua memoria a lungo termine. Gli intervalli sono progettati intelligentemente in base al livello di difficoltà della parola o frase e a quanto bene la ricordi durante le sessioni di revisione.",
+    "section2Text2": "Il sistema di Avocabo tiene accuratamente traccia dei tuoi progressi e modifica in modo adattativo il programma di revisione, permettendoti di concentrarti maggiormente sul vocabolario più impegnativo.",
+    "section3Title": "Apprendimento visuale e scienza della memoria",
+    "section3Text": "In Avocabo, crediamo che ogni discente sia unico. Molte persone apprendono meglio visivamente e possono connettersi meglio con le immagini. Per questo motivo, Avocabo ti permette di caricare le tue fotografie e di utilizzarle come ancore di memoria, trasformando ogni flashcard in una storia visiva che migliora notevolmente la memoria.",
+    "section4Title": "Percorsi di apprendimento personalizzati",
+    "section4Text": "Il nostro algoritmo intelligente si adatta alla tua velocità di apprendimento e al livello di difficoltà del contenuto linguistico. Individua le tue aree deboli per un'attenzione extra e sfida continuamente i tuoi punti di forza per garantire un'esperienza di apprendimento equilibrata.",
+    "section5Title": "Vantaggi dell'uso di Avocabo",
+    "section5Text": "Avocabo può rendere il tuo apprendimento delle lingue più efficiente ed efficace rispetto ai metodi di studio tradizionali. Personalizzando il programma di revisione per ogni parola o frase, riduce il tempo di studio inutile e migliora la ritenzione.",
+    "section5Text2": "Inoltre, Avocabo offre un feedback completo sui tuoi progressi, permettendoti di monitorare il tuo percorso e identificare le aree che necessitano di maggiore attenzione. Con Avocabo, non stai solo imparando una nuova lingua, stai creando ricordi duraturi!",
+    "section5Text3": "Inizia oggi il tuo viaggio verso la padronanza linguistica con Avocabo e trasforma per sempre il modo in cui impari le lingue."
   }
 }

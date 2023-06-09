@@ -1,19 +1,34 @@
 {
   "home": {
-    "title": "Willkommen bei Avocabo!",
-    "subtitle": "Beherrsche den Wortschatz mit unserem System für wiederholtes Lernen",
-    "section1Title": "Wie unser System funktioniert",
-    "section1Text": "<p>Unser System für wiederholtes Lernen hilft dir, Vokabeln effizienter und effektiver als herkömmliche Lernmethoden zu erlernen. Es präsentiert dir Wörter zum Lernen und plant Wiederholungseinheiten in Intervallen, die für eine optimale Gedächtnisretention entworfen wurden. Während du Fortschritte machst, verfolgt unser System deine Leistung und passt den Wiederholungsplan entsprechend an. Du wirst weniger Zeit mit Lernen verbringen, während du mehr Informationen behältst.</p>",
-    "section2Title": "Die Vorteile der Nutzung unseres Systems",
-    "section2Text": "<p>Mit Avocabos System für wiederholtes Lernen kannst du Vokabeln effizienter und effektiver als herkömmliche Lernmethoden erlernen. Unser System minimiert den Zeitaufwand für das Lernen, während du mehr Informationen behältst. Avocabo gibt dir auch Feedback über deinen Fortschritt, damit du sehen kannst, wie weit du gekommen bist und Bereiche identifizieren kannst, die mehr Aufmerksamkeit benötigen. Mit unserem System hast du die Werkzeuge, um den Wortschatz zu beherrschen.</p>"
+    "title": "Willkommen bei Avocabo: Sprachen lernen durch visuelle, zeitlich gestaffelte Wiederholungen",
+    "subtitle": "Entfesseln Sie die Kraft Ihres Gehirns, um Sprachen schneller und effektiver mit Avocabo zu lernen!",
+    "subtitleText": "Unser einzigartiges, kartenbasiertes System der zeitlich gestaffelten Wiederholungen ist darauf ausgelegt, Ihren Spracherwerbsprozess zu optimieren. Aufbauend auf den Erkenntnissen der kognitiven Wissenschaft, wie unser Gehirn Informationen speichert, führt Avocabo Sprachkarten in zunehmenden Intervallen ein, wodurch die Informationen im Langzeitgedächtnis verankert werden und das Sprachenlernen nachhaltiger und effizienter gestaltet wird.",
+    "section1Title": "Visuelles Lernen trifft auf Gedächtniswissenschaft",
+    "section1Text": "Wir verstehen, dass jeder Lernende einzigartig ist. Manche Menschen sind visueller und verbinden besser mit Bildern. Mit Avocabo heben wir dies auf eine ganz neue Ebene. Unsere Plattform ermöglicht es Ihnen, Ihre eigenen Fotos hochzuladen, um personalisierte Karten zu erstellen, die als starke Gedächtnisanker dienen. Mit jeder Karte lernen Sie nicht nur ein neues Wort oder einen neuen Ausdruck, sondern Sie erstellen eine visuelle Geschichte, die die Erinnerung verbessert.",
+    "section2Title": "Personalisierte Lernpfade",
+    "section2Text": "Unser intelligenter Algorithmus passt sich Ihrer Lerngeschwindigkeit und dem Schwierigkeitsgrad des Inhalts an. Er priorisiert Ihre Schwachstellen und fordert Ihre Stärken kontinuierlich heraus, um ein ausgeglichenes Lernergebnis zu gewährleisten.",
+    "section3Title": "Erlangen Sie Ihre Spracherfahrung zurück",
+    "section3Text": "Lernen Sie in Ihrem eigenen Tempo. Jederzeit, überall. Mit Avocabo haben Sie die Kontrolle. Tauchen Sie ein in eine bereichernde Lernerfahrung, die Sie engagiert, motiviert und das Erlernen von Sprachen weniger einschüchternd und angenehmer macht.",
+    "section4Title": "Verbinden Sie sich mit einer Gemeinschaft von Sprachenlernenden",
+    "section4Text": "Treten Sie unserer Gemeinschaft von begeisterten Sprachlernenden aus der ganzen Welt bei. Teilen Sie Erfahrungen, finden Sie Lernpartner und genießen Sie die Reise zusammen. Avocabo ist nicht nur eine Sprachlern-App, es ist eine Gemeinschaft.",
+    "section5Title": "Beginnen Sie heute Ihre Sprachenlernreise",
+    "section5Text": "Entdecken Sie die Freude am Erlernen einer neuen Sprache. Melden Sie sich für Avocabo an und beginnen Sie Ihre Reise zur sprachlichen Meisterschaft. Nutzen Sie die Kraft der visuellen, zeitlich gestaffelten Wiederholungen und verändern Sie die Art und Weise, wie Sie Sprachen lernen, für immer.",
+    "section5Text2": "Mit Avocabo lernen Sie nicht nur eine neue Sprache, Sie schaffen dauerhafte Erinnerungen. Lassen Sie uns diese Reise zusammen antreten!"
   },
   "howItWorks": {
-    "title": "So funktioniert unser System für wiederholtes Lernen",
-    "section1Title": "Was ist ein System für wiederholtes Lernen?",
-    "section1Text": "<p>Ein System für wiederholtes Lernen ist eine Methode zur Überprüfung von Informationen, die sich als sehr effektiv für die Gedächtnisretention erwiesen hat. Diese Methode beinhaltet das Planen von Wiederholungseinheiten in immer längeren Intervallen nach jeder erfolgreichen Erinnerung.</p><p>Durch die Wiederholung des Überprüfungsprozesses in intervallierten Intervallen kannst du die Informationen im Langzeitgedächtnis verankern und deine Fähigkeit, sie später abzurufen, erhöhen.</p>",
-    "section2Title": "Wie funktioniert unser System?",
-    "section2Text": "<p>Unser System für wiederholtes Lernen zum Lernen von Vokabeln funktioniert, indem es dir Wörter zum Lernen präsentiert und dann Wiederholungseinheiten in Intervallen plant, die für eine optimale Gedächtnisretention entworfen wurden. Die Intervalle basieren auf der Schwierigkeit des Wortes und wie gut du es während der Überprüfungseinheit erinnerst.</p><p>Das System verfolgt deinen Fortschritt und passt den Überprüfungsplan entsprechend an, damit du dich auf die Wörter konzentrieren kannst, die du am schwierigsten findest. Wenn du ein Wort erfolgreich erinnerst, wird es in längere Intervalle eingeteilt, während schwierigere Wörter häufiger wiederholt werden.</p>",
-    "section3Title": "Die Vorteile der Nutzung unseres Systems",
-    "section3Text": "<p>Durch die Nutzung unseres Systems für wiederholtes Lernen kannst du Vokabeln effizienter und effektiver als herkömmliche Lernmethoden erlernen. Durch die Optimierung des Überprüfungsplans für jedes Wort kannst du den Zeitaufwand für das Lernen minimieren und die Menge an Informationen, die du behältst, maximieren. Das System gibt auch Feedback zu deinem Fortschritt, damit du sehen kannst, wie weit du gekommen bist und Bereiche identifizieren kannst, die mehr Aufmerksamkeit benötigen. Mit unserem System hast du die Werkzeuge, um den Wortschatz zu beherrschen und dein Sprachniveau zu verbessern.</p>"
+    "title": "Wie Avocabo funktioniert",
+    "section1Title": "Was ist Avocabo?",
+    "section1Text": "Avocabo ist ein hochmodernes, kartenbasiertes Wiederholungssystem, das darauf ausgelegt ist, Ihren Sprachlernprozess zu optimieren. Wir integrieren die Kraft des visuellen Lernens, der Kognitionswissenschaft und der Personalisierung, um ein robustes, effizientes und angenehmes Spracherwerbserlebnis zu gewährleisten.",
+    "section2Title": "Wie funktioniert unser Wiederholungssystem?",
+    "section2Text": "Unser innovatives System basiert auf dem Konzept, Sprachkarten in zunehmenden Intervallen zu präsentieren, wodurch die Informationen in Ihrem Langzeitgedächtnis verankert werden. Die Intervalle werden intelligent anhand des Schwierigkeitsgrades des Wortes oder des Ausdrucks und der Qualität Ihrer Erinnerung während der Wiederholungssitzungen gestaltet.",
+    "section2Text2": "Avocabos System verfolgt sorgfältig Ihren Fortschritt und passt den Wiederholungsplan adaptiv an, so dass Sie sich stärker auf herausfordernde Vokabeln konzentrieren können.",
+    "section3Title": "Visuelles Lernen und Gedächtniswissenschaft",
+    "section3Text": "Bei Avocabo glauben wir, dass jeder Lerner einzigartig ist. Viele Menschen sind visuelle Lerner, die besser mit Bildern in Verbindung treten können. Aus diesem Grund ermöglicht Avocabo das Hochladen Ihrer eigenen Fotos und nutzt diese als Gedächtnisanker, wodurch jede Karte zu einer visuellen Geschichte wird, die die Erinnerung erheblich verbessert.",
+    "section4Title": "Personalisierte Lernpfade",
+    "section4Text": "Unser intelligenter Algorithmus passt sich Ihrer Lerngeschwindigkeit und dem Schwierigkeitsgrad des Sprachinhalts an. Er identifiziert Ihre Schwachstellen für zusätzliche Aufmerksamkeit und fordert Ihre Stärken kontinuierlich heraus, um ein ausgewogenes Lernerlebnis zu gewährleisten.",
+    "section5Title": "Vorteile der Nutzung von Avocabo",
+    "section5Text": "Avocabo kann Ihr Sprachenlernen im Vergleich zu herkömmlichen Lernmethoden effizienter und effektiver gestalten. Durch die Anpassung des Wiederholungsplans für jedes Wort oder jeden Ausdruck können Sie die Lernzeit minimieren und die Behaltensleistung maximieren.",
+    "section5Text2": "Darüber hinaus bietet Avocabo umfassendes Feedback zu Ihren Fortschritten, so dass Sie Ihren Weg verfolgen und Bereiche identifizieren können, die mehr Aufmerksamkeit benötigen. Mit Avocabo lernen Sie nicht nur eine neue Sprache - Sie schaffen bleibende Erinnerungen!",
+    "section5Text3": "Beginnen Sie noch heute mit Avocabo Ihre Reise zur sprachlichen Meisterschaft und verändern Sie für immer Ihre Art, Sprachen zu lernen."
   }
 }
