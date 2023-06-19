@@ -77,4 +77,5 @@ const ProfilePageContainer = styled.div({
   display: "flex",
   flexDirection: "column",
   gap: 8,
+  width: "100%",
 });
