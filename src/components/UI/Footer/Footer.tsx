@@ -59,7 +59,6 @@ const FooterNav = styled.footer({
   display: "none",
   justifyContent: "flex-end",
   gridArea: "8 / 1 / 9 / 9",
-
   backgroundColor: theme.colors.white,
   zIndex: 999,
   boxShadow:
