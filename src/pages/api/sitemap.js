@@ -14,42 +14,27 @@ export default function handler(req, res) {
       xmlns:xhtml="http://www.w3.org/1999/xhtml">
       
 	<url>
-		<loc>https://www.avocabo.io/about.tsx</loc>
+		<loc>https://www.avocabo.io/about</loc>
 		<lastmod>2023-06-19</lastmod>
 	</url>
 
 	<url>
-		<loc>https://www.avocabo.io/add-words.tsx</loc>
+		<loc>https://www.avocabo.io/</loc>
 		<lastmod>2023-06-19</lastmod>
 	</url>
 
 	<url>
-		<loc>https://www.avocabo.io/index.tsx</loc>
+		<loc>https://www.avocabo.io/sign-in</loc>
 		<lastmod>2023-06-19</lastmod>
 	</url>
 
 	<url>
-		<loc>https://www.avocabo.io/my-vocab.tsx</loc>
+		<loc>https://www.avocabo.io/sign-up</loc>
 		<lastmod>2023-06-19</lastmod>
 	</url>
 
 	<url>
-		<loc>https://www.avocabo.io/profile.tsx</loc>
-		<lastmod>2023-06-19</lastmod>
-	</url>
-
-	<url>
-		<loc>https://www.avocabo.io/sign-in.tsx</loc>
-		<lastmod>2023-06-19</lastmod>
-	</url>
-
-	<url>
-		<loc>https://www.avocabo.io/sign-up.tsx</loc>
-		<lastmod>2023-06-19</lastmod>
-	</url>
-
-	<url>
-		<loc>https://www.avocabo.io/subscribe.tsx</loc>
+		<loc>https://www.avocabo.io/subscribe</loc>
 		<lastmod>2023-06-19</lastmod>
 	</url>
 </urlset>`;
