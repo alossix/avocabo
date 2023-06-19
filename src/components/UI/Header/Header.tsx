@@ -124,7 +124,6 @@ export const Header: React.FC<{
               handleInteractWithMenu({ event, path: `/${lang}` })
             }
             role="link"
-            tabIndex={0}
             style={{
               fontWeight: "bold",
               fontSize: 32,
@@ -159,7 +158,6 @@ export const Header: React.FC<{
               handleInteractWithMenu({ event, path: `/${lang}/about` })
             }
             role="listitem"
-            tabIndex={0}
           >
             <HeaderLink
               href={`/${lang}/about`}
@@ -179,7 +177,6 @@ export const Header: React.FC<{
                   handleInteractWithMenu({ event, path: `/${lang}/my-vocab` })
                 }
                 role="listitem"
-                tabIndex={0}
               >
                 <HeaderLink
                   href={`/${lang}/my-vocab`}
@@ -197,7 +194,6 @@ export const Header: React.FC<{
                   handleInteractWithMenu({ event, path: `/${lang}/add-words` })
                 }
                 role="listitem"
-                tabIndex={0}
               >
                 <HeaderLink
                   href={`/${lang}/add-words`}
@@ -218,7 +214,6 @@ export const Header: React.FC<{
                   handleInteractWithMenu({ event, path: `/${lang}/profile` })
                 }
                 role="listitem"
-                tabIndex={0}
               >
                 <HeaderLink
                   href={`/${lang}/profile`}
@@ -252,7 +247,6 @@ export const Header: React.FC<{
                   })
                 }
                 role="listitem"
-                tabIndex={0}
               >
                 <HeaderLink
                   href={`/${lang}/`}
@@ -279,7 +273,6 @@ export const Header: React.FC<{
                   handleInteractWithMenu({ event, path: `/${lang}/sign-in` })
                 }
                 role="listitem"
-                tabIndex={0}
               >
                 <HeaderLink
                   href={`/${lang}/sign-in`}
