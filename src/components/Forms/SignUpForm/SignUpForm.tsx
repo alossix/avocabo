@@ -180,6 +180,7 @@ export const SignUpForm: React.FC = () => {
           handleSelectLanguage={(event) =>
             setLearningLanguage(event.target.value as LearningLanguages)
           }
+          id="language-selector-signup"
           languageSet={"learning"}
           selectedLanguage={learningLanguage}
           showIcon={false}

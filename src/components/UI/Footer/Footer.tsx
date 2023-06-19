@@ -43,6 +43,7 @@ export const Footer: React.FC = () => {
       <FooterContent>
         <LanguageSelector
           handleSelectLanguage={handleSelectInterfaceLanguage}
+          id="language-selector-footer"
           languageSet={"interface"}
           selectedLanguage={
             userCookie?.interfaceLanguage ??

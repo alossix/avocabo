@@ -34,16 +34,16 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   };
 
   return (
-    <>
+    <HamburgerMenuContainer>
       <Checkbox
         type="checkbox"
         id="navigation-menu"
         onChange={toggleMenu}
         aria-label="Toggle navigation menu"
         aria-controls="navigation-menu"
-        aria-expanded={mobileMenuOpen}
       />
       <HamburgerLines
+        aria-label="hamburger-menu"
         tabIndex={0}
         onKeyDown={handleKeyDown}
         role="button"
@@ -53,9 +53,18 @@ export const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
         <Line mobileMenuOpen={mobileMenuOpen} className="line2" />
         <Line mobileMenuOpen={mobileMenuOpen} className="line3" />
       </HamburgerLines>
-    </>
+    </HamburgerMenuContainer>
   );
 };
+
+const HamburgerMenuContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media (min-width: ${theme.breakpoints.desktop}) {
+    display: none;
+  }
+`;
 
 const Checkbox = styled.input`
   position: absolute;
