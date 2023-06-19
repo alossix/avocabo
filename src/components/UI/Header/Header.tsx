@@ -123,6 +123,7 @@ export const Header: React.FC<{
             onKeyDown={(event) =>
               handleInteractWithMenu({ event, path: `/${lang}` })
             }
+            role="listitem"
             style={{
               fontWeight: "bold",
               fontSize: 32,
@@ -155,6 +156,7 @@ export const Header: React.FC<{
               event.key === "Enter" &&
               handleInteractWithMenu({ event, path: `/${lang}/about` })
             }
+            role="listitem"
           >
             <HeaderLink
               href={`/${lang}/about`}
@@ -173,6 +175,7 @@ export const Header: React.FC<{
                   event.key === "Enter" &&
                   handleInteractWithMenu({ event, path: `/${lang}/my-vocab` })
                 }
+                role="listitem"
               >
                 <HeaderLink
                   href={`/${lang}/my-vocab`}
@@ -189,6 +192,7 @@ export const Header: React.FC<{
                   event.key === "Enter" &&
                   handleInteractWithMenu({ event, path: `/${lang}/add-words` })
                 }
+                role="listitem"
               >
                 <HeaderLink
                   href={`/${lang}/add-words`}
@@ -208,6 +212,7 @@ export const Header: React.FC<{
                   event.key === "Enter" &&
                   handleInteractWithMenu({ event, path: `/${lang}/profile` })
                 }
+                role="listitem"
               >
                 <HeaderLink
                   href={`/${lang}/profile`}
@@ -219,7 +224,7 @@ export const Header: React.FC<{
                 </HeaderLink>
               </HeaderItem>
               <MobileOnly>
-                <HeaderItem>
+                <HeaderItem role="listitem">
                   <LanguageSelector
                     handleSelectLanguage={handleSelectInterfaceLanguage}
                     id="language-selector-mobile"
@@ -241,6 +246,7 @@ export const Header: React.FC<{
                     signOut: true,
                   })
                 }
+                role="listitem"
               >
                 <HeaderLink
                   href={`/${lang}/`}
@@ -266,6 +272,7 @@ export const Header: React.FC<{
                   event.key === "Enter" &&
                   handleInteractWithMenu({ event, path: `/${lang}/sign-in` })
                 }
+                role="listitem"
               >
                 <HeaderLink
                   href={`/${lang}/sign-in`}
@@ -277,7 +284,7 @@ export const Header: React.FC<{
                 </HeaderLink>
               </HeaderItem>
               <MobileOnly>
-                <HeaderItem>
+                <HeaderItem role="listitem">
                   <LanguageSelector
                     handleSelectLanguage={handleSelectInterfaceLanguage}
                     id="language-selector-mobile"
@@ -382,12 +389,12 @@ const HeaderLink = styled(Link)({
 
   "&:visited": { color: theme.colors.lightBlack },
   "&:active": {
-    color: theme.colors.lightAvocado,
+    color: theme.colors.UIGreen,
   },
   "&:hover": {
-    color: theme.colors.lightAvocado,
+    color: theme.colors.UIGreen,
     "& svg path": {
-      fill: theme.colors.lightAvocado,
+      fill: theme.colors.UIGreen,
     },
   },
 });
