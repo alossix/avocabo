@@ -3,7 +3,7 @@
   "version": "0.9.9",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "next build && node src/services/sitemap-generator.js",
     "dev": "next dev",
     "e2e": "cypress open",
     "lint": "next lint && tsc --noEmit",
