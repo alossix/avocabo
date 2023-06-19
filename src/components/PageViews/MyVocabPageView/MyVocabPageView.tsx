@@ -87,20 +87,20 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
     <VocabWindowContainer>
       <h1>{t("vocab:vocab_list_title")}</h1>
       {vocabCountIsZero ? (
-        <h3>
+        <h2>
           {t("vocab:vocab_no_words")}{" "}
           <Link href="/add-words">{t("vocab:vocab_no_words_add")}</Link>
-        </h3>
+        </h2>
       ) : (
         <>
           {dueCountIsZero ? (
             <>
               {timeToNextVocab && (
-                <h3>
+                <h2>
                   {t("vocab:vocab_next_words", {
                     minutes: formatTimeHoursAndMinutes(timeToNextVocab),
                   })}
-                </h3>
+                </h2>
               )}
 
               <Button
@@ -113,11 +113,11 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
             </>
           ) : (
             <>
-              <h3>
+              <h2>
                 {t("vocab:vocab_number_of_entries", {
                   count: dueVocabList.length,
                 })}
-              </h3>
+              </h2>
               <VocabCardsContainer>
                 <VocabCard
                   currentUser={currentUser}
