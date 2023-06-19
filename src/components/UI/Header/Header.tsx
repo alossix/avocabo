@@ -293,17 +293,19 @@ export const Header: React.FC<{
                   />
                 </HeaderItem>
               </MobileOnly>
-              <Button
-                ariaLabel={t("common:sign_up")}
-                onClick={() => router.push(`/${lang}/sign-up`)}
-                onKeyDown={(event) =>
-                  event.key === "Enter" &&
-                  handleInteractWithMenu({ event, path: `/${lang}/sign-up` })
-                }
-                title={t("common:sign_up")}
-              >
-                {t("common:sign_up")}
-              </Button>
+              <div role="listitem">
+                <Button
+                  ariaLabel={t("common:sign_up")}
+                  onClick={() => router.push(`/${lang}/sign-up`)}
+                  onKeyDown={(event) =>
+                    event.key === "Enter" &&
+                    handleInteractWithMenu({ event, path: `/${lang}/sign-up` })
+                  }
+                  title={t("common:sign_up")}
+                >
+                  {t("common:sign_up")}
+                </Button>
+              </div>
             </>
           )}
         </HeaderUL>

@@ -7,7 +7,6 @@
     "dev": "next dev",
     "e2e": "cypress open",
     "lint": "next lint && tsc --noEmit",
-    "postbuild": "node src/services/sitemap-generator.js",
     "pre-commit": "next lint && tsc --noEmit",
     "start": "next start",
     "test": "NODE_ENV=test jest",
