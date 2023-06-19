@@ -50,13 +50,14 @@ export const Toast: React.FC<ToastProps> = ({
 
   return (
     <ToastContainer
-      toastType={toastType}
+      aria-live="polite"
       onAnimationEnd={() => isUnmounting && setIsUnmounting(false)}
       style={{
         animation: isUnmounting
           ? `${fadeOut} 0.5s ease-out 1 forwards`
           : `${fadeIn} 0.5s ease-in 1 forwards`,
       }}
+      toastType={toastType}
     >
       {toastIconSwitch(toastType)}
       <StyledToastText>{toastText}</StyledToastText>
