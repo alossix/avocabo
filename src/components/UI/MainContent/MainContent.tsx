@@ -21,9 +21,13 @@ const MainContentWrapper = styled.section({
   display: "grid",
   gridArea: "2 / 1 / 8 / 9",
   overflowY: "auto",
-  padding: "8px",
+  padding: 8,
 });
 
 const MainContentContainer = styled.div({
   display: "flex",
+  justifySelf: "center",
+  justifyContent: "center",
+  maxWidth: 1024,
+  width: "100%",
 });
