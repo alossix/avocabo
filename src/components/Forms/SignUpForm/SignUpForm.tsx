@@ -131,7 +131,6 @@ export const SignUpForm: React.FC = () => {
 
   return (
     <StyledForm
-      autoComplete="off"
       name="create_user_form"
       onKeyDown={handleKeyDown}
       onSubmit={onSubmit}
@@ -186,11 +185,7 @@ export const SignUpForm: React.FC = () => {
           showIcon={false}
         />
       </InputContainer>
-      <Button
-        ariaLabel={t("common:sign_up")}
-        title={t("common:sign_up")}
-        type="submit"
-      >
+      <Button ariaLabel="" title={t("common:sign_up")} type="submit">
         {t("common:sign_up")}
       </Button>
       {showErrorMessage && (

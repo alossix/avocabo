@@ -99,11 +99,7 @@ export const SignInForm: React.FC = () => {
           register={register("password")}
         />
       </InputContainer>
-      <Button
-        ariaLabel={t("common:sign_in")}
-        title={t("common:sign_in")}
-        type="submit"
-      >
+      <Button ariaLabel="" title={t("common:sign_in")} type="submit">
         {t("common:sign_in")}
       </Button>
       {showErrorMessage && (

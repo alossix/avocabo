@@ -141,7 +141,7 @@ export const Header: React.FC<{
               }}
             >
               {t("common:header_home")}
-              <AvocaboLogoIcon />
+              <AvocaboLogoIcon aria-hidden />
             </HeaderLink>
           </HeaderItem>
         </LeftContent>
@@ -149,8 +149,7 @@ export const Header: React.FC<{
           mobileMenuOpen={mobileMenuOpen}
           setMobileMenuOpen={setMobileMenuOpen}
         />
-
-        <HeaderUL role="list" mobileMenuOpen={mobileMenuOpen}>
+        <HeaderUL role="navigation" mobileMenuOpen={mobileMenuOpen}>
           <HeaderItem
             aria-label={t("common:header_how_it_works")}
             onKeyDown={(event) =>
@@ -329,11 +328,10 @@ const HeaderContent = styled.header({
   maxWidth: 1024,
 });
 
-const LeftContent = styled.div({
+const LeftContent = styled.ul({
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-between",
-  flex: 1,
+  paddingLeft: 0,
 });
 
 const HeaderUL = styled.ul<{ mobileMenuOpen: boolean }>(
