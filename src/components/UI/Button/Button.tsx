@@ -48,7 +48,7 @@ const ButtonComponent = styled.button<{
   justifyContent: "center",
   background:
     colorSet === "green"
-      ? theme.colors.lightAvocado
+      ? theme.colors.UIGreen
       : colorSet === "black"
       ? theme.colors.lightBlack
       : theme.colors.UIRed,
@@ -58,7 +58,7 @@ const ButtonComponent = styled.button<{
   borderRadius: 4,
   border:
     colorSet === "green"
-      ? `3px solid ${theme.colors.lightAvocado}`
+      ? `3px solid ${theme.colors.UIGreen}`
       : colorSet === "black"
       ? `3px solid ${theme.colors.lightBlack}`
       : `3px solid ${theme.colors.UIRed}`,
@@ -69,7 +69,7 @@ const ButtonComponent = styled.button<{
     background: theme.colors.white,
     color:
       colorSet === "green"
-        ? theme.colors.lightAvocado
+        ? theme.colors.UIGreen
         : colorSet === "black"
         ? theme.colors.lightBlack
         : theme.colors.UIRed,

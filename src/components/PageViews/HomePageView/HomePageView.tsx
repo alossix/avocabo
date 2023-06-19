@@ -120,4 +120,5 @@ const HeroContainer = styled.section({
   margin: "4px 0",
   padding: 16,
   backgroundColor: theme.colors.UILightGreen,
+  borderRadius: 4,
 });
