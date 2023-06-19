@@ -3,7 +3,7 @@
   "version": "0.9.9",
   "private": true,
   "scripts": {
-    "build": "next build && node src/services/sitemap-generator.js",
+    "build": "next build",
     "dev": "next dev",
     "e2e": "cypress open",
     "lint": "next lint && tsc --noEmit",
@@ -25,7 +25,6 @@
     "js-cookie": "3.0.5",
     "next": "13.4.4",
     "next-translate": "2.0.5",
-    "nextjs-sitemap-generator": "^1.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-firebase-hooks": "^5.1.1",
