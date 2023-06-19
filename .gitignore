@@ -46,3 +46,7 @@ next-env.d.ts
 !.yarn/patches
 !.yarn/sdks
 !.yarn/versions
+
+# sitemap
+public/robots.txt
+public/sitemap*.xml
