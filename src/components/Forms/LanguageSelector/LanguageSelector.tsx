@@ -6,6 +6,7 @@ import React from "react";
 
 type LanguageSelectorProps = {
   handleSelectLanguage: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  id: string;
   languageSet: "interface" | "learning";
   selectedLanguage: InterfaceLanguages | LearningLanguages;
   showIcon?: boolean;
@@ -27,7 +28,13 @@ export const LanguageSelector = React.forwardRef<
   LanguageSelectorProps
 >(
   (
-    { handleSelectLanguage, languageSet, selectedLanguage, showIcon = true },
+    {
+      handleSelectLanguage,
+      id,
+      languageSet,
+      selectedLanguage,
+      showIcon = true,
+    },
     ref
   ) => {
     const { t } = useTranslation();
@@ -53,7 +60,7 @@ export const LanguageSelector = React.forwardRef<
     return (
       <LanguageSelectorContainer ref={ref}>
         <label
-          htmlFor="language-select"
+          htmlFor={id}
           style={{
             paddingTop: 2,
           }}
@@ -63,7 +70,8 @@ export const LanguageSelector = React.forwardRef<
           )}
         </label>
         <StyledSelectMenu
-          id="language-select"
+          aria-label="language-select-menu"
+          id={id}
           onChange={handleSelectLanguage}
           tabIndex={0}
           value={selectedLanguage}
