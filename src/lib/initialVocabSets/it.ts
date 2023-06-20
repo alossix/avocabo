@@ -10,6 +10,19 @@ const id5 = uuid4();
 const id6 = uuid4();
 const id7 = uuid4();
 
+export const exampleVocabEntryIT: { [vocabId: string]: Vocab } = {
+  [id1]: {
+    vocabId: id1,
+    blackoutWords: { 17: 19, 20: 24 },
+    category: "noun",
+    definition: "il sole",
+    description: "Non guardare mai il sole durante un'eclissi.",
+    imageURL:
+      "https://thumbnails.production.thenounproject.com/4evzWOXxQyDYNgtmTyF2yYyteYs=/fit-in/1000x1000/photos.production.thenounproject.com/photos/63EA1C09-599C-4DFD-9F12-EB47040C2884.jpg",
+    ...initialVocabProperties,
+  },
+};
+
 export const initialVocabSetIT: { [vocabId: string]: Vocab } = {
   [id1]: {
     vocabId: id1,

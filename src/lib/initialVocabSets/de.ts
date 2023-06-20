@@ -10,6 +10,20 @@ const id5 = uuid4();
 const id6 = uuid4();
 const id7 = uuid4();
 
+export const exampleVocabEntryDE: { [vocabId: string]: Vocab } = {
+  [id1]: {
+    vocabId: id1,
+    blackoutWords: { 15: 18, 19: 24 },
+    category: "noun",
+    definition: "die Sonne",
+    description:
+      "Betrachten Sie die Sonne während einer Sonnenfinsternis niemals.",
+    imageURL:
+      "https://thumbnails.production.thenounproject.com/4evzWOXxQyDYNgtmTyF2yYyteYs=/fit-in/1000x1000/photos.production.thenounproject.com/photos/63EA1C09-599C-4DFD-9F12-EB47040C2884.jpg",
+    ...initialVocabProperties,
+  },
+};
+
 export const initialVocabSetDE: { [vocabId: string]: Vocab } = {
   [id1]: {
     vocabId: id1,

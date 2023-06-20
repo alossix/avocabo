@@ -1,14 +1,13 @@
 import { Toast } from "@/components/UI/Toast";
 import { VocabCardExample } from "@/components/Vocab/VocabCardExample";
-import { initialVocabSetCA } from "@/lib/initialVocabSets/ca";
-import { initialVocabSetDE } from "@/lib/initialVocabSets/de";
-import { initialVocabSetEN } from "@/lib/initialVocabSets/en";
-import { initialVocabSetES } from "@/lib/initialVocabSets/es";
-import { initialVocabSetFR } from "@/lib/initialVocabSets/fr";
-import { initialVocabSetIT } from "@/lib/initialVocabSets/it";
-import { initialVocabSetNL } from "@/lib/initialVocabSets/nl";
-import { initialVocabSetOther } from "@/lib/initialVocabSets/other";
-import { initialVocabSetUK } from "@/lib/initialVocabSets/uk";
+import { exampleVocabEntryCA } from "@/lib/initialVocabSets/ca";
+import { exampleVocabEntryDE } from "@/lib/initialVocabSets/de";
+import { exampleVocabEntryEN } from "@/lib/initialVocabSets/en";
+import { exampleVocabEntryES } from "@/lib/initialVocabSets/es";
+import { exampleVocabEntryFR } from "@/lib/initialVocabSets/fr";
+import { exampleVocabEntryIT } from "@/lib/initialVocabSets/it";
+import { exampleVocabEntryNL } from "@/lib/initialVocabSets/nl";
+import { exampleVocabEntryUK } from "@/lib/initialVocabSets/uk";
 import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
@@ -22,34 +21,31 @@ export const HomePageView: React.FC = () => {
   let vocabSet: Vocab;
   switch (lang) {
     case "ca":
-      vocabSet = Object.values(initialVocabSetCA)[0];
+      vocabSet = Object.values(exampleVocabEntryCA)[0];
       break;
     case "de":
-      vocabSet = Object.values(initialVocabSetDE)[0];
+      vocabSet = Object.values(exampleVocabEntryDE)[0];
       break;
     case "en":
-      vocabSet = Object.values(initialVocabSetEN)[0];
+      vocabSet = Object.values(exampleVocabEntryEN)[0];
       break;
     case "es":
-      vocabSet = Object.values(initialVocabSetES)[0];
+      vocabSet = Object.values(exampleVocabEntryES)[0];
       break;
     case "fr":
-      vocabSet = Object.values(initialVocabSetFR)[0];
+      vocabSet = Object.values(exampleVocabEntryFR)[0];
       break;
     case "it":
-      vocabSet = Object.values(initialVocabSetIT)[0];
+      vocabSet = Object.values(exampleVocabEntryIT)[0];
       break;
     case "nl":
-      vocabSet = Object.values(initialVocabSetNL)[0];
-      break;
-    case "other":
-      vocabSet = Object.values(initialVocabSetOther)[0];
+      vocabSet = Object.values(exampleVocabEntryNL)[0];
       break;
     case "uk":
-      vocabSet = Object.values(initialVocabSetUK)[0];
+      vocabSet = Object.values(exampleVocabEntryUK)[0];
       break;
     default:
-      vocabSet = Object.values(initialVocabSetEN)[0]; // default language
+      vocabSet = Object.values(exampleVocabEntryEN)[0]; // default language
   }
 
   return (

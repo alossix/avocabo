@@ -10,6 +10,19 @@ const id5 = uuid4();
 const id6 = uuid4();
 const id7 = uuid4();
 
+export const exampleVocabEntryES: { [vocabId: string]: Vocab } = {
+  [id1]: {
+    vocabId: id1,
+    blackoutWords: { 15: 18 },
+    category: "noun",
+    definition: "el sol",
+    description: "Nunca mires al sol durante un eclipse.",
+    imageURL:
+      "https://thumbnails.production.thenounproject.com/4evzWOXxQyDYNgtmTyF2yYyteYs=/fit-in/1000x1000/photos.production.thenounproject.com/photos/63EA1C09-599C-4DFD-9F12-EB47040C2884.jpg",
+    ...initialVocabProperties,
+  },
+};
+
 export const initialVocabSetES: { [vocabId: string]: Vocab } = {
   [id1]: {
     vocabId: id1,
