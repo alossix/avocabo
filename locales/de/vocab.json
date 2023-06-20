@@ -1,6 +1,7 @@
 {
   "category": "Kategorie",
   "error_definition_required": "Das Feld 'Wort' ist erforderlich",
+  "hidden_word": "Verborgener Vokabeleintrag",
   "vocab_added_error": "Fehler beim Hinzufügen des Vokabeleintrags",
   "vocab_added_success": "Vokabeleintrag erfolgreich hinzugefügt",
   "vocab_blackout_description": "Dies ermöglicht es Ihnen, Ihren Vokabeleintrag im Beschreibungstext zu verbergen. Durch Klicken auf ein Wort wird es hervorgehoben, und durch erneutes Klicken wird die Hervorhebung entfernt.",

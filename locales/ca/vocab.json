@@ -1,6 +1,7 @@
 {
   "category": "Categoria",
   "error_definition_required": "El camp 'Paraula' és obligatori",
+  "hidden_word": "Entrada de vocabulari oculta",
   "vocab_added_error": "Error en afegir l'entrada de vocabulari",
   "vocab_added_success": "S'ha afegit correctament l'entrada de vocabulari",
   "vocab_blackout_description": "Això et permet ocultar la teva entrada de vocabulari en el text de descripció. Fent clic en una paraula la destaca, i fent-ho de nou la desmarca.",

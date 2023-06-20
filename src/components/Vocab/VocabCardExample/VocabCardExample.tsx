@@ -39,7 +39,7 @@ export const VocabCardExample: React.FC<VocabCardExampleProps> = ({
   const handleOnShowDetailsKeyDown = (
     event: React.KeyboardEvent<HTMLDivElement>
   ) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       handleOnShowDetailsClick(event);
     }
@@ -74,15 +74,39 @@ export const VocabCardExample: React.FC<VocabCardExampleProps> = ({
     );
   });
 
+  const generateAriaLabel = () => {
+    if (!vocabWord.description) return "";
+    let ariaLabel = vocabWord.description;
+
+    if (!vocabWord.blackoutWords) return ariaLabel;
+
+    const placeholder = t("vocab:hidden_word");
+
+    // Create an array of blackout word ranges, sorted in descending order
+    const blackoutRanges = Object.keys(vocabWord.blackoutWords)
+      .map(Number)
+      .sort((a, b) => b - a)
+      .map((start) => ({ start, end: vocabWord.blackoutWords?.[start] }));
+
+    blackoutRanges.forEach((range) => {
+      ariaLabel =
+        ariaLabel.slice(0, range.start) +
+        placeholder +
+        ariaLabel.slice(range.end);
+    });
+
+    return ariaLabel;
+  };
+
   return (
     <CardWrapper
+      aria-label={generateAriaLabel()}
+      aria-pressed={showDetails}
       onClick={handleOnShowDetailsClick}
       onKeyDown={handleOnShowDetailsKeyDown}
-      tabIndex={0}
-      showDetails={showDetails}
       role="button"
-      aria-label={vocabWord.definition}
-      aria-pressed={showDetails}
+      showDetails={showDetails}
+      tabIndex={0}
     >
       <TopRowDetails showDetails={showDetails}>
         <p style={{ color: theme.colors.lightBlack, fontSize: 12 }}>
@@ -94,7 +118,7 @@ export const VocabCardExample: React.FC<VocabCardExampleProps> = ({
           <ImageContainer>
             <Image
               src={vocabWord.imageURL}
-              alt={vocabWord.definition}
+              alt=""
               width={240}
               height={200}
               sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 240px"
@@ -103,15 +127,15 @@ export const VocabCardExample: React.FC<VocabCardExampleProps> = ({
           </ImageContainer>
         </ImageWrapper>
       )}
-      <DescriptionContainer>
-        <p>{words}</p>
+      <DescriptionContainer aria-hidden>
+        <p aria-hidden>{words}</p>
       </DescriptionContainer>
 
       <HR />
       {showDetails ? (
         <>
           <WordContainer title={vocabWord.phoneticPronunciation}>
-            <p>{vocabWord.definition}</p>
+            <p aria-live="polite">{vocabWord.definition}</p>
           </WordContainer>
           <LearningStepperExample
             setMessageText={setMessageText}

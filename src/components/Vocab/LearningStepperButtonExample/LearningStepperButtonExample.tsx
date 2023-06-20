@@ -34,11 +34,11 @@ export const LearningStepperButtonExample: React.FC<LearningStepperButtonExample
 
     return (
       <Button
-        type="button"
-        recallDifficulty={recallDifficulty}
         aria-label={t(`common:button_recall_${recallDifficulty}`)}
         color={color}
         onClick={handleButtonClick}
+        recallDifficulty={recallDifficulty}
+        type="button"
       >
         {t(`common:button_recall_${recallDifficulty}`)}
       </Button>

@@ -1,6 +1,7 @@
 {
   "category": "Categorie",
   "error_definition_required": "Het veld 'Woord' is verplicht",
+  "hidden_word": "Verborgen woordenboekinvoer",
   "vocab_added_error": "Fout bij het toevoegen van vocabulaire-item",
   "vocab_added_success": "Vocabulaire-item succesvol toegevoegd",
   "vocab_blackout_description": "Hiermee kunt u uw vocabulaire-item verbergen in de beschrijvingstekst. Door op een woord te klikken, wordt het gemarkeerd en door nogmaals te klikken, wordt de markering verwijderd.",
