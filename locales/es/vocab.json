@@ -1,6 +1,7 @@
 {
   "category": "Categoría",
   "error_definition_required": "El campo 'Palabra' es obligatorio",
+  "hidden_word": "Entrada de vocabulario oculta",
   "vocab_added_error": "Error al agregar la entrada de vocabulario",
   "vocab_added_success": "Entrada de vocabulario agregada con éxito",
   "vocab_blackout_description": "Esto te permite ocultar tu entrada de vocabulario en el texto de descripción. Al hacer clic en una palabra, se resalta, y al hacer clic de nuevo, se quita el resaltado.",

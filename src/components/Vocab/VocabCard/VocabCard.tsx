@@ -37,7 +37,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({
   const handleOnShowDetailsKeyDown = (
     event: React.KeyboardEvent<HTMLDivElement>
   ) => {
-    if (event.key === "Enter") {
+    if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       handleOnShowDetailsClick(event);
     }
@@ -46,8 +46,14 @@ export const VocabCard: React.FC<VocabCardProps> = ({
   const handleEditButtonClick = (
     event: React.MouseEvent | React.KeyboardEvent
   ) => {
-    event.stopPropagation();
-    setOpenModal((prevOpen) => !prevOpen);
+    if (
+      event.type === "click" ||
+      (event as React.KeyboardEvent).key === "Enter" ||
+      (event as React.KeyboardEvent).key === " "
+    ) {
+      event.stopPropagation();
+      setOpenModal((prevOpen) => !prevOpen);
+    }
   };
 
   useEffect(() => {
@@ -79,15 +85,39 @@ export const VocabCard: React.FC<VocabCardProps> = ({
     );
   });
 
+  const generateAriaLabel = () => {
+    if (!vocabWord.description) return "";
+    let ariaLabel = vocabWord.description;
+
+    if (!vocabWord.blackoutWords) return ariaLabel;
+
+    const placeholder = t("vocab:hidden_word");
+
+    // Create an array of blackout word ranges, sorted in descending order
+    const blackoutRanges = Object.keys(vocabWord.blackoutWords)
+      .map(Number)
+      .sort((a, b) => b - a)
+      .map((start) => ({ start, end: vocabWord.blackoutWords?.[start] }));
+
+    blackoutRanges.forEach((range) => {
+      ariaLabel =
+        ariaLabel.slice(0, range.start) +
+        placeholder +
+        ariaLabel.slice(range.end);
+    });
+
+    return ariaLabel;
+  };
+
   return (
     <CardWrapper
+      aria-label={generateAriaLabel()}
+      aria-pressed={showDetails}
       onClick={handleOnShowDetailsClick}
       onKeyDown={handleOnShowDetailsKeyDown}
-      tabIndex={0}
-      showDetails={showDetails}
       role="button"
-      aria-label={vocabWord.definition}
-      aria-pressed={showDetails}
+      showDetails={showDetails}
+      tabIndex={0}
     >
       <TopRowDetails showDetails={showDetails}>
         <p style={{ color: theme.colors.lightBlack, fontSize: 12 }}>
@@ -115,25 +145,25 @@ export const VocabCard: React.FC<VocabCardProps> = ({
         <ImageWrapper>
           <ImageContainer>
             <Image
-              src={vocabWord.imageURL}
-              alt={vocabWord.definition}
-              width={240}
+              alt=""
               height={200}
+              width={240}
               sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 240px"
+              src={vocabWord.imageURL}
               style={{ objectFit: "contain" }}
             />
           </ImageContainer>
         </ImageWrapper>
       )}
-      <DescriptionContainer>
-        <p>{words}</p>
+      <DescriptionContainer aria-hidden>
+        <p aria-hidden>{words}</p>
       </DescriptionContainer>
 
       <HR />
       {showDetails ? (
         <>
           <WordContainer title={vocabWord.phoneticPronunciation}>
-            <p>{vocabWord.definition}</p>
+            <p aria-live="polite">{vocabWord.definition}</p>
           </WordContainer>
           <LearningStepper vocabWord={vocabWord} />
         </>

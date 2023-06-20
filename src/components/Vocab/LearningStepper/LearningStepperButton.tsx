@@ -48,12 +48,12 @@ export const LearningStepperButton: React.FC<LearningStepperButtonProps> =
 
     return (
       <Button
-        type="button"
-        recallDifficulty={recallDifficulty}
-        onClick={handleOnClick}
-        onKeyDown={handleKeyDown}
         aria-label={t(`common:button_recall_${recallDifficulty}`)}
         color={color}
+        onClick={handleOnClick}
+        onKeyDown={handleKeyDown}
+        recallDifficulty={recallDifficulty}
+        type="button"
       >
         {t(`common:button_recall_${recallDifficulty}`)}
       </Button>
