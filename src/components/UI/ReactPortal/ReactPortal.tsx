@@ -1,4 +1,4 @@
-import { ReactNode, useLayoutEffect, useState } from "react";
+import { ReactNode, useState, useLayoutEffect } from "react";
 import { createPortal } from "react-dom";
 
 type ReactPortalProps = {
