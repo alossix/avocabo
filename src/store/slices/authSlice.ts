@@ -48,7 +48,6 @@ import {
   setVocabInState,
 } from "./vocabSlice";
 import { DocumentReference, getDocs } from "firebase/firestore";
-
 const initialVocabSet: {
   [key in LearningLanguages]: { [vocabId: string]: Vocab };
 } = {
