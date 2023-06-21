@@ -1,10 +1,10 @@
-import { render, screen } from "@testing-library/react";
-import { MyVocabPageView } from "./MyVocabPageView";
-import { Vocab } from "@/types/vocab";
-import { mockUser, mockVocabList } from "@/lib/testUtils";
 import { useVocab } from "@/hooks/useVocab";
-import { Provider } from "react-redux";
+import { mockUser, mockVocabList } from "@/lib/testUtils";
 import { store } from "@/store/store";
+import { Vocab } from "@/types/vocab";
+import { render, screen } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { MyVocabPageView } from "./MyVocabPageView";
 
 jest.mock("@/hooks/useVocab");
 
@@ -72,7 +72,7 @@ describe("MyVocabPageView", () => {
     expect(
       screen.getByText((content, element) => {
         return (
-          element?.tagName.toLowerCase() === "h3" &&
+          element?.tagName.toLowerCase() === "h2" &&
           content.includes("vocab:vocab_no_words")
         );
       })
