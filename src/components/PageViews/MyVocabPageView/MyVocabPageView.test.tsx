@@ -72,7 +72,7 @@ describe("MyVocabPageView", () => {
     expect(
       screen.getByText((content, element) => {
         return (
-          element?.tagName.toLowerCase() === "h3" &&
+          element?.tagName.toLowerCase() === "h2" &&
           content.includes("vocab:vocab_no_words")
         );
       })

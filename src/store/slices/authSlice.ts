@@ -38,6 +38,7 @@ import {
   ThunkDispatch,
   createSlice,
 } from "@reduxjs/toolkit";
+import { DocumentReference, getDocs } from "firebase/firestore";
 import Cookies from "js-cookie";
 import setLanguage from "next-translate/setLanguage";
 import { Dispatch } from "react";
@@ -47,7 +48,6 @@ import {
   getVocabDB,
   setVocabInState,
 } from "./vocabSlice";
-import { DocumentReference, getDocs } from "firebase/firestore";
 
 const initialVocabSet: {
   [key in LearningLanguages]: { [vocabId: string]: Vocab };
