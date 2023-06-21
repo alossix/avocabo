@@ -64,5 +64,6 @@
     "storybook": "^7.0.22",
     "uuid": "^9.0.0",
     "yarn-audit-fix": "^9.3.12"
-  }
+  },
+  "packageManager": "yarn@3.6.0"
 }
