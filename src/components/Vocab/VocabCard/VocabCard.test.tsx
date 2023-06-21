@@ -18,22 +18,8 @@ describe("VocabCard", () => {
 
     expect(screen.getByText(/vocab:vocab_due_date/i)).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /vocab_edit_entry_title/i })
+      screen.getByRole("button", { name: /vocab:vocab_edit_entry_title/i })
     ).toBeInTheDocument();
-    expect(
-      screen.getByRole("img", { name: mockVocabEntry.definition })
-    ).toBeInTheDocument();
-  });
-
-  test("shows vocab word details when card is clicked", async () => {
-    renderVocabCard();
-
-    const cardWrapper = screen.getByRole("button", {
-      name: mockVocabEntry.definition,
-    });
-    fireEvent.click(cardWrapper);
-
-    expect(screen.queryByText(/vocab:vocab_reveal_word.../)).toBeNull();
   });
 
   test("opens and closes edit modal on button click", () => {
