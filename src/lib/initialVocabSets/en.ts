@@ -17,7 +17,7 @@ export const exampleVocabEntryEN: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "the sun",
     description: "Never look at the sun during an eclipse.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -29,7 +29,7 @@ export const initialVocabSetEN: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "the sun",
     description: "Never look at the sun during an eclipse.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
   [id2]: {
@@ -38,7 +38,7 @@ export const initialVocabSetEN: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "the rain",
     description: "We watch the rain during the storm.",
-    imageURL: "/public/images/vocabSets/rain.jpeg",
+    imageURL: "/images/vocabSets/rain.jpeg",
     ...initialVocabProperties,
   },
   [id3]: {
@@ -47,7 +47,7 @@ export const initialVocabSetEN: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "the crown",
     description: "The actor wore a crown on his head.",
-    imageURL: "/public/images/vocabSets/crown.jpeg",
+    imageURL: "/images/vocabSets/crown.jpeg",
     ...initialVocabProperties,
   },
   [id4]: {
@@ -57,7 +57,7 @@ export const initialVocabSetEN: { [vocabId: string]: Vocab } = {
     definition: "the hat",
     description:
       "Wearing a hat at the beach helps protect your face from sun damage.",
-    imageURL: "/public/images/vocabSets/hat.jpeg",
+    imageURL: "/images/vocabSets/hat.jpeg",
     ...initialVocabProperties,
   },
   [id5]: {
@@ -67,7 +67,7 @@ export const initialVocabSetEN: { [vocabId: string]: Vocab } = {
     definition: "the glasses",
     description:
       "Now that I'm older, I need to use glasses for reading more often.",
-    imageURL: "/public/images/vocabSets/glasses.jpeg",
+    imageURL: "/images/vocabSets/glasses.jpeg",
     ...initialVocabProperties,
   },
   [id6]: {
@@ -77,7 +77,7 @@ export const initialVocabSetEN: { [vocabId: string]: Vocab } = {
     definition: "the t-shirt",
     description:
       "It's a warm day, so I decided to put on a t-shirt instead of a sweater.",
-    imageURL: "/public/images/vocabSets/t-shirt.jpeg",
+    imageURL: "/images/vocabSets/t-shirt.jpeg",
     ...initialVocabProperties,
   },
   [id7]: {
@@ -86,7 +86,7 @@ export const initialVocabSetEN: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "the pants",
     description: "The pants were made of blue denim.",
-    imageURL: "/public/images/vocabSets/pants.jpeg",
+    imageURL: "/images/vocabSets/pants.jpeg",
     ...initialVocabProperties,
   },
 };

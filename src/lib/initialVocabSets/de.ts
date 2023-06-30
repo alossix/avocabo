@@ -18,7 +18,7 @@ export const exampleVocabEntryDE: { [vocabId: string]: Vocab } = {
     definition: "die Sonne",
     description:
       "Betrachten Sie die Sonne während einer Sonnenfinsternis niemals.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -31,7 +31,7 @@ export const initialVocabSetDE: { [vocabId: string]: Vocab } = {
     definition: "die Sonne",
     description:
       "Betrachten Sie die Sonne während einer Sonnenfinsternis niemals.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
   [id2]: {
@@ -40,7 +40,7 @@ export const initialVocabSetDE: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "der Regen",
     description: "Wir beobachten den Regen während des Sturms.",
-    imageURL: "/public/images/vocabSets/rain.jpeg",
+    imageURL: "/images/vocabSets/rain.jpeg",
     ...initialVocabProperties,
   },
   [id3]: {
@@ -49,7 +49,7 @@ export const initialVocabSetDE: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "die Krone",
     description: "Der Schauspieler trug eine Krone auf dem Kopf.",
-    imageURL: "/public/images/vocabSets/crown.jpeg",
+    imageURL: "/images/vocabSets/crown.jpeg",
     ...initialVocabProperties,
   },
   [id4]: {
@@ -59,7 +59,7 @@ export const initialVocabSetDE: { [vocabId: string]: Vocab } = {
     definition: "der Hut",
     description:
       "Ein Hut am Strand zu tragen hilft, Ihr Gesicht vor Sonnenschäden zu schützen.",
-    imageURL: "/public/images/vocabSets/hat.jpeg",
+    imageURL: "/images/vocabSets/hat.jpeg",
     ...initialVocabProperties,
   },
   [id5]: {
@@ -69,7 +69,7 @@ export const initialVocabSetDE: { [vocabId: string]: Vocab } = {
     definition: "die Brille",
     description:
       "Jetzt, wo ich älter bin, muss ich beim Lesen häufiger eine Brille tragen.",
-    imageURL: "/public/images/vocabSets/glasses.jpeg",
+    imageURL: "/images/vocabSets/glasses.jpeg",
     ...initialVocabProperties,
   },
   [id6]: {
@@ -79,7 +79,7 @@ export const initialVocabSetDE: { [vocabId: string]: Vocab } = {
     definition: "das T-Shirt",
     description:
       "Es ist ein warmer Tag, also habe ich mich entschieden, ein T-Shirt statt eines Pullovers anzuziehen.",
-    imageURL: "/public/images/vocabSets/t-shirt.jpeg",
+    imageURL: "/images/vocabSets/t-shirt.jpeg",
     ...initialVocabProperties,
   },
   [id7]: {
@@ -88,7 +88,7 @@ export const initialVocabSetDE: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "die Hose",
     description: "Die Hose bestand aus blauem Denim.",
-    imageURL: "/public/images/vocabSets/pants.jpeg",
+    imageURL: "/images/vocabSets/pants.jpeg",
     ...initialVocabProperties,
   },
 };

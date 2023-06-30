@@ -17,7 +17,7 @@ export const exampleVocabEntryNL: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "de zon",
     description: "Kijk nooit naar de zon tijdens een zonsverduistering.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -29,7 +29,7 @@ export const initialVocabSetNL: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "de zon",
     description: "Kijk nooit naar de zon tijdens een zonsverduistering.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
   [id2]: {
@@ -38,7 +38,7 @@ export const initialVocabSetNL: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "de regen",
     description: "We kijken naar de regen tijdens de storm.",
-    imageURL: "/public/images/vocabSets/rain.jpeg",
+    imageURL: "/images/vocabSets/rain.jpeg",
     ...initialVocabProperties,
   },
   [id3]: {
@@ -47,7 +47,7 @@ export const initialVocabSetNL: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "de kroon",
     description: "De acteur droeg een kroon op zijn hoofd.",
-    imageURL: "/public/images/vocabSets/crown.jpeg",
+    imageURL: "/images/vocabSets/crown.jpeg",
     ...initialVocabProperties,
   },
   [id4]: {
@@ -57,7 +57,7 @@ export const initialVocabSetNL: { [vocabId: string]: Vocab } = {
     definition: "de hoed",
     description:
       "Een hoed dragen op het strand helpt je gezicht te beschermen tegen zonneschade.",
-    imageURL: "/public/images/vocabSets/hat.jpeg",
+    imageURL: "/images/vocabSets/hat.jpeg",
     ...initialVocabProperties,
   },
   [id5]: {
@@ -66,7 +66,7 @@ export const initialVocabSetNL: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "de bril",
     description: "Nu ik ouder ben, moet ik vaker een bril dragen om te lezen.",
-    imageURL: "/public/images/vocabSets/glasses.jpeg",
+    imageURL: "/images/vocabSets/glasses.jpeg",
     ...initialVocabProperties,
   },
   [id6]: {
@@ -76,7 +76,7 @@ export const initialVocabSetNL: { [vocabId: string]: Vocab } = {
     definition: "het t-shirt",
     description:
       "Het is een warme dag, dus ik heb besloten om een T-shirt aan te trekken in plaats van een trui.",
-    imageURL: "/public/images/vocabSets/t-shirt.jpeg",
+    imageURL: "/images/vocabSets/t-shirt.jpeg",
     ...initialVocabProperties,
   },
   [id7]: {
@@ -85,7 +85,7 @@ export const initialVocabSetNL: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "de broek",
     description: "De broek was van blauw denim.",
-    imageURL: "/public/images/vocabSets/pants.jpeg",
+    imageURL: "/images/vocabSets/pants.jpeg",
     ...initialVocabProperties,
   },
 };

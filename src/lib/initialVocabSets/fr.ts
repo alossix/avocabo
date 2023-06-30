@@ -17,7 +17,7 @@ export const exampleVocabEntryFR: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "le soleil",
     description: "Ne regardez jamais le soleil pendant une éclipse.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -29,7 +29,7 @@ export const initialVocabSetFR: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "le soleil",
     description: "Ne regardez jamais le soleil pendant une éclipse.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
   [id2]: {
@@ -38,7 +38,7 @@ export const initialVocabSetFR: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "la pluie",
     description: "Nous regardons la pluie pendant l'orage.",
-    imageURL: "/public/images/vocabSets/rain.jpeg",
+    imageURL: "/images/vocabSets/rain.jpeg",
     ...initialVocabProperties,
   },
   [id3]: {
@@ -47,7 +47,7 @@ export const initialVocabSetFR: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "la couronne",
     description: "L'acteur portait une couronne sur la tête.",
-    imageURL: "/public/images/vocabSets/crown.jpeg",
+    imageURL: "/images/vocabSets/crown.jpeg",
     ...initialVocabProperties,
   },
   [id4]: {
@@ -57,7 +57,7 @@ export const initialVocabSetFR: { [vocabId: string]: Vocab } = {
     definition: "le chapeau",
     description:
       "Porter un chapeau à la plage aide à protéger votre visage des dommages causés par le soleil.",
-    imageURL: "/public/images/vocabSets/hat.jpeg",
+    imageURL: "/images/vocabSets/hat.jpeg",
     ...initialVocabProperties,
   },
   [id5]: {
@@ -67,7 +67,7 @@ export const initialVocabSetFR: { [vocabId: string]: Vocab } = {
     definition: "les lunettes",
     description:
       "Maintenant que je suis plus âgé, j'ai besoin de porter des lunettes pour lire plus souvent.",
-    imageURL: "/public/images/vocabSets/glasses.jpeg",
+    imageURL: "/images/vocabSets/glasses.jpeg",
     ...initialVocabProperties,
   },
   [id6]: {
@@ -77,7 +77,7 @@ export const initialVocabSetFR: { [vocabId: string]: Vocab } = {
     definition: "le t-shirt",
     description:
       "Il fait chaud aujourd'hui, alors j'ai décidé de mettre un t-shirt au lieu d'un pull.",
-    imageURL: "/public/images/vocabSets/t-shirt.jpeg",
+    imageURL: "/images/vocabSets/t-shirt.jpeg",
     ...initialVocabProperties,
   },
   [id7]: {
@@ -86,7 +86,7 @@ export const initialVocabSetFR: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "le pantalon",
     description: "Le pantalon était en denim bleu.",
-    imageURL: "/public/images/vocabSets/pants.jpeg",
+    imageURL: "/images/vocabSets/pants.jpeg",
     ...initialVocabProperties,
   },
 };

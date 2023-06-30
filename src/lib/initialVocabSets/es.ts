@@ -17,7 +17,7 @@ export const exampleVocabEntryES: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "el sol",
     description: "Nunca mires al sol durante un eclipse.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -29,7 +29,7 @@ export const initialVocabSetES: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "el sol",
     description: "Nunca mires al sol durante un eclipse.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
   [id2]: {
@@ -38,7 +38,7 @@ export const initialVocabSetES: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "la lluvia",
     description: "Miramos la lluvia durante la tormenta.",
-    imageURL: "/public/images/vocabSets/rain.jpeg",
+    imageURL: "/images/vocabSets/rain.jpeg",
     ...initialVocabProperties,
   },
   [id3]: {
@@ -47,7 +47,7 @@ export const initialVocabSetES: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "la corona",
     description: "El actor llevaba una corona en su cabeza.",
-    imageURL: "/public/images/vocabSets/crown.jpeg",
+    imageURL: "/images/vocabSets/crown.jpeg",
     ...initialVocabProperties,
   },
   [id4]: {
@@ -57,7 +57,7 @@ export const initialVocabSetES: { [vocabId: string]: Vocab } = {
     definition: "el sombrero",
     description:
       "Usar un sombrero en la playa ayuda a proteger tu rostro del daño solar.",
-    imageURL: "/public/images/vocabSets/hat.jpeg",
+    imageURL: "/images/vocabSets/hat.jpeg",
     ...initialVocabProperties,
   },
   [id5]: {
@@ -67,7 +67,7 @@ export const initialVocabSetES: { [vocabId: string]: Vocab } = {
     definition: "las gafas",
     description:
       "Ahora que soy mayor, necesito usar gafas para leer con más frecuencia.",
-    imageURL: "/public/images/vocabSets/glasses.jpeg",
+    imageURL: "/images/vocabSets/glasses.jpeg",
     ...initialVocabProperties,
   },
   [id6]: {
@@ -77,7 +77,7 @@ export const initialVocabSetES: { [vocabId: string]: Vocab } = {
     definition: "la camiseta",
     description:
       "Hace calor hoy, así que decidí ponerme una camiseta en lugar de un suéter.",
-    imageURL: "/public/images/vocabSets/t-shirt.jpeg",
+    imageURL: "/images/vocabSets/t-shirt.jpeg",
     ...initialVocabProperties,
   },
   [id7]: {
@@ -86,7 +86,7 @@ export const initialVocabSetES: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "los pantalones",
     description: "Los pantalones eran de mezclilla azul.",
-    imageURL: "/public/images/vocabSets/pants.jpeg",
+    imageURL: "/images/vocabSets/pants.jpeg",
     ...initialVocabProperties,
   },
 };
