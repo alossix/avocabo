@@ -17,7 +17,7 @@ export const exampleVocabEntryCA: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "el sol",
     description: "Mai miris al sol durant un eclipsi.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -29,7 +29,7 @@ export const initialVocabSetCA: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "el sol",
     description: "Mai miris al sol durant un eclipsi.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
   [id2]: {
@@ -38,7 +38,7 @@ export const initialVocabSetCA: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "la pluja",
     description: "Mirem la pluja durant la tempesta.",
-    imageURL: "/public/images/vocabSets/rain.jpeg",
+    imageURL: "/images/vocabSets/rain.jpeg",
     ...initialVocabProperties,
   },
   [id3]: {
@@ -47,7 +47,7 @@ export const initialVocabSetCA: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "la corona",
     description: "L'actor portava una corona al cap.",
-    imageURL: "/public/images/vocabSets/crown.jpeg",
+    imageURL: "/images/vocabSets/crown.jpeg",
     ...initialVocabProperties,
   },
   [id4]: {
@@ -57,7 +57,7 @@ export const initialVocabSetCA: { [vocabId: string]: Vocab } = {
     definition: "el barret",
     description:
       "Portar un barret a la platja ajuda a protegir la cara dels danys solars.",
-    imageURL: "/public/images/vocabSets/hat.jpeg",
+    imageURL: "/images/vocabSets/hat.jpeg",
     ...initialVocabProperties,
   },
   [id5]: {
@@ -67,7 +67,7 @@ export const initialVocabSetCA: { [vocabId: string]: Vocab } = {
     definition: "les ulleres",
     description:
       "Ara que sóc més gran, necessito usar les ulleres per llegir més sovint.",
-    imageURL: "/public/images/vocabSets/glasses.jpeg",
+    imageURL: "/images/vocabSets/glasses.jpeg",
     ...initialVocabProperties,
   },
   [id6]: {
@@ -77,7 +77,7 @@ export const initialVocabSetCA: { [vocabId: string]: Vocab } = {
     definition: "la samarreta",
     description:
       "Fa calor avui, així que he decidit posar-me una samarreta en lloc d'un jersei.",
-    imageURL: "/public/images/vocabSets/t-shirt.jpeg",
+    imageURL: "/images/vocabSets/t-shirt.jpeg",
     ...initialVocabProperties,
   },
   [id7]: {
@@ -86,7 +86,7 @@ export const initialVocabSetCA: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "els pantalons",
     description: "Els pantalons eren de texà blau.",
-    imageURL: "/public/images/vocabSets/pants.jpeg",
+    imageURL: "/images/vocabSets/pants.jpeg",
     ...initialVocabProperties,
   },
 };

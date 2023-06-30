@@ -17,7 +17,7 @@ export const exampleVocabEntryIT: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "il sole",
     description: "Non guardare mai il sole durante un'eclissi.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -29,7 +29,7 @@ export const initialVocabSetIT: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "il sole",
     description: "Non guardare mai il sole durante un'eclissi.",
-    imageURL: "/public/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/sun.jpeg",
     ...initialVocabProperties,
   },
   [id2]: {
@@ -38,7 +38,7 @@ export const initialVocabSetIT: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "la pioggia",
     description: "Guardiamo la pioggia durante la tempesta.",
-    imageURL: "/public/images/vocabSets/rain.jpeg",
+    imageURL: "/images/vocabSets/rain.jpeg",
     ...initialVocabProperties,
   },
   [id3]: {
@@ -47,7 +47,7 @@ export const initialVocabSetIT: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "la corona",
     description: "L'attore indossava una corona sulla testa.",
-    imageURL: "/public/images/vocabSets/crown.jpeg",
+    imageURL: "/images/vocabSets/crown.jpeg",
     ...initialVocabProperties,
   },
   [id4]: {
@@ -57,7 +57,7 @@ export const initialVocabSetIT: { [vocabId: string]: Vocab } = {
     definition: "il cappello",
     description:
       "Indossare un cappello in spiaggia aiuta a proteggere il viso dai danni del sole.",
-    imageURL: "/public/images/vocabSets/hat.jpeg",
+    imageURL: "/images/vocabSets/hat.jpeg",
     ...initialVocabProperties,
   },
   [id5]: {
@@ -67,7 +67,7 @@ export const initialVocabSetIT: { [vocabId: string]: Vocab } = {
     definition: "gli occhiali",
     description:
       "Ora che sono più vecchio, ho bisogno di usare gli occhiali per leggere più spesso.",
-    imageURL: "/public/images/vocabSets/glasses.jpeg",
+    imageURL: "/images/vocabSets/glasses.jpeg",
     ...initialVocabProperties,
   },
   [id6]: {
@@ -77,7 +77,7 @@ export const initialVocabSetIT: { [vocabId: string]: Vocab } = {
     definition: "la maglietta",
     description:
       "Fa caldo oggi, quindi ho deciso di indossare una maglietta invece di un maglione.",
-    imageURL: "/public/images/vocabSets/t-shirt.jpeg",
+    imageURL: "/images/vocabSets/t-shirt.jpeg",
     ...initialVocabProperties,
   },
   [id7]: {
@@ -86,7 +86,7 @@ export const initialVocabSetIT: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "i pantaloni",
     description: "I pantaloni erano in denim blu.",
-    imageURL: "/public/images/vocabSets/pants.jpeg",
+    imageURL: "/images/vocabSets/pants.jpeg",
     ...initialVocabProperties,
   },
 };
