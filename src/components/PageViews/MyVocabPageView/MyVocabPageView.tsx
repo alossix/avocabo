@@ -121,6 +121,7 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
               <VocabCardsContainer>
                 <VocabCard
                   currentUser={currentUser}
+                  nextVocabWord={dueVocabList[1]}
                   vocabWord={dueVocabList[0]}
                 />
               </VocabCardsContainer>
