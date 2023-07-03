@@ -1,5 +1,5 @@
 import { handleAppError } from "@/lib/handleAppError";
-import { initialVocabSetCA as ca } from "@/lib/initialVocabSets/ca";
+import { commonNounsCA as ca } from "@/lib/vocabPacks/commonNouns/ca";
 import { initialVocabSetDE as de } from "@/lib/initialVocabSets/de";
 import { initialVocabSetEN as en } from "@/lib/initialVocabSets/en";
 import { initialVocabSetES as es } from "@/lib/initialVocabSets/es";
