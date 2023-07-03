@@ -82,6 +82,8 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
     setBlackoutWords(vocabWord.blackoutWords || {});
   }, [vocabWord, reset]);
 
+  console.log(vocabWord.blackoutWords);
+
   return (
     <Modal
       isOpen={isOpen}
