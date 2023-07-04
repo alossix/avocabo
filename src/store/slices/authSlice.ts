@@ -1,11 +1,11 @@
 import { handleAppError } from "@/lib/handleAppError";
 import { commonNounsCA as ca } from "@/lib/vocabPacks/commonNouns/ca";
-import { initialVocabSetDE as de } from "@/lib/initialVocabSets/de";
+import { commonNounsDE as de } from "@/lib/vocabPacks/commonNouns/de";
 import { commonNounsEN as en } from "@/lib/vocabPacks/commonNouns/en";
 import { commonNounsES as es } from "@/lib/vocabPacks/commonNouns/es";
 import { commonNounsFR as fr } from "@/lib/vocabPacks/commonNouns/fr";
 import { commonNounsIT as it } from "@/lib/vocabPacks/commonNouns/it";
-import { initialVocabSetNL as nl } from "@/lib/initialVocabSets/nl";
+import { commonNounsNL as nl } from "@/lib/vocabPacks/commonNouns/nl";
 import { initialVocabSetOther as other } from "@/lib/initialVocabSets/other";
 import { initialVocabSetUK as uk } from "@/lib/initialVocabSets/uk";
 import {
