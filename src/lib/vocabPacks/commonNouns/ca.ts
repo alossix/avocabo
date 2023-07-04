@@ -1,6 +1,5 @@
-import { initialVocabProperties } from "@/lib/initialVocab";
+import { generateVocabSet } from "@/lib/initialVocab";
 import { Vocab } from "@/types/vocab";
-import { v4 as uuid4 } from "uuid";
 
 export const commonNounsCA: { [vocabId: string]: Vocab } = {};
 
@@ -10,28 +9,28 @@ const vocabEntries: [string, string, string, string, Record<number, number>][] =
       "l'aigua",
       "Sempre és important beure molta aigua.",
       "water.jpeg",
-      "/lˈajɣwə/",
+      "/ajɣwə/",
       { 32: 38 },
     ],
     [
       "l'ampolla",
       "La meva ampolla d'aigua està sempre a la meva motxilla.",
       "bottle.jpeg",
-      "/ləmˈpɔʎə/",
+      "/əmˈpɔʎə/",
       { 8: 15 },
     ],
     [
       "l'arbre",
       "Aquest arbre ha estat aquí des de fa més de cent anys.",
       "tree.jpeg",
-      "/ˈlarβɾə/",
+      "/ˈarβɾə/",
       { 7: 12 },
     ],
     [
       "l'avió",
       "Volant alt en el cel, es pot veure l'avió.",
       "airplane.jpeg",
-      "/ləβiˈo/",
+      "/əβiˈo/",
       { 35: 42 },
     ],
     [
@@ -164,7 +163,7 @@ const vocabEntries: [string, string, string, string, Record<number, number>][] =
       "l'herba",
       "M'agrada sentir l'herba sota els meus peus descalços.",
       "grass.jpeg",
-      "/ˈlɛrβə/",
+      "/ˈɛrβə/",
       { 16: 23 },
     ],
     [
@@ -241,7 +240,7 @@ const vocabEntries: [string, string, string, string, Record<number, number>][] =
       "l'ordinador",
       "Estic treballant en un projecte al meu ordinador.",
       "computer.jpeg",
-      "/lˌɔrðiˈnaðoɾ/",
+      "/ɔrðiˈnaðoɾ/",
       { 39: 49 },
     ],
     [
@@ -358,17 +357,6 @@ const vocabEntries: [string, string, string, string, Record<number, number>][] =
     ],
   ];
 
-for (let i = 0; i < vocabEntries.length; i++) {
-  const id = uuid4();
+const newVocabSet = generateVocabSet({ vocabEntries });
 
-  commonNounsCA[id] = {
-    vocabId: id,
-    blackoutWords: vocabEntries[i][4],
-    category: "noun",
-    definition: vocabEntries[i][0],
-    description: vocabEntries[i][1],
-    imageURL: "/images/vocabSets/commonNouns/" + vocabEntries[i][2],
-    ...initialVocabProperties,
-    phoneticPronunciation: vocabEntries[i][3],
-  };
-}
+Object.assign(commonNounsCA, newVocabSet);
