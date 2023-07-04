@@ -6,8 +6,7 @@ import { commonNounsES as es } from "@/lib/vocabPacks/commonNouns/es";
 import { commonNounsFR as fr } from "@/lib/vocabPacks/commonNouns/fr";
 import { commonNounsIT as it } from "@/lib/vocabPacks/commonNouns/it";
 import { commonNounsNL as nl } from "@/lib/vocabPacks/commonNouns/nl";
-import { initialVocabSetOther as other } from "@/lib/initialVocabSets/other";
-import { initialVocabSetUK as uk } from "@/lib/initialVocabSets/uk";
+import { commonNounsUK as uk } from "@/lib/vocabPacks/commonNouns/uk";
 import {
   auth,
   collection,
@@ -38,6 +37,7 @@ import {
   ThunkDispatch,
   createSlice,
 } from "@reduxjs/toolkit";
+import { DocumentReference, getDocs } from "firebase/firestore";
 import Cookies from "js-cookie";
 import setLanguage from "next-translate/setLanguage";
 import { Dispatch } from "react";
@@ -47,7 +47,9 @@ import {
   getVocabDB,
   setVocabInState,
 } from "./vocabSlice";
-import { DocumentReference, getDocs } from "firebase/firestore";
+
+const other: { [vocabId: string]: Vocab } = {};
+
 const initialVocabSet: {
   [key in LearningLanguages]: { [vocabId: string]: Vocab };
 } = {
