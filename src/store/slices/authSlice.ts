@@ -1,8 +1,8 @@
 import { handleAppError } from "@/lib/handleAppError";
 import { commonNounsCA as ca } from "@/lib/vocabPacks/commonNouns/ca";
 import { initialVocabSetDE as de } from "@/lib/initialVocabSets/de";
-import { initialVocabSetEN as en } from "@/lib/initialVocabSets/en";
-import { initialVocabSetES as es } from "@/lib/initialVocabSets/es";
+import { commonNounsEN as en } from "@/lib/vocabPacks/commonNouns/en";
+import { commonNounsES as es } from "@/lib/vocabPacks/commonNouns/es";
 import { initialVocabSetFR as fr } from "@/lib/initialVocabSets/fr";
 import { initialVocabSetIT as it } from "@/lib/initialVocabSets/it";
 import { initialVocabSetNL as nl } from "@/lib/initialVocabSets/nl";
