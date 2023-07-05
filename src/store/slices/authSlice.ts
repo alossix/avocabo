@@ -1,12 +1,13 @@
 import { handleAppError } from "@/lib/handleAppError";
-import { commonNounsCA as ca } from "@/lib/vocabPacks/commonNouns/ca";
-import { commonNounsDE as de } from "@/lib/vocabPacks/commonNouns/de";
-import { commonNounsEN as en } from "@/lib/vocabPacks/commonNouns/en";
-import { commonNounsES as es } from "@/lib/vocabPacks/commonNouns/es";
-import { commonNounsFR as fr } from "@/lib/vocabPacks/commonNouns/fr";
-import { commonNounsIT as it } from "@/lib/vocabPacks/commonNouns/it";
-import { commonNounsNL as nl } from "@/lib/vocabPacks/commonNouns/nl";
-import { commonNounsUK as uk } from "@/lib/vocabPacks/commonNouns/uk";
+import { commonNounsCA } from "@/lib/vocabPacks/commonNouns/ca";
+import { commonNounsDE } from "@/lib/vocabPacks/commonNouns/de";
+import { commonNounsEN } from "@/lib/vocabPacks/commonNouns/en";
+import { commonNounsES } from "@/lib/vocabPacks/commonNouns/es";
+import { commonNounsFR } from "@/lib/vocabPacks/commonNouns/fr";
+import { commonNounsIT } from "@/lib/vocabPacks/commonNouns/it";
+import { commonNounsNL } from "@/lib/vocabPacks/commonNouns/nl";
+import { commonNounsUK } from "@/lib/vocabPacks/commonNouns/uk";
+import { rareNounsCA } from "@/lib/vocabPacks/rareNouns/ca";
 import {
   auth,
   collection,
@@ -47,27 +48,39 @@ import {
   getVocabDB,
   setVocabInState,
 } from "./vocabSlice";
-
-const other: { [vocabId: string]: Vocab } = {};
-
-const initialVocabSet: {
-  [key in LearningLanguages]: { [vocabId: string]: Vocab };
-} = {
-  ca,
-  de,
-  en,
-  es,
-  fr,
-  it,
-  nl,
-  other,
-  uk,
-};
+import {
+  VocabPackCommonNouns,
+  VocabPackList,
+  VocabPackRareNouns,
+} from "@/lib/vocabPacks/vocabPacksList";
 
 export type AuthState = {
   user: AppUser | null;
   loading: boolean;
   error: string;
+};
+
+type VocabPackCommonNounsMap = {
+  [key in VocabPackCommonNouns]?: { [vocabId: string]: Vocab };
+};
+
+type VocabPackRareNounsMap = {
+  [key in VocabPackRareNouns]?: { [vocabId: string]: Vocab };
+};
+
+const commonNounsVocabPackMap: VocabPackCommonNounsMap = {
+  ca: commonNounsCA,
+  de: commonNounsDE,
+  en: commonNounsEN,
+  es: commonNounsES,
+  fr: commonNounsFR,
+  it: commonNounsIT,
+  nl: commonNounsNL,
+  uk: commonNounsUK,
+};
+
+const rareNounsVocabPackMap: VocabPackRareNounsMap = {
+  ca: rareNounsCA,
 };
 
 const initialState: AuthState = {
@@ -116,12 +129,14 @@ export const createUserAuth =
     interfaceLanguage,
     learningLanguage,
     password,
+    vocabPacks = {} as VocabPackList,
   }: {
     displayName: string;
     email: string;
     interfaceLanguage: InterfaceLanguages;
     learningLanguage: LearningLanguages;
     password: string;
+    vocabPacks: VocabPackList;
   }): AppThunk =>
   async (dispatch: Dispatch<AnyAction | AppThunk>) => {
     dispatch(setAppLoading(true));
@@ -153,7 +168,25 @@ export const createUserAuth =
       await setDoc(userDocRef, { ...userData });
 
       // Add the initial vocabulary set for the user
-      dispatch(addInitialVocabBatchDB(initialVocabSet[learningLanguage]));
+      let combinedVocabPack: { [vocabId: string]: Vocab } = {};
+      for (const vocabType in vocabPacks) {
+        const key = vocabType as keyof VocabPackList;
+        if (!vocabPacks[key]) continue; // Continue to next iteration if undefined
+
+        let vocabPack: { [vocabId: string]: Vocab } | undefined;
+        if (key === "commonNouns") {
+          vocabPack =
+            commonNounsVocabPackMap[vocabPacks[key] as VocabPackCommonNouns];
+        } else if (key === "rareNouns") {
+          vocabPack =
+            rareNounsVocabPackMap[vocabPacks[key] as VocabPackRareNouns];
+        }
+
+        if (vocabPack) {
+          combinedVocabPack = { ...combinedVocabPack, ...vocabPack };
+        }
+      }
+      dispatch(addInitialVocabBatchDB(combinedVocabPack));
     } catch (error: unknown) {
       const { message } = handleAppError(error);
       dispatch(setAppError(message));

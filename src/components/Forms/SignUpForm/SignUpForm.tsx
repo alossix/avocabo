@@ -1,5 +1,10 @@
 import { TextInput } from "@/components/UI/TextInput";
 import { Toast } from "@/components/UI/Toast";
+import {
+  VocabPackCommonNouns,
+  VocabPackList,
+  VocabPackRareNouns,
+} from "@/lib/vocabPacks/vocabPacksList";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   createUserAuth,
@@ -20,6 +25,7 @@ type SignUpFormData = {
   displayName: string;
   email: string;
   password: string;
+  vocabPacks: VocabPackList;
 };
 
 export const SignUpForm: React.FC = () => {
@@ -28,7 +34,7 @@ export const SignUpForm: React.FC = () => {
     formState: { errors },
     handleSubmit,
     register,
-  } = useForm<SignUpFormData>();
+  } = useForm<SignUpFormData>({ shouldUnregister: false });
   const [learningLanguage, setLearningLanguage] = useState<LearningLanguages>(
     lang as LearningLanguages
   );
@@ -60,7 +66,7 @@ export const SignUpForm: React.FC = () => {
   };
 
   const handleSignupSubmit = async (data: SignUpFormData) => {
-    const { displayName, email, password, confirmPassword } = data;
+    const { displayName, email, password, confirmPassword, vocabPacks } = data;
 
     if (!displayName) {
       displayErrorMessage("displayNameRequired");
@@ -91,6 +97,7 @@ export const SignUpForm: React.FC = () => {
         interfaceLanguage: lang as InterfaceLanguages,
         learningLanguage,
         password,
+        vocabPacks,
       })
     );
   };
@@ -128,6 +135,22 @@ export const SignUpForm: React.FC = () => {
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appErrorMessage, dispatch, errors]);
+
+  const getVocabPackOptions = (language: LearningLanguages): VocabPackList => {
+    const vocabPacks: VocabPackList = {};
+
+    if (language !== "other") {
+      vocabPacks.commonNouns = language as VocabPackCommonNouns;
+    }
+
+    if (language === "ca") {
+      vocabPacks.rareNouns = "ca" as VocabPackRareNouns;
+    }
+
+    return vocabPacks;
+  };
+
+  const vocabPackOptions = getVocabPackOptions(learningLanguage);
 
   return (
     <StyledForm
@@ -170,6 +193,7 @@ export const SignUpForm: React.FC = () => {
       <InputContainer
         style={{
           flexDirection: "row",
+          justifyContent: "space-between",
           alignItems: "center",
           gap: 8,
           color: theme.colors.darkGrey,
@@ -186,6 +210,33 @@ export const SignUpForm: React.FC = () => {
           showIcon={false}
         />
       </InputContainer>
+      {learningLanguage !== "other" && (
+        <div>
+          <h3>{t("common:select_vocab_pack")}</h3>
+          <InputContainer
+            style={{
+              alignItems: "flex-end",
+              gap: 16,
+              padding: "16px 0px",
+            }}
+          >
+            {Object.entries(vocabPackOptions).map(([key]) => (
+              <div style={{ display: "flex", gap: 16 }} key={key}>
+                <label htmlFor={`vocabPack-${key}`}>
+                  {t(`common:vocab_pack_${key}`)}
+                </label>
+                <input
+                  id={`vocabPack-${key}`}
+                  {...register(`vocabPacks.${key}` as keyof SignUpFormData)}
+                  type="checkbox"
+                  value={learningLanguage}
+                />
+              </div>
+            ))}
+          </InputContainer>
+        </div>
+      )}
+
       <Button ariaLabel="" title={t("common:sign_up")} type="submit">
         {t("common:sign_up")}
       </Button>

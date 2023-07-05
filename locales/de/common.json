@@ -24,7 +24,7 @@
   "header_sign_out": "Abmelden",
   "header_switch_language": "Sprache wechseln",
   "invalid_email": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
-  "learning_language": "Ich lerne folgende Sprache (dies generiert eine Beispielliste von Vokabeln):",
+  "learning_language": "Ich lerne folgende Sprache:",
   "learning_language_simple": "Lernsprache",
   "loading": "Wird geladen...",
   "number_of_vocab_entries": "Anzahl der Vokabeleinträge",
@@ -34,8 +34,11 @@
   "password_must_match": "Die Passwörter stimmen nicht überein.",
   "password_required": "Passwort erforderlich.",
   "profile_name": "Vorname",
+  "select_vocab_pack": "Wählen Sie beliebige gewünschte Vokabelpakete aus (optional):",
   "sign_in": "Anmelden",
   "sign_up": "Registrieren",
   "submit": "Absenden",
-  "title_tag": "Avocabo: Spaced Repetition System zum Studieren von Vokabeln und zum Erlernen einer neuen Sprache!"
+  "title_tag": "Avocabo: Spaced Repetition System zum Studieren von Vokabeln und zum Erlernen einer neuen Sprache!",
+  "vocab_pack_commonNouns": "50 häufigste Nomen",
+  "vocab_pack_rareNouns": "Seltene Nomen"
 }

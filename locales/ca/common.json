@@ -24,7 +24,7 @@
   "header_sign_out": "Finalitza",
   "header_switch_language": "Canvia l'idioma",
   "invalid_email": "Si us plau, introdueixi una adreça de correu electrònic vàlida.",
-  "learning_language": "Estic aprenent el següent idioma (això generarà un conjunt d'exemples de paraules de vocabulari): ",
+  "learning_language": "Estic aprenent el següent idioma: ",
   "learning_language_simple": "Idioma d'aprenentatge",
   "loading": "Carregant...",
   "number_of_vocab_entries": "Nombre d'entrades de vocabulari",
@@ -34,8 +34,11 @@
   "password_must_match": "Les contrasenyes no coincideixen.",
   "password_required": "Cal una contrasenya.",
   "profile_name": "Nom",
+  "select_vocab_pack": "Seleccioneu qualssevol paquets de vocabulari desitjats (opcional):",
   "sign_in": "Inicia sessió",
   "sign_up": "Registra't",
   "submit": "Enviar",
-  "title_tag": "Avocabo: Sistema de Repetició Espaiada per Estudiar Paraules de Vocabulari i aprendre una nova llengua!"
+  "title_tag": "Avocabo: Sistema de Repetició Espaiada per Estudiar Paraules de Vocabulari i aprendre una nova llengua!",
+  "vocab_pack_commonNouns": "50 noms més comuns",
+  "vocab_pack_rareNouns": "Substantius rars"
 }
