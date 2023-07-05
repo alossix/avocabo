@@ -24,7 +24,7 @@
   "header_sign_out": "Sign out",
   "header_switch_language": "Switch Language",
   "invalid_email": "Please enter a valid email address.",
-  "learning_language": "I am learning the following language (this will generate a sample set of vocabulary words): ",
+  "learning_language": "I am learning the following language: ",
   "learning_language_simple": "Learning language",
   "loading": "Loading...",
   "number_of_vocab_entries": "Number of vocabulary entries",
@@ -34,8 +34,11 @@
   "password_must_match": "Passwords do not match.",
   "password_required": "Password is required.",
   "profile_name": "First name",
+  "select_vocab_pack": "Select any desired vocab packs (optional):",
   "sign_in": "Sign in",
   "sign_up": "Sign up",
   "submit": "Submit",
-  "title_tag": "Avocabo: Spaced Repetition System for Studying Vocabulary Words and Learning a New Language!"
+  "title_tag": "Avocabo: Spaced Repetition System for Studying Vocabulary Words and Learning a New Language!",
+  "vocab_pack_commonNouns": "50 most common nouns",
+  "vocab_pack_rareNouns": "Rare nouns"
 }

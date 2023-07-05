@@ -23,7 +23,7 @@
   "header_my_vocab": "Mijn Woordenlijst",
   "header_sign_out": "Uitloggen",
   "header_switch_language": "Taal Wisselen",
-  "learning_language": "Ik leer de volgende taal (dit genereert een voorbeeldset van woordenschatwoorden): ",
+  "learning_language": "Ik leer de volgende taal: ",
   "learning_language_simple": "Leertaal",
   "loading": "Laden...",
   "number_of_vocab_entries": "Aantal woordenboekingangen",
@@ -33,9 +33,12 @@
   "password_must_match": "Wachtwoorden komen niet overeen.",
   "password_required": "Wachtwoord is vereist.",
   "profile_name": "Voornaam",
+  "select_vocab_pack": "Selecteer eventueel gewenste woordenlijstpakketten (optioneel):",
   "sign_in": "Inloggen",
   "sign_up": "Registreren",
   "submit": "Verzenden",
   "title_tag": "Avocabo: Gespreid Herhalen Systeem voor het Bestuderen van Woordenschat en het Leren van een Nieuwe Taal!",
-  "invalid_email": "Voer een geldig e-mailadres in."
+  "invalid_email": "Voer een geldig e-mailadres in.",
+  "vocab_pack_commonNouns": "50 meest voorkomende zelfstandige naamwoorden",
+  "vocab_pack_rareNouns": "Zeldzame zelfstandige naamwoorden"
 }

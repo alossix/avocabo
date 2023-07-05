@@ -24,7 +24,7 @@
   "header_sign_out": "Salir",
   "header_switch_language": "Cambia de idioma",
   "invalid_email": "Por favor, introduce una dirección de correo electrónico válida.",
-  "learning_language": "Estoy aprendiendo el siguiente idioma (esto generará un conjunto de palabras de vocabulario de muestra): ",
+  "learning_language": "Estoy aprendiendo el siguiente idioma: ",
   "learning_language_simple": "Idioma de aprendizaje",
   "loading": "Cargando...",
   "number_of_vocab_entries": "Número de entradas de vocabulario",
@@ -34,8 +34,11 @@
   "password_must_match": "Las contraseñas no coinciden.",
   "password_required": "Se requiere contraseña.",
   "profile_name": "Nombre",
+  "select_vocab_pack": "Selecciona cualquier paquete de vocabulario deseado (opcional):",
   "sign_in": "Acceder",
   "sign_up": "Crear una cuenta",
   "submit": "Enviar",
-  "title_tag": "Avocabo: Sistema de Repetición Espaciada para Estudiar Palabras de Vocabulario y aprender un nuevo idioma"
+  "title_tag": "Avocabo: Sistema de Repetición Espaciada para Estudiar Palabras de Vocabulario y aprender un nuevo idioma",
+  "vocab_pack_commonNouns": "50 sustantivos más comunes",
+  "vocab_pack_rareNouns": "Sustantivos raros"
 }
