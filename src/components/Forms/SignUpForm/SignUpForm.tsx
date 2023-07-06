@@ -15,8 +15,10 @@ import { useForm } from "react-hook-form";
 import { Button } from "../../UI/Button";
 import { LanguageSelector } from "../LanguageSelector";
 import {
+  VocabPackCommonNounLanguages,
   VocabPackCommonNouns,
   VocabPackList,
+  VocabPackRareNounLanguages,
   VocabPackRareNouns,
 } from "@/lib/vocab";
 
@@ -89,6 +91,30 @@ export const SignUpForm: React.FC = () => {
       );
       return;
     }
+    const filteredVocabPacks: VocabPackList = {};
+
+    for (const key in vocabPacks) {
+      if (Object.prototype.hasOwnProperty.call(vocabPacks, key)) {
+        const language = vocabPacks[key as keyof VocabPackList]?.language;
+
+        if (language) {
+          if (
+            key === "commonNouns" &&
+            VocabPackCommonNounLanguages.includes(
+              learningLanguage as VocabPackCommonNouns
+            )
+          ) {
+            filteredVocabPacks.commonNouns = {
+              language: learningLanguage as VocabPackCommonNouns,
+            };
+          } else if (key === "rareNouns" && learningLanguage === "ca") {
+            filteredVocabPacks.rareNouns = {
+              language: "ca",
+            };
+          }
+        }
+      }
+    }
 
     dispatch(
       createUserAuth({
@@ -97,7 +123,7 @@ export const SignUpForm: React.FC = () => {
         interfaceLanguage: lang as InterfaceLanguages,
         learningLanguage,
         password,
-        vocabPacks,
+        vocabPacks: filteredVocabPacks,
       })
     );
   };
@@ -136,21 +162,31 @@ export const SignUpForm: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appErrorMessage, dispatch, errors]);
 
-  const getVocabPackOptions = (language: LearningLanguages): VocabPackList => {
+  const getVocabPackOptions = (): VocabPackList => {
     const vocabPacks: VocabPackList = {};
 
-    if (language !== "other") {
-      vocabPacks.commonNouns = language as VocabPackCommonNouns;
+    if (
+      VocabPackCommonNounLanguages.includes(
+        learningLanguage as VocabPackCommonNouns
+      )
+    ) {
+      vocabPacks.commonNouns = {
+        language: learningLanguage as VocabPackCommonNouns,
+      };
     }
 
-    if (language === "ca") {
-      vocabPacks.rareNouns = "ca" as VocabPackRareNouns;
+    if (
+      VocabPackRareNounLanguages.includes(
+        learningLanguage as VocabPackRareNouns
+      )
+    ) {
+      vocabPacks.rareNouns = {
+        language: learningLanguage as VocabPackRareNouns,
+      };
     }
 
     return vocabPacks;
   };
-
-  const vocabPackOptions = getVocabPackOptions(learningLanguage);
 
   return (
     <StyledForm
@@ -220,16 +256,18 @@ export const SignUpForm: React.FC = () => {
               padding: "16px 0px",
             }}
           >
-            {Object.entries(vocabPackOptions).map(([key]) => (
+            {Object.entries(getVocabPackOptions()).map(([key, vocabPack]) => (
               <div style={{ display: "flex", gap: 16 }} key={key}>
                 <label htmlFor={`vocabPack-${key}`}>
                   {t(`common:vocab_pack_${key}`)}
                 </label>
                 <input
                   id={`vocabPack-${key}`}
-                  {...register(`vocabPacks.${key}` as keyof SignUpFormData)}
+                  {...register(
+                    `vocabPacks.${key}.language` as keyof SignUpFormData
+                  )}
                   type="checkbox"
-                  value={learningLanguage}
+                  value={vocabPack.language}
                 />
               </div>
             ))}

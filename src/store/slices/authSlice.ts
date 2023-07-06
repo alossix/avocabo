@@ -132,7 +132,6 @@ export const createUserAuth =
 
       // Add the initial vocabulary set for the user
       const combinedVocabPack = combineVocabPacks({
-        learningLanguage,
         vocabPacks,
       });
       dispatch(addInitialVocabBatchDB(combinedVocabPack));

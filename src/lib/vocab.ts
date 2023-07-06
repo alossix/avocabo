@@ -17,10 +17,25 @@ type VocabSet = { [vocabId: string]: Vocab };
 
 export type VocabPackCommonNouns = Exclude<LearningLanguages, "other">;
 export type VocabPackRareNouns = Extract<LearningLanguages, "ca">;
+export const VocabPackCommonNounLanguages: VocabPackCommonNouns[] = [
+  "ca",
+  "de",
+  "en",
+  "es",
+  "fr",
+  "it",
+  "nl",
+  "uk",
+];
+export const VocabPackRareNounLanguages: VocabPackRareNouns[] = ["ca"];
 
 export type VocabPackList = {
-  commonNouns?: VocabPackCommonNouns;
-  rareNouns?: VocabPackRareNouns;
+  commonNouns?: {
+    language: VocabPackCommonNouns;
+  };
+  rareNouns?: {
+    language: VocabPackRareNouns;
+  };
 };
 
 export const initialVocabProperties: Omit<
@@ -62,28 +77,28 @@ export const rareNounsVocabPackMap: {
 };
 
 export const combineVocabPacks = ({
-  learningLanguage,
   vocabPacks,
 }: {
-  learningLanguage: LearningLanguages;
   vocabPacks: VocabPackList;
 }) => {
   let combinedVocabPack: VocabSetRaw = [];
 
   for (const vocabPackName in vocabPacks) {
     const key = vocabPackName as keyof VocabPackList;
-    if (!vocabPackName) continue;
+    const vocabPack = vocabPacks[key];
 
-    if (key === "commonNouns") {
-      combinedVocabPack = combinedVocabPack.concat(
-        commonNounsVocabPackMap[learningLanguage as VocabPackCommonNouns]
-      );
-    }
+    if (vocabPack) {
+      if (key === "commonNouns") {
+        combinedVocabPack = combinedVocabPack.concat(
+          commonNounsVocabPackMap[vocabPack.language as VocabPackCommonNouns]
+        );
+      }
 
-    if (key === "rareNouns") {
-      combinedVocabPack = combinedVocabPack.concat(
-        rareNounsVocabPackMap[learningLanguage as VocabPackRareNouns]
-      );
+      if (key === "rareNouns") {
+        combinedVocabPack = combinedVocabPack.concat(
+          rareNounsVocabPackMap[vocabPack.language as VocabPackRareNouns]
+        );
+      }
     }
   }
 
