@@ -9,7 +9,7 @@ import {
   exampleVocabEntryIT,
   exampleVocabEntryNL,
   exampleVocabEntryUK,
-} from "@/lib/exampleVocabEntry/exampleVocabEntry";
+} from "@/lib/vocabPacks/exampleVocabEntry/exampleVocabEntry";
 import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";

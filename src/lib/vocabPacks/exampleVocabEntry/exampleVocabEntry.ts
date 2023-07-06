@@ -1,6 +1,6 @@
 import { Vocab } from "@/types/vocab";
 import { v4 as uuid4 } from "uuid";
-import { initialVocabProperties } from "../initialVocab";
+import { initialVocabProperties } from "../../vocab";
 
 const id1 = uuid4();
 
@@ -11,7 +11,7 @@ export const exampleVocabEntryCA: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "el sol",
     description: "Mai miris al sol durant un eclipsi.",
-    imageURL: "/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/exampleVocabEntry/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -23,7 +23,7 @@ export const exampleVocabEntryDE: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "die Sonne",
     description: "Schaue niemals während einer Sonnenfinsternis in die Sonne.",
-    imageURL: "/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/exampleVocabEntry/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -35,7 +35,7 @@ export const exampleVocabEntryEN: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "the sun",
     description: "Never look at the sun during an eclipse.",
-    imageURL: "/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/exampleVocabEntry/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -47,7 +47,7 @@ export const exampleVocabEntryES: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "el sol",
     description: "Nunca mires al sol durante un eclipse.",
-    imageURL: "/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/exampleVocabEntry/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -59,7 +59,7 @@ export const exampleVocabEntryFR: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "le soleil",
     description: "Ne regardez jamais le soleil pendant une éclipse.",
-    imageURL: "/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/exampleVocabEntry/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -71,7 +71,7 @@ export const exampleVocabEntryIT: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "il sole",
     description: "Non guardare mai il sole durante un'eclissi.",
-    imageURL: "/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/exampleVocabEntry/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -83,7 +83,7 @@ export const exampleVocabEntryNL: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "de zon",
     description: "Kijk nooit naar de zon tijdens een zonsverduistering.",
-    imageURL: "/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/exampleVocabEntry/sun.jpeg",
     ...initialVocabProperties,
   },
 };
@@ -95,7 +95,7 @@ export const exampleVocabEntryUK: { [vocabId: string]: Vocab } = {
     category: "noun",
     definition: "сонце",
     description: "Ніколи не дивіться на сонце під час сонячного затемнення.",
-    imageURL: "/images/vocabSets/sun.jpeg",
+    imageURL: "/images/vocabSets/exampleVocabEntry/sun.jpeg",
     ...initialVocabProperties,
   },
 };

@@ -3,7 +3,7 @@ import { TextInput } from "@/components/UI/TextInput";
 import { BlackoutEditor } from "@/components/Vocab/BlackoutEditor";
 import { useVocab } from "@/hooks/useVocab";
 import { handleAppError } from "@/lib/handleAppError";
-import { initialVocabProperties } from "@/lib/initialVocab";
+import { initialVocabProperties } from "@/lib/vocab";
 import { useAppDispatch } from "@/store/hooks";
 import { setAppError } from "@/store/slices/authSlice";
 import { uploadVocabImage } from "@/store/slices/sliceUtils/vocabUtils";

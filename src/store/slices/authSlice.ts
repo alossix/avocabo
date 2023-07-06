@@ -1,13 +1,5 @@
 import { handleAppError } from "@/lib/handleAppError";
-import { commonNounsCA } from "@/lib/vocabPacks/commonNouns/ca";
-import { commonNounsDE } from "@/lib/vocabPacks/commonNouns/de";
-import { commonNounsEN } from "@/lib/vocabPacks/commonNouns/en";
-import { commonNounsES } from "@/lib/vocabPacks/commonNouns/es";
-import { commonNounsFR } from "@/lib/vocabPacks/commonNouns/fr";
-import { commonNounsIT } from "@/lib/vocabPacks/commonNouns/it";
-import { commonNounsNL } from "@/lib/vocabPacks/commonNouns/nl";
-import { commonNounsUK } from "@/lib/vocabPacks/commonNouns/uk";
-import { rareNounsCA } from "@/lib/vocabPacks/rareNouns/ca";
+import { VocabPackList, combineVocabPacks } from "@/lib/vocab";
 import {
   auth,
   collection,
@@ -31,7 +23,6 @@ import {
   InterfaceLanguages,
   LearningLanguages,
 } from "@/types/general";
-import { Vocab } from "@/types/vocab";
 import {
   AnyAction,
   PayloadAction,
@@ -48,39 +39,11 @@ import {
   getVocabDB,
   setVocabInState,
 } from "./vocabSlice";
-import {
-  VocabPackCommonNouns,
-  VocabPackList,
-  VocabPackRareNouns,
-} from "@/lib/vocabPacks/vocabPacksList";
 
 export type AuthState = {
   user: AppUser | null;
   loading: boolean;
   error: string;
-};
-
-type VocabPackCommonNounsMap = {
-  [key in VocabPackCommonNouns]?: { [vocabId: string]: Vocab };
-};
-
-type VocabPackRareNounsMap = {
-  [key in VocabPackRareNouns]?: { [vocabId: string]: Vocab };
-};
-
-const commonNounsVocabPackMap: VocabPackCommonNounsMap = {
-  ca: commonNounsCA,
-  de: commonNounsDE,
-  en: commonNounsEN,
-  es: commonNounsES,
-  fr: commonNounsFR,
-  it: commonNounsIT,
-  nl: commonNounsNL,
-  uk: commonNounsUK,
-};
-
-const rareNounsVocabPackMap: VocabPackRareNounsMap = {
-  ca: rareNounsCA,
 };
 
 const initialState: AuthState = {
@@ -168,24 +131,9 @@ export const createUserAuth =
       await setDoc(userDocRef, { ...userData });
 
       // Add the initial vocabulary set for the user
-      let combinedVocabPack: { [vocabId: string]: Vocab } = {};
-      for (const vocabType in vocabPacks) {
-        const key = vocabType as keyof VocabPackList;
-        if (!vocabPacks[key]) continue; // Continue to next iteration if undefined
-
-        let vocabPack: { [vocabId: string]: Vocab } | undefined;
-        if (key === "commonNouns") {
-          vocabPack =
-            commonNounsVocabPackMap[vocabPacks[key] as VocabPackCommonNouns];
-        } else if (key === "rareNouns") {
-          vocabPack =
-            rareNounsVocabPackMap[vocabPacks[key] as VocabPackRareNouns];
-        }
-
-        if (vocabPack) {
-          combinedVocabPack = { ...combinedVocabPack, ...vocabPack };
-        }
-      }
+      const combinedVocabPack = combineVocabPacks({
+        vocabPacks,
+      });
       dispatch(addInitialVocabBatchDB(combinedVocabPack));
     } catch (error: unknown) {
       const { message } = handleAppError(error);

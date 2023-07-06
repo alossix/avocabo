@@ -1,19 +1,11 @@
-import { generateVocabSet } from "@/lib/initialVocab";
-import { Vocab } from "@/types/vocab";
+import { VocabSetRaw } from "@/lib/vocab";
 
-export const rareNounsCA: { [vocabId: string]: Vocab } = {};
-
-const vocabEntries: [string, string, string, string, Record<number, number>][] =
+export const rareNounsCA: VocabSetRaw = [
   [
-    [
-      "el xirimirí",
-      "Quan hem sortit de casa, ha començat a caure un xirimirí.",
-      "rain.jpeg",
-      "/ʃi.ɾi.miˈɾi/",
-      {},
-    ],
-  ];
-
-const newVocabSet = generateVocabSet({ vocabEntries });
-
-Object.assign(rareNounsCA, newVocabSet);
+    "el xirimirí",
+    "Quan hem sortit de casa, ha començat a caure un xirimirí.",
+    "rareNouns/rain.jpeg",
+    "/ʃi.ɾi.miˈɾi/",
+    {},
+  ],
+];
