@@ -1,8 +1,8 @@
-import { ReactNode, useState, useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 type ReactPortalProps = {
-  children: ReactNode;
+  children: JSX.Element;
   wrapperId: string;
 };
 
