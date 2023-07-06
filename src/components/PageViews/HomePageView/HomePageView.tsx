@@ -1,52 +1,37 @@
 import { Toast } from "@/components/UI/Toast";
 import { VocabCardExample } from "@/components/Vocab/VocabCardExample";
-import { exampleVocabEntryCA } from "@/lib/initialVocabSets/ca";
-import { exampleVocabEntryDE } from "@/lib/initialVocabSets/de";
-import { exampleVocabEntryEN } from "@/lib/initialVocabSets/en";
-import { exampleVocabEntryES } from "@/lib/initialVocabSets/es";
-import { exampleVocabEntryFR } from "@/lib/initialVocabSets/fr";
-import { exampleVocabEntryIT } from "@/lib/initialVocabSets/it";
-import { exampleVocabEntryNL } from "@/lib/initialVocabSets/nl";
-import { exampleVocabEntryUK } from "@/lib/initialVocabSets/uk";
+import {
+  exampleVocabEntryCA,
+  exampleVocabEntryDE,
+  exampleVocabEntryEN,
+  exampleVocabEntryES,
+  exampleVocabEntryFR,
+  exampleVocabEntryIT,
+  exampleVocabEntryNL,
+  exampleVocabEntryUK,
+} from "@/lib/exampleVocabEntry/exampleVocabEntry";
 import { theme } from "@/styles/theme";
 import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import { useState } from "react";
 
+const languageVocabMap: {
+  [languageCode: string]: { [vocabId: string]: Vocab };
+} = {
+  ca: exampleVocabEntryCA,
+  de: exampleVocabEntryDE,
+  en: exampleVocabEntryEN,
+  es: exampleVocabEntryES,
+  fr: exampleVocabEntryFR,
+  it: exampleVocabEntryIT,
+  nl: exampleVocabEntryNL,
+  uk: exampleVocabEntryUK,
+};
+
 export const HomePageView: React.FC = () => {
   const { lang, t } = useTranslation("about");
   const [messageText, setMessageText] = useState<string>("");
-
-  let vocabSet: Vocab;
-  switch (lang) {
-    case "ca":
-      vocabSet = Object.values(exampleVocabEntryCA)[0];
-      break;
-    case "de":
-      vocabSet = Object.values(exampleVocabEntryDE)[0];
-      break;
-    case "en":
-      vocabSet = Object.values(exampleVocabEntryEN)[0];
-      break;
-    case "es":
-      vocabSet = Object.values(exampleVocabEntryES)[0];
-      break;
-    case "fr":
-      vocabSet = Object.values(exampleVocabEntryFR)[0];
-      break;
-    case "it":
-      vocabSet = Object.values(exampleVocabEntryIT)[0];
-      break;
-    case "nl":
-      vocabSet = Object.values(exampleVocabEntryNL)[0];
-      break;
-    case "uk":
-      vocabSet = Object.values(exampleVocabEntryUK)[0];
-      break;
-    default:
-      vocabSet = Object.values(exampleVocabEntryEN)[0]; // default language
-  }
 
   return (
     <HomePageViewContainer>
@@ -84,7 +69,7 @@ export const HomePageView: React.FC = () => {
         <HeroContainer>
           <h2 style={{ marginTop: 16 }}>{t("common:example")}</h2>
           <VocabCardExample
-            vocabWord={vocabSet}
+            vocabWord={Object.values(languageVocabMap[lang])[0]}
             setMessageText={setMessageText}
           />
           {messageText && (
