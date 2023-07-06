@@ -1,17 +1,17 @@
 import { auth, getIdToken } from "@/services/firebase/firebaseService";
+import WithAuth from "@/store/_withAuth";
 import { initializeAuth } from "@/store/slices/authSlice";
 import { useAppDispatch } from "@/store/store";
-import WithAuth from "@/store/_withAuth";
-import "@/styles/globals.css";
 import Layout from "@/styles/Layout";
+import "@/styles/globals.css";
 import Cookies from "js-cookie";
+import setLanguage from "next-translate/setLanguage";
 import useTranslation from "next-translate/useTranslation";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import setLanguage from "next-translate/setLanguage";
 
 const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   const { t } = useTranslation("common");
