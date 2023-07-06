@@ -1,10 +1,5 @@
 import { TextInput } from "@/components/UI/TextInput";
 import { Toast } from "@/components/UI/Toast";
-import {
-  VocabPackCommonNouns,
-  VocabPackList,
-  VocabPackRareNouns,
-} from "@/lib/vocabPacks/vocabPacksList";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   createUserAuth,
@@ -19,6 +14,11 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../../UI/Button";
 import { LanguageSelector } from "../LanguageSelector";
+import {
+  VocabPackCommonNouns,
+  VocabPackList,
+  VocabPackRareNouns,
+} from "@/lib/vocab";
 
 type SignUpFormData = {
   confirmPassword: string;
