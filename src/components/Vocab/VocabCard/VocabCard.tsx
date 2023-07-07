@@ -158,6 +158,7 @@ export const VocabCard: React.FC<VocabCardProps> = ({
               alt=""
               height={200}
               width={240}
+              priority
               sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 240px"
               src={vocabWord.imageURL}
               style={{ objectFit: "contain" }}
