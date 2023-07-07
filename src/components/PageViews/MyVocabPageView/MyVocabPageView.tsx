@@ -8,7 +8,7 @@ import { Vocab } from "@/types/vocab";
 import styled from "@emotion/styled";
 import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type MyVocabPageViewProps = {
   currentUser: AppUser;
@@ -20,39 +20,10 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
   vocabList,
 }) => {
   const { t } = useTranslation("vocab");
-  const { setNextVocabEntriesDueToday } = useVocab();
-  const [refreshKey, setRefreshKey] = useState(0);
-
-  const sortByDueDate = (a: Vocab, b: Vocab) =>
-    new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
-
-  const dueVocabList = useMemo(
-    () =>
-      Object.values(vocabList)
-        .filter((vocab) => new Date(vocab.dueDate) < new Date())
-        .sort(sortByDueDate),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [vocabList, refreshKey]
-  );
-
-  const nextVocab = useMemo(() => {
-    const sortedVocabList = Object.values(vocabList)
-      .filter((vocab) => new Date(vocab.dueDate) > new Date())
-      .sort(sortByDueDate);
-    if (sortedVocabList.length === 0) return null;
-
-    return sortedVocabList.reduce<Vocab>(
-      (min, vocab) =>
-        new Date(vocab.dueDate) < new Date(min.dueDate) ? vocab : min,
-      sortedVocabList[0]
-    );
-  }, [vocabList]);
-
-  const [timeToNextVocab, setTimeToNextVocab] = useState(
-    nextVocab
-      ? new Date(nextVocab.dueDate).getTime() - new Date().getTime()
-      : null
-  );
+  const { setNextVocabEntriesDueToday, dueVocabList, timeToNextVocab } =
+    useVocab();
+  //eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setRefreshKey] = useState(0);
 
   const dueCountIsZero = dueVocabList.length === 0;
   const vocabCountIsZero = Object.keys(vocabList).length === 0;
@@ -64,7 +35,6 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
   useEffect(() => {
     if (timeToNextVocab !== null) {
       const timer = setInterval(() => {
-        setTimeToNextVocab(timeToNextVocab - 10000);
         if (timeToNextVocab <= 60000) {
           setRefreshKey((prevKey) => prevKey + 1);
         }
@@ -72,16 +42,6 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
       return () => clearInterval(timer);
     }
   }, [timeToNextVocab]);
-
-  useEffect(() => {
-    if (nextVocab) {
-      setTimeToNextVocab(
-        new Date(nextVocab.dueDate).getTime() - new Date().getTime()
-      );
-    } else {
-      setTimeToNextVocab(null);
-    }
-  }, [nextVocab]);
 
   return (
     <VocabWindowContainer>
