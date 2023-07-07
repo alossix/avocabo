@@ -31,7 +31,10 @@ const MyVocabPage: React.FC = () => {
   }
 
   return (
-    <MyVocabPageView currentUser={currentUser} vocabList={vocabListDueToday} />
+    <MyVocabPageView
+      currentUser={currentUser}
+      vocabList={vocabListDueToday()}
+    />
   );
 };
 
