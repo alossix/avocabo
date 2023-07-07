@@ -117,11 +117,12 @@ export const VocabCardExample: React.FC<VocabCardExampleProps> = ({
         <ImageWrapper>
           <ImageContainer>
             <Image
-              src={vocabWord.imageURL}
               alt=""
-              width={240}
               height={200}
+              width={240}
+              priority
               sizes="(max-width: 640px) 100px, (max-width: 1024px) 150px, 240px"
+              src={vocabWord.imageURL}
               style={{ objectFit: "contain" }}
             />
           </ImageContainer>

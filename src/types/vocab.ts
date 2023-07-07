@@ -9,6 +9,7 @@ export type Vocab = {
   imageURL?: string;
   lastUpdatedAt: string;
   phoneticPronunciation: string;
+  userAdded?: boolean;
   vocabId: string;
 };
 

@@ -8,12 +8,14 @@ import DeleteIcon from "/public/icons/delete-icon.svg";
 type DeleteWordProps = {
   imageURL?: string;
   setOpenModal: () => void;
+  userAdded?: boolean;
   vocabId: string;
 };
 
 export const DeleteWord: React.FC<DeleteWordProps> = ({
   imageURL,
   setOpenModal,
+  userAdded,
   vocabId,
 }) => {
   const { removeVocabEntry } = useVocab();
@@ -21,7 +23,7 @@ export const DeleteWord: React.FC<DeleteWordProps> = ({
 
   const handleDeleteWordClick: ReactEventHandler<HTMLButtonElement> = () => {
     if (window.confirm(t("vocab:vocab_confirm_delete_entry"))) {
-      removeVocabEntry({ imageURL, vocabId });
+      removeVocabEntry({ imageURL, userAdded, vocabId });
       setOpenModal();
     }
   };

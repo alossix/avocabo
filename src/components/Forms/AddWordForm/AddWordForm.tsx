@@ -54,6 +54,7 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({ currentUser }) => {
 
   const handleFormSubmit: SubmitHandler<Vocab> = (vocabWordData) => {
     const { definition } = vocabWordData;
+    const userAdded = true;
 
     if (!definition) {
       handleError(t("vocab:error_definition_required"));
@@ -67,6 +68,7 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({ currentUser }) => {
           ...initialVocabProperties,
           ...vocabWordData,
           blackoutWords,
+          userAdded,
           vocabId,
         },
       });

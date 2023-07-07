@@ -91,12 +91,14 @@ export const useVocab = () => {
 
   const removeVocabEntry = ({
     imageURL,
+    userAdded,
     vocabId,
   }: {
     imageURL?: string;
+    userAdded?: boolean;
     vocabId: string;
   }) => {
-    dispatch(removeVocabEntryDB({ imageURL, vocabId }));
+    dispatch(removeVocabEntryDB({ imageURL, userAdded, vocabId }));
   };
 
   const setNextVocabEntriesDueToday = () => {

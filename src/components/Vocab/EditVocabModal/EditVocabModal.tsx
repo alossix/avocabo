@@ -179,8 +179,9 @@ export const EditVocabModal: React.FC<EditVocabModalProps> = ({
           <BottomRowContainer>
             <DeleteWord
               imageURL={vocabWord.imageURL}
-              vocabId={vocabWord.vocabId}
               setOpenModal={setOpenModal}
+              userAdded={vocabWord.userAdded}
+              vocabId={vocabWord.vocabId}
             />
             <Button
               ariaLabel={t("vocab:vocab_save_close")}
