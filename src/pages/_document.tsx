@@ -26,21 +26,7 @@ const Document = () => (
         property="og:description"
         content="Avocabo is a spaced-repetition card system to help you learn vocabulary faster."
       />
-      <meta property="og:url" content="https://www.example.com/avocabo" />
-      <script type="application/ld+json">
-        {`{
-        "@context": "https://schema.org/",
-        "@type": "WebSite",
-        "name": "Avocabo",
-        "description": "Avocabo is a spaced-repetition card system to help you learn vocabulary faster.",
-        "url": "https://www.example.com/avocabo",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://www.example.com/avocabo/search?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
-      }`}
-      </script>
+      <meta property="og:url" content="https://www.avocabo.io" />
     </Head>
     <body>
       <Main />

@@ -25,8 +25,19 @@
       "@/*": ["./src/*"]
     },
     "types": ["node", "jest", "@testing-library/jest-dom"],
-    "strict": false
+    "strict": false,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "i18n.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "i18n.js",
+    ".next/types/**/*.ts"
+  ],
   "exclude": ["node_modules", "node_modules/@types/node/ts4.8/test.d.ts"]
 }
