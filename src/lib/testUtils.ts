@@ -4,7 +4,6 @@ import { Vocab } from "@/types/vocab";
 const newDate = new Date().toISOString();
 
 export const mockVocabEntry: Vocab = {
-  blackoutWords: [],
   category: "noun",
   createdAt: newDate,
   currentBox: 1,
@@ -15,9 +14,10 @@ export const mockVocabEntry: Vocab = {
   lastUpdatedAt: newDate,
   phoneticPronunciation: "",
   vocabId: "123",
+  blackoutWords: { 23: 26 },
 };
 
-export const mockVocabList: { [vocabId: string]: Vocab } = {
+export const mockVocabList: Record<string, Vocab> = {
   "124": {
     vocabId: "124",
     definition: "chair",
@@ -29,6 +29,7 @@ export const mockVocabList: { [vocabId: string]: Vocab } = {
     imageURL: "http://localhost:3000/image124.jpg",
     lastUpdatedAt: newDate,
     phoneticPronunciation: "",
+    blackoutWords: { 20: 22 },
   },
   "125": {
     vocabId: "125",
@@ -41,6 +42,7 @@ export const mockVocabList: { [vocabId: string]: Vocab } = {
     imageURL: "http://localhost:3000/image125.jpg",
     lastUpdatedAt: newDate,
     phoneticPronunciation: "",
+    blackoutWords: { 6: 10 },
   },
   "126": {
     vocabId: "126",
@@ -53,6 +55,7 @@ export const mockVocabList: { [vocabId: string]: Vocab } = {
     imageURL: "http://localhost:3000/image126.jpg",
     lastUpdatedAt: newDate,
     phoneticPronunciation: "",
+    blackoutWords: { 12: 14 },
   },
 };
 

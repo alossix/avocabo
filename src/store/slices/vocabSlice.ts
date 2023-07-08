@@ -22,7 +22,7 @@ import { setAppError } from "./authSlice";
 import { getUserVocabDocRef } from "./sliceUtils/firebaseUtils";
 import { getUpdatedDueDate } from "./sliceUtils/vocabUtils";
 
-const initialState: { [vocabId: string]: Vocab } = {};
+const initialState: Record<string, Vocab> = {};
 
 export const vocabSlice = createSlice({
   name: "vocab",
@@ -138,7 +138,7 @@ export const getVocabDB =
       const vocabCollectionRef = collection(db, "users", userId, "vocab");
       const vocabQuery = query(vocabCollectionRef);
       return onSnapshot(vocabQuery, (querySnapshot) => {
-        const vocabList: { [vocabId: string]: Vocab } = {};
+        const vocabList: Record<string, Vocab> = {};
         querySnapshot.forEach((doc) => {
           const vocab = doc.data() as Vocab;
 

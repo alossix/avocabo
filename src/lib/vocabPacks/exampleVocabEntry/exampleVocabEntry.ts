@@ -4,7 +4,7 @@ import { initialVocabProperties } from "../../vocab";
 
 const id1 = uuid4();
 
-export const exampleVocabEntryCA: { [vocabId: string]: Vocab } = {
+export const exampleVocabEntryCA: Record<string, Vocab> = {
   [id1]: {
     vocabId: id1,
     blackoutWords: { 13: 16 },
@@ -16,7 +16,7 @@ export const exampleVocabEntryCA: { [vocabId: string]: Vocab } = {
   },
 };
 
-export const exampleVocabEntryDE: { [vocabId: string]: Vocab } = {
+export const exampleVocabEntryDE: Record<string, Vocab> = {
   [id1]: {
     vocabId: id1,
     blackoutWords: { 53: 59 },
@@ -28,7 +28,7 @@ export const exampleVocabEntryDE: { [vocabId: string]: Vocab } = {
   },
 };
 
-export const exampleVocabEntryEN: { [vocabId: string]: Vocab } = {
+export const exampleVocabEntryEN: Record<string, Vocab> = {
   [id1]: {
     vocabId: id1,
     blackoutWords: { 18: 21 },
@@ -40,7 +40,7 @@ export const exampleVocabEntryEN: { [vocabId: string]: Vocab } = {
   },
 };
 
-export const exampleVocabEntryES: { [vocabId: string]: Vocab } = {
+export const exampleVocabEntryES: Record<string, Vocab> = {
   [id1]: {
     vocabId: id1,
     blackoutWords: { 15: 18 },
@@ -52,7 +52,7 @@ export const exampleVocabEntryES: { [vocabId: string]: Vocab } = {
   },
 };
 
-export const exampleVocabEntryFR: { [vocabId: string]: Vocab } = {
+export const exampleVocabEntryFR: Record<string, Vocab> = {
   [id1]: {
     vocabId: id1,
     blackoutWords: { 19: 21, 22: 28 },
@@ -64,7 +64,7 @@ export const exampleVocabEntryFR: { [vocabId: string]: Vocab } = {
   },
 };
 
-export const exampleVocabEntryIT: { [vocabId: string]: Vocab } = {
+export const exampleVocabEntryIT: Record<string, Vocab> = {
   [id1]: {
     vocabId: id1,
     blackoutWords: { 17: 19, 20: 24 },
@@ -76,7 +76,7 @@ export const exampleVocabEntryIT: { [vocabId: string]: Vocab } = {
   },
 };
 
-export const exampleVocabEntryNL: { [vocabId: string]: Vocab } = {
+export const exampleVocabEntryNL: Record<string, Vocab> = {
   [id1]: {
     vocabId: id1,
     blackoutWords: { 16: 18, 19: 22 },
@@ -88,7 +88,7 @@ export const exampleVocabEntryNL: { [vocabId: string]: Vocab } = {
   },
 };
 
-export const exampleVocabEntryUK: { [vocabId: string]: Vocab } = {
+export const exampleVocabEntryUK: Record<string, Vocab> = {
   [id1]: {
     vocabId: id1,
     blackoutWords: { 22: 27 },

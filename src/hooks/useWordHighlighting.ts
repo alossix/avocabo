@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 
 type UseWordHighlightingProps = {
-  blackoutWords?: { [key: number]: number };
+  blackoutWords?: Record<number, number>;
 };
 
 export const useWordHighlighting = ({
