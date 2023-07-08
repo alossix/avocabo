@@ -108,7 +108,7 @@ export const useVocab = () => {
   const sortByDueDate = (a: Vocab, b: Vocab) =>
     new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
 
-  const dueVocabList = Object.values(allVocab)
+  const dueVocabList: Vocab[] = Object.values(allVocab)
     .filter((vocab) => new Date(vocab.dueDate) < new Date())
     .sort(sortByDueDate);
 

@@ -3,10 +3,10 @@ import styled from "@emotion/styled";
 import { useEffect, useRef, useState } from "react";
 
 type BlackoutEditorProps = {
-  blackoutWords?: { [key: number]: number };
+  blackoutWords?: Record<number, number>;
   definition: string;
   description: string;
-  setBlackoutWords: (blackoutWordsData: { [key: number]: number }) => void;
+  setBlackoutWords: (blackoutWordsData: Record<number, number>) => void;
 };
 
 export const BlackoutEditor: React.FC<BlackoutEditorProps> = ({

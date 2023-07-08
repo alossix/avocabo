@@ -27,7 +27,7 @@ export const AddWordForm: React.FC<AddWordFormProps> = ({ currentUser }) => {
   const { t } = useTranslation("vocab");
   const { handleSubmit, register, reset, setValue, watch } = useForm<Vocab>();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [blackoutWords, setBlackoutWords] = useState<{ [key: number]: number }>(
+  const [blackoutWords, setBlackoutWords] = useState<Record<number, number>>(
     []
   );
   const [currentCategory, setCurrentCategory] = useState<VocabCategories>("");

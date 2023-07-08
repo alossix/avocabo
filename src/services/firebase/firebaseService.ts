@@ -47,7 +47,7 @@ export const fetchVocabData = async (
   const vocabQuery = query(collection(db, "users", userId, "vocab"));
   const vocabSnapshot = await getDocs(vocabQuery);
 
-  const vocabData: { [vocabId: string]: Vocab } = {};
+  const vocabData: Record<string, Vocab> = {};
   vocabSnapshot.forEach((doc) => {
     const vocab = doc.data() as Vocab;
     vocabData[vocab.vocabId] = vocab;
