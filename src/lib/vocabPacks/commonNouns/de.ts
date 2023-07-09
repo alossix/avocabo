@@ -169,7 +169,13 @@ export const commonNounsDE: VocabSetRaw = [
     "/ˈɛsn̩/",
     { 0: 3, 4: 9 },
   ],
-  ["der Wald", "Sie wanderten im Wald.", "forest.jpeg", "/valt/", { 17: 22 }],
+  [
+    "der Wald",
+    "Sie wanderten im Wald.",
+    "commonNouns/forest.jpeg",
+    "/valt/",
+    { 17: 22 },
+  ],
   [
     "der Garten",
     "Im Garten jätete sie Unkraut.",
@@ -198,7 +204,13 @@ export const commonNounsDE: VocabSetRaw = [
     "/hant/",
     { 0: 3, 4: 8 },
   ],
-  ["das Haus", "Das Haus war still.", "house.jpeg", "/haʊ̯s/", { 0: 3, 4: 8 }],
+  [
+    "das Haus",
+    "Das Haus war still.",
+    "commonNouns/house.jpeg",
+    "/haʊ̯s/",
+    { 0: 3, 4: 8 },
+  ],
   [
     "der Schlüssel",
     "Er verlor den Schlüssel zu seinem Auto.",

@@ -266,6 +266,8 @@ export const updateVocabEntryDB =
       throw new Error("User is not signed in");
     }
 
+    dispatch(updateVocabEntryInState({ vocabId, updatedProperties }));
+
     const vocabDocRef = doc(
       db,
       "users",
@@ -273,10 +275,11 @@ export const updateVocabEntryDB =
       "vocab",
       vocabId
     );
-
-    await updateDoc(vocabDocRef, updatedProperties);
-
-    dispatch(updateVocabEntryInState({ vocabId, updatedProperties }));
+    try {
+      await updateDoc(vocabDocRef, updatedProperties);
+    } catch (error) {
+      dispatch(setAppError(error));
+    }
   };
 
 export const {
