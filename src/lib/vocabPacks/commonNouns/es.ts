@@ -183,7 +183,13 @@ export const commonNounsES: VocabSetRaw = [
     "/xar'din/",
     { 23: 25, 26: 33 },
   ],
-  ["el vaso", "Llenó su vaso con jugo.", "glass.jpeg", "/'baso/", { 9: 13 }],
+  [
+    "el vaso",
+    "Llenó su vaso con jugo.",
+    "commonNouns/glass.jpeg",
+    "/'baso/",
+    { 9: 13 },
+  ],
   [
     "la hierba",
     "Los niños estaban jugando en la hierba.",

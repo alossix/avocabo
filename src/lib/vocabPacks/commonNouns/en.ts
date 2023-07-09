@@ -106,7 +106,13 @@ export const commonNounsEN: VocabSetRaw = [
     "/tʃeər/",
     { 18: 23 },
   ],
-  ["the clock", "The clock struck midnight.", "clock.jpeg", "/klɒk/", { 4: 9 }],
+  [
+    "the clock",
+    "The clock struck midnight.",
+    "commonNouns/clock.jpeg",
+    "/klɒk/",
+    { 4: 9 },
+  ],
   [
     "the clothes",
     "She folded the clothes and put them away.",
@@ -128,7 +134,13 @@ export const commonNounsEN: VocabSetRaw = [
     "/dɔːg/",
     { 4: 7 },
   ],
-  ["the door", "He knocked on the door.", "door.jpeg", "/dɔːr/", { 18: 23 }],
+  [
+    "the door",
+    "He knocked on the door.",
+    "commonNouns/door.jpeg",
+    "/dɔːr/",
+    { 18: 23 },
+  ],
   [
     "the farm",
     "They spent the day working at the farm.",
@@ -150,7 +162,13 @@ export const commonNounsEN: VocabSetRaw = [
     "/ˈflaʊər/",
     { 4: 10 },
   ],
-  ["the food", "The food smelled delicious.", "food.jpeg", "/fuːd/", { 4: 8 }],
+  [
+    "the food",
+    "The food smelled delicious.",
+    "commonNouns/food.jpeg",
+    "/fuːd/",
+    { 4: 8 },
+  ],
   [
     "the forest",
     "They went hiking in the forest.",
@@ -186,8 +204,20 @@ export const commonNounsEN: VocabSetRaw = [
     "/hænd/",
     { 20: 24 },
   ],
-  ["the house", "The house was quiet.", "house.jpeg", "/haʊs/", { 4: 9 }],
-  ["the key", "He lost the key to his car.", "key.jpeg", "/kiː/", { 12: 15 }],
+  [
+    "the house",
+    "The house was quiet.",
+    "commonNouns/house.jpeg",
+    "/haʊs/",
+    { 4: 9 },
+  ],
+  [
+    "the key",
+    "He lost the key to his car.",
+    "commonNouns/key.jpeg",
+    "/kiː/",
+    { 12: 15 },
+  ],
   [
     "the light",
     "There was light coming in from the window.",
@@ -272,7 +302,13 @@ export const commonNounsEN: VocabSetRaw = [
     "/ʃuː/",
     { 25: 30 },
   ],
-  ["the sky", "The sky was full of clouds.", "sky.jpeg", "/skaɪ/", { 4: 7 }],
+  [
+    "the sky",
+    "The sky was full of clouds.",
+    "commonNouns/sky.jpeg",
+    "/skaɪ/",
+    { 4: 7 },
+  ],
   [
     "the table",
     "She set the table for dinner.",

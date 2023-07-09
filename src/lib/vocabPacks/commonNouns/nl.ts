@@ -204,7 +204,13 @@ export const commonNounsNL: VocabSetRaw = [
     "/ɦɑnt/",
     { 9: 11, 12: 16 },
   ],
-  ["het huis", "Het huis was stil.", "house.jpeg", "/ɦœys/", { 0: 3, 4: 8 }],
+  [
+    "het huis",
+    "Het huis was stil.",
+    "commonNouns/house.jpeg",
+    "/ɦœys/",
+    { 0: 3, 4: 8 },
+  ],
   [
     "de sleutel",
     "Hij verloor de sleutel van zijn auto.",

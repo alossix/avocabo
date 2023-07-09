@@ -134,7 +134,13 @@ export const commonNounsIT: VocabSetRaw = [
     "/ˈkane/",
     { 0: 2, 3: 7 },
   ],
-  ["la porta", "Ha bussato alla porta.", "door.jpeg", "/ˈporta/", { 16: 22 }],
+  [
+    "la porta",
+    "Ha bussato alla porta.",
+    "commonNouns/door.jpeg",
+    "/ˈporta/",
+    { 16: 22 },
+  ],
   [
     "la fattoria",
     "Hanno trascorso la giornata lavorando alla fattoria.",

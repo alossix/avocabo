@@ -106,7 +106,13 @@ export const commonNounsFR: VocabSetRaw = [
     "/ʃɛz/",
     { 10: 12, 13: 19 },
   ],
-  ["l'horloge", "L'horloge a sonné minuit.", "clock.jpeg", "/ɔʁlɔʒ/", { 0: 9 }],
+  [
+    "l'horloge",
+    "L'horloge a sonné minuit.",
+    "commonNouns/clock.jpeg",
+    "/ɔʁlɔʒ/",
+    { 0: 9 },
+  ],
   [
     "les vêtements",
     "Elle a plié les vêtements et les a rangés.",
@@ -331,7 +337,13 @@ export const commonNounsFR: VocabSetRaw = [
     "/mɔ̃tʁ/",
     { 16: 22 },
   ],
-  ["l'eau", "Elle a rapidement bu l'eau.", "water.jpeg", "/o/", { 21: 27 }],
+  [
+    "l'eau",
+    "Elle a rapidement bu l'eau.",
+    "commonNouns/water.jpeg",
+    "/o/",
+    { 21: 27 },
+  ],
   [
     "la fenêtre",
     "Il a ouvert la fenêtre pour laisser entrer de l'air frais.",
