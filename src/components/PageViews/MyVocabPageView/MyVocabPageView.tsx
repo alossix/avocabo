@@ -43,6 +43,21 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
     }
   }, [timeToNextVocab]);
 
+  useEffect(() => {
+    const preloadImages = (words: Vocab[]) => {
+      words.forEach((word) => {
+        if (word.imageURL) {
+          const img = new window.Image();
+          img.src = word.imageURL;
+        }
+      });
+    };
+
+    // Convert vocabList object into an array and get the next 3 vocabWords
+    const nextWords = Object.values(vocabList).slice(0, 3);
+    preloadImages(nextWords);
+  }, [vocabList]);
+
   return (
     <VocabWindowContainer>
       <h1>{t("vocab:vocab_list_title")}</h1>
@@ -81,7 +96,6 @@ export const MyVocabPageView: React.FC<MyVocabPageViewProps> = ({
               <VocabCardsContainer>
                 <VocabCard
                   currentUser={currentUser}
-                  nextVocabWord={dueVocabList[1]}
                   vocabWord={dueVocabList[0]}
                 />
               </VocabCardsContainer>
