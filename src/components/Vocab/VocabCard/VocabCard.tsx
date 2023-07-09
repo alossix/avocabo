@@ -13,13 +13,11 @@ import EditVocabIcon from "/public/icons/edit-vocab-icon.svg";
 
 type VocabCardProps = {
   currentUser: AppUser;
-  nextVocabWord?: Vocab;
   vocabWord: Vocab;
 };
 
 export const VocabCard: React.FC<VocabCardProps> = ({
   currentUser,
-  nextVocabWord,
   vocabWord,
 }) => {
   const { t } = useTranslation("vocab");
@@ -110,14 +108,6 @@ export const VocabCard: React.FC<VocabCardProps> = ({
 
     return ariaLabel;
   };
-
-  useEffect(() => {
-    if (!nextVocabWord) return;
-    const imageToLoad = new window.Image();
-    if (nextVocabWord.imageURL) {
-      imageToLoad.src = nextVocabWord.imageURL;
-    }
-  }, [nextVocabWord]);
 
   return (
     <CardWrapper
